@@ -72,9 +72,9 @@ class Template extends React.Component {
         if (!this.state.template) return null;
         return <Form>
             {this.state.template.map((e) => (SurveyQuestion(e)))}
-            <Button variant="primary" className="submit_btn">
+            {/* <Button variant="primary" className="submit_btn">
                 Submit
-            </Button>
+            </Button> */}
         </Form>;
     }
 }
@@ -245,6 +245,9 @@ class PatientSelf extends React.Component {
                                     ]}/></div>
                                 <div className="sform">
                                     <Template />
+                                    <Button variant="primary" className="submit_btn">
+						submit
+					</Button>
                                 </div>
                             </Card.Text>
                         </Card.Body>
