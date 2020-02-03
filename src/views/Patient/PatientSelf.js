@@ -4,8 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import Highcharts from 'highcharts';
 import $ from 'jquery';
@@ -22,37 +20,29 @@ function PatientProgressTableEntry(props) {
     </tr>;
 }
 
-function SurveyQuestion(props) {
+function SurveyQuestionInput(props) {
     const labels = props.labels;
     if (props.inputType === 'radio') {
-        return <div className="surveyQuestion">
-            <p>{props.name}</p>
-            <span style={{ color: 'grey', fontSize: '0.8em' }}>{props.description}</span><br/>
-            <Form.Group as={Row} controlId="formHorizontalPassword"
-                        style={{ marginLeft: '0px', marginRight: '2px' }}>
-                {['radio'].map(type => (
-                    <div key={`inline-${type}`} className="mb-3">
-                        {labels.map(function (labelName, index) {
-                            return (<Form.Check inline label={`${labelName}`} type={type}
-                                                id={`inline-${type}-${index}`}/>
-                            )
-                        })}
-                    </div>
-                ))}
-            </Form.Group>
-        </div>;
+        return <div key={`inline-radio`} className="mb-3">
+                {labels.map(function (labelName, index) {
+                    return (<Form.Check label={`${labelName}`} type="radio" key={`${props.name}-${labelName}-${index}`} id={`${props.name}-${labelName}-${index}`}/>
+                    )
+                })}
+            </div>;
     } else {
-        return <div className="surveyQuestion">
-            <p>{props.name}</p>
-            <span style={{ color: 'grey', fontSize: '0.8em' }}>{props.description}</span><br/>
-            <Form.Group as={Row} controlId="formHorizontalPassword"
-                        style={{ marginLeft: '0px', marginRight: '2px' }}>
-                <div key={`inline-text`} className="mb-3">
-                    <Form.Control type="text"/>
-                </div>
-            </Form.Group>
+        return <div key={`inline-text`} className="mb-3">
+            <Form.Control type="text"/>
         </div>;
     }
+}
+
+function SurveyQuestion(props) {
+    return <Form.Group controlId={`${props.name}`} key={`${props.name}`}
+                       style={{ marginLeft: '0px', marginRight: '2px' }} className="surveyQuestion">
+        <p>{props.name}</p>
+        <span style={{ color: 'grey', fontSize: '0.8em' }}>{props.description}</span><br/>
+        <SurveyQuestionInput inputType={props.inputType} labels={props.labels} name={props.name}/>
+    </Form.Group>;
 }
 
 class Template extends React.Component {
@@ -68,7 +58,7 @@ class Template extends React.Component {
         });
     }
 
-    render () {
+    render() {
         if (!this.state.template) return null;
         return <Form>
             {this.state.template.map((e) => (SurveyQuestion(e)))}
@@ -110,7 +100,7 @@ class PatientSelf extends React.Component {
             }]
         };
         // 图表初始化函数
-        var chart = Highcharts.chart('container', options);
+        Highcharts.chart('container', options);
         $(".model").hide();
         $(".sshuju").hide();
         $(".sform").hide();
@@ -165,91 +155,90 @@ class PatientSelf extends React.Component {
                         </div>
                         <div style={{ width: '40%', alignSelf: 'center', textAlign: 'center' }}>
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/User_with_smile.svg"
-                                 style={{ width: '40%' }} alt=""></img>
+                                 style={{ width: '40%' }} alt=""/>
                         </div>
                     </div>
                     <Card>
                         <Card.Header>Details</Card.Header>
                         <Card.Body>
                             <Card.Title></Card.Title>
-                            <a href="javascript:;" className="btn btn-primary btn-lg jindu">My
-                                Progress</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="javascript:;" className="btn btn-primary btn-lg shuju">My
-                                Data </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="javascript:;" className="btn btn-primary btn-lg form">My Survey</a>
-                            <Card.Text>
-                                <div style={{ height: '40px' }}></div>
-                                <div style={{ display: 'flex' }} className="sjindu">
-                                    <div style={{ width: '100%' }}>
-                                        <Table striped bordered hover>
-                                            <thead>
-                                            <PatientProgressTableEntry doctorsLog="Doctor's Logs"
-                                                                       date="Date" record="Record"
-                                                                       severity="Severity"/>
-                                            </thead>
-                                            <tbody>
-                                            <PatientProgressTableEntry doctorsLog="Outpatient" date="2019-11-20"
-                                                                       record="Calf fracture" severity="Serious"/>
-                                            <PatientProgressTableEntry doctorsLog="Osteosynthesis" date="2019-11-23"
-                                                                       record="Already boned but fragile"
-                                                                       severity="Successful operation"/>
-                                            <PatientProgressTableEntry doctorsLog="Reinforced Support" date="2019-11-23"
-                                                                       record="Bone into 20cm bracket"
-                                                                       severity="Successful Access"/>
-                                            <PatientProgressTableEntry doctorsLog="Be hospitalized" date="2019-11-23"
-                                                                       record="Single VIP sickroom: No.2"
-                                                                       severity="No other side effects"/>
-                                            <PatientProgressTableEntry doctorsLog="Physiotherapy" date="2019-11-26"
-                                                                       record="one hour of rehabilitation training"
-                                                                       severity="Calf regained consciouseness"/>
-                                            <PatientProgressTableEntry doctorsLog="Physiotherapy" date="To 2019-12-10"
-                                                                       record="End of recovery traning"
-                                                                       severity="Can walking"/>
-                                            <PatientProgressTableEntry doctorsLog="Bracket Surgey" date="2019-12-14"
-                                                                       record="Remove the bracket" severity="Get Well"/>
-                                            </tbody>
-                                        </Table>
-                                    </div>
+                            <Button className="btn btn-primary btn-lg jindu">My
+                                Progress</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <Button className="btn btn-primary btn-lg shuju">My
+                                Data </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <Button className="btn btn-primary btn-lg form">My Survey</Button>
+                            <div style={{ height: '40px' }}></div>
+                            <div style={{ display: 'flex' }} className="sjindu">
+                                <div style={{ width: '100%' }}>
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <PatientProgressTableEntry doctorsLog="Doctor's Logs"
+                                                                   date="Date" record="Record"
+                                                                   severity="Severity"/>
+                                        </thead>
+                                        <tbody>
+                                        <PatientProgressTableEntry doctorsLog="Outpatient" date="2019-11-20"
+                                                                   record="Calf fracture" severity="Serious"/>
+                                        <PatientProgressTableEntry doctorsLog="Osteosynthesis" date="2019-11-23"
+                                                                   record="Already boned but fragile"
+                                                                   severity="Successful operation"/>
+                                        <PatientProgressTableEntry doctorsLog="Reinforced Support" date="2019-11-23"
+                                                                   record="Bone into 20cm bracket"
+                                                                   severity="Successful Access"/>
+                                        <PatientProgressTableEntry doctorsLog="Be hospitalized" date="2019-11-23"
+                                                                   record="Single VIP sickroom: No.2"
+                                                                   severity="No other side effects"/>
+                                        <PatientProgressTableEntry doctorsLog="Physiotherapy" date="2019-11-26"
+                                                                   record="one hour of rehabilitation training"
+                                                                   severity="Calf regained consciouseness"/>
+                                        <PatientProgressTableEntry doctorsLog="Physiotherapy" date="To 2019-12-10"
+                                                                   record="End of recovery traning"
+                                                                   severity="Can walking"/>
+                                        <PatientProgressTableEntry doctorsLog="Bracket Surgey" date="2019-12-14"
+                                                                   record="Remove the bracket" severity="Get Well"/>
+                                        </tbody>
+                                    </Table>
                                 </div>
-                                <div className="sshuju">
-                                    <div id="container" style={{ width: '900px', height: '500px' }}>
-                                    </div>
-                                    <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
-                                                labels={["Pain", "Activity limitations and support requirements", "Walking", "Walking surfaces"]} datasets={[
-                                        {
-                                            label: "Before surgery",
-                                            data: [1, 2, 3, 4],
-                                            backgroundColor: [
-                                                "red",
-                                                "orange",
-                                                "yellow",
-                                                "green",
-                                                "blue",
-                                                "indigo",
-                                                "violet",
-                                            ]
-                                        },
-                                        {
-                                            label: "After surgery",
-                                            data: [8, 5, 6, 2],
-                                            backgroundColor: [
-                                                "red",
-                                                "orange",
-                                                "yellow",
-                                                "green",
-                                                "blue",
-                                                "indigo",
-                                                "violet",
-                                            ],
-                                        },
-                                    ]}/></div>
-                                <div className="sform">
-                                    <Template />
-                                    <Button variant="primary" className="submit_btn">
-						submit
-					</Button>
+                            </div>
+                            <div className="sshuju">
+                                <div id="container" style={{ width: '900px', height: '500px' }}>
                                 </div>
-                            </Card.Text>
+                                <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
+                                            labels={["Pain", "Activity limitations and support requirements", "Walking",
+                                                "Walking surfaces"]} datasets={[
+                                    {
+                                        label: "Before surgery",
+                                        data: [1, 2, 3, 4],
+                                        backgroundColor: [
+                                            "red",
+                                            "orange",
+                                            "yellow",
+                                            "green",
+                                            "blue",
+                                            "indigo",
+                                            "violet",
+                                        ]
+                                    },
+                                    {
+                                        label: "After surgery",
+                                        data: [8, 5, 6, 2],
+                                        backgroundColor: [
+                                            "red",
+                                            "orange",
+                                            "yellow",
+                                            "green",
+                                            "blue",
+                                            "indigo",
+                                            "violet",
+                                        ],
+                                    },
+                                ]}/></div>
+                            <div className="sform">
+                                <Template/>
+                                <Button variant="primary" className="submit_btn">
+                                    submit
+                                </Button>
+                            </div>
                         </Card.Body>
                     </Card>
                     <div className="model">

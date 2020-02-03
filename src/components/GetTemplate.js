@@ -16,7 +16,6 @@ async function getTemplate() {
             const result = JSON.parse(response.body);
             const listOfQuestions = result.webTemplate.tree.children[1].children;
             listOfQuestions.forEach((e) => {
-                    let inputType;
                     const labels = [];
                     let name, description;
                     if ('localizedNames' in e) {
