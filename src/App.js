@@ -8,6 +8,7 @@ import Login from './views/Login';
 import Register from './views/Register';
 import About from './views/About';
 
+
 class App extends React.Component {
 	render(){
 		return(
