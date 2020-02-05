@@ -1,16 +1,9 @@
+import CDRRequest from "./CDRRequest";
 const request = require('request-promise');
 
 async function getTemplate() {
     let processedResult = [];
-    const options = {
-        'method': 'GET',
-        'url': 'https://cdr.code4health.org/rest/v1/template/Foot_and_Ankle_PROMs-v0',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Ehr-Session-disabled': '{{Ehr-Session}}',
-            'Authorization': '***REMOVED***'
-        }
-    };
+    const options = CDRRequest.generateRequestOptions("/rest/v1/template/Foot_and_Ankle_PROMs-v0");
     await request(options, function (error, response) {
             if (error) throw new Error(error);
             const result = JSON.parse(response.body);
