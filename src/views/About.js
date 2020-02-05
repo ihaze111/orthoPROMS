@@ -2,7 +2,6 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 import HeaderMenu from '../components/HeaderMenu';
 
@@ -41,11 +40,11 @@ class About extends React.Component{
                             <div style={{height: '10px'}}></div>
                             <div style={{width: '90%' , display: 'flex'}}>
                                 <p>IPROMS is a web-app intended for both clinicians and patients to record outcomes
-                                    from orthopaedic surgeries as well as storing and visualising data using openEHR 
+                                    from orthopaedic surgeries as well as storing and visualising data using openEHR
                                     standards.<br/><br/>
                                     We intend to help clinicians keep track of their patients' progress post-surgery
                                     while being a transparent medium for patients to see their own progress. At the same time,
-                                    patients are able to give feedback on how their conditions after surgery that would be 
+                                    patients are able to give feedback on how their conditions after surgery that would be
                                     beneficial for both patients and clinicians to determine the next step for recovery.<br/><br/>
                                     IPROMS is a project made by three UCL students in partnership with Apperta Foundation and Code4Health.
                                 </p>
@@ -87,12 +86,12 @@ class About extends React.Component{
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey="1">
                             <Card.Body>
-                            
+
                                 <div style={{height: '10px'}}></div>
                                 <div style={{display: '200px'}}>
                                     <div>
                                         <img src="https://apperta.org/img/logo.png" alt="appertaLogo" style={{width:'20%'}}></img>
-                                        <img src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg" 
+                                        <img src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg"
                                                 alt="code4healthLogo" style={{width:'30%'}}></img>
                                         <img  src="https://digital.nhs.uk/webfiles/1576854238445/images/nhs-digital-logo.svg"
                                                 alt="nhsLogo" style={{width:'15%'}}></img>

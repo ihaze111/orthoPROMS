@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import $ from  'jquery';
 import HeaderMenu from "../components/HeaderMenu";
 import qs from "qs";
+import Button from 'react-bootstrap/Button';
 
 class Login extends React.Component{
     handleClick() {
@@ -41,10 +42,9 @@ class Login extends React.Component{
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Keep me logged in" />
                     </Form.Group>
-                    <a href="javascript:;" className="btn btn-primary btn-block login">Log in</a>
-                    <a href="/Register">Register</a>
-                    <div></div>
-                    <a href="javascript:;" onClick={this.handleClick}>Forgot your password?</a>
+                    <Button className="btn btn-primary btn-block login">Log in</Button>
+                    <a href="/Register">Register</a><br />
+                    <Button variant="link" onClick={this.handleClick}>Forgot your password?</Button>
                     </Form>
                 </div>
 			</div>

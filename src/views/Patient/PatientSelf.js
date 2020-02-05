@@ -154,7 +154,7 @@ class PatientSelf extends React.Component {
                             <p>Your GP: Doctor.Jack</p>
                         </div>
                         <div style={{ width: '40%', alignSelf: 'center', textAlign: 'center' }}>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/User_with_smile.svg"
+                            <img src="./240px-User_icon_2.svg.png"
                                  style={{ width: '40%' }} alt=""/>
                         </div>
                     </div>

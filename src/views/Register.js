@@ -37,7 +37,7 @@ class Register extends React.Component{
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group>
-                    <a href="javascript:;" className="btn btn-primary btn-block login">Submit</a>
+                    <button className="btn btn-primary btn-block login">Submit</button>
                     </Form>
                 </div>
 			</div>
