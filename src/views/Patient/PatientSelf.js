@@ -4,9 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import Modal from 'react-bootstrap/Modal';
 import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import Alert from 'react-bootstrap/Alert';
 import Nav from 'react-bootstrap/Nav';
 
 import Highcharts from 'highcharts';
@@ -18,6 +17,7 @@ import getCompositions from "../../components/GetCompositions";
 import getEHRId from "../../components/GetEHRId";
 
 import qs from "qs";
+import * as PropTypes from "prop-types";
 
 function PatientProgressTableEntry(props) {
     return <tr>
@@ -102,7 +102,8 @@ class Template extends React.Component {
         return <Form method="GET">
             {this.state.template.map((e) => (
                 SurveyQuestion(e)))}
-            <input type="submit"/>
+            {/*<input type="submit"/>*/}
+            <Button id="submit" onClick={() => {$('#submitSurveyDialog').fadeIn(500)}}>Submit</Button>
         </Form>;
     }
 }
@@ -142,6 +143,30 @@ function PatientOverview() {
         </div>
     </div>;
 }
+
+function PatientProgressTable() {
+    return <Table striped bordered hover>
+        <thead>
+        <PatientProgressTableEntry nhs_number="NHS Number"
+                                   composer_name="Composer Name"
+                                   episode_identifier="Episode Identifier"
+                                   aofas_comment="AOFAS Comment"/>
+        </thead>
+        <tbody>
+        <Compositions/>
+
+        </tbody>
+    </Table>;
+}
+
+function SurveySuccess() {
+    return <Alert variant="success" onClose={() => {$('#submitSurveyDialog').fadeOut(500)}} dismissible id="submitSurveyDialog">
+        <Alert.Heading>Thank for submitting</Alert.Heading>
+        <p>We will give you feedback and update the survey to your data.</p>
+    </Alert>;
+}
+
+SurveySuccess.propTypes = { onClose: PropTypes.func };
 
 class PatientSelf extends React.Component {
     componentDidMount() {
@@ -184,6 +209,7 @@ class PatientSelf extends React.Component {
             });
         }
 
+        $('#submitSurveyDialog').hide();
 
         // 图表配置
         var options = {
@@ -214,57 +240,21 @@ class PatientSelf extends React.Component {
             }]
         };
         // 图表初始化函数
-        Highcharts.chart('container', options);
-        $(".model").hide();
-        $(".sshuju").hide();
-        $(".sform").hide();
-        $(".model").hide();
-        $(".sjindu").show();
-
-        $(".jindu").click(function () {
-            $(".sshuju").hide();
-            $(".sjindu").show();
-            $(".sform").hide();
-        });
-
-        $(".form").click(function () {
-            $(".sjindu").hide();
-            $(".sshuju").hide();
-            $(".sform").show();
-        });
-
-        $(".shuju").click(function () {
-            $(".sshuju").show();
-            $(".sjindu").hide();
-            $(".sform").hide();
-        });
-
-        $(".submit_btn").click(function () {
-            $(".model").fadeIn(100);
-        });
-
-        $(".close_btn").click(function () {
-            $(".model").hide();
-        });
-
-        $(".close").click(function () {
-            $(".model").hide();
-        });
+        Highcharts.chart('highchartsContainer', options);
     }
 
     render() {
         return (
             <div>
                 <HeaderMenu/>
-                <Container>
-                    <div style={{ height: '50px' }}></div>
+                <Container style={{ marginTop: '50px' }}>
                     <PatientOverview/>
                     <Card>
                         <Card.Header>
                             <Card.Title>Details</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Tab.Container defaultActiveKey="myData">
+                            <Tab.Container defaultActiveKey="myProgress">
                                 <Nav variant="tabs" style={{ marginBottom: '40px' }}>
                                     <Nav.Item>
                                         <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
@@ -278,23 +268,10 @@ class PatientSelf extends React.Component {
                                 </Nav>
                                 <Tab.Content>
                                     <Tab.Pane eventKey="myProgress">
-                                        <div style={{ width: '100%' }}>
-                                            <Table striped bordered hover>
-                                                <thead>
-                                                <PatientProgressTableEntry nhs_number="NHS Number"
-                                                                           composer_name="Composer Name"
-                                                                           episode_identifier="Episode Identifier"
-                                                                           aofas_comment="AOFAS Comment"/>
-                                                </thead>
-                                                <tbody>
-                                                <Compositions/>
-
-                                                </tbody>
-                                            </Table>
-                                        </div>
+                                        <PatientProgressTable/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="myData">
-                                        <div id="container" style={{ width: '900px', height: '500px' }}>
+                                        <div id="highchartsContainer" style={{ width: '900px', height: '500px' }}>
                                         </div>
                                         <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
                                                     labels={["Pain",
@@ -330,31 +307,14 @@ class PatientSelf extends React.Component {
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="survey">
                                         <Template/>
+                                        <br/>
+                                        <SurveySuccess/>
                                     </Tab.Pane>
                                 </Tab.Content>
                             </Tab.Container>
                         </Card.Body>
                     </Card>
-                    <div className="model">
-                        <div className="modal-dialog"
-                             style={{ position: 'absolute', top: '0', left: '0', marginLeft: '39%' }}>
-                            <div className="modal-content">
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Thank for submitting</Modal.Title>
-                                </Modal.Header>
-
-                                <Modal.Body>
-                                    <p>We will give you feedback and update the survey to your data.</p>
-                                </Modal.Body>
-
-                                <Modal.Footer>
-                                    <Button variant="secondary" className="close_btn" block>Close</Button>
-                                </Modal.Footer>
-                            </div>
-                        </div>
-                    </div>
                 </Container>
-
             </div>
         );
     }
