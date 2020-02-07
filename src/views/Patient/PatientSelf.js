@@ -5,6 +5,10 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Nav from 'react-bootstrap/Nav';
+
 import Highcharts from 'highcharts';
 import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
@@ -122,9 +126,27 @@ class EHRId extends React.Component {
     }
 }
 
+function PatientOverview() {
+    return <div style={{ display: "flex" }}>
+        <div style={{ width: "50%" }}>
+            <p>EHR ID: <EHRId subjectId={"9999999000"}/></p>
+            <p>Name: Kim</p>
+            <p>Age: 65</p>
+            <p>Sex: M</p>
+            <p>Type: Fracture</p>
+            <p>Your GP: Doctor.Jack</p>
+        </div>
+        <div style={{ width: "40%", alignSelf: "center", textAlign: "center" }}>
+            <img src="./240px-User_icon_2.svg.png"
+                 style={{ width: "40%" }} alt=""/>
+        </div>
+    </div>;
+}
+
 class PatientSelf extends React.Component {
     componentDidMount() {
-        this.subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ? qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
+        this.subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ?
+            qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
         console.log("Subject ID");
         console.log(this.subjectId);
         if (this.props.location.search !== "") {
@@ -236,82 +258,81 @@ class PatientSelf extends React.Component {
                 <HeaderMenu/>
                 <Container>
                     <div style={{ height: '50px' }}></div>
-                    <div style={{ display: 'flex' }}>
-                        <div style={{ width: '50%' }}>
-                            <p>EHR ID: <EHRId subjectId={"9999999000"}/></p>
-                            <p>Name: Kim</p>
-                            <p>Age: 65</p>
-                            <p>Sex: M</p>
-                            <p>Type: Fracture</p>
-                            <p>Your GP: Doctor.Jack</p>
-                        </div>
-                        <div style={{ width: '40%', alignSelf: 'center', textAlign: 'center' }}>
-                            <img src="./240px-User_icon_2.svg.png"
-                                 style={{ width: '40%' }} alt=""/>
-                        </div>
-                    </div>
+                    <PatientOverview/>
                     <Card>
-                        <Card.Header>Details</Card.Header>
+                        <Card.Header>
+                            <Card.Title>Details</Card.Title>
+                        </Card.Header>
                         <Card.Body>
-                            <Card.Title></Card.Title>
-                            <Button className="btn btn-primary btn-lg jindu">My
-                                Progress</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Button className="btn btn-primary btn-lg shuju">My
-                                Data </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Button className="btn btn-primary btn-lg form">My Survey</Button>
-                            <div style={{ height: '40px' }}></div>
-                            <div style={{ display: 'flex' }} className="sjindu">
-                                <div style={{ width: '100%' }}>
-                                    <Table striped bordered hover>
-                                        <thead>
-                                        <PatientProgressTableEntry nhs_number="NHS Number"
-                                                                   composer_name="Composer Name"
-                                                                   episode_identifier="Episode Identifier"
-                                                                   aofas_comment="AOFAS Comment"/>
-                                        </thead>
-                                        <tbody>
-                                        <Compositions/>
+                            <Tab.Container defaultActiveKey="myData">
+                                <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="myData">My Data</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="survey">Survey</Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                                <Tab.Content>
+                                    <Tab.Pane eventKey="myProgress">
+                                        <div style={{ width: '100%' }}>
+                                            <Table striped bordered hover>
+                                                <thead>
+                                                <PatientProgressTableEntry nhs_number="NHS Number"
+                                                                           composer_name="Composer Name"
+                                                                           episode_identifier="Episode Identifier"
+                                                                           aofas_comment="AOFAS Comment"/>
+                                                </thead>
+                                                <tbody>
+                                                <Compositions/>
 
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </div>
-                            <div className="sshuju">
-                                <div id="container" style={{ width: '900px', height: '500px' }}>
-                                </div>
-                                <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
-                                            labels={["Pain", "Activity limitations and support requirements", "Walking",
-                                                "Walking surfaces"]} datasets={[
-                                    {
-                                        label: "Before surgery",
-                                        data: [1, 2, 3, 4],
-                                        backgroundColor: [
-                                            "red",
-                                            "orange",
-                                            "yellow",
-                                            "green",
-                                            "blue",
-                                            "indigo",
-                                            "violet",
-                                        ]
-                                    },
-                                    {
-                                        label: "After surgery",
-                                        data: [8, 5, 6, 2],
-                                        backgroundColor: [
-                                            "red",
-                                            "orange",
-                                            "yellow",
-                                            "green",
-                                            "blue",
-                                            "indigo",
-                                            "violet",
-                                        ],
-                                    },
-                                ]}/></div>
-                            <div className="sform">
-                                <Template/>
-                            </div>
+                                                </tbody>
+                                            </Table>
+                                        </div>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="myData">
+                                        <div id="container" style={{ width: '900px', height: '500px' }}>
+                                        </div>
+                                        <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
+                                                    labels={["Pain",
+                                                        "Activity limitations and support requirements", "Walking",
+                                                        "Walking surfaces"]} datasets={[
+                                            {
+                                                label: "Before surgery",
+                                                data: [1, 2, 3, 4],
+                                                backgroundColor: [
+                                                    "red",
+                                                    "orange",
+                                                    "yellow",
+                                                    "green",
+                                                    "blue",
+                                                    "indigo",
+                                                    "violet",
+                                                ]
+                                            },
+                                            {
+                                                label: "After surgery",
+                                                data: [8, 5, 6, 2],
+                                                backgroundColor: [
+                                                    "red",
+                                                    "orange",
+                                                    "yellow",
+                                                    "green",
+                                                    "blue",
+                                                    "indigo",
+                                                    "violet",
+                                                ],
+                                            },
+                                        ]}/>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="survey">
+                                        <Template/>
+                                    </Tab.Pane>
+                                </Tab.Content>
+                            </Tab.Container>
                         </Card.Body>
                     </Card>
                     <div className="model">
