@@ -10,25 +10,32 @@ import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
 import getTemplate from "../../components/GetTemplate";
+import getCompositions from "../../components/GetCompositions";
+import getEHRId from "../../components/GetEHRId";
+
+import qs from "qs";
 
 function PatientProgressTableEntry(props) {
     return <tr>
-        <td>{props.doctorsLog}</td>
-        <td>{props.date}</td>
-        <td>{props.record}</td>
-        <td>{props.severity}</td>
+        <td>{props.nhs_number}</td>
+        <td>{props.composer_name}</td>
+        <td>{props.episode_identifier}</td>
+        <td>{props.aofas_comment}</td>
     </tr>;
 }
 
 function SurveyQuestionInput(props) {
-    const labels = props.labels;
+    const inputs = props.inputs;
     if (props.inputType === 'radio') {
         return <div key={`inline-radio`} className="mb-3">
-                {labels.map(function (labelName, index) {
-                    return (<Form.Check label={`${labelName}`} type="radio" key={`${props.name}-${labelName}-${index}`} id={`${props.name}-${labelName}-${index}`}/>
-                    )
-                })}
-            </div>;
+            {/*<input type="hidden" name={`${props.nodeId}-aqlPath`} value={props.aqlPath}/>*/}
+            {inputs[0].list.map(function (input, index) {
+                return (<Form.Check label={`${input.label}`} value={`${input.value}`} type="radio"
+                                    key={`${props.name}-${input.label}-${index}`}
+                                    id={`${props.id}-${input.label}-${index}`} name={`${props.id}`}/>
+                )
+            })}
+        </div>;
     } else {
         return <div key={`inline-text`} className="mb-3">
             <Form.Control type="text"/>
@@ -37,13 +44,35 @@ function SurveyQuestionInput(props) {
 }
 
 function SurveyQuestion(props) {
-    return <Form.Group controlId={`${props.name}`} key={`${props.name}`}
+    return <Form.Group controlId={`${props.name}`}
                        style={{ marginLeft: '0px', marginRight: '2px' }} className="surveyQuestion">
         <p>{props.name}</p>
         <span style={{ color: 'grey', fontSize: '0.8em' }}>{props.description}</span><br/>
-        <SurveyQuestionInput inputType={props.inputType} labels={props.labels} name={props.name}/>
+        {SurveyQuestionInput(props)}
     </Form.Group>;
 }
+
+class Compositions extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getCompositions();
+        promise.then((e) => {
+            this.setState({ compositions: e });
+        });
+    }
+
+    render() {
+        if (!this.state.compositions) return null;
+        return this.state.compositions.map((e) =>
+            PatientProgressTableEntry(e)
+        )
+    }
+}
+
 
 class Template extends React.Component {
     constructor(props) {
@@ -58,19 +87,82 @@ class Template extends React.Component {
         });
     }
 
+    // handleSubmit(event) {
+    //     event.preventDefault();
+    //     // this.setState({ template: this.state.template, submitted: "YES" });
+    //     alert("hi");
+    // }
+
     render() {
         if (!this.state.template) return null;
-        return <Form>
-            {this.state.template.map((e) => (SurveyQuestion(e)))}
-            {/* <Button variant="primary" className="submit_btn">
-                Submit
-            </Button> */}
+        return <Form method="GET">
+            {this.state.template.map((e) => (
+                SurveyQuestion(e)))}
+            <input type="submit"/>
         </Form>;
+    }
+}
+
+class EHRId extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getEHRId(this.props.subjectId);
+        promise.then((e) => {
+            this.setState({ ehrId: e });
+        });
+    }
+
+    render() {
+        if (!this.state.ehrId) return null;
+        return <span>{this.state.ehrId}</span>;
     }
 }
 
 class PatientSelf extends React.Component {
     componentDidMount() {
+        this.subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ? qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
+        console.log("Subject ID");
+        console.log(this.subjectId);
+        if (this.props.location.search !== "") {
+            const compositionSring = {
+                "ctx/language": "en",
+                "ctx/territory": "GB",
+                "ctx/composer_name": "Silvia Blake",
+                "ctx/id_namespace": "HOSPITAL-NS",
+                "ctx/id_scheme": "HOSPITAL-NS",
+                "ctx/health_care_facility|name": "Hospital",
+                "ctx/health_care_facility|id": "9091",
+                "uclh_foot_and_ankle_proms/aofas_score/q1_pain|code": "at0032"
+            };
+            // compositionSring.templateId = "Foot_and_Ankle_PROMs-v0";
+            // compositionSring.ehrId = "d9668d3d-85fa-488f-97f3-53c8765c22fb";
+            const getVariables = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+            console.log(getVariables);
+            for (let x in getVariables) {
+                compositionSring["uclh_foot_and_ankle_proms/aofas_score/" + x + "|code"] = getVariables[x];
+            }
+            var request = require('request');
+            var options = {
+                'method': 'POST',
+                'url': 'https://cdr.code4health.org/rest/v1/composition?ehrId=b80a3a97-be75-41c6-a497-6ed53ce8f8c6&templateId=Foot_and_Ankle_PROMs-v0&committerName=Dr nullnull&format=FLAT',
+                'headers': {
+                    'Ehr-Session-disabled': '{{Ehr-Session}}',
+                    'Content-Type': 'application/json',
+                    'Authorization': '***REMOVED***'
+                },
+                body: JSON.stringify(compositionSring)
+            };
+            request(options, function (error, response) {
+                if (error) throw new Error(error);
+                console.log(response.body);
+            });
+        }
+
+
         // 图表配置
         var options = {
             chart: {
@@ -146,7 +238,7 @@ class PatientSelf extends React.Component {
                     <div style={{ height: '50px' }}></div>
                     <div style={{ display: 'flex' }}>
                         <div style={{ width: '50%' }}>
-                            <p>Patient Number: 21406</p>
+                            <p>EHR ID: <EHRId subjectId={"9999999000"}/></p>
                             <p>Name: Kim</p>
                             <p>Age: 65</p>
                             <p>Sex: M</p>
@@ -172,30 +264,14 @@ class PatientSelf extends React.Component {
                                 <div style={{ width: '100%' }}>
                                     <Table striped bordered hover>
                                         <thead>
-                                        <PatientProgressTableEntry doctorsLog="Doctor's Logs"
-                                                                   date="Date" record="Record"
-                                                                   severity="Severity"/>
+                                        <PatientProgressTableEntry nhs_number="NHS Number"
+                                                                   composer_name="Composer Name"
+                                                                   episode_identifier="Episode Identifier"
+                                                                   aofas_comment="AOFAS Comment"/>
                                         </thead>
                                         <tbody>
-                                        <PatientProgressTableEntry doctorsLog="Outpatient" date="2019-11-20"
-                                                                   record="Calf fracture" severity="Serious"/>
-                                        <PatientProgressTableEntry doctorsLog="Osteosynthesis" date="2019-11-23"
-                                                                   record="Already boned but fragile"
-                                                                   severity="Successful operation"/>
-                                        <PatientProgressTableEntry doctorsLog="Reinforced Support" date="2019-11-23"
-                                                                   record="Bone into 20cm bracket"
-                                                                   severity="Successful Access"/>
-                                        <PatientProgressTableEntry doctorsLog="Be hospitalized" date="2019-11-23"
-                                                                   record="Single VIP sickroom: No.2"
-                                                                   severity="No other side effects"/>
-                                        <PatientProgressTableEntry doctorsLog="Physiotherapy" date="2019-11-26"
-                                                                   record="one hour of rehabilitation training"
-                                                                   severity="Calf regained consciouseness"/>
-                                        <PatientProgressTableEntry doctorsLog="Physiotherapy" date="To 2019-12-10"
-                                                                   record="End of recovery traning"
-                                                                   severity="Can walking"/>
-                                        <PatientProgressTableEntry doctorsLog="Bracket Surgey" date="2019-12-14"
-                                                                   record="Remove the bracket" severity="Get Well"/>
+                                        <Compositions/>
+
                                         </tbody>
                                     </Table>
                                 </div>
@@ -235,9 +311,6 @@ class PatientSelf extends React.Component {
                                 ]}/></div>
                             <div className="sform">
                                 <Template/>
-                                <Button variant="primary" className="submit_btn">
-                                    submit
-                                </Button>
                             </div>
                         </Card.Body>
                     </Card>
