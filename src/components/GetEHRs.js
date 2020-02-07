@@ -10,19 +10,23 @@ async function getEHRs() {
     await request(options, function (error, response) {
             if (error) throw new Error(error);
             const result = JSON.parse(response.body);
+            console.log(result);
+
             processedResult = result.resultSet;
             processedResult = processedResult.map((e) => {
-              let final = {};
-              final.patientId = e.ehr_id.value;
-              final.gender = e.other_details.items[0].items[0].value.value;
-              final.sex = e.other_details.items[0].items[1].value.value;
-              final.vitalStatus = e.other_details.items[0].items[2].value.value;
-              final.birthYear = e.other_details.items[0].items[3].value.value;
-              final.nhsNumber = e.nhsNumber.value;
-              final.timeCreated = e.time_created.value;
-              return final;
+                let final = {};
+                final.patientId = e.ehr_id.value || "";
+                if (e.other_details) {
+                    final.gender = e.other_details.items[0].items[0].value.value || "";
+                    final.sex = e.other_details.items[0].items[1].value.value || "";
+                    final.vitalStatus = e.other_details.items[0].items[2].value.value || "";
+                    final.birthYear = e.other_details.items[0].items[3].value.value || "";
+                    final.nhsNumber = e.nhsNumber.value || "";
+                    final.timeCreated = e.time_created.value || "";
+                }
+                return final;
             });
-      }
+        }
     );
     return processedResult;
 }
