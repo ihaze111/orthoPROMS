@@ -127,10 +127,10 @@ class EHRId extends React.Component {
     }
 }
 
-function PatientOverview() {
+function PatientOverview(props) {
     return <div style={{ display: "flex" }}>
         <div style={{ width: "50%" }}>
-            <p>EHR ID: <EHRId subjectId={"9999999000"}/></p>
+            <p>EHR ID: <EHRId subjectId={props.subjectId}/></p>
             <p>Name: Kim</p>
             <p>Age: 65</p>
             <p>Sex: M</p>
@@ -170,10 +170,7 @@ SurveySuccess.propTypes = { onClose: PropTypes.func };
 
 class PatientSelf extends React.Component {
     componentDidMount() {
-        this.subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ?
-            qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
-        console.log("Subject ID");
-        console.log(this.subjectId);
+
         if (this.props.location.search !== "") {
             const compositionSring = {
                 "ctx/language": "en",
@@ -244,11 +241,13 @@ class PatientSelf extends React.Component {
     }
 
     render() {
+        let subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ?
+            qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
         return (
             <div>
                 <HeaderMenu/>
                 <Container style={{ marginTop: '50px' }}>
-                    <PatientOverview/>
+                    <PatientOverview subjectId={subjectId}/>
                     <Card>
                         <Card.Header>
                             <Card.Title>Details</Card.Title>
