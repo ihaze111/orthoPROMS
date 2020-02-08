@@ -25,7 +25,7 @@ class EHRId extends React.Component {
 export function PatientOverview(props) {
     return <div style={{ display: "flex" }}>
         <div style={{ width: "50%" }}>
-            <p>EHR ID: <EHRId subjectId={props.subjectId}/></p>
+            <p>EHR ID: {props.ehrId}</p>
             <p>Name: Kim</p>
             <p>Age: 65</p>
             <p>Sex: M</p>

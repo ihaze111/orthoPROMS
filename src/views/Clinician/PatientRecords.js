@@ -13,6 +13,7 @@ import HeaderMenu from "../../components/HeaderMenu";
 import { PatientOverview } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
+import { loadEhrId } from "../PatientUtils";
 
 
 function PatientProgressTableEntry(props) {
@@ -33,7 +34,13 @@ function PatientRecordsReport(props) {
 
 
 class PatientRecords extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
     componentDidMount() {
+        loadEhrId.call(this);
         $(".sdetail").hide();
         $(".sreport").hide();
         $(".sinfo").show();
@@ -285,7 +292,7 @@ class PatientRecords extends React.Component {
                                 </div>
                                 <div style={{ width: '100%', display: 'flex' }} className="sinfo">
                                     <div style={{ width: '100%' }}>
-                                        <PatientOverview subjectId={subjectId}/>
+                                        <PatientOverview ehrId={this.state.ehrId}/>
                                         <Accordion defaultActiveKey="0">
                                             <Card>
                                                 <Card.Header>
