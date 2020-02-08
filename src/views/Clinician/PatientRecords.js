@@ -17,23 +17,12 @@ import { loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-
-function PatientProgressTableEntry(props) {
-    return <tr>
-        <td>{props.doctorsLog}</td>
-        <td>{props.date}</td>
-        <td>{props.record}</td>
-        <td>{props.severity}</td>
-    </tr>;
-}
-
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
         <p>REPORT</p>
         {props.content}
     </div>;
 }
-
 
 class PatientRecords extends React.Component {
     constructor(props) {
