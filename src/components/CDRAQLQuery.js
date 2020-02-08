@@ -1,16 +1,17 @@
 import CDROptions from "./CDROptions";
+
 const request = require('request-promise');
 
-async function getEHRId(subjectId) {
+async function CDRAQLQuery(aql, callbackProcessing) {
     let processedResult;
-    const options = CDROptions.generateRequestOptions("/rest/v1/ehr/?subjectId=" + subjectId + "&subjectNamespace=uk.nhs.nhs_number");
+    const options = CDROptions.generateQueryOptions(aql);
     await request(options, function (error, response) {
             if (error) throw new Error(error);
             const result = JSON.parse(response.body);
-            processedResult = result.ehrId;
+            processedResult = callbackProcessing(result);
         }
     );
     return processedResult;
 }
 
-export default getEHRId;
+export default CDRAQLQuery;

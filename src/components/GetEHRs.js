@@ -1,34 +1,26 @@
-import CDRRequest from "./CDRRequest";
+import CDRAQLQuery from "./CDRAQLQuery";
 
-const request = require('request-promise');
+function callbackProcessing(result) {
+    return result.resultSet.map((e) => {
+        let final = {};
+        final.patientId = e.ehr_id.value || "";
+        if (e.other_details) {
+            final.gender = e.other_details.items[0].items[0].value.value || "";
+            final.sex = e.other_details.items[0].items[1].value.value || "";
+            final.vitalStatus = e.other_details.items[0].items[2].value.value || "";
+            final.birthYear = e.other_details.items[0].items[3].value.value || "";
+            final.nhsNumber = e.nhsNumber.value || "";
+            final.timeCreated = e.time_created.value || "";
+        }
+        return final;
+    });
+}
 
 async function getEHRs() {
-    let processedResult = [];
-    const options = CDRRequest.generateQueryOptions("select e/ehr_id as ehr_id, e/ehr_status/other_details as" +
+    const aql = "select e/ehr_id as ehr_id, e/ehr_status/other_details as" +
         " other_details," +
-        " e/ehr_status/subject/external_ref/id as nhsNumber, e/time_created as time_created from ehr e");
-    await request(options, function (error, response) {
-            if (error) throw new Error(error);
-            const result = JSON.parse(response.body);
-            console.log(result);
-
-            processedResult = result.resultSet;
-            processedResult = processedResult.map((e) => {
-                let final = {};
-                final.patientId = e.ehr_id.value || "";
-                if (e.other_details) {
-                    final.gender = e.other_details.items[0].items[0].value.value || "";
-                    final.sex = e.other_details.items[0].items[1].value.value || "";
-                    final.vitalStatus = e.other_details.items[0].items[2].value.value || "";
-                    final.birthYear = e.other_details.items[0].items[3].value.value || "";
-                    final.nhsNumber = e.nhsNumber.value || "";
-                    final.timeCreated = e.time_created.value || "";
-                }
-                return final;
-            });
-        }
-    );
-    return processedResult;
+        " e/ehr_status/subject/external_ref/id as nhsNumber, e/time_created as time_created from ehr e";
+    return await CDRAQLQuery(aql, callbackProcessing);
 }
 
 export default getEHRs;
