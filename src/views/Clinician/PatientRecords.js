@@ -10,22 +10,9 @@ import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
 
 import HeaderMenu from "../../components/HeaderMenu";
+import { PatientOverview } from "../PatientComponents";
+import { getSubjectId } from "../PatientUtils";
 
-
-function PatientRecordsInfo(props) {
-  return <div style={{ width: "100%", display: "flex" }} className="sinfo">
-    <div style={{ width: "100%" }}>
-      <p className="name">Name: {props.name}</p>
-      <p className="patientno">Patient Number: {props.patientNumber}</p>
-      <p>Age: 65</p>
-      <p>Sex: M</p>
-      <p>Type: Calf Broken</p>
-      <p className="birthday">Date Of Surgery: {props.birthday}</p>
-    </div>
-    <img src="./240px-User_icon_2.svg.png" style={{ width: "40%" }}
-         alt=""></img>
-  </div>;
-}
 
 function PatientProgressTableEntry(props) {
   return <tr>
@@ -339,6 +326,7 @@ class PatientRecords extends React.Component {
   }
 
   render() {
+    let subjectId = getSubjectId(this.props.location.search);
     return (
       <div>
         <HeaderMenu/>
@@ -359,10 +347,7 @@ class PatientRecords extends React.Component {
                 </div>
                 <div style={{ width: '100%', display: 'flex' }} className="sinfo">
                   <div style={{ width: '100%' }}>
-                    <PatientRecordsInfo
-                      patientNumber={qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).patientno}
-                      name={qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).name}
-                      birthday={qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).birthday}/>
+                    <PatientOverview subjectId={subjectId}/>
                     <Accordion defaultActiveKey="0">
                       <Card>
                         <Accordion.Toggle as={Card.Header} eventKey="0">
