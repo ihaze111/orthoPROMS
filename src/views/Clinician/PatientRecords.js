@@ -14,6 +14,8 @@ import { PatientOverview, PatientProgressTable } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { loadEhrId } from "../PatientUtils";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 
 function PatientProgressTableEntry(props) {
@@ -41,26 +43,6 @@ class PatientRecords extends React.Component {
 
     componentDidMount() {
         loadEhrId.call(this);
-        $(".sdetail").hide();
-        $(".sreport").hide();
-        $(".sinfo").show();
-        $(".info").click(function () {
-            $(".sreport").hide();
-            $(".sinfo").show();
-            $(".sdetail").hide();
-        });
-
-        $(".detail").click(function () {
-            $(".sreport").hide();
-            $(".sinfo").hide();
-            $(".sdetail").show();
-        });
-
-        $(".report").click(function () {
-            $(".sreport").show();
-            $(".sinfo").hide();
-            $(".sdetail").hide();
-        });
 
         var tracker = {
             chart: {
@@ -277,123 +259,150 @@ class PatientRecords extends React.Component {
                     <Card>
                         <Card.Header>Patient Record</Card.Header>
                         <Card.Body>
-                            <div style={{ height: '30px' }}></div>
-                            <div style={{ display: 'flex' }}>
-                                <div style={{ width: '36%' }}>
-                                    <p style={{ marginBottom: '40px' }}><a
-                                        className="btn btn-primary btn-lg info">Information</a>
-                                    </p>
-                                    <p style={{ marginBottom: '40px' }}><a
-                                        className="btn btn-primary btn-lg detail">Patient
-                                        Progress</a></p>
-                                    <p><a className="btn btn-primary btn-lg report">Report</a></p>
-                                </div>
-                                <div style={{ width: '100%', display: 'flex' }} className="sinfo">
-                                    <div style={{ width: '100%' }}>
-                                        <PatientOverview ehrId={this.state.ehrId}/>
-                                        <Accordion defaultActiveKey="0">
-                                            <Card>
-                                                <Card.Header>
-                                                    <Card.Title>Patient's History</Card.Title>
-                                                </Card.Header>
-                                                <Card.Body>
-                                                    <Tab.Container defaultActiveKey="bloodSugarLevels">
-                                                        <Nav variant="tabs" style={{ marginBottom: '40px' }}>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="bloodSugarLevels">Blood Sugar
-                                                                    Levels</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="tendonReflexes">Tendon
-                                                                    Reflexes</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="basalMetabolicRate">Basal Metabolic
-                                                                    Rate</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="bodyComposition">Body
-                                                                    Composition</Nav.Link>
-                                                            </Nav.Item>
-                                                            <Nav.Item>
-                                                                <Nav.Link eventKey="bodyTemperature">Body
-                                                                    Temperature</Nav.Link>
-                                                            </Nav.Item>
-                                                        </Nav>
-                                                        <Tab.Content>
-                                                            <Tab.Pane eventKey="bloodSugarLevels">
-                                                                <div id="bloodSugarContainer"
-                                                                     style={{ width: '700px', height: '500px' }}
-                                                                     className="sbloodSugar"/>
-                                                            </Tab.Pane>
-                                                            <Tab.Pane eventKey="tendonReflexes">
-                                                                <div id="tendonReflexesContainer"
-                                                                     style={{ width: '700px', height: '500px' }}
-                                                                     className="stendonReflex"/>
-                                                            </Tab.Pane>
-                                                            <Tab.Pane eventKey="basalMetabolicRate">
-                                                                <div id="bodyCompContainer"
-                                                                     style={{ width: '700px', height: '500px' }}
-                                                                     className="sbodyComposition"/>
-                                                            </Tab.Pane>
-                                                            <Tab.Pane eventKey="bodyComposition">
-                                                                <div id="metaRateContainer"
-                                                                     style={{ width: '700px', height: '500px' }}
-                                                                     className="smetaRate"/>
-                                                            </Tab.Pane>
-                                                            <Tab.Pane eventKey="bodyTemperature">
-                                                                <div id="bodyTempContainer"
-                                                                     style={{ width: '700px', height: '500px' }}
-                                                                     className="sbodyTemp"/>
-                                                            </Tab.Pane>
-                                                        </Tab.Content>
-                                                    </Tab.Container>
-                                                </Card.Body>
-                                            </Card>
-                                        </Accordion>
-                                    </div>
-                                </div>
-                                <div style={{ width: '100%', display: 'flex' }} className="sdetail">
-                                    <div style={{ width: '100%' }}>
-                                        <PatientProgressTable ehrId={this.state.ehrId}/>
-                                        <div id="container" style={{ width: '700px', height: '500px' }}
-                                             className="PatientRecords"></div>
-                                    </div>
-                                </div>
-
-
-                                <div style={{ width: '90%', display: 'flex' }} className="sreport">
-                                    <PatientRecordsReport
-                                        content={<div><p>Initial treatment for a broken leg usually begins in an
-                                            emergency room or
-                                            urgent care clinic. Here, doctors typically evaluate your injury and
-                                            immobilize your leg with a splint. If you have a displaced fracture, your
-                                            doctor may need to manipulate the pieces back into their proper positions
-                                            before applying a splint — a process called reduction. Some fractures are
-                                            splinted for a day to allow swelling to subside before they are casted.</p>
-                                            <p>After your cast or splint is removed, you'll likely need rehabilitation
-                                                exercises or physical therapy to reduce stiffness and restore movement
-                                                in
-                                                the injured leg. Because you haven't moved your leg for a while, you may
-                                                even have stiffness and weakened muscles in uninjured areas.
-                                                Rehabilitation
-                                                can help, but it may take up to several months — or even longer — for
-                                                complete healing of severe injuries.</p>
-                                            <p>For some injuries, your doctor may also recommend an external fixation
-                                                device
-                                                — a frame outside your leg attached to the bone with pins. This device
-                                                provides stability during the healing process and is usually removed
-                                                after
-                                                about six to eight weeks. There's a risk of infection around the
-                                                surgical
-                                                pins connected to the external fixation device.</p>
-                                            <p>What Can You Do?</p>
-                                            <p>1.Detailed descriptions of the symptoms and the precipitating event</p>
-                                            <p>2.Information about past medical problems</p>
-                                            <p>3.All the medications and dietary supplements you or your child takes</p>
-                                            <p>4.Questions you want to ask the doctor</p></div>}/>
-                                </div>
-                            </div>
+                            <Tab.Container defaultActiveKey="information">
+                                <Row>
+                                    <Col sm={3}>
+                                        <Nav variant="pills" className="flex-column">
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="information">Information</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="patientProgress">Patient Progress</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="report">Report</Nav.Link>
+                                            </Nav.Item>
+                                        </Nav>
+                                    </Col>
+                                    <Col sm={9}>
+                                        <Tab.Content>
+                                            <Tab.Pane eventKey="information">
+                                                <PatientOverview ehrId={this.state.ehrId}/>
+                                                <Accordion defaultActiveKey="0">
+                                                    <Card>
+                                                        <Card.Header>
+                                                            <Card.Title>Patient's History</Card.Title>
+                                                        </Card.Header>
+                                                        <Card.Body>
+                                                            <Tab.Container defaultActiveKey="bloodSugarLevels">
+                                                                <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                                                    <Nav.Item>
+                                                                        <Nav.Link eventKey="bloodSugarLevels">Blood
+                                                                            Sugar
+                                                                            Levels</Nav.Link>
+                                                                    </Nav.Item>
+                                                                    <Nav.Item>
+                                                                        <Nav.Link eventKey="tendonReflexes">Tendon
+                                                                            Reflexes</Nav.Link>
+                                                                    </Nav.Item>
+                                                                    <Nav.Item>
+                                                                        <Nav.Link eventKey="basalMetabolicRate">Basal
+                                                                            Metabolic
+                                                                            Rate</Nav.Link>
+                                                                    </Nav.Item>
+                                                                    <Nav.Item>
+                                                                        <Nav.Link eventKey="bodyComposition">Body
+                                                                            Composition</Nav.Link>
+                                                                    </Nav.Item>
+                                                                    <Nav.Item>
+                                                                        <Nav.Link eventKey="bodyTemperature">Body
+                                                                            Temperature</Nav.Link>
+                                                                    </Nav.Item>
+                                                                </Nav>
+                                                                <Tab.Content>
+                                                                    <Tab.Pane eventKey="bloodSugarLevels">
+                                                                        <div id="bloodSugarContainer"
+                                                                             style={{ width: '700px', height: '500px' }}
+                                                                             className="sbloodSugar"/>
+                                                                    </Tab.Pane>
+                                                                    <Tab.Pane eventKey="tendonReflexes">
+                                                                        <div id="tendonReflexesContainer"
+                                                                             style={{ width: '700px', height: '500px' }}
+                                                                             className="stendonReflex"/>
+                                                                    </Tab.Pane>
+                                                                    <Tab.Pane eventKey="basalMetabolicRate">
+                                                                        <div id="bodyCompContainer"
+                                                                             style={{ width: '700px', height: '500px' }}
+                                                                             className="sbodyComposition"/>
+                                                                    </Tab.Pane>
+                                                                    <Tab.Pane eventKey="bodyComposition">
+                                                                        <div id="metaRateContainer"
+                                                                             style={{ width: '700px', height: '500px' }}
+                                                                             className="smetaRate"/>
+                                                                    </Tab.Pane>
+                                                                    <Tab.Pane eventKey="bodyTemperature">
+                                                                        <div id="bodyTempContainer"
+                                                                             style={{ width: '700px', height: '500px' }}
+                                                                             className="sbodyTemp"/>
+                                                                    </Tab.Pane>
+                                                                </Tab.Content>
+                                                            </Tab.Container>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </Accordion>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="patientProgress">
+                                                <PatientProgressTable ehrId={this.state.ehrId}/>
+                                                <div id="container" style={{ width: '700px', height: '500px' }}
+                                                     className="PatientRecords"></div>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="report">
+                                                <PatientRecordsReport
+                                                    content={<div><p>Initial treatment for a broken leg usually begins
+                                                        in an
+                                                        emergency room or
+                                                        urgent care clinic. Here, doctors typically evaluate your injury
+                                                        and
+                                                        immobilize your leg with a splint. If you have a displaced
+                                                        fracture,
+                                                        your
+                                                        doctor may need to manipulate the pieces back into their proper
+                                                        positions
+                                                        before applying a splint — a process called reduction. Some
+                                                        fractures are
+                                                        splinted for a day to allow swelling to subside before they are
+                                                        casted.</p>
+                                                        <p>After your cast or splint is removed, you'll likely need
+                                                            rehabilitation
+                                                            exercises or physical therapy to reduce stiffness and
+                                                            restore
+                                                            movement
+                                                            in
+                                                            the injured leg. Because you haven't moved your leg for a
+                                                            while,
+                                                            you may
+                                                            even have stiffness and weakened muscles in uninjured areas.
+                                                            Rehabilitation
+                                                            can help, but it may take up to several months — or even
+                                                            longer
+                                                            — for
+                                                            complete healing of severe injuries.</p>
+                                                        <p>For some injuries, your doctor may also recommend an external
+                                                            fixation
+                                                            device
+                                                            — a frame outside your leg attached to the bone with pins.
+                                                            This
+                                                            device
+                                                            provides stability during the healing process and is usually
+                                                            removed
+                                                            after
+                                                            about six to eight weeks. There's a risk of infection around
+                                                            the
+                                                            surgical
+                                                            pins connected to the external fixation device.</p>
+                                                        <p>What Can You Do?</p>
+                                                        <p>1.Detailed descriptions of the symptoms and the precipitating
+                                                            event</p>
+                                                        <p>2.Information about past medical problems</p>
+                                                        <p>3.All the medications and dietary supplements you or your
+                                                            child
+                                                            takes</p>
+                                                        <p>4.Questions you want to ask the doctor</p></div>}/>
+                                            </Tab.Pane>
+                                        </Tab.Content>
+                                    </Col>
+                                </Row>
+                            </Tab.Container>
                         </Card.Body>
                     </Card>
                 </Container>
