@@ -270,8 +270,6 @@ class PatientRecords extends React.Component {
     }
 
     render() {
-        let subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ?
-            qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
         return (
             <div>
                 <HeaderMenu/>
