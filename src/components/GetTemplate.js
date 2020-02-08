@@ -1,9 +1,9 @@
-import CDRRequest from "./CDRRequest";
+import CDROptions from "./CDROptions";
 const request = require('request-promise');
 
 async function getTemplate() {
     let processedResult = [];
-    const options = CDRRequest.generateRequestOptions("/rest/v1/template/Foot_and_Ankle_PROMs-v0");
+    const options = CDROptions.generateRequestOptions("/rest/v1/template/Foot_and_Ankle_PROMs-v0");
     await request(options, function (error, response) {
             if (error) throw new Error(error);
             const result = JSON.parse(response.body);
