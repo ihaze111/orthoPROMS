@@ -167,11 +167,12 @@ class PatientSelf extends React.Component {
     }
 
     render() {
+        let subjectId = getSubjectId(this.props.location.search);
         return (
             <div>
                 <HeaderMenu/>
                 <Container style={{ marginTop: '50px' }}>
-                    <PatientOverview ehrId={this.state.ehrId}/>
+                    <PatientOverview subjectId={subjectId}/>
                     <Card>
                         <Card.Header>
                             <Card.Title>Details</Card.Title>
