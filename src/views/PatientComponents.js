@@ -1,26 +1,6 @@
 import React from "react";
-import getEHRId from "../components/GetEHRId";
 import Table from "react-bootstrap/Table";
 import getCompositions from "../components/GetCompositions";
-
-class EHRId extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    componentDidMount() {
-        let promise = getEHRId(this.props.subjectId);
-        promise.then((e) => {
-            this.setState({ ehrId: e });
-        });
-    }
-
-    render() {
-        if (!this.state.ehrId) return null;
-        return <span>{this.state.ehrId}</span>;
-    }
-}
 
 export function PatientOverview(props) {
     return <div style={{ display: "flex" }}>
