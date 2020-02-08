@@ -167,7 +167,6 @@ class PatientSelf extends React.Component {
     }
 
     render() {
-        let subjectId = getSubjectId(this.props.location.search);
         return (
             <div>
                 <HeaderMenu/>
