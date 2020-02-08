@@ -14,10 +14,11 @@ import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
 import getTemplate from "../../components/GetTemplate";
 import getCompositions from "../../components/GetCompositions";
-import getEHRId from "../../components/GetEHRId";
 
 import qs from "qs";
 import * as PropTypes from "prop-types";
+import { PatientOverview } from "../PatientComponents";
+import { getSubjectId } from "../PatientUtils";
 
 function PatientProgressTableEntry(props) {
     return <tr>
@@ -65,6 +66,8 @@ class Compositions extends React.Component {
     componentDidMount() {
         let promise = getCompositions();
         promise.then((e) => {
+            console.log("EEEEEE");
+            console.log(e);
             this.setState({ compositions: e });
         });
     }
@@ -106,42 +109,6 @@ class Template extends React.Component {
             <Button id="submit" onClick={() => {$('#submitSurveyDialog').fadeIn(500)}}>Submit</Button>
         </Form>;
     }
-}
-
-class EHRId extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    componentDidMount() {
-        let promise = getEHRId(this.props.subjectId);
-        promise.then((e) => {
-            this.setState({ ehrId: e });
-        });
-    }
-
-    render() {
-        if (!this.state.ehrId) return null;
-        return <span>{this.state.ehrId}</span>;
-    }
-}
-
-function PatientOverview(props) {
-    return <div style={{ display: "flex" }}>
-        <div style={{ width: "50%" }}>
-            <p>EHR ID: <EHRId subjectId={props.subjectId}/></p>
-            <p>Name: Kim</p>
-            <p>Age: 65</p>
-            <p>Sex: M</p>
-            <p>Type: Fracture</p>
-            <p>Your GP: Doctor.Jack</p>
-        </div>
-        <div style={{ width: "40%", alignSelf: "center", textAlign: "center" }}>
-            <img src="./240px-User_icon_2.svg.png"
-                 style={{ width: "40%" }} alt=""/>
-        </div>
-    </div>;
 }
 
 function PatientProgressTable() {
@@ -241,8 +208,7 @@ class PatientSelf extends React.Component {
     }
 
     render() {
-        let subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ?
-            qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
+        let subjectId = getSubjectId(this.props.location.search);
         return (
             <div>
                 <HeaderMenu/>
