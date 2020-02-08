@@ -13,7 +13,7 @@ import HeaderMenu from "../../components/HeaderMenu";
 import { PatientOverview, PatientProgressTable } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
-import { loadEhrId } from "../PatientUtils";
+import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -241,6 +241,7 @@ class PatientRecords extends React.Component {
     }
 
     render() {
+        let subjectId = getSubjectId(this.props.location.search);
         return (
             <div>
                 <HeaderMenu/>
@@ -266,7 +267,7 @@ class PatientRecords extends React.Component {
                                     <Col sm={9}>
                                         <Tab.Content>
                                             <Tab.Pane eventKey="information">
-                                                <PatientOverview ehrId={this.state.ehrId}/>
+                                                <PatientOverview subjectId={subjectId}/>
                                                 <Card>
                                                     <Card.Header>
                                                         <Card.Title>Patient's History</Card.Title>
