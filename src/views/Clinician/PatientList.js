@@ -24,12 +24,11 @@ class PatientListTable extends React.Component {
             <thead>
             <tr>
                 <th>#</th>
-                <th>Patient ID</th>
+                <th>NHS Number</th>
                 <th>Gender</th>
                 <th>Sex</th>
                 <th>Vital Status</th>
                 <th>Birth Year</th>
-                <th>NHS Number</th>
                 <th>Time created</th>
             </tr>
             </thead>

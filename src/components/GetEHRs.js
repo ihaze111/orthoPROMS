@@ -12,6 +12,9 @@ function callbackProcessing(result) {
             final.nhsNumber = e.nhsNumber.value || "";
             final.timeCreated = e.time_created.value || "";
         }
+        if(e.nhsNumber) {
+            final.subjectId = e.nhsNumber.value;
+        }
         return final;
     });
 }
