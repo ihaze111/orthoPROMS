@@ -278,68 +278,66 @@ class PatientRecords extends React.Component {
                                         <Tab.Content>
                                             <Tab.Pane eventKey="information">
                                                 <PatientOverview ehrId={this.state.ehrId}/>
-                                                <Accordion defaultActiveKey="0">
-                                                    <Card>
-                                                        <Card.Header>
-                                                            <Card.Title>Patient's History</Card.Title>
-                                                        </Card.Header>
-                                                        <Card.Body>
-                                                            <Tab.Container defaultActiveKey="bloodSugarLevels">
-                                                                <Nav variant="tabs" style={{ marginBottom: '40px' }}>
-                                                                    <Nav.Item>
-                                                                        <Nav.Link eventKey="bloodSugarLevels">Blood
-                                                                            Sugar
-                                                                            Levels</Nav.Link>
-                                                                    </Nav.Item>
-                                                                    <Nav.Item>
-                                                                        <Nav.Link eventKey="tendonReflexes">Tendon
-                                                                            Reflexes</Nav.Link>
-                                                                    </Nav.Item>
-                                                                    <Nav.Item>
-                                                                        <Nav.Link eventKey="basalMetabolicRate">Basal
-                                                                            Metabolic
-                                                                            Rate</Nav.Link>
-                                                                    </Nav.Item>
-                                                                    <Nav.Item>
-                                                                        <Nav.Link eventKey="bodyComposition">Body
-                                                                            Composition</Nav.Link>
-                                                                    </Nav.Item>
-                                                                    <Nav.Item>
-                                                                        <Nav.Link eventKey="bodyTemperature">Body
-                                                                            Temperature</Nav.Link>
-                                                                    </Nav.Item>
-                                                                </Nav>
-                                                                <Tab.Content>
-                                                                    <Tab.Pane eventKey="bloodSugarLevels">
-                                                                        <div id="bloodSugarContainer"
-                                                                             style={{ width: '700px', height: '500px' }}
-                                                                             className="sbloodSugar"/>
-                                                                    </Tab.Pane>
-                                                                    <Tab.Pane eventKey="tendonReflexes">
-                                                                        <div id="tendonReflexesContainer"
-                                                                             style={{ width: '700px', height: '500px' }}
-                                                                             className="stendonReflex"/>
-                                                                    </Tab.Pane>
-                                                                    <Tab.Pane eventKey="basalMetabolicRate">
-                                                                        <div id="bodyCompContainer"
-                                                                             style={{ width: '700px', height: '500px' }}
-                                                                             className="sbodyComposition"/>
-                                                                    </Tab.Pane>
-                                                                    <Tab.Pane eventKey="bodyComposition">
-                                                                        <div id="metaRateContainer"
-                                                                             style={{ width: '700px', height: '500px' }}
-                                                                             className="smetaRate"/>
-                                                                    </Tab.Pane>
-                                                                    <Tab.Pane eventKey="bodyTemperature">
-                                                                        <div id="bodyTempContainer"
-                                                                             style={{ width: '700px', height: '500px' }}
-                                                                             className="sbodyTemp"/>
-                                                                    </Tab.Pane>
-                                                                </Tab.Content>
-                                                            </Tab.Container>
-                                                        </Card.Body>
-                                                    </Card>
-                                                </Accordion>
+                                                <Card>
+                                                    <Card.Header>
+                                                        <Card.Title>Patient's History</Card.Title>
+                                                    </Card.Header>
+                                                    <Card.Body>
+                                                        <Tab.Container defaultActiveKey="bloodSugarLevels">
+                                                            <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="bloodSugarLevels">Blood
+                                                                        Sugar
+                                                                        Levels</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="tendonReflexes">Tendon
+                                                                        Reflexes</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="basalMetabolicRate">Basal
+                                                                        Metabolic
+                                                                        Rate</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="bodyComposition">Body
+                                                                        Composition</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="bodyTemperature">Body
+                                                                        Temperature</Nav.Link>
+                                                                </Nav.Item>
+                                                            </Nav>
+                                                            <Tab.Content>
+                                                                <Tab.Pane eventKey="bloodSugarLevels">
+                                                                    <div id="bloodSugarContainer"
+                                                                         style={{ width: '700px', height: '500px' }}
+                                                                         className="sbloodSugar"/>
+                                                                </Tab.Pane>
+                                                                <Tab.Pane eventKey="tendonReflexes">
+                                                                    <div id="tendonReflexesContainer"
+                                                                         style={{ width: '700px', height: '500px' }}
+                                                                         className="stendonReflex"/>
+                                                                </Tab.Pane>
+                                                                <Tab.Pane eventKey="basalMetabolicRate">
+                                                                    <div id="bodyCompContainer"
+                                                                         style={{ width: '700px', height: '500px' }}
+                                                                         className="sbodyComposition"/>
+                                                                </Tab.Pane>
+                                                                <Tab.Pane eventKey="bodyComposition">
+                                                                    <div id="metaRateContainer"
+                                                                         style={{ width: '700px', height: '500px' }}
+                                                                         className="smetaRate"/>
+                                                                </Tab.Pane>
+                                                                <Tab.Pane eventKey="bodyTemperature">
+                                                                    <div id="bodyTempContainer"
+                                                                         style={{ width: '700px', height: '500px' }}
+                                                                         className="sbodyTemp"/>
+                                                                </Tab.Pane>
+                                                            </Tab.Content>
+                                                        </Tab.Container>
+                                                    </Card.Body>
+                                                </Card>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="patientProgress">
                                                 <PatientProgressTable ehrId={this.state.ehrId}/>
