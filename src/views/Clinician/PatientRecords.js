@@ -11,7 +11,8 @@ import variablepie from 'highcharts/modules/variable-pie';
 
 import HeaderMenu from "../../components/HeaderMenu";
 import { PatientOverview } from "../PatientComponents";
-import { getSubjectId } from "../PatientUtils";
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
 
 
 function PatientProgressTableEntry(props) {
@@ -258,75 +259,12 @@ class PatientRecords extends React.Component {
     var tendonReflexes = Highcharts.chart('tendonReflexesContainer', tendonReflexes);
     var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
     var basalMetaRate = Highcharts.chart('metaRateContainer', metaRate);
-    var bodyTemperature = Highcharts.chart('bodyTempContainer', bodyTemp)
-
-
-    $(".stendonReflex").hide();
-    // $(".sbmi").hide();
-    $(".sbloodSugar").show();
-    $(".smetaRate").hide();
-    $(".sbodyComposition").hide();
-    $(".sbodyTemp").hide();
-
-    $(".bloodSugar").click(function () {
-      $(".sbloodSugar").show();
-      // $(".sbmi").hide();
-      $(".sbodyComposition").hide();
-      $(".sbodyTemp").hide();
-      $(".smetaRate").hide();
-      $(".stendonReflex").hide();
-    });
-
-    $(".tendonReflex").click(function () {
-      $(".sbloodSugar").hide();
-      // $(".sbmi").hide();
-      $(".sbodyComposition").hide();
-      $(".sbodyTemp").hide();
-      $(".smetaRate").hide();
-      $(".stendonReflex").show();
-    });
-
-    // $(".bmi").click(function () {
-    //     $(".sbloodSugar").hide();
-    // 	$(".sbmi").show();
-    // 	$(".sbodyComposition").hide();
-    // 	$(".sbodyTemp").hide();
-    // 	$(".smetaRate").hide();
-    //     $(".stendonReflex").hide();
-    // });
-
-    $(".metaRate").click(function () {
-      $(".sbloodSugar").hide();
-      // $(".sbmi").hide();
-      $(".sbodyComposition").hide();
-      $(".sbodyTemp").hide();
-      $(".smetaRate").show();
-      $(".stendonReflex").hide();
-    });
-
-    $(".bodyComposition").click(function () {
-      $(".sbloodSugar").hide();
-      // $(".sbmi").hide();
-      $(".sbodyComposition").show();
-      $(".sbodyTemp").hide();
-      $(".smetaRate").hide();
-      $(".stendonReflex").hide();
-    });
-
-    $(".bodyTemp").click(function () {
-      $(".sbloodSugar").hide();
-      // $(".sbmi").hide();
-      $(".sbodyComposition").hide();
-      $(".sbodyTemp").show();
-      $(".smetaRate").hide();
-      $(".stendonReflex").hide();
-    });
-
-
+    var bodyTemperature = Highcharts.chart('bodyTempContainer', bodyTemp);
   }
 
   render() {
-    let subjectId = getSubjectId(this.props.location.search);
+    let subjectId = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId ?
+        qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).subjectId : "9999999000";
     return (
       <div>
         <HeaderMenu/>
@@ -350,57 +288,62 @@ class PatientRecords extends React.Component {
                     <PatientOverview subjectId={subjectId}/>
                     <Accordion defaultActiveKey="0">
                       <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                          Patients' History
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0">
-                          <Card.Body>
-
-                            <p
-                              style={{ marginBottom: '40px' }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <a className="btn btn-secondary btn-lg bloodSugar"
-                                 style={{ backgroundColor: 'gray', opacity: '0.8' }}>Blood Sugar Levels</a>
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <a className="btn btn-secondary btn-lg tendonReflex"
-                                 style={{ backgroundColor: 'gray', opacity: '0.8' }}>Tendon Reflexes</a>
-                              {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<a className="btn btn-secondary btn-lg bmi" style={{backgroundColor: 'red', opacity: '0.8'}}>Body-Mass Index</a> */}
-                            </p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a className="btn btn-secondary btn-lg metaRate"
-                               style={{ backgroundColor: 'gray', opacity: '0.8' }}>Basal Metabolic Rate</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a className="btn btn-secondary btn-lg bodyComposition"
-                               style={{ backgroundColor: 'gray', opacity: '0.8' }}>Body Composition</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a className="btn btn-secondary btn-lg bodyTemp"
-                               style={{ backgroundColor: 'gray', opacity: '0.8' }}>Body Temperature</a>
-
-                            <Card.Text>
-
-                              <div style={{ height: '40px' }}></div>
-                              <div className="sbloodSugar">
-                                <div id="bloodSugarContainer" style={{ width: '700px', height: '500px' }}
-                                     className="sbloodSugar"></div>
-                              </div>
-                              <div className="stendonReflex">
-                                <div id="tendonReflexesContainer" style={{ width: '700px', height: '500px' }}
-                                     className="stendonReflex"></div>
-                              </div>
-                              <div className="sbodyComposition">
-                                <div id="bodyCompContainer" style={{ width: '700px', height: '500px' }}
-                                     className="sbodyComposition"></div>
-                              </div>
-                              <div className="smetaRate">
-                                <div id="metaRateContainer" style={{ width: '700px', height: '500px' }}
-                                     className="smetaRate"></div>
-                              </div>
-                              <div className="sbodyTemp">
-                                <div id="bodyTempContainer" style={{ width: '700px', height: '500px' }}
-                                     className="sbodyTemp"></div>
-                              </div>
-                            </Card.Text>
-                          </Card.Body>
-                        </Accordion.Collapse>
+                        <Card.Header>
+                          <Card.Title>Patient's History</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                          <Tab.Container defaultActiveKey="bloodSugarLevels">
+                            <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                              <Nav.Item>
+                                <Nav.Link eventKey="bloodSugarLevels">Blood Sugar
+                                  Levels</Nav.Link>
+                              </Nav.Item>
+                              <Nav.Item>
+                                <Nav.Link eventKey="tendonReflexes">Tendon
+                                  Reflexes</Nav.Link>
+                              </Nav.Item>
+                              <Nav.Item>
+                                <Nav.Link eventKey="basalMetabolicRate">Basal Metabolic
+                                  Rate</Nav.Link>
+                              </Nav.Item>
+                              <Nav.Item>
+                                <Nav.Link eventKey="bodyComposition">Body
+                                  Composition</Nav.Link>
+                              </Nav.Item>
+                              <Nav.Item>
+                                <Nav.Link eventKey="bodyTemperature">Body
+                                  Temperature</Nav.Link>
+                              </Nav.Item>
+                            </Nav>
+                            <Tab.Content>
+                              <Tab.Pane eventKey="bloodSugarLevels">
+                                <div id="bloodSugarContainer"
+                                     style={{ width: '700px', height: '500px' }}
+                                     className="sbloodSugar" />
+                              </Tab.Pane>
+                              <Tab.Pane eventKey="tendonReflexes">
+                                <div id="tendonReflexesContainer"
+                                     style={{ width: '700px', height: '500px' }}
+                                     className="stendonReflex" />
+                              </Tab.Pane>
+                              <Tab.Pane eventKey="basalMetabolicRate">
+                                <div id="bodyCompContainer"
+                                     style={{ width: '700px', height: '500px' }}
+                                     className="sbodyComposition" />
+                              </Tab.Pane>
+                              <Tab.Pane eventKey="bodyComposition">
+                                <div id="metaRateContainer"
+                                     style={{ width: '700px', height: '500px' }}
+                                     className="smetaRate" />
+                              </Tab.Pane>
+                              <Tab.Pane eventKey="bodyTemperature">
+                                <div id="bodyTempContainer"
+                                     style={{ width: '700px', height: '500px' }}
+                                     className="sbodyTemp" />
+                              </Tab.Pane>
+                            </Tab.Content>
+                          </Tab.Container>
+                        </Card.Body>
                       </Card>
                     </Accordion>
                   </div>
