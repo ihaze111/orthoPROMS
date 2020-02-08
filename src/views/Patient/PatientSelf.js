@@ -12,12 +12,9 @@ import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
 import getTemplate from "../../components/GetTemplate";
-
-import qs from "qs";
 import * as PropTypes from "prop-types";
 import { PatientOverview, PatientProgressTable } from "../PatientComponents";
-import { getSubjectId } from "../PatientUtils";
-import getEHRId from "../../components/GetEHRId";
+import { getSubjectId, loadEhrId } from "../PatientUtils";
 
 function SurveyQuestionInput(props) {
     const inputs = props.inputs;
@@ -98,11 +95,7 @@ class PatientSelf extends React.Component {
     }
 
     componentDidMount() {
-        let subjectId = getSubjectId(this.props.location.search);
-        let promise = getEHRId(subjectId);
-        promise.then((e) => {
-            this.setState({ ehrId: e });
-        });
+        loadEhrId.call(this);
 
         // if (this.props.location.search !== "") {
         //     const compositionSring = {
@@ -179,7 +172,7 @@ class PatientSelf extends React.Component {
             <div>
                 <HeaderMenu/>
                 <Container style={{ marginTop: '50px' }}>
-                    <PatientOverview subjectId={subjectId}/>
+                    <PatientOverview ehrId={this.state.ehrId}/>
                     <Card>
                         <Card.Header>
                             <Card.Title>Details</Card.Title>
