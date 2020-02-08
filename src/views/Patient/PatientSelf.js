@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
 import Tab from 'react-bootstrap/Tab';
 import Alert from 'react-bootstrap/Alert';
 import Nav from 'react-bootstrap/Nav';
@@ -13,21 +12,12 @@ import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
 import getTemplate from "../../components/GetTemplate";
-import getCompositions from "../../components/GetCompositions";
 
 import qs from "qs";
 import * as PropTypes from "prop-types";
-import { PatientOverview } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable } from "../PatientComponents";
 import { getSubjectId } from "../PatientUtils";
-
-function PatientProgressTableEntry(props) {
-    return <tr>
-        <td>{props.nhs_number}</td>
-        <td>{props.composer_name}</td>
-        <td>{props.episode_identifier}</td>
-        <td>{props.aofas_comment}</td>
-    </tr>;
-}
+import getEHRId from "../../components/GetEHRId";
 
 function SurveyQuestionInput(props) {
     const inputs = props.inputs;
@@ -55,29 +45,6 @@ function SurveyQuestion(props) {
         <span style={{ color: 'grey', fontSize: '0.8em' }}>{props.description}</span><br/>
         {SurveyQuestionInput(props)}
     </Form.Group>;
-}
-
-class Compositions extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    componentDidMount() {
-        let promise = getCompositions();
-        promise.then((e) => {
-            console.log("EEEEEE");
-            console.log(e);
-            this.setState({ compositions: e });
-        });
-    }
-
-    render() {
-        if (!this.state.compositions) return null;
-        return this.state.compositions.map((e) =>
-            PatientProgressTableEntry(e)
-        )
-    }
 }
 
 
@@ -113,21 +80,6 @@ class Template extends React.Component {
     }
 }
 
-function PatientProgressTable() {
-    return <Table striped bordered hover>
-        <thead>
-        <PatientProgressTableEntry nhs_number="NHS Number"
-                                   composer_name="Composer Name"
-                                   episode_identifier="Episode Identifier"
-                                   aofas_comment="AOFAS Comment"/>
-        </thead>
-        <tbody>
-        <Compositions/>
-
-        </tbody>
-    </Table>;
-}
-
 function SurveySuccess() {
     return <Alert variant="success" onClose={() => {
         $('#submitSurveyDialog').fadeOut(500)
@@ -140,42 +92,52 @@ function SurveySuccess() {
 SurveySuccess.propTypes = { onClose: PropTypes.func };
 
 class PatientSelf extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-        if (this.props.location.search !== "") {
-            const compositionSring = {
-                "ctx/language": "en",
-                "ctx/territory": "GB",
-                "ctx/composer_name": "Silvia Blake",
-                "ctx/id_namespace": "HOSPITAL-NS",
-                "ctx/id_scheme": "HOSPITAL-NS",
-                "ctx/health_care_facility|name": "Hospital",
-                "ctx/health_care_facility|id": "9091",
-                "uclh_foot_and_ankle_proms/aofas_score/q1_pain|code": "at0032"
-            };
-            // compositionSring.templateId = "Foot_and_Ankle_PROMs-v0";
-            // compositionSring.ehrId = "d9668d3d-85fa-488f-97f3-53c8765c22fb";
-            const getVariables = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
-            console.log(getVariables);
-            for (let x in getVariables) {
-                compositionSring["uclh_foot_and_ankle_proms/aofas_score/" + x + "|code"] = getVariables[x];
-            }
-            var request = require('request');
-            var options = {
-                'method': 'POST',
-                'url': 'https://cdr.code4health.org/rest/v1/composition?ehrId=b80a3a97-be75-41c6-a497-6ed53ce8f8c6&templateId=Foot_and_Ankle_PROMs-v0&committerName=Dr nullnull&format=FLAT',
-                'headers': {
-                    'Ehr-Session-disabled': '{{Ehr-Session}}',
-                    'Content-Type': 'application/json',
-                    'Authorization': '***REMOVED***'
-                },
-                body: JSON.stringify(compositionSring)
-            };
-            request(options, function (error, response) {
-                if (error) throw new Error(error);
-                console.log(response.body);
-            });
-        }
+    componentDidMount() {
+        let subjectId = getSubjectId(this.props.location.search);
+        let promise = getEHRId(subjectId);
+        promise.then((e) => {
+            this.setState({ ehrId: e });
+        });
+
+        // if (this.props.location.search !== "") {
+        //     const compositionSring = {
+        //         "ctx/language": "en",
+        //         "ctx/territory": "GB",
+        //         "ctx/composer_name": "Silvia Blake",
+        //         "ctx/id_namespace": "HOSPITAL-NS",
+        //         "ctx/id_scheme": "HOSPITAL-NS",
+        //         "ctx/health_care_facility|name": "Hospital",
+        //         "ctx/health_care_facility|id": "9091",
+        //         "uclh_foot_and_ankle_proms/aofas_score/q1_pain|code": "at0032"
+        //     };
+        //     // compositionSring.templateId = "Foot_and_Ankle_PROMs-v0";
+        //     // compositionSring.ehrId = "d9668d3d-85fa-488f-97f3-53c8765c22fb";
+        //     const getVariables = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+        //     console.log(getVariables);
+        //     for (let x in getVariables) {
+        //         compositionSring["uclh_foot_and_ankle_proms/aofas_score/" + x + "|code"] = getVariables[x];
+        //     }
+        //     var request = require('request');
+        //     var options = {
+        //         'method': 'POST',
+        //         'url': 'https://cdr.code4health.org/rest/v1/composition?ehrId=b80a3a97-be75-41c6-a497-6ed53ce8f8c6&templateId=Foot_and_Ankle_PROMs-v0&committerName=Dr nullnull&format=FLAT',
+        //         'headers': {
+        //             'Ehr-Session-disabled': '{{Ehr-Session}}',
+        //             'Content-Type': 'application/json',
+        //             'Authorization': '***REMOVED***'
+        //         },
+        //         body: JSON.stringify(compositionSring)
+        //     };
+        //     request(options, function (error, response) {
+        //         if (error) throw new Error(error);
+        //         console.log(response.body);
+        //     });
+        // }
 
         $('#submitSurveyDialog').hide();
 
@@ -237,7 +199,7 @@ class PatientSelf extends React.Component {
                                 </Nav>
                                 <Tab.Content>
                                     <Tab.Pane eventKey="myProgress">
-                                        <PatientProgressTable/>
+                                        <PatientProgressTable ehrId={this.state.ehrId}/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="myData">
                                         <div id="highchartsContainer" style={{ width: '900px', height: '500px' }}>
