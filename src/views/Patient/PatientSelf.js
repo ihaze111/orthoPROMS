@@ -106,7 +106,9 @@ class Template extends React.Component {
             {this.state.template.map((e) => (
                 SurveyQuestion(e)))}
             {/*<input type="submit"/>*/}
-            <Button id="submit" onClick={() => {$('#submitSurveyDialog').fadeIn(500)}}>Submit</Button>
+            <Button id="submit" onClick={() => {
+                $('#submitSurveyDialog').fadeIn(500)
+            }}>Submit</Button>
         </Form>;
     }
 }
@@ -127,7 +129,9 @@ function PatientProgressTable() {
 }
 
 function SurveySuccess() {
-    return <Alert variant="success" onClose={() => {$('#submitSurveyDialog').fadeOut(500)}} dismissible id="submitSurveyDialog">
+    return <Alert variant="success" onClose={() => {
+        $('#submitSurveyDialog').fadeOut(500)
+    }} dismissible id="submitSurveyDialog">
         <Alert.Heading>Thank for submitting</Alert.Heading>
         <p>We will give you feedback and update the survey to your data.</p>
     </Alert>;
