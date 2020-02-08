@@ -10,7 +10,7 @@ import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { loadEhrId } from "../PatientUtils";
@@ -355,42 +355,7 @@ class PatientRecords extends React.Component {
                                 </div>
                                 <div style={{ width: '100%', display: 'flex' }} className="sdetail">
                                     <div style={{ width: '100%' }}>
-
-                                        <Table striped bordered hover>
-                                            <thead>
-                                            <PatientProgressTableEntry doctorsLog="Doctor's Logs"
-                                                                       date="Date" record="Record"
-                                                                       severity="Severity"/>
-                                            </thead>
-                                            <tbody>
-                                            <PatientProgressTableEntry doctorsLog="Outpatient"
-                                                                       date="2019-11-20" record="Calf fracture"
-                                                                       severity="Serious"/>
-                                            <PatientProgressTableEntry doctorsLog="Osteosynthesis"
-                                                                       date="2019-11-23"
-                                                                       record="Already boned but fragile"
-                                                                       severity="Successful operation"/>
-                                            <PatientProgressTableEntry doctorsLog="Reinforced Support"
-                                                                       date="2019-11-23" record="Bone into 20cm bracket"
-                                                                       severity="Successful Access"/>
-                                            <PatientProgressTableEntry doctorsLog="Be hospitalized"
-                                                                       date="2019-11-23"
-                                                                       record="Single VIP sickroom: No.2"
-                                                                       severity="No other side effects"/>
-                                            <PatientProgressTableEntry doctorsLog="Physiotherapy"
-                                                                       date="2019-11-26"
-                                                                       record="one hour of rehabilitation training"
-                                                                       severity="Calf regained consciouseness"/>
-                                            <PatientProgressTableEntry doctorsLog="Physiotherapy"
-                                                                       date="To 2019-12-10"
-                                                                       record="End of recovery traning"
-                                                                       severity="Can walking"/>
-                                            <PatientProgressTableEntry doctorsLog="Bracket Surgey"
-                                                                       date="2019-12-14" record="Remove the bracket"
-                                                                       severity="Get Well"/>
-
-                                            </tbody>
-                                        </Table>
+                                        <PatientProgressTable ehrId={this.state.ehrId}/>
                                         <div id="container" style={{ width: '700px', height: '500px' }}
                                              className="PatientRecords"></div>
                                     </div>
