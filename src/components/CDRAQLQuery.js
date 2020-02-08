@@ -7,7 +7,8 @@ async function CDRAQLQuery(aql, callbackProcessing) {
     const options = CDROptions.generateQueryOptions(aql);
     await request(options, function (error, response) {
             if (error) throw new Error(error);
-            const result = JSON.parse(response.body);
+            let responseBody = response.body.length > 0 ? response.body : '{}';
+            const result = JSON.parse(responseBody);
             processedResult = callbackProcessing(result);
         }
     );
