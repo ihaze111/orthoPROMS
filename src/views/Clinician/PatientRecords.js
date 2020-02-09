@@ -10,7 +10,7 @@ import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -33,33 +33,33 @@ class PatientRecords extends React.Component {
     componentDidMount() {
         loadEhrId.call(this);
 
-        var tracker = {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Pain-Progress Tracker'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
+        // var tracker = {
+        //     chart: {
+        //         type: 'line'
+        //     },
+        //     title: {
+        //         text: 'Pain-Progress Tracker'
+        //     },
+        //     xAxis: {
+        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
 
-            },
-            yAxis: {
-                title: {
-                    text: 'Total Score'
-                }
-            },
-            series: [{
-                name: 'distance walked',
-                data: [0, 3, 3, 4, 6, 9]
-            }, {
-                name: 'pain level',
-                data: [10, 10, 9, 7, 4, 2]
-            }, {
-                name: 'joint comfortness',
-                data: [1, 2, 2, 5, 8, 9.5]
-            }]
-        };
+        //     },
+        //     yAxis: {
+        //         title: {
+        //             text: 'Total Score'
+        //         }
+        //     },
+        //     series: [{
+        //         name: 'distance walked',
+        //         data: [0, 3, 3, 4, 6, 9]
+        //     }, {
+        //         name: 'pain level',
+        //         data: [10, 10, 9, 7, 4, 2]
+        //     }, {
+        //         name: 'joint comfortness',
+        //         data: [1, 2, 2, 5, 8, 9.5]
+        //     }]
+        // };
 
         var bloodSugarLevels = {
             chart: {
@@ -232,7 +232,7 @@ class PatientRecords extends React.Component {
         var Highcharts = require('highcharts');
         require('highcharts/highcharts-more')(Highcharts);
         require('highcharts/modules/variable-pie')(Highcharts);
-        var chart = Highcharts.chart('container', tracker);
+        // var chart = Highcharts.chart('container', tracker);
         var chart11 = Highcharts.chart('bloodSugarContainer', bloodSugarLevels);
         var tendonReflexes = Highcharts.chart('tendonReflexesContainer', tendonReflexes);
         var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
@@ -242,6 +242,7 @@ class PatientRecords extends React.Component {
 
     render() {
         let subjectId = getSubjectId(this.props.location.search);
+        console.log(this.state.ehrId);
         return (
             <div>
                 <HeaderMenu/>
@@ -331,8 +332,7 @@ class PatientRecords extends React.Component {
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="patientProgress">
                                                 <PatientProgressTable ehrId={this.state.ehrId}/>
-                                                <div id="container" style={{ width: '700px', height: '500px' }}
-                                                     className="PatientRecords"></div>
+                                                <div><ScoresArray ehrId={this.state.ehrId}/></div>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="report">
                                                 <PatientRecordsReport

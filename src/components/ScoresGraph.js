@@ -17,10 +17,18 @@ const ScoresGraph = props => {
             type : "line"
         },
         title: {
-            text : "Episode Scores"
+            text : "Progress Scores"
         },
         xAxis: {
+            title : {
+                text : "Date"
+            },
             categories: regTime
+        },
+        yAxis: {
+            title : {
+                text : "Scores"
+            }
         },
         series : [
             {
