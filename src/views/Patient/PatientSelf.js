@@ -12,8 +12,9 @@ import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
 import getTemplate from "../../components/GetTemplate";
 import * as PropTypes from "prop-types";
-import { PatientOverview, PatientProgressTable, ScoresArray} from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph} from "../PatientComponents";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
+import RadarGraph from '../../components/RadarGraph';
 
 function SurveyQuestionInput(props) {
     const inputs = props.inputs;
@@ -160,46 +161,21 @@ class PatientSelf extends React.Component {
                                     <Nav.Item>
                                         <Nav.Link eventKey="survey">Survey</Nav.Link>
                                     </Nav.Item>
+                                    {/* <Nav.Item>
+                                        <Nav.Link eventKey="test">Test</Nav.Link>
+                                    </Nav.Item> */}
                                 </Nav>
                                 <Tab.Content>
                                     <Tab.Pane eventKey="myProgress">
                                         <PatientProgressTable ehrId={this.state.ehrId}/>
                                     </Tab.Pane>
+                                    {/* <Tab.Pane eventKey="test">
+                                        <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
+                                    </Tab.Pane> */}
                                     <Tab.Pane eventKey="myData">
-                                        {/* <div style={{ width: '900px', height: '500px' }}> */}    
-                                        {/* </div> */}
                                         <div><ScoresArray ehrId={this.state.ehrId}/></div>
-                                        <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
-                                                    labels={["Pain",
-                                                        "Activity limitations and support requirements", "Walking",
-                                                        "Walking surfaces"]} datasets={[
-                                            {
-                                                label: "Before surgery",
-                                                data: [1, 2, 3, 4],
-                                                backgroundColor: [
-                                                    "red",
-                                                    "orange",
-                                                    "yellow",
-                                                    "green",
-                                                    "blue",
-                                                    "indigo",
-                                                    "violet",
-                                                ]
-                                            },
-                                            {
-                                                label: "After surgery",
-                                                data: [8, 5, 6, 2],
-                                                backgroundColor: [
-                                                    "red",
-                                                    "orange",
-                                                    "yellow",
-                                                    "green",
-                                                    "blue",
-                                                    "indigo",
-                                                    "violet",
-                                                ],
-                                            },
-                                        ]}/>
+                                        <br/><br/><br/>
+                                        <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="survey">
                                         <Template/>

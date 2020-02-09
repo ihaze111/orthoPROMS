@@ -10,7 +10,7 @@ import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -333,6 +333,7 @@ class PatientRecords extends React.Component {
                                             <Tab.Pane eventKey="patientProgress">
                                                 <PatientProgressTable ehrId={this.state.ehrId}/>
                                                 <div><ScoresArray ehrId={this.state.ehrId}/></div>
+                                                <div><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="report">
                                                 <PatientRecordsReport
