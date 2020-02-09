@@ -5,6 +5,8 @@ import getEHRBySubjectId from "../components/GetEHRBySubjectId";
 import getScores from "../components/GetScores";
 import { getSubjectId } from "./PatientUtils";
 import ScoresGraph from "../components/ScoresGraph";
+import RadarGraph from "../components/RadarGraph";
+import getEpisodeScores from "../components/GetEpisodeScores";
 
 // export function PatientOverview(props) {
 //     return <div style={{ display: "flex" }}>
@@ -167,11 +169,61 @@ class Scores extends React.Component {
     }
 }
 export function ScoresArray(props) {
-    // const arrayMan = Scores
-    // // arrayMan.push(<div><Scores ehrId={props.ehrId}/></div>);
-    // // console.log(arrayMan);
     if (props.ehrId) {
         return <div><Scores ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class EpisodeScores extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            preOp:[],
+            oneWeekPostOp: [],
+            sixWeeksPostOp: []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getEpisodeScores(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ episodeScores: e});
+        });
+    }
+
+    pushIntoCategory(props){
+        if (props.length > 0){
+            this.state.preOp.push(props[0].pain);
+            this.state.preOp.push(props[0].limitations);
+            this.state.preOp.push(props[0].walking);
+            this.state.preOp.push(props[0].walking_surfaces);
+            this.state.oneWeekPostOp.push(props[1].pain);
+            this.state.oneWeekPostOp.push(props[1].limitations);
+            this.state.oneWeekPostOp.push(props[1].walking);
+            this.state.oneWeekPostOp.push(props[1].walking_surfaces);
+        }
+    }
+
+
+    render() {
+        if (!this.state.episodeScores) return null;
+        this.pushIntoCategory(this.state.episodeScores);
+        if (this.state.episodeScores.length > 0) {
+            return <RadarGraph preOp={this.state.preOp}
+                               oneWeek={this.state.oneWeekPostOp}
+                               sixWeeks={this.state.sixWeeksPostOp}/>
+        } else {
+            return <tr>
+                <td colspan="4">No episode scores were found</td>
+            </tr>;
+        }
+    }
+}
+export function EpisodeScoresGraph(props) {
+    if (props.ehrId) {
+        return <div><EpisodeScores ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
