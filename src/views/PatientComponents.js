@@ -2,7 +2,9 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import getCompositions from "../components/GetCompositions";
 import getEHRBySubjectId from "../components/GetEHRBySubjectId";
+import getScores from "../components/GetScores";
 import { getSubjectId } from "./PatientUtils";
+import ScoresGraph from "../components/ScoresGraph";
 
 // export function PatientOverview(props) {
 //     return <div style={{ display: "flex" }}>
@@ -103,6 +105,73 @@ export function PatientProgressTable(props) {
             <Compositions ehrId={props.ehrId}/>
             </tbody>
         </Table>;
+    } else {
+        return null;
+    }
+}
+
+class Scores extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            painArray : [],
+            limitationsArray : [],
+            walkingArray : [],
+            walking_surfacesArray : [],
+            totalArray : [],
+            regTimeArray: []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getScores(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ scores: e});
+        });
+    }
+
+
+    pushArray(props){
+        this.state.painArray.push(props.pain);
+        this.state.limitationsArray.push(props.limitations);
+        this.state.walkingArray.push(props.walking);
+        this.state.walking_surfacesArray.push(props.walking_surfaces);
+        this.state.totalArray.push(props.total);
+        this.state.regTimeArray.push(props.reg_time);
+    }
+
+    render() {
+        if (!this.state.scores) return null;
+        this.state.scores.map((e) => {
+            this.pushArray(e);
+        });
+        // console.log(this.state.painArray);
+        // console.log(this.state.limitationsArray);
+        // console.log(this.state.walkingArray);
+        // console.log(this.state.walking_surfacesArray);
+        // console.log(this.state.totalArray);
+        // console.log(this.state.regTimeArray);
+        if (this.state.painArray.length > 0) {
+            return <div><ScoresGraph pain={this.state.painArray}
+                                     limit={this.state.limitationsArray}
+                                     walking={this.state.walkingArray}
+                                     surface={this.state.walking_surfacesArray}
+                                     total={this.state.totalArray}
+                                     time={this.state.regTimeArray}
+                                     /></div>
+        } else {
+            return <tr>
+                <td colspan="4">No scores were found</td>
+            </tr>;
+        }
+    }
+}
+export function ScoresArray(props) {
+    // const arrayMan = Scores
+    // // arrayMan.push(<div><Scores ehrId={props.ehrId}/></div>);
+    // // console.log(arrayMan);
+    if (props.ehrId) {
+        return <div><Scores ehrId={props.ehrId}/></div>
     } else {
         return null;
     }

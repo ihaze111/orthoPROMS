@@ -7,13 +7,12 @@ import Tab from 'react-bootstrap/Tab';
 import Alert from 'react-bootstrap/Alert';
 import Nav from 'react-bootstrap/Nav';
 
-import Highcharts from 'highcharts';
 import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
 import getTemplate from "../../components/GetTemplate";
 import * as PropTypes from "prop-types";
-import { PatientOverview, PatientProgressTable } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray} from "../PatientComponents";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 
 function SurveyQuestionInput(props) {
@@ -91,7 +90,9 @@ SurveySuccess.propTypes = { onClose: PropTypes.func };
 class PatientSelf extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            painArray : []
+        };
     }
 
     componentDidMount() {
@@ -134,36 +135,6 @@ class PatientSelf extends React.Component {
 
         $('#submitSurveyDialog').hide();
 
-        // 图表配置
-        var options = {
-            chart: {
-                type: 'line'                          //指定图表的类型，默认是折线图（line）
-            },
-            title: {
-                text: '0: Bad | 10: Good'                 // 标题
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']   // x
-                                                                                                                   // 轴分类
-            },
-            yAxis: {
-                title: {
-                    text: 'Total Score'                // y 轴标题
-                }
-            },
-            series: [{                              // 数据列
-                name: 'distance walked',                        // 数据列名
-                data: [0, 3, 3, 4, 6, 9]                     // 数据
-            }, {
-                name: 'pain level',
-                data: [10, 10, 9, 7, 4, 2]
-            }, {
-                name: 'joint comfortness',
-                data: [1, 2, 2, 5, 8, 9.5]
-            }]
-        };
-        // 图表初始化函数
-        Highcharts.chart('highchartsContainer', options);
     }
 
     render() {
@@ -195,8 +166,9 @@ class PatientSelf extends React.Component {
                                         <PatientProgressTable ehrId={this.state.ehrId}/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="myData">
-                                        <div id="highchartsContainer" style={{ width: '900px', height: '500px' }}>
-                                        </div>
+                                        {/* <div style={{ width: '900px', height: '500px' }}> */}    
+                                        {/* </div> */}
+                                        <div><ScoresArray ehrId={this.state.ehrId}/></div>
                                         <RadarChart label={"Metrics"} data={[1, 2, 3, 4]}
                                                     labels={["Pain",
                                                         "Activity limitations and support requirements", "Walking",
