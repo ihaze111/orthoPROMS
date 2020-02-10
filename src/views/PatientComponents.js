@@ -7,6 +7,7 @@ import { getSubjectId } from "./PatientUtils";
 import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
+import getRespirationRate from "../components/GetRespirationRate";
 
 // export function PatientOverview(props) {
 //     return <div style={{ display: "flex" }}>
@@ -224,6 +225,46 @@ class EpisodeScores extends React.Component {
 export function EpisodeScoresGraph(props) {
     if (props.ehrId) {
         return <div><EpisodeScores ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class RespirationRate extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    componentDidMount() {
+        let promise = getRespirationRate(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ respirationRate: e});
+        });
+    }
+
+    // pushIntoCategory(props){
+    //     if (props.length > 0){
+    //     }
+    // }
+
+
+    render() {
+        if (!this.state.respirationRate) return null;
+        // this.pushIntoCategory(this.state.episodeScores);
+        if (this.state.respirationRate.length > 0) {
+            return <RadarGraph/>
+        } else {
+            return <tr>
+                <td colspan="4">No Respiration Rate were recorded</td>
+            </tr>;
+        }
+    }
+}
+export function RespirationGraph(props) {
+    if (props.ehrId) {
+        return <div><RespirationRate ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
