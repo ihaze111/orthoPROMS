@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table";
 import getCompositions from "../components/GetCompositions";
 import getEHRBySubjectId from "../components/GetEHRBySubjectId";
 import getScores from "../components/GetScores";
-import { getSubjectId } from "./PatientUtils";
 import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
@@ -60,11 +59,12 @@ export class PatientOverview extends React.Component {
 }
 
 function PatientProgressTableEntry(props) {
-    return <tr>
-        <td>{props.nhs_number}</td>
-        <td>{props.composer_name}</td>
-        <td>{props.episode_identifier}</td>
-        <td>{props.aofas_comment}</td>
+    // TODO: what happens if no NHS number?
+    return <tr key={"composition" + props.nhs_number + "no" + props.index}>
+        <td key={"composition" + props.nhs_number + "no" + props.index + "nhsNumber"}>{props.nhs_number}</td>
+        <td key={"composition" + props.nhs_number + "no" + props.index + "composerName"}>{props.composer_name}</td>
+        <td key={"composition" + props.nhs_number + "no" + props.index + "episodeIdentifier"}>{props.episode_identifier}</td>
+        <td key={"composition" + props.nhs_number + "no" + props.index + "aofasComment"}>{props.aofas_comment}</td>
     </tr>;
 }
 
@@ -84,12 +84,14 @@ class Compositions extends React.Component {
     render() {
         if (!this.state.compositions) return null;
         if (this.state.compositions.length > 0) {
-            return this.state.compositions.map((e) =>
-                PatientProgressTableEntry(e)
+            return this.state.compositions.map((e, index) => {
+                e.index = index;
+                return PatientProgressTableEntry(e)
+            }
             )
         } else {
-            return <tr>
-                <td colspan="4">No compositions were found</td>
+            return <tr key="noCompositionsRow">
+                <td key="noCompositionsData" colspan="4">No compositions were found</td>
             </tr>;
         }
     }
@@ -105,7 +107,7 @@ export function PatientProgressTable(props) {
                                        aofas_comment="AOFAS Comment"/>
             </thead>
             <tbody>
-            <Compositions ehrId={props.ehrId}/>
+            <Compositions key='compositions' ehrId={props.ehrId}/>
             </tbody>
         </Table>;
     } else {
