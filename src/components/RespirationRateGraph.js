@@ -3,8 +3,9 @@ import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 const RespirationRateGraph = props => {
-    // console.log("Graph!");
-    // console.log(props.pain);
+    const respirationRateMagnitude = props.magnitude;
+    const time = props.time;
+    const unit = props.units;
 
     const options = {
         chart: {
@@ -17,17 +18,20 @@ const RespirationRateGraph = props => {
             title : {
                 text : "Time"
             },
-            categories: [a,b,c,d,e,f]
+            categories: time
         },
         yAxis: {
             title : {
-                text : "Rate/min"
+                text : "Rate" + unit
             }
+        },
+        tooltip:{
+            valueSuffix : unit
         },
         series : [
             {
                 name: "Respiration Rate",
-                data: [1,2,3,4,5,6]
+                data: respirationRateMagnitude
             }
         ]
     };
