@@ -8,6 +8,7 @@ import qs from 'qs';
 import Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
+import Button from 'react-bootstrap/Button';
 
 import HeaderMenu from "../../components/HeaderMenu";
 import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph } from "../PatientComponents";
@@ -27,7 +28,12 @@ function PatientRecordsReport(props) {
 class PatientRecords extends React.Component {
     constructor(props) {
         super(props);
+        this.goBack = this.goBack.bind(this);
         this.state = {};
+    }
+
+    goBack(){
+        this.props.history.goBack();
     }
 
     componentDidMount() {
@@ -242,10 +248,15 @@ class PatientRecords extends React.Component {
 
     render() {
         let subjectId = getSubjectId(this.props.location.search);
-        console.log(this.state.ehrId);
+        // console.log(this.state.ehrId);
         return (
             <div>
                 <HeaderMenu/>
+                <div style={{float: 'left'}}>
+                <Nav className="flex-column">
+                    <Nav.Link onClick={this.goBack} style={{color: 'red'}}>Patients List</Nav.Link>
+                </Nav>
+                </div>
                 <Container>
                     <Card>
                         <Card.Header>Patient Record</Card.Header>
@@ -290,8 +301,7 @@ class PatientRecords extends React.Component {
                                                                         Composition</Nav.Link>
                                                                 </Nav.Item> */}
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="indirectOximetry">Body
-                                                                        Temperature</Nav.Link>
+                                                                    <Nav.Link eventKey="indirectOximetry">Indirect Oximetry</Nav.Link>
                                                                 </Nav.Item>
                                                             </Nav>
                                                             <Tab.Content>
