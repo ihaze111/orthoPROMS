@@ -9,6 +9,8 @@ import Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
 import Button from 'react-bootstrap/Button';
+import back from "../../components/Clinician/back.png";
+import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
 import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph } from "../PatientComponents";
@@ -253,9 +255,10 @@ class PatientRecords extends React.Component {
             <div>
                 <HeaderMenu/>
                 <div style={{float: 'left'}}>
-                <Nav className="flex-column">
+                    <img src={back} onClick={this.goBack} onHov/>
+                {/* <Nav className="flex-column">
                     <Nav.Link onClick={this.goBack} style={{color: 'red'}}>Patients List</Nav.Link>
-                </Nav>
+                </Nav> */}
                 </div>
                 <Container>
                     <Card>
