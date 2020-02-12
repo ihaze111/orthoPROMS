@@ -1,6 +1,7 @@
 import React from "react";
 import HighCharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+// eslint-disable-next-line no-unused-vars
 import HighChartsMore from 'highcharts/highcharts-more';
 
 const RadarGraph = props => {
@@ -13,37 +14,37 @@ const RadarGraph = props => {
             polar: true,
             type: 'line'
         },
-    
+
         title: {
             text: 'Progress Comparison'
         },
-    
+
         pane: {
             size: '100%'
         },
-    
+
         xAxis: {
             categories: ["Pain","Activity limitations and support requirements", "Walking","Walking surfaces"],
             tickmarkPlacement: 'on',
             lineWidth: 0
         },
-    
+
         yAxis: {
             gridLineInterpolation: 'polygon',
             lineWidth: 0,
             min: 0
         },
-    
+
         tooltip: {
             shared: true,
             pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
         },
-    
+
         legend: {
             align: 'center',
             verticalAlign: 'top'
         },
-    
+
         series: [{
             name: 'Pre-Operation',
             color: 'red',
@@ -60,7 +61,7 @@ const RadarGraph = props => {
             data: sixWeeksPostOperation,
             pointPlacement: 'on'
         }],
-    
+
         responsive: {
             rules: [{
                 condition: {
