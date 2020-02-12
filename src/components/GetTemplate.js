@@ -31,7 +31,7 @@ async function getTemplate() {
                         if (e.inputs[0].type === "CODED_TEXT") {
                             processedResult.push({ inputType: "radio", id: e.id, name, description, aqlPath: e.aqlPath, nodeId: e.nodeId, labels, inputs: e.inputs });
                         } else if (e.inputs[0].type === "TEXT") {
-                            processedResult.push({ inputType: "text", name, description });
+                            processedResult.push({ inputType: "text", id: e.id, name, description });
                         }
                     }
                 }
