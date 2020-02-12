@@ -1,0 +1,11 @@
+img:hover{
+    cursor: pointer;
+}
+
+/* .backButton {
+    size: '35%';
+} */
+img{
+    height: 35%;
+    width: 35%
+}

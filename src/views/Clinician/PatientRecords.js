@@ -8,9 +8,12 @@ import qs from 'qs';
 import Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import variablepie from 'highcharts/modules/variable-pie';
+import Button from 'react-bootstrap/Button';
+import back from "../../components/Clinician/back.png";
+import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -27,7 +30,12 @@ function PatientRecordsReport(props) {
 class PatientRecords extends React.Component {
     constructor(props) {
         super(props);
+        this.goBack = this.goBack.bind(this);
         this.state = {};
+    }
+
+    goBack(){
+        this.props.history.goBack();
     }
 
     componentDidMount() {
@@ -173,26 +181,26 @@ class PatientRecords extends React.Component {
             }]
         };
 
-        var metaRate = {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Basal Metabolism Rate (BMR)'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Calories per Day (kcal/day)'
-                }
-            },
-            series: [{
-                name: 'Calories per day',
-                data: [1600, 1750, 1800, 1650, 1850]
-            }]
-        };
+        // var metaRate = {
+        //     chart: {
+        //         type: 'line'
+        //     },
+        //     title: {
+        //         text: 'Basal Metabolism Rate (BMR)'
+        //     },
+        //     xAxis: {
+        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
+        //     },
+        //     yAxis: {
+        //         title: {
+        //             text: 'Calories per Day (kcal/day)'
+        //         }
+        //     },
+        //     series: [{
+        //         name: 'Calories per day',
+        //         data: [1600, 1750, 1800, 1650, 1850]
+        //     }]
+        // };
 
         var bodyTemp = {
             chart: {
@@ -233,19 +241,25 @@ class PatientRecords extends React.Component {
         require('highcharts/highcharts-more')(Highcharts);
         require('highcharts/modules/variable-pie')(Highcharts);
         // var chart = Highcharts.chart('container', tracker);
-        var chart11 = Highcharts.chart('bloodSugarContainer', bloodSugarLevels);
-        var tendonReflexes = Highcharts.chart('tendonReflexesContainer', tendonReflexes);
-        var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
-        var basalMetaRate = Highcharts.chart('metaRateContainer', metaRate);
-        var bodyTemperature = Highcharts.chart('bodyTempContainer', bodyTemp);
+        var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
+        var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
+        // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
+        // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
+        var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
     }
 
     render() {
         let subjectId = getSubjectId(this.props.location.search);
-        console.log(this.state.ehrId);
+        // console.log(this.state.ehrId);
         return (
             <div>
                 <HeaderMenu/>
+                <div style={{float: 'left'}}>
+                    <img src={back} onClick={this.goBack} onHov/>
+                {/* <Nav className="flex-column">
+                    <Nav.Link onClick={this.goBack} style={{color: 'red'}}>Patients List</Nav.Link>
+                </Nav> */}
+                </div>
                 <Container>
                     <Card>
                         <Card.Header>Patient Record</Card.Header>
@@ -274,56 +288,51 @@ class PatientRecords extends React.Component {
                                                         <Card.Title>Patient's History</Card.Title>
                                                     </Card.Header>
                                                     <Card.Body>
-                                                        <Tab.Container defaultActiveKey="bloodSugarLevels">
+                                                        <Tab.Container defaultActiveKey="bloodPressure">
                                                             <Nav variant="tabs" style={{ marginBottom: '40px' }}>
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="bloodSugarLevels">Blood
-                                                                        Sugar
-                                                                        Levels</Nav.Link>
+                                                                    <Nav.Link eventKey="bloodPressure">Blood Pressure</Nav.Link>
                                                                 </Nav.Item>
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="tendonReflexes">Tendon
-                                                                        Reflexes</Nav.Link>
+                                                                    <Nav.Link eventKey="heartRate">Heart Rate</Nav.Link>
                                                                 </Nav.Item>
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="basalMetabolicRate">Basal
-                                                                        Metabolic
-                                                                        Rate</Nav.Link>
+                                                                    <Nav.Link eventKey="respirationRate">Respiration Rate</Nav.Link>
                                                                 </Nav.Item>
-                                                                <Nav.Item>
+                                                                {/* <Nav.Item>
                                                                     <Nav.Link eventKey="bodyComposition">Body
                                                                         Composition</Nav.Link>
-                                                                </Nav.Item>
+                                                                </Nav.Item> */}
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="bodyTemperature">Body
-                                                                        Temperature</Nav.Link>
+                                                                    <Nav.Link eventKey="indirectOximetry">Indirect Oximetry</Nav.Link>
                                                                 </Nav.Item>
                                                             </Nav>
                                                             <Tab.Content>
-                                                                <Tab.Pane eventKey="bloodSugarLevels">
-                                                                    <div id="bloodSugarContainer"
+                                                                <Tab.Pane eventKey="bloodPressure">
+                                                                    <div id="bloodPressureContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sbloodSugar"/>
+                                                                         className="sbloodPressure"/>
                                                                 </Tab.Pane>
-                                                                <Tab.Pane eventKey="tendonReflexes">
-                                                                    <div id="tendonReflexesContainer"
+                                                                <Tab.Pane eventKey="heartRate">
+                                                                    <div id="heartRateContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="stendonReflex"/>
+                                                                         className="sheartRate"/>
                                                                 </Tab.Pane>
-                                                                <Tab.Pane eventKey="basalMetabolicRate">
+                                                                <Tab.Pane eventKey="respirationRate">
+                                                                    <div><RespirationGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="respirationRateContainer"
+                                                                         style={{ width: '700px', height: '500px' }}
+                                                                         className="srespirationRate"/> */}
+                                                                </Tab.Pane>
+                                                                {/* <Tab.Pane eventKey="bodyComposition">
                                                                     <div id="bodyCompContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sbodyComposition"/>
-                                                                </Tab.Pane>
-                                                                <Tab.Pane eventKey="bodyComposition">
-                                                                    <div id="metaRateContainer"
+                                                                         className="sbodyComp"/>
+                                                                </Tab.Pane> */}
+                                                                <Tab.Pane eventKey="indirectOximetry">
+                                                                    <div id="indirectOximetryContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="smetaRate"/>
-                                                                </Tab.Pane>
-                                                                <Tab.Pane eventKey="bodyTemperature">
-                                                                    <div id="bodyTempContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sbodyTemp"/>
+                                                                         className="sindirectOximetry"/>
                                                                 </Tab.Pane>
                                                             </Tab.Content>
                                                         </Tab.Container>
