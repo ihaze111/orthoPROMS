@@ -1,6 +1,4 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Tab from 'react-bootstrap/Tab';
@@ -10,72 +8,11 @@ import Nav from 'react-bootstrap/Nav';
 import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
 import RadarChart from "../../components/Charts/RadarChart";
-import getTemplate from "../../components/GetTemplate";
 import * as PropTypes from "prop-types";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph} from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph } from "../PatientComponents";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import RadarGraph from '../../components/RadarGraph';
-
-function SurveyQuestionInput(props) {
-    const inputs = props.inputs;
-    if (props.inputType === 'radio') {
-        return <div key={`inline-radio`} className="mb-3">
-            {/*<input type="hidden" name={`${props.nodeId}-aqlPath`} value={props.aqlPath}/>*/}
-            {inputs[0].list.map(function (input, index) {
-                return (<Form.Check label={`${input.label}`} value={`${input.value}`} type="radio"
-                                    key={`${props.name}-${input.label}-${index}`}
-                                    id={`${props.id}-${input.label}-${index}`} name={`${props.id}`}/>
-                )
-            })}
-        </div>;
-    } else {
-        return <div key={`inline-text`} className="mb-3">
-            <Form.Control type="text"/>
-        </div>;
-    }
-}
-
-function SurveyQuestion(props) {
-    return <Form.Group controlId={`${props.name}`}
-                       style={{ marginLeft: '0px', marginRight: '2px' }} className="surveyQuestion">
-        <p>{props.name}</p>
-        <span style={{ color: 'grey', fontSize: '0.8em' }}>{props.description}</span><br/>
-        {SurveyQuestionInput(props)}
-    </Form.Group>;
-}
-
-
-class Template extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    componentDidMount() {
-        let promise = getTemplate();
-        promise.then((e) => {
-            this.setState({ template: e });
-        });
-    }
-
-    // handleSubmit(event) {
-    //     event.preventDefault();
-    //     // this.setState({ template: this.state.template, submitted: "YES" });
-    //     alert("hi");
-    // }
-
-    render() {
-        if (!this.state.template) return null;
-        return <Form method="GET">
-            {this.state.template.map((e) => (
-                SurveyQuestion(e)))}
-            {/*<input type="submit"/>*/}
-            <Button id="submit" onClick={() => {
-                $('#submitSurveyDialog').fadeIn(500)
-            }}>Submit</Button>
-        </Form>;
-    }
-}
+import Template from "./Template";
 
 function SurveySuccess() {
     return <Alert variant="success" onClose={() => {
@@ -92,7 +29,7 @@ class PatientSelf extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            painArray : []
+            painArray: []
         };
     }
 
@@ -120,19 +57,13 @@ class PatientSelf extends React.Component {
         //     var request = require('request');
         //     var options = {
         //         'method': 'POST',
-        //         'url': 'https://cdr.code4health.org/rest/v1/composition?ehrId=b80a3a97-be75-41c6-a497-6ed53ce8f8c6&templateId=Foot_and_Ankle_PROMs-v0&committerName=Dr nullnull&format=FLAT',
-        //         'headers': {
-        //             'Ehr-Session-disabled': '{{Ehr-Session}}',
-        //             'Content-Type': 'application/json',
-        //             'Authorization': '***REMOVED***'
-        //         },
-        //         body: JSON.stringify(compositionSring)
-        //     };
-        //     request(options, function (error, response) {
-        //         if (error) throw new Error(error);
-        //         console.log(response.body);
-        //     });
-        // }
+        //         'url':
+        // 'https://cdr.code4health.org/rest/v1/composition?ehrId=b80a3a97-be75-41c6-a497-6ed53ce8f8c6&templateId=Foot_and_Ankle_PROMs-v0&committerName=Dr
+        // nullnull&format=FLAT', 'headers': { 'Ehr-Session-disabled': '{{Ehr-Session}}', 'Content-Type':
+        // 'application/json', 'Authorization': 'Basic
+        // YmIyNjRiY2UtYzQwNy00OTgyLTkwMTctOTdkMzcyN2ZjZmE0OiQyYSQxMCQ2MTlraQ==' }, body:
+        // JSON.stringify(compositionSring) }; request(options, function (error, response) { if (error) throw new
+        // Error(error); console.log(response.body); }); }
 
         $('#submitSurveyDialog').hide();
 
@@ -175,11 +106,11 @@ class PatientSelf extends React.Component {
                                     <Tab.Pane eventKey="myData">
                                         <div><ScoresArray ehrId={this.state.ehrId}/></div>
                                         <br/><br/><br/>
-                                        <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
+                                        <div style={{ width: '1000px', height: '400px' }}><EpisodeScoresGraph
+                                            ehrId={this.state.ehrId}/></div>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="survey">
                                         <Template/>
-                                        <br/>
                                         <SurveySuccess/>
                                     </Tab.Pane>
                                 </Tab.Content>
