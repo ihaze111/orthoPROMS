@@ -1,14 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import Table from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
-import $ from 'jquery';
-import qs from 'qs';
-import Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/highcharts-more';
-import variablepie from 'highcharts/modules/variable-pie';
-import Button from 'react-bootstrap/Button';
+// import variablepie from 'highcharts/modules/variable-pie';
 import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
@@ -116,70 +109,70 @@ class PatientRecords extends React.Component {
             }]
         };
 
-        var bodyComp = {
-            chart: {
-                type: 'variablepie'
-            },
-            title: {
-                text: 'Body Composition'
-            },
-            tooltip: {
-                headerFormat: '',
-                pointFormat: '<span style="color:{point.color}"></span> <b> {point.name}</b><br/>' +
-                    'Composition: <b>{point.y}</b>%<br/>'
-            },
-            series: [{
-                minPointSize: 10,
-                innerSize: '20%',
-                zMin: 0,
-                name: 'body composition',
-                data: [{
-                    name: 'Fat Percentage',
-                    y: 10,
-                    z: 3
-                },
-                    {
-                        name: 'Hydrogen',
-                        y: 3,
-                        z: 3
-                    },
-                    {
-                        name: 'Carbon',
-                        y: 10,
-                        z: 3
-                    },
-                    {
-                        name: 'Oxygen',
-                        y: 2,
-                        z: 3
-                    },
-                    {
-                        name: 'Water',
-                        y: 20,
-                        z: 3
-                    },
-                    {
-                        name: 'Protein',
-                        y: 10,
-                        z: 3
-                    },
-                    {
-                        name: 'Bone',
-                        y: 40,
-                        z: 3
-                    },
-                    {
-                        name: 'Skeletal Muscle',
-                        y: 3,
-                        z: 3
-                    },
-                    {
-                        name: 'Adipose Tissue',
-                        y: 2,
-                        z: 3
-                    }]
-            }]
-        };
+        // var bodyComp = {
+        //     chart: {
+        //         type: 'variablepie'
+        //     },
+        //     title: {
+        //         text: 'Body Composition'
+        //     },
+        //     tooltip: {
+        //         headerFormat: '',
+        //         pointFormat: '<span style="color:{point.color}"></span> <b> {point.name}</b><br/>' +
+        //             'Composition: <b>{point.y}</b>%<br/>'
+        //     },
+        //     series: [{
+        //         minPointSize: 10,
+        //         innerSize: '20%',
+        //         zMin: 0,
+        //         name: 'body composition',
+        //         data: [{
+        //             name: 'Fat Percentage',
+        //             y: 10,
+        //             z: 3
+        //         },
+        //             {
+        //                 name: 'Hydrogen',
+        //                 y: 3,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Carbon',
+        //                 y: 10,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Oxygen',
+        //                 y: 2,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Water',
+        //                 y: 20,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Protein',
+        //                 y: 10,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Bone',
+        //                 y: 40,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Skeletal Muscle',
+        //                 y: 3,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Adipose Tissue',
+        //                 y: 2,
+        //                 z: 3
+        //             }]
+        //     }]
+        // };
 
         // var metaRate = {
         //     chart: {
@@ -241,10 +234,13 @@ class PatientRecords extends React.Component {
         require('highcharts/highcharts-more')(Highcharts);
         require('highcharts/modules/variable-pie')(Highcharts);
         // var chart = Highcharts.chart('container', tracker);
+        // eslint-disable-next-line no-unused-vars
         var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
+        // eslint-disable-next-line no-redeclare
         var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
         // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
         // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
+        // eslint-disable-next-line no-unused-vars
         var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
     }
 
@@ -255,7 +251,7 @@ class PatientRecords extends React.Component {
             <div>
                 <HeaderMenu/>
                 <div style={{float: 'left'}}>
-                    <img src={back} onClick={this.goBack} onHov/>
+                    <img src={back} onClick={this.goBack} onHov alt={"back"}/>
                 {/* <Nav className="flex-column">
                     <Nav.Link onClick={this.goBack} style={{color: 'red'}}>Patients List</Nav.Link>
                 </Nav> */}
