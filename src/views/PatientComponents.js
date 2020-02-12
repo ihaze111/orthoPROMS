@@ -5,7 +5,9 @@ import getEHRBySubjectId from "../components/GetEHRBySubjectId";
 import getScores from "../components/GetScores";
 import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
+import RespirationRateGraph from "../components/RespirationRateGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
+import getRespirationRate from "../components/GetRespirationRate";
 
 // export function PatientOverview(props) {
 //     return <div style={{ display: "flex" }}>
@@ -90,7 +92,7 @@ class Compositions extends React.Component {
             )
         } else {
             return <tr key="noCompositionsRow">
-                <td key="noCompositionsData" colspan="4">No compositions were found</td>
+                <td key="noCompositionsData" colSpan="4">No compositions were found</td>
             </tr>;
         }
     }
@@ -164,9 +166,7 @@ class Scores extends React.Component {
                                      time={this.state.regTimeArray}
                                      /></div>
         } else {
-            return <tr>
-                <td colspan="4">No scores were found</td>
-            </tr>;
+            return <p>No scores were found</p>;
         }
     }
 }
@@ -217,15 +217,57 @@ class EpisodeScores extends React.Component {
                                oneWeek={this.state.oneWeekPostOp}
                                sixWeeks={this.state.sixWeeksPostOp}/>
         } else {
-            return <tr>
-                <td colspan="4">No episode scores were found</td>
-            </tr>;
+            return <p>No episode scores were found</p>;
         }
     }
 }
 export function EpisodeScoresGraph(props) {
     if (props.ehrId) {
         return <div><EpisodeScores ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class RespirationRate extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            respiration_magnitude : [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getRespirationRate(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ respirationRate: e});
+        });
+    }
+
+    pushIntoArrays(props){
+        this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.respirationRate) return null;
+        this.state.respirationRate.map((e) => {
+            this.pushIntoArrays(e);
+        });
+        if (this.state.respirationRate.length > 0) {
+            return <RespirationRateGraph magnitude={this.state.respiration_magnitude}
+                               time={this.state.time}
+                               units={this.state.respirationRate[0].respiration_rate.units}/>
+        } else {
+            return <p>No Respiration Rate were recorded</p>;
+        }
+    }
+}
+export function RespirationGraph(props) {
+    if (props.ehrId) {
+        return <div><RespirationRate ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
