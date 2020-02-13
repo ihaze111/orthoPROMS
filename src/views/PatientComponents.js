@@ -11,24 +11,6 @@ import getEpisodeScores from "../components/GetEpisodeScores";
 import getRespirationRate from "../components/GetRespirationRate";
 import getBloodPressure from "../components/GetBloodPressure";
 
-// export function PatientOverview(props) {
-//     return <div style={{ display: "flex" }}>
-//         <div style={{ width: "50%" }}>
-//             <p>EHR ID: {props.ehrId}</p>
-//             <p>Name: Kim</p>
-//             <p>Age: 65</p>
-//             <p>Sex: M</p>
-//             <p>Type: Fracture</p>
-//             <p>Your GP: Doctor.Jack</p>
-//         </div>
-//         <div style={{ width: "40%", alignSelf: "center", textAlign: "center" }}>
-//             <img src="./240px-User_icon_2.svg.png"
-//                  style={{ width: "40%" }} alt=""/>
-//         </div>
-//     </div>;
-// }
-
-
 export class PatientOverview extends React.Component {
     constructor(props) {
         super(props);
@@ -150,6 +132,7 @@ class Scores extends React.Component {
 
     render() {
         if (!this.state.scores) return null;
+        // eslint-disable-next-line array-callback-return
         this.state.scores.map((e) => {
             this.pushArray(e);
         });
@@ -255,6 +238,7 @@ class RespirationRate extends React.Component {
 
     render() {
         if (!this.state.respirationRate) return null;
+        // eslint-disable-next-line array-callback-return
         this.state.respirationRate.map((e) => {
             this.pushIntoArrays(e);
         });
