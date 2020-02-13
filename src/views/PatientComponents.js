@@ -6,8 +6,10 @@ import getScores from "../components/GetScores";
 import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
 import RespirationRateGraph from "../components/RespirationRateGraph";
+import BloodPressureGraph from "../components/BloodPressureGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
 import getRespirationRate from "../components/GetRespirationRate";
+import getBloodPressure from "../components/GetBloodPressure";
 
 // export function PatientOverview(props) {
 //     return <div style={{ display: "flex" }}>
@@ -268,6 +270,53 @@ class RespirationRate extends React.Component {
 export function RespirationGraph(props) {
     if (props.ehrId) {
         return <div><RespirationRate ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class BloodPressure extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            systolicRate : [],
+            diastolicRate: [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getBloodPressure(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ bloodPressure: e});
+        });
+    }
+
+    pushIntoArrays(props){
+        this.state.systolicRate.push(props.systolic.magnitude);
+        this.state.diastolicRate.push(props.diastolic.magnitude);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.bloodPressure) return null;
+        this.state.bloodPressure.map((e) => {
+            this.pushIntoArrays(e);
+        });
+        if (this.state.bloodPressure.length > 0) {
+            return <BloodPressureGraph systolic={this.state.systolicRate}
+                                       diastolic={this.state.diastolicRate}
+                                       time={this.state.time}
+                                       units={this.state.bloodPressure[0].systolic.units}/>
+        } else {
+            return <p>No Blood Pressure were recorded</p>;
+        }
+    }
+}
+export function PressureGraph(props) {
+    if (props.ehrId) {
+        return <div><BloodPressure ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
