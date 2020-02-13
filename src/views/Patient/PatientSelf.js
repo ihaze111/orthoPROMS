@@ -7,11 +7,9 @@ import Nav from 'react-bootstrap/Nav';
 
 import $ from 'jquery';
 import HeaderMenu from "../../components/HeaderMenu";
-import RadarChart from "../../components/Charts/RadarChart";
 import * as PropTypes from "prop-types";
 import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph } from "../PatientComponents";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
-import RadarGraph from '../../components/RadarGraph';
 import Template from "./Template";
 
 function SurveySuccess() {
