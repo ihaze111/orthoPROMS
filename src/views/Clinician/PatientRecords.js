@@ -34,54 +34,6 @@ class PatientRecords extends React.Component {
     componentDidMount() {
         loadEhrId.call(this);
 
-        // var tracker = {
-        //     chart: {
-        //         type: 'line'
-        //     },
-        //     title: {
-        //         text: 'Pain-Progress Tracker'
-        //     },
-        //     xAxis: {
-        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-
-        //     },
-        //     yAxis: {
-        //         title: {
-        //             text: 'Total Score'
-        //         }
-        //     },
-        //     series: [{
-        //         name: 'distance walked',
-        //         data: [0, 3, 3, 4, 6, 9]
-        //     }, {
-        //         name: 'pain level',
-        //         data: [10, 10, 9, 7, 4, 2]
-        //     }, {
-        //         name: 'joint comfortness',
-        //         data: [1, 2, 2, 5, 8, 9.5]
-        //     }]
-        // };
-
-        var bloodSugarLevels = {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Blood Sugar Levels'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Blood Sugar Level mmol/L'
-                }
-            },
-            series: [{
-                name: 'Blood Sugar Level',
-                data: [100, 120, 97, 130, 150]
-            }]
-        };
 
         var tendonReflexes = {
             chart: {
@@ -174,27 +126,6 @@ class PatientRecords extends React.Component {
         //     }]
         // };
 
-        // var metaRate = {
-        //     chart: {
-        //         type: 'line'
-        //     },
-        //     title: {
-        //         text: 'Basal Metabolism Rate (BMR)'
-        //     },
-        //     xAxis: {
-        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-        //     },
-        //     yAxis: {
-        //         title: {
-        //             text: 'Calories per Day (kcal/day)'
-        //         }
-        //     },
-        //     series: [{
-        //         name: 'Calories per day',
-        //         data: [1600, 1750, 1800, 1650, 1850]
-        //     }]
-        // };
-
         var bodyTemp = {
             chart: {
                 type: 'columnrange'
@@ -234,13 +165,9 @@ class PatientRecords extends React.Component {
         require('highcharts/highcharts-more')(Highcharts);
         require('highcharts/modules/variable-pie')(Highcharts);
         // var chart = Highcharts.chart('container', tracker);
-<<<<<<< HEAD
-        // var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
-=======
         // eslint-disable-next-line no-unused-vars
-        var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
+        // var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
         // eslint-disable-next-line no-redeclare
->>>>>>> 35080530d8ed40a22ceccc1c17cab62adac2433f
         var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
         // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
         // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
