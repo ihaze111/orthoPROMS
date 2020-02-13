@@ -13,7 +13,7 @@ import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -241,7 +241,7 @@ class PatientRecords extends React.Component {
         require('highcharts/highcharts-more')(Highcharts);
         require('highcharts/modules/variable-pie')(Highcharts);
         // var chart = Highcharts.chart('container', tracker);
-        var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
+        // var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
         var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
         // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
         // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
@@ -309,9 +309,10 @@ class PatientRecords extends React.Component {
                                                             </Nav>
                                                             <Tab.Content>
                                                                 <Tab.Pane eventKey="bloodPressure">
-                                                                    <div id="bloodPressureContainer"
+                                                                    <div><PressureGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="bloodPressureContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sbloodPressure"/>
+                                                                         className="sbloodPressure"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="heartRate">
                                                                     <div id="heartRateContainer"
