@@ -35,32 +35,6 @@ class PatientRecords extends React.Component {
         loadEhrId.call(this);
 
 
-        var tendonReflexes = {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Tendon Reflexes'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Reflex Score'
-                }
-            },
-            legend: {
-                title: {
-                    text: '0-Absent, 1-Possibly Present, 2-Present but Low Amplitude, 3-Normal, 4-Increased, 5-Markedly Increased'
-                }
-            },
-            series: [{
-                name: 'Tendon Reflex Score',
-                data: [5, 3, 2, 4, 1]
-            }]
-        };
-
         // var bodyComp = {
         //     chart: {
         //         type: 'variablepie'
@@ -126,53 +100,44 @@ class PatientRecords extends React.Component {
         //     }]
         // };
 
-        var bodyTemp = {
-            chart: {
-                type: 'columnrange'
-            },
-            title: {
-                text: 'Body Temperature'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Temperature ( °C )'
-                }
-            },
-            tooltip: {
-                valueSuffix: '°C'
-            },
-            plotOptions: {
-                columnrange: {
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function () {
-                            return this.y + '°C';
-                        },
-                        y: 0
-                    }
-                }
-            },
-            series: [{
-                name: 'Temperatures',
-                data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
-            }]
-        };
+        // var bodyTemp = {
+        //     chart: {
+        //         type: 'columnrange'
+        //     },
+        //     title: {
+        //         text: 'Body Temperature'
+        //     },
+        //     xAxis: {
+        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
+        //     },
+        //     yAxis: {
+        //         title: {
+        //             text: 'Temperature ( °C )'
+        //         }
+        //     },
+        //     tooltip: {
+        //         valueSuffix: '°C'
+        //     },
+        //     plotOptions: {
+        //         columnrange: {
+        //             dataLabels: {
+        //                 enabled: true,
+        //                 formatter: function () {
+        //                     return this.y + '°C';
+        //                 },
+        //                 y: 0
+        //             }
+        //         }
+        //     },
+        //     series: [{
+        //         name: 'Temperatures',
+        //         data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
+        //     }]
+        // };
 
-        var Highcharts = require('highcharts');
-        require('highcharts/highcharts-more')(Highcharts);
-        require('highcharts/modules/variable-pie')(Highcharts);
-        // var chart = Highcharts.chart('container', tracker);
-        // eslint-disable-next-line no-unused-vars
-        // var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
-        // eslint-disable-next-line no-redeclare
-        // var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
-        // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
-        // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
-        // eslint-disable-next-line no-unused-vars
-        // var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
+        // var Highcharts = require('highcharts');
+        // require('highcharts/highcharts-more')(Highcharts);
+        // require('highcharts/modules/variable-pie')(Highcharts);
     }
 
     render() {
