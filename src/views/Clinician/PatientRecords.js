@@ -6,7 +6,7 @@ import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph, OxygenConcentrationGraph, HeartGraph } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -168,11 +168,11 @@ class PatientRecords extends React.Component {
         // eslint-disable-next-line no-unused-vars
         // var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
         // eslint-disable-next-line no-redeclare
-        var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
+        // var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
         // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
         // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
         // eslint-disable-next-line no-unused-vars
-        var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
+        // var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
     }
 
     render() {
@@ -231,7 +231,7 @@ class PatientRecords extends React.Component {
                                                                         Composition</Nav.Link>
                                                                 </Nav.Item> */}
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="indirectOximetry">Indirect Oximetry</Nav.Link>
+                                                                    <Nav.Link eventKey="indirectOximetry">Oxygen Saturation</Nav.Link>
                                                                 </Nav.Item>
                                                             </Nav>
                                                             <Tab.Content>
@@ -242,9 +242,10 @@ class PatientRecords extends React.Component {
                                                                          className="sbloodPressure"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="heartRate">
-                                                                    <div id="heartRateContainer"
+                                                                    <div><HeartGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="heartRateContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sheartRate"/>
+                                                                         className="sheartRate"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="respirationRate">
                                                                     <div><RespirationGraph ehrId={this.state.ehrId}/></div>
@@ -258,9 +259,10 @@ class PatientRecords extends React.Component {
                                                                          className="sbodyComp"/>
                                                                 </Tab.Pane> */}
                                                                 <Tab.Pane eventKey="indirectOximetry">
-                                                                    <div id="indirectOximetryContainer"
+                                                                    <div><OxygenConcentrationGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="indirectOximetryContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sindirectOximetry"/>
+                                                                         className="sindirectOximetry"/> */}
                                                                 </Tab.Pane>
                                                             </Tab.Content>
                                                         </Tab.Container>

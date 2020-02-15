@@ -7,9 +7,13 @@ import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
 import RespirationRateGraph from "../components/RespirationRateGraph";
 import BloodPressureGraph from "../components/BloodPressureGraph";
+import OxygenSaturationGraph from "../components/OxygenSaturationGraph";
+import HeartRateGraph from "../components/HeartRateGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
 import getRespirationRate from "../components/GetRespirationRate";
 import getBloodPressure from "../components/GetBloodPressure";
+import getIndirectOximetry from "../components/GetIndirectOximetry";
+import getHeartRate from "../components/GetHeartRate";
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -301,6 +305,94 @@ class BloodPressure extends React.Component {
 export function PressureGraph(props) {
     if (props.ehrId) {
         return <div><BloodPressure ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class IndirectOximetry extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            concentration : [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getIndirectOximetry(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ indirectOximetry: e});
+        });
+    }
+
+    pushIntoArraysandCalculate(props){
+        var result = (props.numerator / props.denominator) * 100;
+        this.state.concentration.push(result);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.indirectOximetry) return null;
+        this.state.indirectOximetry.map((e) => {
+            this.pushIntoArraysandCalculate(e);
+        });
+        if (this.state.indirectOximetry.length > 0) {
+            return <OxygenSaturationGraph percent={this.state.concentration}
+                                          time={this.state.time}/>
+        } else {
+            return <p>No oxygen concentration were recorded</p>;
+        }
+    }
+}
+export function OxygenConcentrationGraph(props) {
+    if (props.ehrId) {
+        return <div><IndirectOximetry ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class HeartRate extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            heartRateReadings : [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getHeartRate(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ heartRate: e});
+        });
+    }
+
+    pushIntoArrays(props){
+        this.state.heartRateReadings.push(props.heart_rate.magnitude);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.heartRate) return null;
+        this.state.heartRate.map((e) => {
+            this.pushIntoArrays(e);
+        });
+        if (this.state.heartRate.length > 0) {
+            return <HeartRateGraph heartRates={this.state.heartRateReadings}
+                                   time={this.state.time}
+                                   units={this.state.heartRate[0].heart_rate.units}/>
+        } else {
+            return <p>No heart rates were recorded</p>;
+        }
+    }
+}
+export function HeartGraph(props) {
+    if (props.ehrId) {
+        return <div><HeartRate ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
