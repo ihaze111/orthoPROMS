@@ -1,19 +1,12 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import Table from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
-import $ from 'jquery';
-import qs from 'qs';
-import Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/highcharts-more';
-import variablepie from 'highcharts/modules/variable-pie';
-import Button from 'react-bootstrap/Button';
+// import variablepie from 'highcharts/modules/variable-pie';
 import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph, OxygenConcentrationGraph, HeartGraph } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -41,211 +34,110 @@ class PatientRecords extends React.Component {
     componentDidMount() {
         loadEhrId.call(this);
 
-        // var tracker = {
+
+        // var bodyComp = {
         //     chart: {
-        //         type: 'line'
+        //         type: 'variablepie'
         //     },
         //     title: {
-        //         text: 'Pain-Progress Tracker'
+        //         text: 'Body Composition'
         //     },
-        //     xAxis: {
-        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-
-        //     },
-        //     yAxis: {
-        //         title: {
-        //             text: 'Total Score'
-        //         }
+        //     tooltip: {
+        //         headerFormat: '',
+        //         pointFormat: '<span style="color:{point.color}"></span> <b> {point.name}</b><br/>' +
+        //             'Composition: <b>{point.y}</b>%<br/>'
         //     },
         //     series: [{
-        //         name: 'distance walked',
-        //         data: [0, 3, 3, 4, 6, 9]
-        //     }, {
-        //         name: 'pain level',
-        //         data: [10, 10, 9, 7, 4, 2]
-        //     }, {
-        //         name: 'joint comfortness',
-        //         data: [1, 2, 2, 5, 8, 9.5]
+        //         minPointSize: 10,
+        //         innerSize: '20%',
+        //         zMin: 0,
+        //         name: 'body composition',
+        //         data: [{
+        //             name: 'Fat Percentage',
+        //             y: 10,
+        //             z: 3
+        //         },
+        //             {
+        //                 name: 'Hydrogen',
+        //                 y: 3,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Carbon',
+        //                 y: 10,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Oxygen',
+        //                 y: 2,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Water',
+        //                 y: 20,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Protein',
+        //                 y: 10,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Bone',
+        //                 y: 40,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Skeletal Muscle',
+        //                 y: 3,
+        //                 z: 3
+        //             },
+        //             {
+        //                 name: 'Adipose Tissue',
+        //                 y: 2,
+        //                 z: 3
+        //             }]
         //     }]
         // };
 
-        var bloodSugarLevels = {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Blood Sugar Levels'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Blood Sugar Level mmol/L'
-                }
-            },
-            series: [{
-                name: 'Blood Sugar Level',
-                data: [100, 120, 97, 130, 150]
-            }]
-        };
-
-        var tendonReflexes = {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Tendon Reflexes'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Reflex Score'
-                }
-            },
-            legend: {
-                title: {
-                    text: '0-Absent, 1-Possibly Present, 2-Present but Low Amplitude, 3-Normal, 4-Increased, 5-Markedly Increased'
-                }
-            },
-            series: [{
-                name: 'Tendon Reflex Score',
-                data: [5, 3, 2, 4, 1]
-            }]
-        };
-
-        var bodyComp = {
-            chart: {
-                type: 'variablepie'
-            },
-            title: {
-                text: 'Body Composition'
-            },
-            tooltip: {
-                headerFormat: '',
-                pointFormat: '<span style="color:{point.color}"></span> <b> {point.name}</b><br/>' +
-                    'Composition: <b>{point.y}</b>%<br/>'
-            },
-            series: [{
-                minPointSize: 10,
-                innerSize: '20%',
-                zMin: 0,
-                name: 'body composition',
-                data: [{
-                    name: 'Fat Percentage',
-                    y: 10,
-                    z: 3
-                },
-                    {
-                        name: 'Hydrogen',
-                        y: 3,
-                        z: 3
-                    },
-                    {
-                        name: 'Carbon',
-                        y: 10,
-                        z: 3
-                    },
-                    {
-                        name: 'Oxygen',
-                        y: 2,
-                        z: 3
-                    },
-                    {
-                        name: 'Water',
-                        y: 20,
-                        z: 3
-                    },
-                    {
-                        name: 'Protein',
-                        y: 10,
-                        z: 3
-                    },
-                    {
-                        name: 'Bone',
-                        y: 40,
-                        z: 3
-                    },
-                    {
-                        name: 'Skeletal Muscle',
-                        y: 3,
-                        z: 3
-                    },
-                    {
-                        name: 'Adipose Tissue',
-                        y: 2,
-                        z: 3
-                    }]
-            }]
-        };
-
-        // var metaRate = {
+        // var bodyTemp = {
         //     chart: {
-        //         type: 'line'
+        //         type: 'columnrange'
         //     },
         //     title: {
-        //         text: 'Basal Metabolism Rate (BMR)'
+        //         text: 'Body Temperature'
         //     },
         //     xAxis: {
         //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
         //     },
         //     yAxis: {
         //         title: {
-        //             text: 'Calories per Day (kcal/day)'
+        //             text: 'Temperature ( °C )'
+        //         }
+        //     },
+        //     tooltip: {
+        //         valueSuffix: '°C'
+        //     },
+        //     plotOptions: {
+        //         columnrange: {
+        //             dataLabels: {
+        //                 enabled: true,
+        //                 formatter: function () {
+        //                     return this.y + '°C';
+        //                 },
+        //                 y: 0
+        //             }
         //         }
         //     },
         //     series: [{
-        //         name: 'Calories per day',
-        //         data: [1600, 1750, 1800, 1650, 1850]
+        //         name: 'Temperatures',
+        //         data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
         //     }]
         // };
 
-        var bodyTemp = {
-            chart: {
-                type: 'columnrange'
-            },
-            title: {
-                text: 'Body Temperature'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Temperature ( °C )'
-                }
-            },
-            tooltip: {
-                valueSuffix: '°C'
-            },
-            plotOptions: {
-                columnrange: {
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function () {
-                            return this.y + '°C';
-                        },
-                        y: 0
-                    }
-                }
-            },
-            series: [{
-                name: 'Temperatures',
-                data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
-            }]
-        };
-
-        var Highcharts = require('highcharts');
-        require('highcharts/highcharts-more')(Highcharts);
-        require('highcharts/modules/variable-pie')(Highcharts);
-        // var chart = Highcharts.chart('container', tracker);
-        var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
-        var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
-        // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
-        // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
-        var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
+        // var Highcharts = require('highcharts');
+        // require('highcharts/highcharts-more')(Highcharts);
+        // require('highcharts/modules/variable-pie')(Highcharts);
     }
 
     render() {
@@ -255,7 +147,7 @@ class PatientRecords extends React.Component {
             <div>
                 <HeaderMenu/>
                 <div style={{float: 'left'}}>
-                    <img src={back} onClick={this.goBack} onHov/>
+                    <img src={back} onClick={this.goBack} onHov alt={"back"}/>
                 {/* <Nav className="flex-column">
                     <Nav.Link onClick={this.goBack} style={{color: 'red'}}>Patients List</Nav.Link>
                 </Nav> */}
@@ -304,19 +196,21 @@ class PatientRecords extends React.Component {
                                                                         Composition</Nav.Link>
                                                                 </Nav.Item> */}
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="indirectOximetry">Indirect Oximetry</Nav.Link>
+                                                                    <Nav.Link eventKey="indirectOximetry">Oxygen Saturation</Nav.Link>
                                                                 </Nav.Item>
                                                             </Nav>
                                                             <Tab.Content>
                                                                 <Tab.Pane eventKey="bloodPressure">
-                                                                    <div id="bloodPressureContainer"
+                                                                    <div><PressureGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="bloodPressureContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sbloodPressure"/>
+                                                                         className="sbloodPressure"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="heartRate">
-                                                                    <div id="heartRateContainer"
+                                                                    <div><HeartGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="heartRateContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sheartRate"/>
+                                                                         className="sheartRate"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="respirationRate">
                                                                     <div><RespirationGraph ehrId={this.state.ehrId}/></div>
@@ -330,9 +224,10 @@ class PatientRecords extends React.Component {
                                                                          className="sbodyComp"/>
                                                                 </Tab.Pane> */}
                                                                 <Tab.Pane eventKey="indirectOximetry">
-                                                                    <div id="indirectOximetryContainer"
+                                                                    <div><OxygenConcentrationGraph ehrId={this.state.ehrId}/></div>
+                                                                    {/* <div id="indirectOximetryContainer"
                                                                          style={{ width: '700px', height: '500px' }}
-                                                                         className="sindirectOximetry"/>
+                                                                         className="sindirectOximetry"/> */}
                                                                 </Tab.Pane>
                                                             </Tab.Content>
                                                         </Tab.Container>

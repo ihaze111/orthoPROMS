@@ -6,26 +6,14 @@ import getScores from "../components/GetScores";
 import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
 import RespirationRateGraph from "../components/RespirationRateGraph";
+import BloodPressureGraph from "../components/BloodPressureGraph";
+import OxygenSaturationGraph from "../components/OxygenSaturationGraph";
+import HeartRateGraph from "../components/HeartRateGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
 import getRespirationRate from "../components/GetRespirationRate";
-
-// export function PatientOverview(props) {
-//     return <div style={{ display: "flex" }}>
-//         <div style={{ width: "50%" }}>
-//             <p>EHR ID: {props.ehrId}</p>
-//             <p>Name: Kim</p>
-//             <p>Age: 65</p>
-//             <p>Sex: M</p>
-//             <p>Type: Fracture</p>
-//             <p>Your GP: Doctor.Jack</p>
-//         </div>
-//         <div style={{ width: "40%", alignSelf: "center", textAlign: "center" }}>
-//             <img src="./240px-User_icon_2.svg.png"
-//                  style={{ width: "40%" }} alt=""/>
-//         </div>
-//     </div>;
-// }
-
+import getBloodPressure from "../components/GetBloodPressure";
+import getIndirectOximetry from "../components/GetIndirectOximetry";
+import getHeartRate from "../components/GetHeartRate";
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -148,6 +136,7 @@ class Scores extends React.Component {
 
     render() {
         if (!this.state.scores) return null;
+        // eslint-disable-next-line array-callback-return
         this.state.scores.map((e) => {
             this.pushArray(e);
         });
@@ -253,6 +242,7 @@ class RespirationRate extends React.Component {
 
     render() {
         if (!this.state.respirationRate) return null;
+        // eslint-disable-next-line array-callback-return
         this.state.respirationRate.map((e) => {
             this.pushIntoArrays(e);
         });
@@ -268,6 +258,141 @@ class RespirationRate extends React.Component {
 export function RespirationGraph(props) {
     if (props.ehrId) {
         return <div><RespirationRate ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class BloodPressure extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            systolicRate : [],
+            diastolicRate: [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getBloodPressure(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ bloodPressure: e});
+        });
+    }
+
+    pushIntoArrays(props){
+        this.state.systolicRate.push(props.systolic.magnitude);
+        this.state.diastolicRate.push(props.diastolic.magnitude);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.bloodPressure) return null;
+        this.state.bloodPressure.map((e) => {
+            this.pushIntoArrays(e);
+        });
+        if (this.state.bloodPressure.length > 0) {
+            return <BloodPressureGraph systolic={this.state.systolicRate}
+                                       diastolic={this.state.diastolicRate}
+                                       time={this.state.time}
+                                       units={this.state.bloodPressure[0].systolic.units}/>
+        } else {
+            return <p>No Blood Pressure were recorded</p>;
+        }
+    }
+}
+export function PressureGraph(props) {
+    if (props.ehrId) {
+        return <div><BloodPressure ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class IndirectOximetry extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            concentration : [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getIndirectOximetry(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ indirectOximetry: e});
+        });
+    }
+
+    pushIntoArraysandCalculate(props){
+        var result = (props.numerator / props.denominator) * 100;
+        this.state.concentration.push(result);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.indirectOximetry) return null;
+        this.state.indirectOximetry.map((e) => {
+            this.pushIntoArraysandCalculate(e);
+        });
+        if (this.state.indirectOximetry.length > 0) {
+            return <OxygenSaturationGraph percent={this.state.concentration}
+                                          time={this.state.time}/>
+        } else {
+            return <p>No oxygen concentration were recorded</p>;
+        }
+    }
+}
+export function OxygenConcentrationGraph(props) {
+    if (props.ehrId) {
+        return <div><IndirectOximetry ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+class HeartRate extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            heartRateReadings : [],
+            time : []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getHeartRate(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ heartRate: e});
+        });
+    }
+
+    pushIntoArrays(props){
+        this.state.heartRateReadings.push(props.heart_rate.magnitude);
+        this.state.time.push(props.time);
+    }
+
+
+    render() {
+        if (!this.state.heartRate) return null;
+        this.state.heartRate.map((e) => {
+            this.pushIntoArrays(e);
+        });
+        if (this.state.heartRate.length > 0) {
+            return <HeartRateGraph heartRates={this.state.heartRateReadings}
+                                   time={this.state.time}
+                                   units={this.state.heartRate[0].heart_rate.units}/>
+        } else {
+            return <p>No heart rates were recorded</p>;
+        }
+    }
+}
+export function HeartGraph(props) {
+    if (props.ehrId) {
+        return <div><HeartRate ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
