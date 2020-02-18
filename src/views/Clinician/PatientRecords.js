@@ -1,12 +1,11 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-// import variablepie from 'highcharts/modules/variable-pie';
 import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph, OxygenConcentrationGraph, HeartGraph } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph, OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -134,10 +133,6 @@ class PatientRecords extends React.Component {
         //         data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
         //     }]
         // };
-
-        // var Highcharts = require('highcharts');
-        // require('highcharts/highcharts-more')(Highcharts);
-        // require('highcharts/modules/variable-pie')(Highcharts);
     }
 
     render() {
@@ -162,6 +157,9 @@ class PatientRecords extends React.Component {
                                         <Nav variant="pills" className="flex-column">
                                             <Nav.Item>
                                                 <Nav.Link eventKey="information">Information</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="details">Allergic Details</Nav.Link>
                                             </Nav.Item>
                                             <Nav.Item>
                                                 <Nav.Link eventKey="patientProgress">Patient Progress</Nav.Link>
@@ -202,21 +200,12 @@ class PatientRecords extends React.Component {
                                                             <Tab.Content>
                                                                 <Tab.Pane eventKey="bloodPressure">
                                                                     <div><PressureGraph ehrId={this.state.ehrId}/></div>
-                                                                    {/* <div id="bloodPressureContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sbloodPressure"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="heartRate">
                                                                     <div><HeartGraph ehrId={this.state.ehrId}/></div>
-                                                                    {/* <div id="heartRateContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sheartRate"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="respirationRate">
                                                                     <div><RespirationGraph ehrId={this.state.ehrId}/></div>
-                                                                    {/* <div id="respirationRateContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="srespirationRate"/> */}
                                                                 </Tab.Pane>
                                                                 {/* <Tab.Pane eventKey="bodyComposition">
                                                                     <div id="bodyCompContainer"
@@ -225,9 +214,6 @@ class PatientRecords extends React.Component {
                                                                 </Tab.Pane> */}
                                                                 <Tab.Pane eventKey="indirectOximetry">
                                                                     <div><OxygenConcentrationGraph ehrId={this.state.ehrId}/></div>
-                                                                    {/* <div id="indirectOximetryContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sindirectOximetry"/> */}
                                                                 </Tab.Pane>
                                                             </Tab.Content>
                                                         </Tab.Container>
@@ -291,6 +277,9 @@ class PatientRecords extends React.Component {
                                                             child
                                                             takes</p>
                                                         <p>4.Questions you want to ask the doctor</p></div>}/>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="details">
+                                                <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div>
                                             </Tab.Pane>
                                         </Tab.Content>
                                     </Col>

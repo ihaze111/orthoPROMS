@@ -1,19 +1,23 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+
 import getCompositions from "../components/GetCompositions";
 import getEHRBySubjectId from "../components/GetEHRBySubjectId";
 import getScores from "../components/GetScores";
+import getEpisodeScores from "../components/GetEpisodeScores";
+import getRespirationRate from "../components/GetRespirationRate";
+import getBloodPressure from "../components/GetBloodPressure";
+import getIndirectOximetry from "../components/GetIndirectOximetry";
+import getHeartRate from "../components/GetHeartRate";
+import getAllergicList from "../components/GetAllergicList";
+
 import ScoresGraph from "../components/ScoresGraph";
 import RadarGraph from "../components/RadarGraph";
 import RespirationRateGraph from "../components/RespirationRateGraph";
 import BloodPressureGraph from "../components/BloodPressureGraph";
 import OxygenSaturationGraph from "../components/OxygenSaturationGraph";
 import HeartRateGraph from "../components/HeartRateGraph";
-import getEpisodeScores from "../components/GetEpisodeScores";
-import getRespirationRate from "../components/GetRespirationRate";
-import getBloodPressure from "../components/GetBloodPressure";
-import getIndirectOximetry from "../components/GetIndirectOximetry";
-import getHeartRate from "../components/GetHeartRate";
+
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -88,7 +92,7 @@ class Compositions extends React.Component {
 
 export function PatientProgressTable(props) {
     if (props.ehrId) {
-        return <Table striped bordered hover>
+        return <Table striped bordered hover >
             <thead>
             <PatientProgressTableEntry nhs_number="NHS Number"
                                        composer_name="Composer Name"
@@ -140,12 +144,6 @@ class Scores extends React.Component {
         this.state.scores.map((e) => {
             this.pushArray(e);
         });
-        // console.log(this.state.painArray);
-        // console.log(this.state.limitationsArray);
-        // console.log(this.state.walkingArray);
-        // console.log(this.state.walking_surfacesArray);
-        // console.log(this.state.totalArray);
-        // console.log(this.state.regTimeArray);
         if (this.state.painArray.length > 0) {
             return <div><ScoresGraph pain={this.state.painArray}
                                      limit={this.state.limitationsArray}
@@ -393,6 +391,68 @@ class HeartRate extends React.Component {
 export function HeartGraph(props) {
     if (props.ehrId) {
         return <div><HeartRate ehrId={props.ehrId}/></div>
+    } else {
+        return null;
+    }
+}
+
+function PatientAllergicTableEntry(props) {
+    // return <tr key={"allergies" + props.index}>
+    // <td key={"allergies" + props.index + "cause"}>{props.cause}</td>
+    // <td key={"allergies" + props.index + "comment"}>{props.comment}</td>
+    // <td key={"allergies" + props.index + "reaction"}>{props.reaction}</td>
+    // <td key={"allergies" + props.index + "exclusion"}>{props.exclusion}</td>
+    // <td key={"allergies" + props.index + "update_exclusion_date"}>{props.update_exclusion_date}</td>
+    return <tr key={"allergies" + props.index}>
+    <td key={"allergies" + props.index + "cause"}>{props.cause}</td>
+    <td key={"allergies" + props.index + "comment"}>{props.comment} {props.exclusion}</td>
+    <td key={"allergies" + props.index + "reaction"}>{props.reaction}</td>
+    <td key={"allergies" + props.index + "update_exclusion_date"}>{props.update_exclusion_date} </td>
+    </tr>;
+}
+
+class Allergies extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getAllergicList(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ allergies: e });
+        });
+    }
+
+    render() {
+        if (!this.state.allergies) return null;
+        if (this.state.allergies.length > 0) {
+            return this.state.allergies.map((e, index) => {
+                e.index = index;
+                return PatientAllergicTableEntry(e)
+            }
+            )
+        } else {
+            return <tr key="noAllergiesRow">
+                <td key="noAllergiesData" colSpan="5">No allergies records were found</td>
+            </tr>;
+        }
+    }
+}
+
+export function PatientAllergiesTable(props) {
+    if (props.ehrId) {
+        return <Table striped bordered hover>
+            <thead>
+                <PatientAllergicTableEntry cause="Cause"
+                                           comment="Comment"
+                                           reaction="Reaction"
+                                           update_exclusion_date="Exclusion of Adverse Reaction Date Last Updated"/>                     
+            </thead>   
+            <tbody >
+            <Allergies key='allergies' ehrId={props.ehrId}/>
+            </tbody>
+        </Table>;
     } else {
         return null;
     }
