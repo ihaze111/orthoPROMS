@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, RadioGroup } from 'formsy-react-components';
-import getTemplate from "../../components/GetTemplate";
+import getTemplate from "../../components/Queries/GetTemplate";
 
 export default class Template extends React.Component {
     constructor(props) {

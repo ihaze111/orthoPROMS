@@ -1,22 +1,22 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 
-import getCompositions from "../components/GetCompositions";
-import getEHRBySubjectId from "../components/GetEHRBySubjectId";
-import getScores from "../components/GetScores";
-import getEpisodeScores from "../components/GetEpisodeScores";
-import getRespirationRate from "../components/GetRespirationRate";
-import getBloodPressure from "../components/GetBloodPressure";
-import getIndirectOximetry from "../components/GetIndirectOximetry";
-import getHeartRate from "../components/GetHeartRate";
-import getAllergicList from "../components/GetAllergicList";
+import getCompositions from "../components/Queries/GetCompositions";
+import getEHRBySubjectId from "../components/Queries/GetEHRBySubjectId";
+import getScores from "../components/Queries/GetScores";
+import getEpisodeScores from "../components/Queries/GetEpisodeScores";
+import getRespirationRate from "../components/Queries/GetRespirationRate";
+import getBloodPressure from "../components/Queries/GetBloodPressure";
+import getIndirectOximetry from "../components/Queries/GetIndirectOximetry";
+import getHeartRate from "../components/Queries/GetHeartRate";
+import getAllergicList from "../components/Queries/GetAllergicList";
 
-import ScoresGraph from "../components/ScoresGraph";
-import RadarGraph from "../components/RadarGraph";
-import RespirationRateGraph from "../components/RespirationRateGraph";
-import BloodPressureGraph from "../components/BloodPressureGraph";
-import OxygenSaturationGraph from "../components/OxygenSaturationGraph";
-import HeartRateGraph from "../components/HeartRateGraph";
+import ScoresGraph from "../components/Graphs/ScoresGraph";
+import RadarGraph from "../components/Graphs/RadarGraph";
+import RespirationRateGraph from "../components/Graphs/RespirationRateGraph";
+import BloodPressureGraph from "../components/Graphs/BloodPressureGraph";
+import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
+import HeartRateGraph from "../components/Graphs/HeartRateGraph";
 
 
 export class PatientOverview extends React.Component {

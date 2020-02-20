@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
-import getEHRs from "../../components/GetEHRs";
+import getEHRs from "../../components/Queries/GetEHRs";
 
 class PatientListTable extends React.Component {
     constructor(props) {

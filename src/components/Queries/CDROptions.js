@@ -1,4 +1,4 @@
-import environment from "../environment";
+import environment from "../../environment";
 
 const CDRHeaders = {
     'Ehr-Session-disabled': '{{Ehr-Session}}',
