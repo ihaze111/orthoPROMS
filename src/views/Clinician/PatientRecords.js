@@ -5,7 +5,8 @@ import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph, OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph,
+    OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable } from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
@@ -151,15 +152,15 @@ class PatientRecords extends React.Component {
                     <Card>
                         <Card.Header>Patient Record</Card.Header>
                         <Card.Body>
-                            <Tab.Container defaultActiveKey="information">
+                            <Tab.Container defaultActiveKey="vitals">
                                 <Row>
                                     <Col sm={3}>
                                         <Nav variant="pills" className="flex-column">
                                             <Nav.Item>
-                                                <Nav.Link eventKey="information">Information</Nav.Link>
+                                                <Nav.Link eventKey="vitals">Vital Signs</Nav.Link>
                                             </Nav.Item>
                                             <Nav.Item>
-                                                <Nav.Link eventKey="details">Allergic Details</Nav.Link>
+                                                <Nav.Link eventKey="details">Details</Nav.Link>
                                             </Nav.Item>
                                             <Nav.Item>
                                                 <Nav.Link eventKey="patientProgress">Patient Progress</Nav.Link>
@@ -171,7 +172,7 @@ class PatientRecords extends React.Component {
                                     </Col>
                                     <Col sm={9}>
                                         <Tab.Content>
-                                            <Tab.Pane eventKey="information">
+                                            <Tab.Pane eventKey="vitals">
                                                 <PatientOverview subjectId={subjectId}/>
                                                 <Card>
                                                     <Card.Header>
@@ -279,7 +280,10 @@ class PatientRecords extends React.Component {
                                                         <p>4.Questions you want to ask the doctor</p></div>}/>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="details">
-                                                <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div>
+                                                <h3>Allergic Detail</h3>
+                                                <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div><br/>
+                                                <h3>Procedures Detail</h3>
+                                                <div><ProceduresTable ehrId={this.state.ehrId}/></div>
                                             </Tab.Pane>
                                         </Tab.Content>
                                     </Col>

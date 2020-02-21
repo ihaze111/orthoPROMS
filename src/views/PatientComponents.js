@@ -10,6 +10,7 @@ import getBloodPressure from "../components/Queries/GetBloodPressure";
 import getIndirectOximetry from "../components/Queries/GetIndirectOximetry";
 import getHeartRate from "../components/Queries/GetHeartRate";
 import getAllergicList from "../components/Queries/GetAllergicList";
+import getProcedures from "../components/Queries/GetProcedures";
 
 import ScoresGraph from "../components/Graphs/ScoresGraph";
 import RadarGraph from "../components/Graphs/RadarGraph";
@@ -408,6 +409,7 @@ function PatientAllergicTableEntry(props) {
     <td key={"allergies" + props.index + "comment"}>{props.comment} {props.exclusion}</td>
     <td key={"allergies" + props.index + "reaction"}>{props.reaction}</td>
     <td key={"allergies" + props.index + "update_exclusion_date"}>{props.update_exclusion_date} </td>
+    <td key={"allergies" + props.index + "composer"}>{props.composer}</td>
     </tr>;
 }
 
@@ -434,7 +436,7 @@ class Allergies extends React.Component {
             )
         } else {
             return <tr key="noAllergiesRow">
-                <td key="noAllergiesData" colSpan="5">No allergies records were found</td>
+                <td key="noAllergiesData" colSpan="6">No allergies records were found</td>
             </tr>;
         }
     }
@@ -447,10 +449,71 @@ export function PatientAllergiesTable(props) {
                 <PatientAllergicTableEntry cause="Cause"
                                            comment="Comment"
                                            reaction="Reaction"
-                                           update_exclusion_date="Exclusion of Adverse Reaction Date Last Updated"/>                     
+                                           update_exclusion_date="Exclusion of Adverse Reaction Date Last Updated"
+                                           composer="Composer Name"/>                     
             </thead>   
             <tbody >
             <Allergies key='allergies' ehrId={props.ehrId}/>
+            </tbody>
+        </Table>;
+    } else {
+        return null;
+    }
+}
+
+function ProceduresTableEntry(props) {
+    return <tr key={"procedures" + props.index}>
+    <td key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</td>
+    <td key={"procedures" + props.index + "notes"}>{props.notes}</td>
+    <td key={"procedures" + props.index + "careflow_step"}>{props.careflow_step}</td>
+    <td key={"procedures" + props.index + "current_state"}>{props.current_state} </td>
+    <td key={"procedures" + props.index + "name"}>{props.name}</td>
+    <td key={"procedures" + props.index + "time"}>{props.time}</td>
+    </tr>;
+}
+
+class Procedures extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getProcedures(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ procedures: e });
+        });
+    }
+
+    render() {
+        if (!this.state.procedures) return null;
+        if (this.state.procedures.length > 0) {
+            return this.state.procedures.map((e, index) => {
+                e.index = index;
+                return ProceduresTableEntry(e)
+            }
+            )
+        } else {
+            return <tr key="noProceduresRow">
+                <td key="noProceduresData" colSpan="7">No procedures records were found</td>
+            </tr>;
+        }
+    }
+}
+
+export function ProceduresTable(props) {
+    if (props.ehrId) {
+        return <Table striped bordered hover>
+            <thead>
+                <ProceduresTableEntry procedure_name="Procedure"
+                                      notes="Notes"
+                                      careflow_step="Careflow Step"
+                                      current_state="Current State"
+                                      name="Composer Name"
+                                      time="Time"/>                     
+            </thead>   
+            <tbody >
+            <Procedures key='procedures' ehrId={props.ehrId}/>
             </tbody>
         </Table>;
     } else {
