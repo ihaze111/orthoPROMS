@@ -11,6 +11,8 @@ import getIndirectOximetry from "../components/Queries/GetIndirectOximetry";
 import getHeartRate from "../components/Queries/GetHeartRate";
 import getAllergicList from "../components/Queries/GetAllergicList";
 import getProcedures from "../components/Queries/GetProcedures";
+import getLabOrders from "../components/Queries/GetLabOrders";
+import getLabReports from "../components/Queries/GetLabReports";
 
 import ScoresGraph from "../components/Graphs/ScoresGraph";
 import RadarGraph from "../components/Graphs/RadarGraph";
@@ -514,6 +516,122 @@ export function ProceduresTable(props) {
             </thead>   
             <tbody >
             <Procedures key='procedures' ehrId={props.ehrId}/>
+            </tbody>
+        </Table>;
+    } else {
+        return null;
+    }
+}
+
+function LabOrdersTableEntry(props) {
+    return <tr key={"orders" + props.index}>
+    <td key={"orders" + props.index + "request"}>{props.request}</td>
+    <td key={"orders" + props.index + "composer"}>{props.composer}</td>
+    <td key={"orders" + props.index + "timing"}>{props.timing}</td>
+    <td key={"orders" + props.index + "context_time"}>{props.context_time}</td>
+    </tr>;
+}
+
+class LabOrders extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getLabOrders(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ orders: e });
+        });
+    }
+
+    render() {
+        if (!this.state.orders) return null;
+        if (this.state.orders.length > 0) {
+            return this.state.orders.map((e, index) => {
+                e.index = index;
+                return LabOrdersTableEntry(e)
+            }
+            )
+        } else {
+            return <tr key="noLabOrders">
+                <td key="noLabOrders" colSpan="7">No lab orders records were found</td>
+            </tr>;
+        }
+    }
+}
+
+export function LabOrdersTable(props) {
+    if (props.ehrId) {
+        return <Table striped bordered hover >
+            <thead>
+                <LabOrdersTableEntry request="Requests"
+                                      composer="Composer Name"
+                                      timing="Request Timing"
+                                      context_time="Time"/>                     
+            </thead>   
+            <tbody >
+            <LabOrders key='orders' ehrId={props.ehrId}/>
+            </tbody>
+        </Table>;
+    } else {
+        return null;
+    }
+}
+
+function LabReportsTableEntry(props) {
+    return <tr key={"reports" + props.index}>
+    <td key={"reports" + props.index + "test"}>{props.test}</td>
+    <td key={"reports" + props.index + "test_status"}>{props.test_status}</td> 
+    <td key={"reports" + props.index + "comment"}>{props.comment}</td>
+    <td key={"reports" + props.index + "conclusion"}>{props.conclusion}</td>
+    <td key={"reports" + props.index + "test_timestamp"}>{props.test_timestamp}</td>
+    <td key={"reports" + props.index + "composer"}>{props.composer}</td>
+    </tr>;
+}
+
+class LabReports extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getLabReports(this.props.ehrId);
+        promise.then((e) => {
+            this.setState({ reports: e });
+        });
+    }
+
+    render() {
+        if (!this.state.reports) return null;
+        if (this.state.reports.length > 0) {
+            return this.state.reports.map((e, index) => {
+                e.index = index;
+                return LabReportsTableEntry(e)
+            }
+            )
+        } else {
+            return <tr key="noLabReports">
+                <td key="noLabReports" colSpan="7">No lab reports records were found</td>
+            </tr>;
+        }
+    }
+}
+
+export function LabReportsTable(props) {
+    if (props.ehrId) {
+        return <Table striped bordered hover size="sm" >
+            <thead>
+                <LabReportsTableEntry test="Tests"
+                                      test_status="Test Status"
+                                      comment="Comment"
+                                      conclusion="Conclusion"
+                                      test_timestamp="Test Timestamp"
+                                      composer="Composer Name"/>                     
+            </thead>   
+            <tbody >
+            <LabReports key='reports' ehrId={props.ehrId}/>
             </tbody>
         </Table>;
     } else {
