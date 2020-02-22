@@ -1,13 +1,15 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import Card, { CardSubtitle } from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
 import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph,
-    OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable } from "../PatientComponents";
+    OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable, LabOrdersTable, LabReportsTable} 
+    from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
@@ -15,7 +17,7 @@ import Col from "react-bootstrap/Col";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
-        <p>REPORT</p>
+        <h3>REPORT</h3>
         {props.content}
     </div>;
 }
@@ -277,7 +279,32 @@ class PatientRecords extends React.Component {
                                                         <p>3.All the medications and dietary supplements you or your
                                                             child
                                                             takes</p>
-                                                        <p>4.Questions you want to ask the doctor</p></div>}/>
+                                                        <p>4.Questions you want to ask the doctor</p></div>}/><br/>
+                                                <Card style={{width : "100%"}}>
+                                                    <Card.Header>
+                                                        <Card.Title>Laboratory Orders and Reports</Card.Title>
+                                                    </Card.Header>
+                                                    <Card.Body>
+                                                        <Tab.Container defaultActiveKey="labOrders">
+                                                            <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="labOrders">Lab Orders</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="labReports">Lab Reports</Nav.Link>
+                                                                </Nav.Item>
+                                                            </Nav>
+                                                            <Tab.Content>
+                                                                <Tab.Pane eventKey="labOrders">
+                                                                    <div><LabOrdersTable ehrId={this.state.ehrId} /></div>
+                                                                </Tab.Pane>
+                                                                <Tab.Pane eventKey="labReports">
+                                                                    <LabReportsTable ehrId={this.state.ehrId}/>
+                                                                </Tab.Pane>
+                                                            </Tab.Content>
+                                                        </Tab.Container>
+                                                    </Card.Body>
+                                                </Card>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="details">
                                                 <h3>Allergic Detail</h3>
