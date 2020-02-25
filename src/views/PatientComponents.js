@@ -8,6 +8,7 @@ import RadarGraph from "../components/RadarGraph";
 import RespirationRateGraph from "../components/RespirationRateGraph";
 import BloodPressureGraph from "../components/BloodPressureGraph";
 import getEpisodeScores from "../components/GetEpisodeScores";
+import getRangeEpisodeScores from "../components/GetRangeEpisodeScores";
 import getRespirationRate from "../components/GetRespirationRate";
 import getBloodPressure from "../components/GetBloodPressure";
 
@@ -70,9 +71,9 @@ class Compositions extends React.Component {
         if (!this.state.compositions) return null;
         if (this.state.compositions.length > 0) {
             return this.state.compositions.map((e, index) => {
-                e.index = index;
-                return PatientProgressTableEntry(e)
-            }
+                    e.index = index;
+                    return PatientProgressTableEntry(e)
+                }
             )
         } else {
             return <tr key="noCompositionsRow">
@@ -104,11 +105,11 @@ class Scores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            painArray : [],
-            limitationsArray : [],
-            walkingArray : [],
-            walking_surfacesArray : [],
-            totalArray : [],
+            painArray: [],
+            limitationsArray: [],
+            walkingArray: [],
+            walking_surfacesArray: [],
+            totalArray: [],
             regTimeArray: []
         };
     }
@@ -116,12 +117,12 @@ class Scores extends React.Component {
     componentDidMount() {
         let promise = getScores(this.props.ehrId);
         promise.then((e) => {
-            this.setState({ scores: e});
+            this.setState({ scores: e });
         });
     }
 
 
-    pushArray(props){
+    pushArray(props) {
         this.state.painArray.push(props.pain);
         this.state.limitationsArray.push(props.limitations);
         this.state.walkingArray.push(props.walking);
@@ -149,12 +150,13 @@ class Scores extends React.Component {
                                      surface={this.state.walking_surfacesArray}
                                      total={this.state.totalArray}
                                      time={this.state.regTimeArray}
-                                     /></div>
+            /></div>
         } else {
             return <p>No scores were found</p>;
         }
     }
 }
+
 export function ScoresArray(props) {
     if (props.ehrId) {
         return <div><Scores ehrId={props.ehrId}/></div>
@@ -167,7 +169,7 @@ class EpisodeScores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            preOp:[],
+            preOp: [],
             oneWeekPostOp: [],
             sixWeeksPostOp: []
         };
@@ -176,12 +178,12 @@ class EpisodeScores extends React.Component {
     componentDidMount() {
         let promise = getEpisodeScores(this.props.ehrId);
         promise.then((e) => {
-            this.setState({ episodeScores: e});
+            this.setState({ episodeScores: e });
         });
     }
 
-    pushIntoCategory(props){
-        if (props.length > 0){
+    pushIntoCategory(props) {
+        if (props.length > 0) {
             this.state.preOp.push(props[0].pain);
             this.state.preOp.push(props[0].limitations);
             this.state.preOp.push(props[0].walking);
@@ -198,6 +200,7 @@ class EpisodeScores extends React.Component {
         if (!this.state.episodeScores) return null;
         this.pushIntoCategory(this.state.episodeScores);
         if (this.state.episodeScores.length > 0) {
+            console.log(this.state.preOp);
             return <RadarGraph preOp={this.state.preOp}
                                oneWeek={this.state.oneWeekPostOp}
                                sixWeeks={this.state.sixWeeksPostOp}/>
@@ -206,6 +209,7 @@ class EpisodeScores extends React.Component {
         }
     }
 }
+
 export function EpisodeScoresGraph(props) {
     if (props.ehrId) {
         return <div><EpisodeScores ehrId={props.ehrId}/></div>
@@ -218,19 +222,19 @@ class RespirationRate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            respiration_magnitude : [],
-            time : []
+            respiration_magnitude: [],
+            time: []
         };
     }
 
     componentDidMount() {
         let promise = getRespirationRate(this.props.ehrId);
         promise.then((e) => {
-            this.setState({ respirationRate: e});
+            this.setState({ respirationRate: e });
         });
     }
 
-    pushIntoArrays(props){
+    pushIntoArrays(props) {
         this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
         this.state.time.push(props.time);
     }
@@ -244,13 +248,14 @@ class RespirationRate extends React.Component {
         });
         if (this.state.respirationRate.length > 0) {
             return <RespirationRateGraph magnitude={this.state.respiration_magnitude}
-                               time={this.state.time}
-                               units={this.state.respirationRate[0].respiration_rate.units}/>
+                                         time={this.state.time}
+                                         units={this.state.respirationRate[0].respiration_rate.units}/>
         } else {
             return <p>No Respiration Rate were recorded</p>;
         }
     }
 }
+
 export function RespirationGraph(props) {
     if (props.ehrId) {
         return <div><RespirationRate ehrId={props.ehrId}/></div>
@@ -263,20 +268,20 @@ class BloodPressure extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            systolicRate : [],
+            systolicRate: [],
             diastolicRate: [],
-            time : []
+            time: []
         };
     }
 
     componentDidMount() {
         let promise = getBloodPressure(this.props.ehrId);
         promise.then((e) => {
-            this.setState({ bloodPressure: e});
+            this.setState({ bloodPressure: e });
         });
     }
 
-    pushIntoArrays(props){
+    pushIntoArrays(props) {
         this.state.systolicRate.push(props.systolic.magnitude);
         this.state.diastolicRate.push(props.diastolic.magnitude);
         this.state.time.push(props.time);
@@ -298,10 +303,44 @@ class BloodPressure extends React.Component {
         }
     }
 }
+
 export function PressureGraph(props) {
     if (props.ehrId) {
         return <div><BloodPressure ehrId={props.ehrId}/></div>
     } else {
         return null;
     }
+}
+
+
+class RangeEpisodeScores extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            preOp: [],
+            oneWeekPostOp: [],
+            sixWeeksPostOp: []
+        };
+    }
+
+    componentDidMount() {
+        let promise = getRangeEpisodeScores();
+        promise.then((e) => {
+            this.setState({ rangeEpisodeScores: e });
+        });
+    }
+
+    render() {
+        if (!this.state.rangeEpisodeScores) return null;
+        console.log(this.state.rangeEpisodeScores.preOp);
+        console.log(this.state.rangeEpisodeScores.oneWeekPostOp);
+        console.log(this.state.rangeEpisodeScores.sixWeeksPostOp);
+        return <RadarGraph preOp={this.state.rangeEpisodeScores.preOp}
+                           oneWeek={this.state.rangeEpisodeScores.oneWeek}
+                           sixWeeks={this.state.rangeEpisodeScores.sixWeeks}/>
+    }
+}
+
+export function RangeEpisodeScoresGraph() {
+    return <div><RangeEpisodeScores/></div>
 }
