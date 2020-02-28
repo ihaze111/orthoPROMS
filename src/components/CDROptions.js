@@ -23,6 +23,11 @@ const CDROptions = {
                 "aql": aql
             })
         };
+    },
+    CDRHeaders: {
+        'Ehr-Session-disabled': '{{Ehr-Session}}',
+        'Content-Type': 'application/json',
+        'Authorization': environment.api_authorisation,
     }
 };
 
