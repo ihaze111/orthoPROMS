@@ -307,9 +307,9 @@ class PatientRecords extends React.Component {
                                                 </Card>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="details">
-                                                <h3>Allergic Detail</h3>
+                                                <h3>Allergic Details</h3>
                                                 <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div><br/>
-                                                <h3>Procedures Detail</h3>
+                                                <h3>Procedures Details</h3>
                                                 <div><ProceduresTable ehrId={this.state.ehrId}/></div>
                                             </Tab.Pane>
                                         </Tab.Content>
