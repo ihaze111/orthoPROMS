@@ -1,13 +1,15 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+import Card, { CardSubtitle } from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-// import variablepie from 'highcharts/modules/variable-pie';
 import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
 
 import HeaderMenu from "../../components/HeaderMenu";
-import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph } from "../PatientComponents";
+import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph,
+    OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable, LabOrdersTable, LabReportsTable} 
+    from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
@@ -15,7 +17,7 @@ import Col from "react-bootstrap/Col";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
-        <p>REPORT</p>
+        <h3>REPORT</h3>
         {props.content}
     </div>;
 }
@@ -34,32 +36,6 @@ class PatientRecords extends React.Component {
     componentDidMount() {
         loadEhrId.call(this);
 
-
-        var tendonReflexes = {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Tendon Reflexes'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Reflex Score'
-                }
-            },
-            legend: {
-                title: {
-                    text: '0-Absent, 1-Possibly Present, 2-Present but Low Amplitude, 3-Normal, 4-Increased, 5-Markedly Increased'
-                }
-            },
-            series: [{
-                name: 'Tendon Reflex Score',
-                data: [5, 3, 2, 4, 1]
-            }]
-        };
 
         // var bodyComp = {
         //     chart: {
@@ -126,53 +102,40 @@ class PatientRecords extends React.Component {
         //     }]
         // };
 
-        var bodyTemp = {
-            chart: {
-                type: 'columnrange'
-            },
-            title: {
-                text: 'Body Temperature'
-            },
-            xAxis: {
-                categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-            },
-            yAxis: {
-                title: {
-                    text: 'Temperature ( °C )'
-                }
-            },
-            tooltip: {
-                valueSuffix: '°C'
-            },
-            plotOptions: {
-                columnrange: {
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function () {
-                            return this.y + '°C';
-                        },
-                        y: 0
-                    }
-                }
-            },
-            series: [{
-                name: 'Temperatures',
-                data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
-            }]
-        };
-
-        var Highcharts = require('highcharts');
-        require('highcharts/highcharts-more')(Highcharts);
-        require('highcharts/modules/variable-pie')(Highcharts);
-        // var chart = Highcharts.chart('container', tracker);
-        // eslint-disable-next-line no-unused-vars
-        // var chart11 = Highcharts.chart('bloodPressureContainer', bloodSugarLevels);
-        // eslint-disable-next-line no-redeclare
-        var tendonReflexes = Highcharts.chart('heartRateContainer', tendonReflexes);
-        // var basalMetaRate = Highcharts.chart('respirationRateContainer', metaRate);
-        // var bodyComposition = Highcharts.chart('bodyCompContainer', bodyComp);
-        // eslint-disable-next-line no-unused-vars
-        var bodyTemperature = Highcharts.chart('indirectOximetryContainer', bodyTemp);
+        // var bodyTemp = {
+        //     chart: {
+        //         type: 'columnrange'
+        //     },
+        //     title: {
+        //         text: 'Body Temperature'
+        //     },
+        //     xAxis: {
+        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
+        //     },
+        //     yAxis: {
+        //         title: {
+        //             text: 'Temperature ( °C )'
+        //         }
+        //     },
+        //     tooltip: {
+        //         valueSuffix: '°C'
+        //     },
+        //     plotOptions: {
+        //         columnrange: {
+        //             dataLabels: {
+        //                 enabled: true,
+        //                 formatter: function () {
+        //                     return this.y + '°C';
+        //                 },
+        //                 y: 0
+        //             }
+        //         }
+        //     },
+        //     series: [{
+        //         name: 'Temperatures',
+        //         data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
+        //     }]
+        // };
     }
 
     render() {
@@ -191,12 +154,15 @@ class PatientRecords extends React.Component {
                     <Card>
                         <Card.Header>Patient Record</Card.Header>
                         <Card.Body>
-                            <Tab.Container defaultActiveKey="information">
+                            <Tab.Container defaultActiveKey="vitals">
                                 <Row>
                                     <Col sm={3}>
                                         <Nav variant="pills" className="flex-column">
                                             <Nav.Item>
-                                                <Nav.Link eventKey="information">Information</Nav.Link>
+                                                <Nav.Link eventKey="vitals">Vital Signs</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="details">Details</Nav.Link>
                                             </Nav.Item>
                                             <Nav.Item>
                                                 <Nav.Link eventKey="patientProgress">Patient Progress</Nav.Link>
@@ -208,7 +174,7 @@ class PatientRecords extends React.Component {
                                     </Col>
                                     <Col sm={9}>
                                         <Tab.Content>
-                                            <Tab.Pane eventKey="information">
+                                            <Tab.Pane eventKey="vitals">
                                                 <PatientOverview subjectId={subjectId}/>
                                                 <Card>
                                                     <Card.Header>
@@ -231,26 +197,18 @@ class PatientRecords extends React.Component {
                                                                         Composition</Nav.Link>
                                                                 </Nav.Item> */}
                                                                 <Nav.Item>
-                                                                    <Nav.Link eventKey="indirectOximetry">Indirect Oximetry</Nav.Link>
+                                                                    <Nav.Link eventKey="indirectOximetry">Oxygen Saturation</Nav.Link>
                                                                 </Nav.Item>
                                                             </Nav>
                                                             <Tab.Content>
                                                                 <Tab.Pane eventKey="bloodPressure">
                                                                     <div><PressureGraph ehrId={this.state.ehrId}/></div>
-                                                                    {/* <div id="bloodPressureContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sbloodPressure"/> */}
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="heartRate">
-                                                                    <div id="heartRateContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sheartRate"/>
+                                                                    <div><HeartGraph ehrId={this.state.ehrId}/></div>
                                                                 </Tab.Pane>
                                                                 <Tab.Pane eventKey="respirationRate">
                                                                     <div><RespirationGraph ehrId={this.state.ehrId}/></div>
-                                                                    {/* <div id="respirationRateContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="srespirationRate"/> */}
                                                                 </Tab.Pane>
                                                                 {/* <Tab.Pane eventKey="bodyComposition">
                                                                     <div id="bodyCompContainer"
@@ -258,9 +216,7 @@ class PatientRecords extends React.Component {
                                                                          className="sbodyComp"/>
                                                                 </Tab.Pane> */}
                                                                 <Tab.Pane eventKey="indirectOximetry">
-                                                                    <div id="indirectOximetryContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sindirectOximetry"/>
+                                                                    <div><OxygenConcentrationGraph ehrId={this.state.ehrId}/></div>
                                                                 </Tab.Pane>
                                                             </Tab.Content>
                                                         </Tab.Container>
@@ -323,7 +279,38 @@ class PatientRecords extends React.Component {
                                                         <p>3.All the medications and dietary supplements you or your
                                                             child
                                                             takes</p>
-                                                        <p>4.Questions you want to ask the doctor</p></div>}/>
+                                                        <p>4.Questions you want to ask the doctor</p></div>}/><br/>
+                                                <Card style={{width : "100%"}}>
+                                                    <Card.Header>
+                                                        <Card.Title>Laboratory Orders and Reports</Card.Title>
+                                                    </Card.Header>
+                                                    <Card.Body>
+                                                        <Tab.Container defaultActiveKey="labOrders">
+                                                            <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="labOrders">Lab Orders</Nav.Link>
+                                                                </Nav.Item>
+                                                                <Nav.Item>
+                                                                    <Nav.Link eventKey="labReports">Lab Reports</Nav.Link>
+                                                                </Nav.Item>
+                                                            </Nav>
+                                                            <Tab.Content>
+                                                                <Tab.Pane eventKey="labOrders">
+                                                                    <div><LabOrdersTable ehrId={this.state.ehrId} /></div>
+                                                                </Tab.Pane>
+                                                                <Tab.Pane eventKey="labReports">
+                                                                    <LabReportsTable ehrId={this.state.ehrId}/>
+                                                                </Tab.Pane>
+                                                            </Tab.Content>
+                                                        </Tab.Container>
+                                                    </Card.Body>
+                                                </Card>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="details">
+                                                <h3>Allergic Detail</h3>
+                                                <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div><br/>
+                                                <h3>Procedures Detail</h3>
+                                                <div><ProceduresTable ehrId={this.state.ehrId}/></div>
                                             </Tab.Pane>
                                         </Tab.Content>
                                     </Col>
