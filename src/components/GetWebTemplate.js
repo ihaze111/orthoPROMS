@@ -1,4 +1,4 @@
-import CDROptions from "./CDROptions";
+import CDROptions from "./Queries/CDROptions";
 import { inputToJsonFormInput, treeTrawlGettingFlatInputs } from "../ehr-template-processor/src/template";
 
 const request = require('request-promise');
