@@ -1,5 +1,5 @@
 import qs from "qs";
-import CDROptions from "../components/CDROptions";
+import CDROptions from "../components/Queries/CDROptions";
 const request = require('request-promise');
 
 async function getEHRId(subjectId) {
