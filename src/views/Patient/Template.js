@@ -1,5 +1,5 @@
 import React from 'react';
-import CDROptions from "../../components/CDROptions";
+import CDROptions from "../../components/Queries/CDROptions";
 
 import { Form, Input, RadioGroup } from 'formsy-react-components';
 import getWebTemplate from "../../components/GetWebTemplate";
