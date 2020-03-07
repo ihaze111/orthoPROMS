@@ -1,19 +1,49 @@
 import CDRAQLQuery from "./CDRAQLQuery";
 
+function processOtherDetails(tree) {
+    let processedResult = {
+        gender: '',
+        sex: '',
+        vitalStatus: '',
+        birthYear: ''
+    };
+    if (tree == null) return processedResult;
+    if (tree['@class'] == 'ITEM_TREE' && 'items' in tree) {
+        const treeItem = tree.items[0];
+        if (treeItem.archetype_node_id == 'openEHR-EHR-CLUSTER.person_anonymised_parent.v1') {
+            treeItem.items.forEach((item) => {
+                switch (item.archetype_node_id) {
+                    case 'at0001':
+                        processedResult.gender = item.value.value;
+                        break;
+                    case 'at0002':
+                        processedResult.sex = item.value.value;
+                        break;
+                    case 'at0003':
+                        processedResult.vitalStatus = item.value.value;
+                        break;
+                    case 'at0004':
+                        processedResult.birthYear = item.value.value;
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    }
+    return processedResult;
+}
+
 function callbackProcessing(result) {
     return result.resultSet.map((e) => {
         let final = {};
-        final.patientId = e.ehr_id.value || "";
-        if (e.other_details) {
-            final.gender = e.other_details.items[0].items[0].value.value || "";
-            final.sex = e.other_details.items[0].items[1].value.value || "";
-            final.vitalStatus = e.other_details.items[0].items[2].value.value || "";
-            final.birthYear = e.other_details.items[0].items[3].value.value || "";
-            final.nhsNumber = e.nhsNumber.value || "";
-            final.timeCreated = e.time_created.value || "";
+        if ('other_details' in e) {
+            final = processOtherDetails(e.other_details);
         }
-        if(e.nhsNumber) {
-            final.subjectId = e.nhsNumber.value;
+        final.patientId = e.ehr_id.value || "";
+        if ('nhsNumber' in e) {
+            final.subjectId = e.nhsNumber ? e.nhsNumber.value : "";
+            final.nhsNumber = e.nhsNumber ? e.nhsNumber.value : "";
         }
         return final;
     });
