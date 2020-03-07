@@ -16,10 +16,10 @@ const CDROptions = {
     },
     generateQueryOptions(aql) {
         return {
-            'method': 'POST',
-            'url': environment.api_url + '/rest/v1/query',
+            method: 'post',
+            url:  environment.api_url + '/rest/v1/query',
             headers: CDRHeaders,
-            body: JSON.stringify({
+            data: JSON.stringify({
                 "aql": aql
             })
         };
