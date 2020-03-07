@@ -14,6 +14,13 @@ const CDROptions = {
             headers: CDRHeaders,
         };
     },
+    generateAxiosOptions(url) {
+        return {
+            method: 'get',
+            url: environment.api_url + url,
+            headers: CDRHeaders,
+        };
+    },
     generateQueryOptions(aql) {
         return {
             method: 'post',
