@@ -25,9 +25,9 @@ SurveySuccess.propTypes = { onClose: PropTypes.func };
 
 function PatientSelf(props) {
     let subjectId = getSubjectId(props.location.search);
-    const [ehrId1, setEhrId1] = useState('');
+    const [ehrId, setEhrId] = useState('');
     getEHRId(subjectId).then((e) => {
-        setEhrId1(e);
+        setEhrId(e);
     });
     return (
         <div>
@@ -56,16 +56,16 @@ function PatientSelf(props) {
                             </Nav>
                             <Tab.Content>
                                 <Tab.Pane eventKey="myProgress">
-                                    <PatientProgressTable ehrId={ehrId1}/>
+                                    <PatientProgressTable ehrId={ehrId}/>
                                 </Tab.Pane>
                                 {/* <Tab.Pane eventKey="test">
                                         <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                     </Tab.Pane> */}
                                 <Tab.Pane eventKey="myData">
-                                    <div><ScoresArray ehrId={ehrId1}/></div>
+                                    <div><ScoresArray ehrId={ehrId}/></div>
                                     <br/><br/><br/>
                                     <div style={{ width: '1000px', height: '400px' }}><EpisodeScoresGraph
-                                        ehrId={ehrId1}/></div>
+                                        ehrId={ehrId}/></div>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="survey">
                                     <Template/>
