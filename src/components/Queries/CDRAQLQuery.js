@@ -1,17 +1,17 @@
 import CDROptions from "./CDROptions";
+import axios from "axios";
 
-const request = require('request-promise');
 
 async function CDRAQLQuery(aql, callbackProcessing) {
     let processedResult;
     const options = CDROptions.generateQueryOptions(aql);
-    await request(options, function (error, response) {
-            if (error) throw new Error(error);
-            let responseBody = response.body.length > 0 ? response.body : '{}';
-            const result = JSON.parse(responseBody);
-            processedResult = callbackProcessing(result);
-        }
-    );
+    try {
+        const response = await axios(options);
+        processedResult = callbackProcessing(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+
     return processedResult;
 }
 
