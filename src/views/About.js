@@ -51,12 +51,15 @@ class About extends React.Component{
                             </div>
                         </Card.Body>
                     </Card>
-                    <Accordion defaultActiveKey="0">
+                    {/* <Accordion defaultActiveKey="1"> */}
                     <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
+                        {/* <Accordion.Toggle as={Card.Header} eventKey="0">
                             Developers
                         </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0">
+                        <Accordion.Collapse eventKey="0"> */}
+                        <Card.Header>
+                            Developers
+                        </Card.Header>
                             <Card.Body>
                                 <div style={{ height: '10px' }}></div>
                                 <div style={{ display: 'flex'}}>
@@ -78,23 +81,32 @@ class About extends React.Component{
                                     </Table>
                                 </div>
                             </Card.Body>
-                        </Accordion.Collapse>
+                        {/* </Accordion.Collapse> */}
                     </Card>
                     <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="1">
+                        {/* <Accordion.Toggle as={Card.Header} eventKey="0">
                             Our Partners
                         </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="1">
+                        <Accordion.Collapse eventKey="0"> */}
+                        <Card.Header>
+                            Our Partners
+                        </Card.Header>
                             <Card.Body>
 
                                 <div style={{height: '10px'}}></div>
                                 <div style={{display: '200px'}}>
                                     <div>
-                                        <img src="https://apperta.org/img/logo.png" alt="appertaLogo" style={{width:'20%'}}></img>
-                                        <img src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg"
+                                        <a href = "https://apperta.org/">
+                                            <img src="https://apperta.org/img/logo.png" alt="appertaLogo" style={{width:'20%'}}></img>
+                                        </a>
+                                        <a href = "https://code4health.org/"> 
+                                            <img src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg"
                                                 alt="code4healthLogo" style={{width:'30%'}}></img>
-                                        <img  src="https://digital.nhs.uk/webfiles/1576854238445/images/nhs-digital-logo.svg"
+                                        </a>
+                                        <a href = "https://digital.nhs.uk/"> 
+                                            <img  src="https://digital.nhs.uk/webfiles/1576854238445/images/nhs-digital-logo.svg"
                                                 alt="nhsLogo" style={{width:'15%'}}></img>
+                                        </a>
                                     </div>
                                     <div>
                                     <Table bordered hover>
@@ -110,9 +122,9 @@ class About extends React.Component{
                                     </div>
                                 </div>
                             </Card.Body>
-                        </Accordion.Collapse>
+                        {/* </Accordion.Collapse> */}
                     </Card>
-                    </Accordion>
+                    {/* </Accordion> */}
                 </Container>
             </div>
         );
