@@ -1,68 +1,127 @@
-import React from "react";
-import HighCharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
+import React, { Component } from 'react'
+import Chart from "chart.js";
+let myScoresGraph;
 
-const ScoresGraph = props => {
-    // console.log("Graph!");
-    // console.log(props.pain);
-    const painScore = props.pain;
-    const limitationsScore = props.limit;
-    const walkingScore = props.walking;
-    const walking_surfacesScore = props.surface;
-    const totalScore = props.total;
-    const regTime=props.time;
+Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
+Chart.defaults.global.legend.display = true;
 
-    const options = {
-        chart: {
-            type : "line"
-        },
-        title: {
-            text : "Progress Scores"
-        },
-        xAxis: {
-            title : {
-                text : "Date"
+class ScoresGraph extends Component {
+    chartRef = React.createRef();
+
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount() {
+        this.buildChart();
+    }
+
+    componentDidUpdate() {
+        this.buildChart();
+    }
+
+    buildChart = () => {
+        const myScoresGraphRef = this.chartRef.current.getContext("2d");
+
+        if (typeof myScoresGraph !== "undefined") myScoresGraph.destroy();
+
+        myScoresGraph = new Chart(myScoresGraphRef, {
+            type: "line",
+            data: {
+                labels: this.props.time,
+                datasets: [
+                    {
+                        label: "Pain Score",
+                        data: this.props.pain,
+                        fill: false,
+                        borderColor: "maroon"
+                    },
+                    {
+                        label: "Limitations Score",
+                        data: this.props.limit,
+                        fill: false,
+                        borderColor: "green"
+                    },
+                    {
+                        label: "Walking Score",
+                        data: this.props.walking,
+                        fill: false,
+                        borderColor: "blue"
+                    },
+                    {
+                        label: "Walking Surfaces Score",
+                        data: this.props.surface,
+                        fill: false,
+                        borderColor: "red"
+                    },
+                    {
+                        label: "Total Score",
+                        data: this.props.total,
+                        fill: false,
+                        borderColor: "purple"
+                    }
+                ]
             },
-            categories: regTime
-        },
-        yAxis: {
-            title : {
-                text : "Scores"
+            options: {
+                title : {
+                    display: true,
+                    text : "Progress Scores",
+                    fontSize: 22,
+                    fontFamily: 'Lucida',
+                    fontColor: '#000'
+                    
+                },
+                legend: {
+                    display:true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: '#000'
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    displayColors: true
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display : true,
+                            drawBorder: true,
+                            drawOnChartArea : false
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Date/Time"
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display : true,
+                            drawBorder: true,
+                            drawOnChartArea : false
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Scores"
+                        }
+                    }]
+                }
             }
-        },
-        series : [
-            {
-                name: "Pain Score",
-                data: painScore
-            },
-            {
-                name: "Limitations Score",
-                data: limitationsScore
-            },
-            {
-                name: "Walking Score",
-                data: walkingScore
-            },
-            {
-                name: "Walking Surfaces Score",
-                data: walking_surfacesScore
-            },
-            {
-                name: "Total Score",
-                data: totalScore
-            }
-        ]
-    };
+        });
 
-    return(
-        <div>
-            <HighchartsReact
-                highcharts={HighCharts}
-                constructorType={"chart"}
-                options={options}
-            />
-        </div>
-    );
-};
+    }
+
+    render() {
+
+        return (
+            <div className="scores">
+                <canvas
+                    id="myScores"
+                    ref={this.chartRef}
+                />
+            </div>
+        )
+    }
+}
 
 export default ScoresGraph;

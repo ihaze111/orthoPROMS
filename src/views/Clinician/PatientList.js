@@ -29,7 +29,7 @@ class PatientListTable extends React.Component {
                 <th>Sex</th>
                 <th>Vital Status</th>
                 <th>Birth Year</th>
-                <th>Time created</th>
+                {/* <th>Time created</th> */}
             </tr>
             </thead>
             <tbody>

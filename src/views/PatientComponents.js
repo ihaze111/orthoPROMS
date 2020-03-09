@@ -22,7 +22,6 @@ import getLabReports from "../components/Queries/GetLabReports";
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
 
-
 export class PatientOverview extends React.Component {
     constructor(props) {
         super(props);
@@ -139,7 +138,8 @@ class Scores extends React.Component {
         this.state.walkingArray.push(props.walking);
         this.state.walking_surfacesArray.push(props.walking_surfaces);
         this.state.totalArray.push(props.total);
-        this.state.regTimeArray.push(props.reg_time);
+        this.state.regTimeArray.push(props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('.')) 
+        || props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('Z')));
     }
 
     render() {
@@ -240,7 +240,8 @@ class RespirationRate extends React.Component {
 
     pushIntoArrays(props) {
         this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
-        this.state.time.push(props.time);
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
 
@@ -288,7 +289,8 @@ class BloodPressure extends React.Component {
     pushIntoArrays(props) {
         this.state.systolicRate.push(props.systolic.magnitude);
         this.state.diastolicRate.push(props.diastolic.magnitude);
-        this.state.time.push(props.time);
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
 
@@ -368,7 +370,8 @@ class IndirectOximetry extends React.Component {
     pushIntoArraysandCalculate(props) {
         var result = (props.numerator / props.denominator) * 100;
         this.state.concentration.push(result);
-        this.state.time.push(props.time);
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
 
@@ -412,7 +415,8 @@ class HeartRate extends React.Component {
 
     pushIntoArrays(props) {
         this.state.heartRateReadings.push(props.heart_rate.magnitude);
-        this.state.time.push(props.time);
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
 
