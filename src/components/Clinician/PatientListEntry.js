@@ -9,7 +9,7 @@ function PatientListEntry(props) {
             <td>{props.sex}</td>
             <td>{props.vitalStatus}</td>
             <td>{props.birthYear}</td>
-            <td>{props.timeCreated}</td>
+            {/* <td>{props.timeCreated}</td> */}
         </tr>
     );
 }

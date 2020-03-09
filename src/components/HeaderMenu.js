@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function HeaderMenu() {
-    return (<Navbar bg="light" expand="lg">
+    return (<Navbar bg="dark" variant="dark" expand="lg">
         <Navbar.Brand href="/">IPROMS</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -25,7 +25,7 @@ function HeaderMenu() {
             </Nav>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-success">Search</Button>
+                <Button variant="outline-light">Search</Button>
             </Form>
         </Navbar.Collapse>
     </Navbar>);

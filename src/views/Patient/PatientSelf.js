@@ -12,6 +12,9 @@ import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph 
 import { getSubjectId, getEHRId } from "../PatientUtils";
 import Template from "./Template";
 
+// import Chart1 from "../../components/Graphs/Chart1";
+
+
 function SurveySuccess() {
     return <Alert variant="success" onClose={() => {
         $('#submitSurveyDialog').fadeOut(500)
@@ -66,6 +69,8 @@ function PatientSelf(props) {
                                     <br/><br/><br/>
                                     <div style={{ width: '1000px', height: '400px' }}><EpisodeScoresGraph
                                         ehrId={ehrId}/></div>
+                                    {/* <br/><br/><br/>
+                                    <div><Chart1 bingbong="bingbong"/></div> */}
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="survey">
                                     <Template/>

@@ -22,7 +22,7 @@ function processOtherDetails(tree) {
                     case 'at0003':
                         processedResult.vitalStatus = item.value.value;
                         break;
-                    case 'at0004':
+                    case 'at0014':
                         processedResult.birthYear = item.value.value;
                         break;
                     default:
