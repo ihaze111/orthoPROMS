@@ -1,7 +1,7 @@
 import React from 'react';
 import 'nhsuk-frontend/dist/nhsuk.min.js';
 import { NHSSearch } from "./NHSSearch";
-import { NHSVectorChevronRight, NHSVectorClose, NHSVectorSearch } from "./NHSIcons";
+import { NHSVectorChevronRight, NHSVectorClose } from "./NHSIcons";
 
 function NHSNav(props) {
     return <ul className="nhsuk-header__navigation-list" style={{ justifyContent: 'left' }}>
