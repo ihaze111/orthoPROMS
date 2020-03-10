@@ -4,7 +4,7 @@ import GeneralLineChart from "./GeneralLineChart";
 class ScoresGraph extends Component {
     render() {
         return (
-            <GeneralLineChart labels={this.props.time} data={[
+            <GeneralLineChart id={"myScores"} labels={this.props.time} data={[
                 {
                     label: "Pain Score",
                     data: this.props.pain,

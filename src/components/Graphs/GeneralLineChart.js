@@ -90,11 +90,11 @@ class GeneralLineChart extends Component {
     };
 
     render() {
-
+        console.log(this.chartRef);
         return (
-            <div className="scores">
+            <div className="general">
                 <canvas
-                    id="myScores"
+                    id={this.props.id}
                     ref={this.chartRef}
                 />
             </div>
