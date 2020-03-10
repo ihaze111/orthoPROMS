@@ -4,6 +4,9 @@ import Table from 'react-bootstrap/Table';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
 import getEHRs from "../../components/Queries/GetEHRs";
+import NHSHeader from "../../components/NHS/NHSHeader";
+import NHSContainer from "../../components/NHS/NHSContainer";
+import NHSWrapper from "../../components/NHS/NHSWrapper";
 
 class PatientListTable extends React.Component {
     constructor(props) {
@@ -44,16 +47,17 @@ class PatientListTable extends React.Component {
 
 function PatientList() {
     return (
-        <div>
-            <HeaderMenu/>
-            <Container>
+        <div style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
+            <NHSHeader/>
+            <NHSContainer>
+                <NHSWrapper>
                 <div style={{ height: '50px' }}></div>
                 <div style={{ display: 'block', textAlign: 'center' }}>
                     <div><h1>Patient List</h1></div>
                     <PatientListTable/>
                 </div>
-            </Container>
-
+                </NHSWrapper>
+            </NHSContainer>
         </div>
     );
 }
