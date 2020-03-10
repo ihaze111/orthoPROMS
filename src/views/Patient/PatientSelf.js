@@ -12,6 +12,13 @@ import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph 
 import { getSubjectId, getEHRId } from "../PatientUtils";
 import Template from "./Template";
 import NHSHeader from "../../components/NHS/NHSHeader";
+import {
+    NHSSummaryList,
+    NHSSummaryListKey,
+    NHSSummaryListRow,
+    NHSSummaryListValue
+} from "../../components/NHS/NHSSummaryList";
+
 // import Chart1 from "../../components/Graphs/Chart1";
 
 function SurveySuccess() {
@@ -32,7 +39,7 @@ function PatientSelf(props) {
         setEhrId(e);
     });
     return (
-        <div style={{fontFamily: 'Frutiger W01, Arial, Sans-serif'}}>
+        <div style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
             <HeaderMenu/>
             <Container style={{ marginTop: '50px' }}>
                 <PatientOverview subjectId={subjectId}/>

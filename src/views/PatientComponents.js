@@ -21,6 +21,12 @@ import getLabReports from "../components/Queries/GetLabReports";
 
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
+import {
+    NHSSummaryList,
+    NHSSummaryListKey,
+    NHSSummaryListRow,
+    NHSSummaryListValue
+} from "../components/NHS/NHSSummaryList";
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -39,14 +45,25 @@ export class PatientOverview extends React.Component {
     render() {
         if (!this.state.ehr) return null;
         return <div style={{ display: "flex" }}>
-            <div style={{ width: "50%" }}>
-                <p>EHR ID: {this.state.ehr.ehrId}</p>
-                <p>Birth year: {this.state.ehr.birthYear}</p>
-                <p>Administrative Gender: {this.state.ehr.administrativeGender}</p>
-                <p>Birth sex: {this.state.ehr.birthSex}</p>
-                {/*<p>Your GP:</p>*/}
-            </div>
-            <div style={{ width: "40%", alignSelf: "center", textAlign: "center" }}>
+            <NHSSummaryList style={{ width: '70%' }}>
+                <NHSSummaryListRow>
+                    <NHSSummaryListKey>EHR ID</NHSSummaryListKey>
+                    <NHSSummaryListValue>{this.state.ehr.ehrId}</NHSSummaryListValue>
+                </NHSSummaryListRow>
+                <NHSSummaryListRow>
+                    <NHSSummaryListKey>Birth year</NHSSummaryListKey>
+                    <NHSSummaryListValue>{this.state.ehr.birthYear}</NHSSummaryListValue>
+                </NHSSummaryListRow>
+                <NHSSummaryListRow>
+                    <NHSSummaryListKey>Administrative Gender</NHSSummaryListKey>
+                    <NHSSummaryListValue>{this.state.ehr.administrativeGender}</NHSSummaryListValue>
+                </NHSSummaryListRow>
+                <NHSSummaryListRow>
+                    <NHSSummaryListKey>Birth sex</NHSSummaryListKey>
+                    <NHSSummaryListValue>{this.state.ehr.birthSex}</NHSSummaryListValue>
+                </NHSSummaryListRow>
+            </NHSSummaryList>
+            <div style={{ width: "30%", alignSelf: "center", textAlign: "center" }}>
                 <img src="./240px-User_icon_2.svg.png"
                      style={{ width: "40%" }} alt=""/>
             </div>
@@ -138,7 +155,7 @@ class Scores extends React.Component {
         this.state.walkingArray.push(props.walking);
         this.state.walking_surfacesArray.push(props.walking_surfaces);
         this.state.totalArray.push(props.total);
-        this.state.regTimeArray.push(props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('.')) 
+        this.state.regTimeArray.push(props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('.'))
         || props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('Z')));
     }
 
@@ -240,7 +257,7 @@ class RespirationRate extends React.Component {
 
     pushIntoArrays(props) {
         this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
         || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
@@ -289,7 +306,7 @@ class BloodPressure extends React.Component {
     pushIntoArrays(props) {
         this.state.systolicRate.push(props.systolic.magnitude);
         this.state.diastolicRate.push(props.diastolic.magnitude);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
         || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
@@ -370,7 +387,7 @@ class IndirectOximetry extends React.Component {
     pushIntoArraysandCalculate(props) {
         var result = (props.numerator / props.denominator) * 100;
         this.state.concentration.push(result);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
         || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
@@ -415,7 +432,7 @@ class HeartRate extends React.Component {
 
     pushIntoArrays(props) {
         this.state.heartRateReadings.push(props.heart_rate.magnitude);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.')) 
+        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
         || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
     }
 
