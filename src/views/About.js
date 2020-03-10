@@ -4,6 +4,9 @@ import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
 import HeaderMenu from '../components/HeaderMenu';
+import NHSHeader from "../components/NHS/NHSHeader";
+import NHSContainer from "../components/NHS/NHSContainer";
+import NHSWrapper from "../components/NHS/NHSWrapper";
 
 
 function DevelopersTableEntry(props){
@@ -24,8 +27,9 @@ class About extends React.Component{
     render(){
         return(
             <div>
-                <HeaderMenu/>
-                <Container>
+                <NHSHeader/>
+                <NHSContainer>
+                    <NHSWrapper>
                     <div style={{ height: '30px' }}></div>
                     <div style={{ display: 'flex' }}>
                         <div style={{ width: '50%' }}>
@@ -99,11 +103,11 @@ class About extends React.Component{
                                         <a href = "https://apperta.org/">
                                             <img src="https://apperta.org/img/logo.png" alt="appertaLogo" style={{width:'20%'}}></img>
                                         </a>
-                                        <a href = "https://code4health.org/"> 
+                                        <a href = "https://code4health.org/">
                                             <img src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg"
                                                 alt="code4healthLogo" style={{width:'30%'}}></img>
                                         </a>
-                                        <a href = "https://digital.nhs.uk/"> 
+                                        <a href = "https://digital.nhs.uk/">
                                             <img  src="https://digital.nhs.uk/webfiles/1576854238445/images/nhs-digital-logo.svg"
                                                 alt="nhsLogo" style={{width:'15%'}}></img>
                                         </a>
@@ -125,7 +129,8 @@ class About extends React.Component{
                         {/* </Accordion.Collapse> */}
                     </Card>
                     {/* </Accordion> */}
-                </Container>
+                    </NHSWrapper>
+                </NHSContainer>
             </div>
         );
     }
