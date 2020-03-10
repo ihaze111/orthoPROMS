@@ -27,6 +27,15 @@ import {
     NHSSummaryListRow,
     NHSSummaryListValue
 } from "../components/NHS/NHSSummaryList";
+import {
+    NHSTable,
+    NHSTableWrapper,
+    NHSTBody,
+    NHSTd,
+    NHSTh,
+    NHSTHead,
+    NHSTr
+} from "../components/NHS/NHSTableWrapperTest";
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -73,12 +82,15 @@ export class PatientOverview extends React.Component {
 
 function PatientProgressTableEntry(props) {
     // TODO: what happens if no NHS number?
-    return <tr key={"composition" + props.nhs_number + "no" + props.index}>
-        <td key={"composition" + props.nhs_number + "no" + props.index + "nhsNumber"}>{props.nhs_number}</td>
-        <td key={"composition" + props.nhs_number + "no" + props.index + "composerName"}>{props.composer_name}</td>
-        <td key={"composition" + props.nhs_number + "no" + props.index + "episodeIdentifier"}>{props.episode_identifier}</td>
-        <td key={"composition" + props.nhs_number + "no" + props.index + "aofasComment"}>{props.aofas_comment}</td>
-    </tr>;
+    return <NHSTr key={"composition" + props.nhs_number + "no" + props.index}>
+        <NHSTd key={"composition" + props.nhs_number + "no" + props.index + "nhsNumber"}>{props.nhs_number}</NHSTd>
+        <NHSTd
+            key={"composition" + props.nhs_number + "no" + props.index + "composerName"}>{props.composer_name}</NHSTd>
+        <NHSTd
+            key={"composition" + props.nhs_number + "no" + props.index + "episodeIdentifier"}>{props.episode_identifier}</NHSTd>
+        <NHSTd
+            key={"composition" + props.nhs_number + "no" + props.index + "aofasComment"}>{props.aofas_comment}</NHSTd>
+    </NHSTr>;
 }
 
 class Compositions extends React.Component {
@@ -103,26 +115,33 @@ class Compositions extends React.Component {
                 }
             )
         } else {
-            return <tr key="noCompositionsRow">
-                <td key="noCompositionsData" colSpan="4">No compositions were found</td>
-            </tr>;
+            return <NHSTr key="noCompositionsRow">
+                <NHSTd key="noCompositionsData" colSpan="4">No compositions were found</NHSTd>
+            </NHSTr>;
         }
     }
 }
 
 export function PatientProgressTable(props) {
     if (props.ehrId) {
-        return <Table striped bordered hover>
-            <thead>
-            <PatientProgressTableEntry nhs_number="NHS Number"
-                                       composer_name="Composer Name"
-                                       episode_identifier="Episode Identifier"
-                                       aofas_comment="AOFAS Comment"/>
-            </thead>
-            <tbody>
-            <Compositions key='compositions' ehrId={props.ehrId}/>
-            </tbody>
-        </Table>;
+        return <NHSTableWrapper>
+            <NHSTable>
+                <NHSTHead>
+                    <NHSTr key={"compositionNHS Numberno" + props.index}>
+                        <NHSTh key={"compositionNHS Numberno" + props.index + "nhsNumber"}>NHS Number</NHSTh>
+                        <NHSTh
+                            key={"compositionNHS Numberno" + props.index + "composerName"}>Composer Name</NHSTh>
+                        <NHSTh
+                            key={"compositionNHS Numberno" + props.index + "episodeIdentifier"}>Episode
+                            Identifier</NHSTh>
+                        <NHSTh
+                            key={"compositionNHS Numberno" + props.index + "aofasComment"}>AOFAS Comment</NHSTh>
+                    </NHSTr>
+                </NHSTHead>
+                <NHSTBody>
+                    <Compositions key='compositions' ehrId={props.ehrId}/>
+                </NHSTBody>
+            </NHSTable></NHSTableWrapper>;
     } else {
         return null;
     }
@@ -155,8 +174,8 @@ class Scores extends React.Component {
         this.state.walkingArray.push(props.walking);
         this.state.walking_surfacesArray.push(props.walking_surfaces);
         this.state.totalArray.push(props.total);
-        this.state.regTimeArray.push(props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('.'))
-        || props.reg_time.replace(/T/,' ').substring(0,props.reg_time.indexOf('Z')));
+        this.state.regTimeArray.push(props.reg_time.replace(/T/, ' ').substring(0, props.reg_time.indexOf('.'))
+            || props.reg_time.replace(/T/, ' ').substring(0, props.reg_time.indexOf('Z')));
     }
 
     render() {
@@ -257,8 +276,8 @@ class RespirationRate extends React.Component {
 
     pushIntoArrays(props) {
         this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
-        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
+        this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
+            || props.time.replace(/T/, ' ').substring(0, props.time.indexOf('Z')));
     }
 
 
@@ -306,8 +325,8 @@ class BloodPressure extends React.Component {
     pushIntoArrays(props) {
         this.state.systolicRate.push(props.systolic.magnitude);
         this.state.diastolicRate.push(props.diastolic.magnitude);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
-        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
+        this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
+            || props.time.replace(/T/, ' ').substring(0, props.time.indexOf('Z')));
     }
 
 
@@ -387,8 +406,8 @@ class IndirectOximetry extends React.Component {
     pushIntoArraysandCalculate(props) {
         var result = (props.numerator / props.denominator) * 100;
         this.state.concentration.push(result);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
-        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
+        this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
+            || props.time.replace(/T/, ' ').substring(0, props.time.indexOf('Z')));
     }
 
 
@@ -432,8 +451,8 @@ class HeartRate extends React.Component {
 
     pushIntoArrays(props) {
         this.state.heartRateReadings.push(props.heart_rate.magnitude);
-        this.state.time.push(props.time.replace(/T/,' ').substring(0,props.time.indexOf('.'))
-        || props.time.replace(/T/,' ').substring(0,props.time.indexOf('Z')));
+        this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
+            || props.time.replace(/T/, ' ').substring(0, props.time.indexOf('Z')));
     }
 
 
