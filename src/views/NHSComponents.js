@@ -8,6 +8,13 @@ export function NHSButton(props) {
     </button>;
 }
 
+export function NHSButtonSecondary(props) {
+    const className = props.className + " nhsuk-button nhsuk-button--secondary";
+    return <button className={className} onClick={props.onClick}>
+        {props.children}
+    </button>;
+}
+
 export function NHSFormLabel(props) {
     return <label class='nhsuk-label'>{props.children}</label>;
 }
