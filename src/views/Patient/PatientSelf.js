@@ -12,6 +12,7 @@ import Template from "./Template";
 import NHSHeader from "../../components/NHS/NHSHeader";
 import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
+import { NHSTableWrapperTest } from "../../components/NHS/NHSTableWrapperTest";
 
 // import Chart1 from "../../components/Graphs/Chart1";
 
