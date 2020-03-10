@@ -26,7 +26,7 @@ class Login extends React.Component{
 	render(){
 		return(
 			<div>
-                <HeaderMenu />
+                <HeaderMenu navigationDisabled searchDisabled/>
                 <div style={{display: 'flex', alignSelf:'center', justifyContent: 'center', marginTop: '10%'}}>
                     <Form>
                     <NHSFormGroup controlId="formBasicEmail">
