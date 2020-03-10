@@ -19,8 +19,9 @@ function NHSNavLink(props) {
 }
 
 function NHSAppLogo(props) {
+    const headingSize = props.smaller ? 'nhsuk-heading-m' : 'nhsuk-heading-l';
     return <div className="nhsuk-header__logo">
-        <h1 className="nhsuk-logo__text nhsuk-heading-xl"
+        <h1 className={"nhsuk-logo__text " + headingSize}
             style={{ color: "white", marginBottom: 0 }}>{props.children}</h1>
     </div>;
 }
@@ -42,28 +43,32 @@ function NHSHeaderMenuToggle() {
 }
 
 
-
-function NHSHeader() {
+function NHSHeader(props) {
+    const navigation = props.navigationDisabled ? null :
+        <nav className="nhsuk-header__navigation" id="header-navigation">
+            <div className="nhsuk-width-container">
+                <NHSHeaderMenu/>
+                <NHSNav>
+                    <NHSNavLink href='/'>Home</NHSNavLink>
+                    <NHSNavLink href='/About'>About</NHSNavLink>
+                    <NHSNavLink href='/NationalStatistics'>National Statistics</NHSNavLink>
+                </NHSNav>
+            </div>
+        </nav>;
+    const search = props.searchDisabled ? null : <NHSSearch/>;
+    const headerContent = props.searchDisabled && props.navigationDisabled ? null :
+        <div className="nhsuk-header__content" id="content-header">
+            <NHSHeaderMenuToggle/>
+            {search}
+        </div>;
     return (
         <header className="nhsuk-header"
                 style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
             <div className="nhsuk-width-container nhsuk-header__container">
-                <NHSAppLogo>orthoPROMS</NHSAppLogo>
-                <div className="nhsuk-header__content" id="content-header">
-                    <NHSHeaderMenuToggle/>
-                    <NHSSearch/>
-                </div>
+                <NHSAppLogo smaller={props.navigationDisabled}>orthoPROMS</NHSAppLogo>
+                {headerContent}
             </div>
-            <nav className="nhsuk-header__navigation" id="header-navigation">
-                <div className="nhsuk-width-container">
-                    <NHSHeaderMenu/>
-                    <NHSNav>
-                        <NHSNavLink href='/'>Home</NHSNavLink>
-                        <NHSNavLink href='/About'>About</NHSNavLink>
-                        <NHSNavLink href='/NationalStatistics'>National Statistics</NHSNavLink>
-                    </NHSNav>
-                </div>
-            </nav>
+            {navigation}
         </header>
     );
 }
