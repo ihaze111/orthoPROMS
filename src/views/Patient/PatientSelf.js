@@ -73,7 +73,7 @@ function PatientSelf(props) {
                                         <Tab.Pane eventKey="myData">
                                             <div><ScoresArray ehrId={ehrId}/></div>
                                             <br/><br/><br/>
-                                            <div style={{ width: '1000px', height: '400px' }}><EpisodeScoresGraph
+                                            <div ><EpisodeScoresGraph
                                                 ehrId={ehrId}/></div>
                                             {/* <br/><br/><br/>
                                     <div><Chart1 bingbong="bingbong"/></div> */}

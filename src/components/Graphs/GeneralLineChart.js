@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Chart from "chart.js";
 
 let generalLineChartGraph;
+let anothaOneMore;
+const colours = ['maroon', 'green', 'blue', 'red', 'purple'];
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;
@@ -10,33 +12,26 @@ class GeneralLineChart extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-        this.buildChart();
+        // this.buildChart();
+        this.start();
     }
 
     componentDidUpdate() {
-        this.buildChart();
+        // this.buildChart();
+        this.start();
     }
 
-    buildChart = () => {
-        const myScoresGraphRef = this.chartRef.current.getContext("2d");
+    start = () => {
+        if (this.props.id === "myScores"){
+            this.buildChart1();
+        }
+        if (this.props.id === "myOxygen"){
+            this.buildChart2();
+        }
+    }
 
-        if (typeof generalLineChartGraph !== "undefined") generalLineChartGraph.destroy();
-
-        const colours = ['maroon', 'green', 'blue', 'red', 'purple'];
-
-        const data = {};
-        data.labels = this.props.labels; // this.props.time
-        const colorIterator = colours.values();
-        data.datasets = this.props.data.map((data) => {
-            return {
-                label: data.label,
-                data: data.data,
-                fill: false,
-                borderColor: colorIterator.next().value
-            }
-        });
-
-        const options = {
+    optionHolder = () =>{
+        return {
             title: {
                 display: true,
                 text: this.props.title,
@@ -80,7 +75,23 @@ class GeneralLineChart extends Component {
                 }]
             }
         };
+    }
 
+    buildChart1 = () => {
+        const myScoresGraphRef = this.chartRef.current.getContext("2d");
+        if (typeof generalLineChartGraph !== "undefined") generalLineChartGraph.destroy();
+        const data = {};
+        data.labels = this.props.labels; // this.props.time
+        const colorIterator = colours.values();
+        data.datasets = this.props.data.map((data) => {
+            return {
+                label: data.label,
+                data: data.data,
+                fill: false,
+                borderColor: colorIterator.next().value
+            }
+        });
+        const options = this.optionHolder();
         generalLineChartGraph = new Chart(myScoresGraphRef, {
             type: "line",
             data,
@@ -89,8 +100,30 @@ class GeneralLineChart extends Component {
 
     };
 
+    buildChart2 = () => {
+        const anothaOne = this.chartRef.current.getContext("2d");
+        if (typeof anothaOneMore !== "undefined") anothaOneMore.destroy();
+        const data = {};
+        data.labels = this.props.labels; // this.props.time
+        const colorIterator = colours.values();
+        data.datasets = this.props.data.map((data) => {
+            return {
+                label: data.label,
+                data: data.data,
+                fill: false,
+                borderColor: colorIterator.next().value
+            }
+        });
+        const options = this.optionHolder();
+        anothaOneMore = new Chart(anothaOne, {
+            type: "line",
+            data,
+            options
+        });
+
+    };
+
     render() {
-        console.log(this.chartRef);
         return (
             <div className="general">
                 <canvas
