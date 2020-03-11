@@ -8,6 +8,7 @@ import $ from "jquery";
 import NHSHeader from "../components/NHS/NHSHeader";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSWrapper from "../components/NHS/NHSWrapper";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/NHS/NHSPanel";
 
 class NationalStatistics extends React.Component {
     constructor(props) {
@@ -26,18 +27,18 @@ class NationalStatistics extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{ backgroundColor: '#f0f4f5' }}>
                 <NHSHeader/>
                 <NHSContainer>
                     <NHSWrapper>
-                        <Card>
-                            <Card.Header>
+                        <NHSPanel>
+                            <NHSPanelTitle>
                                 What Is IPROMS?
-                            </Card.Header>
-                            <Card.Body>
+                            </NHSPanelTitle>
+                            <NHSPanelBody>
                                 <div style={{ width: '1000px', height: '400px' }}><RangeEpisodeScoresGraph/></div>
-                            </Card.Body>
-                        </Card>
+                            </NHSPanelBody>
+                        </NHSPanel>
                     </NHSWrapper>
                 </NHSContainer>
             </div>

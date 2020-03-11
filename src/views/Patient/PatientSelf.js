@@ -13,6 +13,7 @@ import NHSHeader from "../../components/NHS/NHSHeader";
 import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
 import { NHSTableWrapperTest } from "../../components/NHS/NHSTableWrapperTest";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/NHS/NHSPanel";
 
 // import Chart1 from "../../components/Graphs/Chart1";
 
@@ -34,16 +35,16 @@ function PatientSelf(props) {
         setEhrId(e);
     });
     return (
-        <div style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
+        <div style={{ backgroundColor: '#f0f4f5' }}>
             <NHSHeader/>
             <NHSContainer>
                 <NHSWrapper>
                     <PatientOverview subjectId={subjectId}/>
-                    <Card>
-                        <Card.Header>
-                            <Card.Title>Details</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
+                    <NHSPanel>
+                        <NHSPanelTitle>
+                            Details
+                        </NHSPanelTitle>
+                        <NHSPanelBody>
                             <Tab.Container defaultActiveKey="myProgress">
                                 <Nav variant="tabs" style={{ marginBottom: '40px' }}>
                                     <Nav.Item>
@@ -80,8 +81,8 @@ function PatientSelf(props) {
                                     </Tab.Pane>
                                 </Tab.Content>
                             </Tab.Container>
-                        </Card.Body>
-                    </Card>
+                        </NHSPanelBody>
+                    </NHSPanel>
                 </NHSWrapper>
             </NHSContainer>
         </div>
