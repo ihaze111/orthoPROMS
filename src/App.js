@@ -1,6 +1,6 @@
 import React from 'react';
 import Script from 'react-load-script'
-import { BrowserRouter as Router,Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './views/Home';
 import PatientSelf from './views/Patient/PatientSelf';
 import PatientList from './views/Clinician/PatientList';
@@ -61,4 +61,5 @@ class App extends React.Component {
 		)
 	}
 }
+
 export default App;

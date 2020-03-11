@@ -71,7 +71,11 @@ class HeaderMenu extends React.Component{
         </Navbar.Collapse>
     </Navbar>);
     }
-}
+// import NHSHeader from "./NHS/NHSHeader";
+
+// function HeaderMenu(props) {
+//     return NHSHeader(props);
+// }
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
