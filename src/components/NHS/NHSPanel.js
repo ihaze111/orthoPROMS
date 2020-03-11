@@ -11,3 +11,7 @@ export function NHSPanelBody(props) {
 export function NHSPanel(props) {
     return <div className="nhsuk-panel" {...props} />;
 }
+
+export function NHSPanelWithLabel(props) {
+    return <div className="nhsuk-panel-with-label" {...props} />;
+}

@@ -20,7 +20,7 @@ import NHSHeader from "../../components/NHS/NHSHeader";
 import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
 import NHSBackLink from "../../components/NHS/NHSBackLink";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/NHS/NHSPanel";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/NHS/NHSPanel";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -179,11 +179,11 @@ class PatientRecords extends React.Component {
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="vitals">
                                                     <PatientOverview subjectId={subjectId}/>
-                                                    <Card>
-                                                        <Card.Header>
-                                                            <Card.Title>Patient's History</Card.Title>
-                                                        </Card.Header>
-                                                        <Card.Body>
+                                                    <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
+                                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                                                            Patient's History
+                                                        </NHSPanelTitle>
+                                                        <NHSPanelBody>
                                                             <Tab.Container defaultActiveKey="bloodPressure">
                                                                 <Nav variant="tabs"
                                                                      style={{ marginBottom: '40px' }}>
@@ -232,8 +232,8 @@ class PatientRecords extends React.Component {
                                                                     </Tab.Pane>
                                                                 </Tab.Content>
                                                             </Tab.Container>
-                                                        </Card.Body>
-                                                    </Card>
+                                                        </NHSPanelBody>
+                                                    </NHSPanelWithLabel>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="patientProgress">
                                                     <PatientProgressTable ehrId={this.state.ehrId}/>
