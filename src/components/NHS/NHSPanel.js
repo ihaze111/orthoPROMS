@@ -7,6 +7,7 @@ export function NHSPanelTitle(props) {
 export function NHSPanelBody(props) {
     return <div {...props} />;
 }
+
 export function NHSPanel(props) {
     return <div className="nhsuk-panel" {...props} />;
 }
