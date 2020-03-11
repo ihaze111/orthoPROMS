@@ -1,4 +1,4 @@
-import environment from "../environment";
+import environment from "../../environment";
 
 const CDRHeaders = {
     'Ehr-Session-disabled': '{{Ehr-Session}}',
@@ -14,15 +14,27 @@ const CDROptions = {
             headers: CDRHeaders,
         };
     },
+    generateAxiosOptions(url) {
+        return {
+            method: 'get',
+            url: environment.api_url + url,
+            headers: CDRHeaders,
+        };
+    },
     generateQueryOptions(aql) {
         return {
-            'method': 'POST',
-            'url': environment.api_url + '/rest/v1/query',
+            method: 'post',
+            url:  environment.api_url + '/rest/v1/query',
             headers: CDRHeaders,
-            body: JSON.stringify({
+            data: JSON.stringify({
                 "aql": aql
             })
         };
+    },
+    CDRHeaders: {
+        'Ehr-Session-disabled': '{{Ehr-Session}}',
+        'Content-Type': 'application/json',
+        'Authorization': environment.api_authorisation,
     }
 };
 

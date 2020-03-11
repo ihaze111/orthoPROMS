@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import $ from  'jquery';
+import $ from 'jquery';
 import HeaderMenu from "../components/HeaderMenu";
 import qs from "qs";
 import Button from 'react-bootstrap/Button';
@@ -68,58 +68,110 @@ class Login extends React.Component{
     }
 
 
-    handleClick() {
-        window.location.href = "/Reset"
-    }
-    componentDidMount(){
-        var id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-        this.setState({id: id})
-    }
-	render(){
-		return(
-			<div>
-                <HeaderMenu />
-                <div style={{display: 'flex', alignSelf:'center', justifyContent: 'center', marginTop: '10%'}}>
-                    <Form onSubmit = { this.onSubmit }>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" name="email" onChange={ this.onChange } />
-                        <Form.Text className="text-muted">
-                        </Form.Text>
-                    </Form.Group>
+// import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormLabel, NHSButtonSecondary } from './NHSComponents';
+// import NHSHeader from "../components/NHS/NHSHeader";
+// import NHSContainer from "../components/NHS/NHSContainer";
+// import NHSWrapper from "../components/NHS/NHSWrapper";
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" name="password" onChange={ this.onChange }/>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Keep me logged in" />
-                    </Form.Group>
-                    <Button className="btn btn-primary btn-block login" onClick={this.onSubmit}>Log in</Button>
-                    <a href={'/Register?id='+this.state.id}>Register</a><br />
-                    <div>
-                        <GoogleLogin
-                            clientId="1026232614474-9uipnerkha7t6vqo8rsetj2q8ffk5fg4.apps.googleusercontent.com"
-                            buttonText="Login"
-                            onSuccess={this.onSignIn}
-                            onFailure={this.onSignIn}
-                            cookiePolicy={'single_host_origin'}
-                            style={{'widht': '100%'}}
-                            className="btn  btn-block"
-                        > 
-                         <span> Login with Google  </span>
+// class Login extends React.Component {
+//     handleClick() {
+//         window.location.href = "/Reset"
+//     }
+//     componentDidMount(){
+//         var id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+//         this.setState({id: id})
+//     }
+// 	render(){
+// 		return(
+// 			<div>
+//                 <HeaderMenu />
+//                 <div style={{display: 'flex', alignSelf:'center', justifyContent: 'center', marginTop: '10%'}}>
+//                     <Form onSubmit = { this.onSubmit }>
+//                     <Form.Group controlId="formBasicEmail">
+//                         <Form.Label>Email address</Form.Label>
+//                         <Form.Control type="email" placeholder="Enter email" name="email" onChange={ this.onChange } />
+//                         <Form.Text className="text-muted">
+//                         </Form.Text>
+//                     </Form.Group>
+
+//                     <Form.Group controlId="formBasicPassword">
+//                         <Form.Label>Password</Form.Label>
+//                         <Form.Control type="password" placeholder="Password" name="password" onChange={ this.onChange }/>
+//                     </Form.Group>
+//                     <Form.Group controlId="formBasicCheckbox">
+//                         <Form.Check type="checkbox" label="Keep me logged in" />
+//                     </Form.Group>
+//                     <Button className="btn btn-primary btn-block login" onClick={this.onSubmit}>Log in</Button>
+//                     <a href={'/Register?id='+this.state.id}>Register</a><br />
+//                     <div>
+//                         <GoogleLogin
+//                             clientId="1026232614474-9uipnerkha7t6vqo8rsetj2q8ffk5fg4.apps.googleusercontent.com"
+//                             buttonText="Login"
+//                             onSuccess={this.onSignIn}
+//                             onFailure={this.onSignIn}
+//                             cookiePolicy={'single_host_origin'}
+//                             style={{'widht': '100%'}}
+//                             className="btn  btn-block"
+//                         > 
+//                          <span> Login with Google  </span>
                          
-                         </GoogleLogin>
-                    </div>
+//                          </GoogleLogin>
+//                     </div>
                     
-                    <Button variant="link" onClick={this.handleClick}>Forgot your password?</Button>
-                    </Form>
-                </div>
+//                     <Button variant="link" onClick={this.handleClick}>Forgot your password?</Button>
+//                     </Form>
+//                 </div>
                 
-			</div>
+// 			</div>
 
-		);
-	}
+// 		);
+// 	}
+
+    // componentDidMount() {
+    //     var xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+
+    //     $(".login").click(function () {
+    //         if (xx === "1") {
+    //             window.location.href = "/Patient?id=" + xx;
+    //         } else if (xx === "2") {
+    //             window.location.href = "/Clinician?id=" + xx;
+    //         } else {
+    //             // TODO: error
+    //         }
+    //     })
+    // }
+
+    // render() {
+    //     return (
+    //         <div>
+    //             <NHSHeader navigationDisabled searchDisabled/>
+    //             <NHSContainer>
+    //                 <NHSWrapper style={{display: 'flex', justifyContent: 'center'}}>
+    //                     <Form>
+    //                         <NHSFormGroup controlId="formBasicEmail">
+    //                             <NHSFormLabel>Email address</NHSFormLabel>
+    //                             <NHSFormControl type="email" placeholder="Enter email"/>
+    //                         </NHSFormGroup>
+
+    //                         <NHSFormGroup controlId="formBasicPassword">
+    //                             <NHSFormLabel>Password</NHSFormLabel>
+    //                             <NHSFormControl type="password" placeholder="Password"/>
+    //                         </NHSFormGroup>
+    //                         <Form.Group controlId="formBasicCheckbox">
+    //                             <Form.Check type="checkbox" label="Keep me logged in"/>
+    //                         </Form.Group>
+    //                         <NHSButton className="login">Log in</NHSButton>&nbsp;&nbsp;&nbsp;&nbsp;
+    //                         <a href="/Register">
+    //                             <NHSButton>Register</NHSButton>
+    //                         </a><br/>
+    //                         <Button variant="link" onClick={this.handleClick}>Forgot your password?</Button>
+    //                     </Form>
+    //                 </NHSWrapper>
+    //             </NHSContainer>
+    //         </div>
+
+    //     );
+    // }
 }
 
 
