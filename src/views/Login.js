@@ -1,59 +1,131 @@
+
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import $ from  'jquery';
 import HeaderMenu from "../components/HeaderMenu";
 import qs from "qs";
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
+import { login,googleLogin } from '../actions/authActions.js'
+
+import GoogleLogin from 'react-google-login';
+
 
 class Login extends React.Component{
+
+    constructor(props){
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+            id: 1
+        }
+    }
+
+    onChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    
+
+    onSignIn = (googleUser) => {
+        console.log(googleUser);
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;
+        this.props.googleLogin({token: id_token,user: profile})
+        let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+        if (xx === "1") {
+            window.location.href = "/Patient?id="+xx;
+        } else if (xx === "2") {
+            window.location.href = "/Clinician?id="+xx;
+        }
+    }
+
+   
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        if(this.state.email=='' || this.state.password==''){
+            return alert('Please enter your emial or password.')
+        }
+        let type = this.state.id == 1?'Patient':'Clinicians'
+        this.props.login({...this.state,type}).then(
+            res => {
+                alert(res.message)
+                if(res.code === 200){
+                    let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+                    if (xx === "1") {
+
+                        window.location.href = "/Patient?id="+xx;
+                    } else if (xx === "2") {
+                        window.location.href = "/Clinician?id="+xx;
+                    } 
+                }
+
+            }
+        )
+        
+    }
+
+
     handleClick() {
-        alert('Password reset email has been sent.')
+        window.location.href = "/Reset"
     }
     componentDidMount(){
-        var xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-
-        $(".login").click(function(){
-            if (xx === "1") {
-                window.location.href = "/Patient?id="+xx;
-            } else if (xx === "2") {
-                window.location.href = "/Clinician?id="+xx;
-            } else {
-                // TODO: error
-            }
-        })
+        var id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+        this.setState({id: id})
     }
 	render(){
 		return(
 			<div>
                 <HeaderMenu />
                 <div style={{display: 'flex', alignSelf:'center', justifyContent: 'center', marginTop: '10%'}}>
-                    <Form>
+                    <Form onSubmit = { this.onSubmit }>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control type="email" placeholder="Enter email" name="email" onChange={ this.onChange } />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Password" name="password" onChange={ this.onChange }/>
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Keep me logged in" />
                     </Form.Group>
-                    <Button className="btn btn-primary btn-block login">Log in</Button>
-                    <a href="/Register">Register</a><br />
+                    <Button className="btn btn-primary btn-block login" onClick={this.onSubmit}>Log in</Button>
+                    <a href={'/Register?id='+this.state.id}>Register</a><br />
+                    <div>
+                        <GoogleLogin
+                            clientId="1026232614474-9uipnerkha7t6vqo8rsetj2q8ffk5fg4.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.onSignIn}
+                            onFailure={this.onSignIn}
+                            cookiePolicy={'single_host_origin'}
+                            style={{'widht': '100%'}}
+                            className="btn  btn-block"
+                        > 
+                         <span> Login with Google  </span>
+                         
+                         </GoogleLogin>
+                    </div>
+                    
                     <Button variant="link" onClick={this.handleClick}>Forgot your password?</Button>
                     </Form>
                 </div>
+                
 			</div>
 
 		);
 	}
 }
 
-export default Login;
+
+
+export default connect(null, {login,googleLogin})(Login)
+
 
 
 

@@ -1,10 +1,17 @@
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
+
+
+
 class Home extends React.Component{
+	constructor(props) {
+		super(props)
+	}
 	render(){
 		return(
 			<div>
+				
 				<div style={{backgroundImage: 'url(./1.jpg)', height: '100vh', backgroundPosition: 'center center', backgroundSize: 'cover', textAlign: 'center !important'}}>
 					<div style={{justifyContent: 'center', paddingTop: '18%', display: 'grid'}}>
 						<h1 style={{fontFamily: 'Source Sans Pro', fontWeight: '700', fontSize: '5.5em'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPROMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
