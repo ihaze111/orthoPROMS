@@ -20,6 +20,7 @@ import NHSHeader from "../../components/NHS/NHSHeader";
 import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
 import NHSBackLink from "../../components/NHS/NHSBackLink";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/NHS/NHSPanel";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -148,14 +149,14 @@ class PatientRecords extends React.Component {
         let subjectId = getSubjectId(this.props.location.search);
         // console.log(this.state.ehrId);
         return (
-            <div>
+            <div style={{ backgroundColor: '#f0f4f5' }}>
                 <NHSHeader/>
                 <NHSContainer>
                     <NHSWrapper>
                         <NHSBackLink onClick={this.goBack}>Go back</NHSBackLink>
-                        <Card>
-                            <Card.Header>Patient Record</Card.Header>
-                            <Card.Body>
+                        <NHSPanel>
+                            <NHSPanelTitle>Patient Record</NHSPanelTitle>
+                            <NHSPanelBody>
                                 <Tab.Container defaultActiveKey="vitals">
                                     <Row>
                                         <Col sm={3}>
@@ -350,8 +351,8 @@ class PatientRecords extends React.Component {
                                         </Col>
                                     </Row>
                                 </Tab.Container>
-                            </Card.Body>
-                        </Card>
+                            </NHSPanelBody>
+                        </NHSPanel>
                     </NHSWrapper>
                 </NHSContainer>
             </div>
