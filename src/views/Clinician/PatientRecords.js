@@ -148,7 +148,7 @@ class PatientRecords extends React.Component {
         let subjectId = getSubjectId(this.props.location.search);
         // console.log(this.state.ehrId);
         return (
-            <div style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
+            <div>
                 <NHSHeader/>
                 <NHSContainer>
                     <NHSWrapper>
