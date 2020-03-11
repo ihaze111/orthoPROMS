@@ -25,7 +25,7 @@ export function NHSTableCaption(props) {
 }
 
 export function NHSTable(props) {
-    return <table className="nhsuk-table" {...props} />
+    return <table className="nhsuk-table" style={{textAlign: 'left'}} {...props} />
 }
 
 export function NHSTableWrapper(props) {

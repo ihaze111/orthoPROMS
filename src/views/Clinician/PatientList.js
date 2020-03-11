@@ -7,6 +7,7 @@ import getEHRs from "../../components/Queries/GetEHRs";
 import NHSHeader from "../../components/NHS/NHSHeader";
 import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
+import { NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr } from "../../components/NHS/NHSTableWrapperTest";
 
 class PatientListTable extends React.Component {
     constructor(props) {
@@ -23,25 +24,25 @@ class PatientListTable extends React.Component {
 
     render() {
         if (!this.state.ehrs) return null;
-        return <Table striped bordered hover>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>NHS Number</th>
-                <th>Gender</th>
-                <th>Sex</th>
-                <th>Vital Status</th>
-                <th>Birth Year</th>
-                {/* <th>Time created</th> */}
-            </tr>
-            </thead>
-            <tbody>
-            {this.state.ehrs.map((e, index) => {
-                e.id = index + 1;
-                return PatientListEntry(e);
-            })}
-            </tbody>
-        </Table>;
+        return <NHSTable>
+            <NHSTHead>
+                <NHSTr>
+                    <NHSTh>#</NHSTh>
+                    <NHSTh>NHS Number</NHSTh>
+                    <NHSTh>Gender</NHSTh>
+                    <NHSTh>Sex</NHSTh>
+                    <NHSTh>Vital Status</NHSTh>
+                    <NHSTh>Birth Year</NHSTh>
+                    {/* <th>Time created</th> */}
+                </NHSTr>
+            </NHSTHead>
+            <NHSTBody>
+                {this.state.ehrs.map((e, index) => {
+                    e.id = index + 1;
+                    return PatientListEntry(e);
+                })}
+            </NHSTBody>
+        </NHSTable>;
     }
 }
 
@@ -51,11 +52,8 @@ function PatientList() {
             <NHSHeader/>
             <NHSContainer>
                 <NHSWrapper>
-                <div style={{ height: '50px' }}></div>
-                <div style={{ display: 'block', textAlign: 'center' }}>
-                    <div><h1>Patient List</h1></div>
+                    <h1>Patient List</h1>
                     <PatientListTable/>
-                </div>
                 </NHSWrapper>
             </NHSContainer>
         </div>
