@@ -19,6 +19,7 @@ import Col from "react-bootstrap/Col";
 import NHSHeader from "../../components/NHS/NHSHeader";
 import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
+import NHSBackLink from "../../components/NHS/NHSBackLink";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -151,12 +152,7 @@ class PatientRecords extends React.Component {
                 <NHSHeader/>
                 <NHSContainer>
                     <NHSWrapper>
-                        <div style={{ float: 'left' }}>
-                            <img src={back} onClick={this.goBack} onHov alt={"back"}/>
-                            {/* <Nav className="flex-column">
-                    <Nav.Link onClick={this.goBack} style={{color: 'red'}}>Patients List</Nav.Link>
-                </Nav> */}
-                        </div>
+                        <NHSBackLink onClick={this.goBack}>Go back</NHSBackLink>
                         <Card>
                             <Card.Header>Patient Record</Card.Header>
                             <Card.Body>
