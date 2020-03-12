@@ -13,6 +13,7 @@ import { NHSButton, NHSButtonLink, NHSFormControl, NHSFormGroup, NHSFormLabel } 
 import NHSWrapper from "../components/NHS/NHSWrapper";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSCheckbox from "../components/NHS/NHSCheckbox";
+import NHSFooter from "../components/NHS/NHSFooter";
 
 
 class Login extends React.Component {
@@ -128,6 +129,7 @@ class Login extends React.Component {
                         </div>
                     </NHSWrapper>
                 </NHSContainer>
+                <NHSFooter/>
             </div>
 
         );
