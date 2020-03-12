@@ -8,6 +8,7 @@ import NHSHeader from "../components/NHS/NHSHeader";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSWrapper from "../components/NHS/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/NHS/NHSPanel";
+import NHSFooter from "../components/NHS/NHSFooter";
 
 
 function DevelopersTableEntry(props) {
@@ -134,6 +135,7 @@ class About extends React.Component {
                         {/* </Accordion> */}
                     </NHSWrapper>
                 </NHSContainer>
+                <NHSFooter/>
             </div>
         );
     }
