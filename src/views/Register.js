@@ -144,62 +144,60 @@ class Register extends React.Component {
                 <NHSHeader navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
-                        <div style={{
-                            display: 'flex',
-                            alignSelf: 'center',
-                            justifyContent: 'center',
-                            marginTop: '10%'
-                        }}>
-                            <Form onSubmit={this.onSubmit}>
-                                <Row>
-                                    <Col>
-                                        <NHSFormGroup controlId="formBasicEmail">
-                                            <NHSFormLabel>Email address</NHSFormLabel>
-                                            <NHSFormHint>
-                                                We'll never share your email with anyone else.
-                                            </NHSFormHint>
-                                            <NHSFormControl type="email" placeholder="Enter email" name="email"
-                                                          onChange={this.onChange}/>
-                                        </NHSFormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <NHSFormGroup controlId="formBasicCode">
-                                            <NHSFormLabel>Code</NHSFormLabel>
-                                            <NHSFormControl type="text" placeholder="Enter Code" name="code"
-                                                          onChange={this.onChange}/>
-                                        </NHSFormGroup>
-                                    </Col>
-                                    <Col>
-                                        <NHSButton variant="outline-primary" block style={{ 'margin-top': '32px' }}
-                                                onClick={this.handleClick}
-                                                disabled={this.state.discodeBtn}>{this.state.btnText}</NHSButton>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <NHSFormGroup controlId="formBasicPassword">
-                                            <NHSFormLabel>Password</NHSFormLabel>
-                                            <NHSFormControl type="password" placeholder="Password" name="password"
-                                                          onChange={this.onChange}/>
-                                        </NHSFormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <NHSFormGroup controlId="formBasicPassword">
-                                            <NHSFormLabel>Confirmation Password</NHSFormLabel>
-                                            <NHSFormControl type="password" placeholder="Password"
-                                                          name="passwordConfirmation" onChange={this.onChange}/>
-                                        </NHSFormGroup>
-                                    </Col>
-                                </Row>
-                                <NHSFormGroup controlId="formBasicCheckbox">
-                                    <NHSCheckbox label="Check me out"/>
-                                </NHSFormGroup>
-                                <NHSButton>Submit</NHSButton>
-                            </Form>
+                        <div className="nhsuk-grid-row">
+                            <div className="nhsuk-grid-column-two-thirds">
+                                <Form onSubmit={this.onSubmit}>
+                                    <h1 style={{ fontWeight: 'bold' }}>Register with orthoPROMS</h1><br />
+                                    <Row>
+                                        <Col>
+                                            <NHSFormGroup controlId="formBasicEmail">
+                                                <NHSFormLabel>Email address</NHSFormLabel>
+                                                <NHSFormHint>
+                                                    We'll never share your email with anyone else.
+                                                </NHSFormHint>
+                                                <NHSFormControl type="email" placeholder="Enter email" name="email"
+                                                                onChange={this.onChange}/>
+                                            </NHSFormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <NHSFormGroup controlId="formBasicCode">
+                                                <NHSFormLabel>Code</NHSFormLabel>
+                                                <NHSFormControl type="text" placeholder="Enter Code" name="code"
+                                                                onChange={this.onChange}/>
+                                            </NHSFormGroup>
+                                        </Col>
+                                        <Col>
+                                            <NHSButton variant="outline-primary" block style={{ 'margin-top': '32px' }}
+                                                       onClick={this.handleClick}
+                                                       disabled={this.state.discodeBtn}>{this.state.btnText}</NHSButton>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <NHSFormGroup controlId="formBasicPassword">
+                                                <NHSFormLabel>Password</NHSFormLabel>
+                                                <NHSFormControl type="password" placeholder="Password" name="password"
+                                                                onChange={this.onChange}/>
+                                            </NHSFormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <NHSFormGroup controlId="formBasicPassword">
+                                                <NHSFormLabel>Confirmation Password</NHSFormLabel>
+                                                <NHSFormControl type="password" placeholder="Password"
+                                                                name="passwordConfirmation" onChange={this.onChange}/>
+                                            </NHSFormGroup>
+                                        </Col>
+                                    </Row>
+                                    <NHSFormGroup controlId="formBasicCheckbox">
+                                        <NHSCheckbox label="Check me out"/>
+                                    </NHSFormGroup>
+                                    <NHSButton>Submit</NHSButton>
+                                </Form>
+                            </div>
                         </div>
                     </NHSWrapper>
                 </NHSContainer>
