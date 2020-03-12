@@ -40,51 +40,54 @@ function PatientSelf(props) {
             <NHSHeader/>
             <NHSContainer>
                 <NHSWrapper>
-                    <PatientOverview subjectId={subjectId}/>
-                    <NHSPanel>
-                        <NHSPanelTitle>
-                            Details
-                        </NHSPanelTitle>
-                        <NHSPanelBody>
-                            <Tab.Container defaultActiveKey="myProgress">
-                                <Nav variant="tabs" style={{ marginBottom: '40px' }}>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="myData">My Data</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="survey">Survey</Nav.Link>
-                                    </Nav.Item>
-                                    {/* <Nav.Item>
+                    <div class="nhsuk-grid-row">
+                        <PatientOverview subjectId={subjectId}/>
+                    </div>
+                    <div class="nhsuk-grid-row">
+                        <NHSPanel>
+                            <NHSPanelTitle>
+                                Details
+                            </NHSPanelTitle>
+                            <NHSPanelBody>
+                                <Tab.Container defaultActiveKey="myProgress">
+                                    <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
+                                        </Nav.Item>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="myData">My Data</Nav.Link>
+                                        </Nav.Item>
+                                        <Nav.Item>
+                                            <Nav.Link eventKey="survey">Survey</Nav.Link>
+                                        </Nav.Item>
+                                        {/* <Nav.Item>
                                         <Nav.Link eventKey="test">Test</Nav.Link>
                                     </Nav.Item> */}
-                                </Nav>
-                                <Tab.Content>
-                                    <Tab.Pane eventKey="myProgress">
-                                        <PatientProgressTable ehrId={ehrId}/>
-                                    </Tab.Pane>
-                                    {/* <Tab.Pane eventKey="test">
+                                    </Nav>
+                                    <Tab.Content>
+                                        <Tab.Pane eventKey="myProgress">
+                                            <PatientProgressTable ehrId={ehrId}/>
+                                        </Tab.Pane>
+                                        {/* <Tab.Pane eventKey="test">
                                         <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                     </Tab.Pane> */}
-                                    <Tab.Pane eventKey="myData">
-                                        <div><ScoresArray ehrId={ehrId}/></div>
-                                        <br/><br/><br/>
-                                        <div><EpisodeScoresGraph
-                                            ehrId={ehrId}/></div>
-                                        {/* <br/><br/><br/>
+                                        <Tab.Pane eventKey="myData">
+                                            <div><ScoresArray ehrId={ehrId}/></div>
+                                            <br/><br/><br/>
+                                            <div ><EpisodeScoresGraph
+                                                ehrId={ehrId}/></div>
+                                            {/* <br/><br/><br/>
                                     <div><Chart1 bingbong="bingbong"/></div> */}
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="survey">
-                                        <Template/>
-                                        <SurveySuccess/>
-                                    </Tab.Pane>
-                                </Tab.Content>
-                            </Tab.Container>
-                        </NHSPanelBody>
-                    </NHSPanel>
-
+                                        </Tab.Pane>
+                                        <Tab.Pane eventKey="survey">
+                                            <Template/>
+                                            <SurveySuccess/>
+                                        </Tab.Pane>
+                                    </Tab.Content>
+                                </Tab.Container>
+                            </NHSPanelBody>
+                        </NHSPanel>
+                    </div>
                 </NHSWrapper>
             </NHSContainer>
             <NHSFooter/>
