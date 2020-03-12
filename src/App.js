@@ -9,6 +9,8 @@ import Login from './views/Login';
 import Register from './views/Register';
 import About from './views/About';
 import Reset from './views/Reset';
+import 'nhsuk-frontend/dist/nhsuk.min.js';
+import 'nhsuk-frontend/packages/nhsuk.scss';
 
 
 class App extends React.Component {

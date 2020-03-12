@@ -1,28 +1,29 @@
-import './test.scss';
 import React from "react";
+import 'nhsuk-frontend/packages/nhsuk.scss';
 
 export function NHSButton(props) {
     const className = props.className + " nhsuk-button";
-    return <button className={className} onClick={props.onClick}>
-        {props.children}
-    </button>;
+    return <button className={className}  {...props} />;
+}
+
+export function NHSButtonLink(props) {
+    const className = props.className + " nhsuk-button";
+    return <a href="/" role="button" draggable="false" className={className} {...props} />
 }
 
 export function NHSButtonSecondary(props) {
     const className = props.className + " nhsuk-button nhsuk-button--secondary";
-    return <button className={className} onClick={props.onClick}>
-        {props.children}
-    </button>;
+    return <button className={className}  {...props} />;
 }
 
 export function NHSFormLabel(props) {
-    return <label class='nhsuk-label'>{props.children}</label>;
+    return <label class='nhsuk-label' {...props} />;
 }
 
 export function NHSFormControl(props) {
-    return <input class='nhsuk-input' type={props.type} placeholder={props.placeholder}>{props.children}</input>;
+    return <input class='nhsuk-input' {...props} />;
 }
 
 export function NHSFormGroup(props) {
-    return <div class='nhsuk-form-group' controlId={props.controlId}>{props.children}</div>;
+    return <div class='nhsuk-form-group' {...props} />;
 }

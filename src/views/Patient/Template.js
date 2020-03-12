@@ -4,7 +4,6 @@ import CDROptions from "../../components/Queries/CDROptions";
 import { Form, Input, RadioGroup } from 'formsy-react-components';
 import getWebTemplate from "../../components/GetWebTemplate";
 import JsonFormInputToReact from "../../ehr-template-react-generator/view";
-import '../test.scss';
 
 function commitComposition(model) {
     const compositionSring = {
