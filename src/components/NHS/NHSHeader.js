@@ -65,7 +65,7 @@ function NHSHeader(props) {
         <header className="nhsuk-header"
                 style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
             <div className="nhsuk-width-container nhsuk-header__container">
-                <NHSAppLogo smaller={props.navigationDisabled}>orthoPROMS</NHSAppLogo>
+                <a href={'/'}><NHSAppLogo smaller={props.navigationDisabled}>orthoPROMS</NHSAppLogo></a>
                 {headerContent}
             </div>
             {navigation}
