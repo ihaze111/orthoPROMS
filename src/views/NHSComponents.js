@@ -20,6 +20,10 @@ export function NHSFormLabel(props) {
     return <label class='nhsuk-label' {...props} />;
 }
 
+export function NHSFormHint(props) {
+    return <span className="nhsuk-hint" id="input-with-hint-text-hint" {...props} />;
+}
+
 export function NHSFormControl(props) {
     return <input class='nhsuk-input' {...props} />;
 }
