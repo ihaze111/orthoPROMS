@@ -1,11 +1,8 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import $ from 'jquery';
-import HeaderMenu from "../components/HeaderMenu";
 import qs from "qs";
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
-import { login, googleLogin } from '../actions/authActions.js'
+import { googleLogin, login } from '../actions/authActions.js'
 
 import GoogleLogin from 'react-google-login';
 import NHSHeader from "../components/NHS/NHSHeader";
@@ -14,7 +11,8 @@ import NHSWrapper from "../components/NHS/NHSWrapper";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSCheckbox from "../components/NHS/NHSCheckbox";
 import NHSFooter from "../components/NHS/NHSFooter";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/NHS/NHSPanel";
+import { NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/NHS/NHSPanel";
+import { NHSVectorArrowRightCircle } from "../components/NHS/NHSIcons";
 
 
 class Login extends React.Component {
@@ -94,10 +92,11 @@ class Login extends React.Component {
                         <div class="nhsuk-grid-row">
                             <div class="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
+                                    <h1 style={{ fontWeight: 'bold' }}>Choose an option to login</h1>
                                     <NHSPanelWithLabel>
-                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with orthoPROMS</NHSPanelTitle>
+                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with
+                                            orthoPROMS</NHSPanelTitle>
                                         <NHSPanelBody>
-                                            <h1 style={{ fontWeight: 'bold' }}>Enter your login details</h1><br/>
                                             <NHSFormGroup controlId="formBasicEmail">
                                                 <NHSFormLabel>Email address</NHSFormLabel>
                                                 <NHSFormControl type="email" placeholder="Enter email"
@@ -109,28 +108,30 @@ class Login extends React.Component {
                                                                 onChange={
                                                                     this.onChange}/>
                                             </NHSFormGroup>
-                                            <Form.Group controlId="formBasicCheckbox">
-                                                <NHSCheckbox type="checkbox" label="Keep me logged in"/>
-                                            </Form.Group>
-                                            <NHSButton onClick={this.onSubmit} type="submit"
-                                                       style={{ marginRight: '10px' }}>Log
-                                                in</NHSButton>
-                                            <p><a href={'/Reset'}>Forgot your
+                                            <NHSCheckbox style={{ float: 'left' }} type="checkbox"
+                                                         label="Keep me logged in"/>
+                                            <p style={{
+                                                textDecoration: "underline",
+                                                display: "inline",
+                                                float: "right"
+                                            }}><a href={'/Reset'}>Forgot your
                                                 password?</a></p>
+                                            <br/><br/><br/>
+                                            <NHSButton onClick={this.onSubmit} type="submit">Continue</NHSButton>
+                                            <p>Not got an account yet?</p>
+                                            <div className="nhsuk-action-link">
+                                                <a className="nhsuk-action-link__link"
+                                                   href={'/Register?id=' + this.state.id}>
+                                                    <NHSVectorArrowRightCircle/>
+                                                    <span
+                                                        className="nhsuk-action-link__text">Register with orthoPROMS</span>
+                                                </a>
+                                            </div>
                                         </NHSPanelBody>
                                     </NHSPanelWithLabel>
-                                    <p>or</p>
                                     <NHSPanelWithLabel>
-                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Register with orthoPROMS</NHSPanelTitle>
-                                        <NHSPanelBody>
-                                            <NHSButtonLink type="button" href={'/Register?id=' + this.state.id}>
-                                                Register
-                                            </NHSButtonLink>
-                                        </NHSPanelBody>
-                                    </NHSPanelWithLabel>
-                                    <p>or</p>
-                                    <NHSPanelWithLabel>
-                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with Google</NHSPanelTitle>
+                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with
+                                            Google</NHSPanelTitle>
                                         <NHSPanelBody>
                                             <div>
                                                 <GoogleLogin
