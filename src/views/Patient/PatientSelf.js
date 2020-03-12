@@ -14,6 +14,7 @@ import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
 import { NHSTableWrapperTest } from "../../components/NHS/NHSTableWrapperTest";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/NHS/NHSPanel";
+import NHSFooter from "../../components/NHS/NHSFooter";
 
 // import Chart1 from "../../components/Graphs/Chart1";
 
@@ -86,6 +87,7 @@ function PatientSelf(props) {
 
                 </NHSWrapper>
             </NHSContainer>
+            <NHSFooter/>
         </div>
     );
 }

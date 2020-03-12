@@ -21,6 +21,7 @@ import NHSContainer from "../../components/NHS/NHSContainer";
 import NHSWrapper from "../../components/NHS/NHSWrapper";
 import NHSBackLink from "../../components/NHS/NHSBackLink";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/NHS/NHSPanel";
+import NHSFooter from "../../components/NHS/NHSFooter";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -355,6 +356,7 @@ class PatientRecords extends React.Component {
                         </NHSPanel>
                     </NHSWrapper>
                 </NHSContainer>
+                <NHSFooter/>
             </div>
         );
     }
