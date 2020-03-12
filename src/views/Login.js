@@ -28,7 +28,9 @@ class Login extends React.Component {
     }
 
     onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
+        console.log('hi');
+        this.setState({ [e.target.name]: e.target.value });
+        console.log(this.state);
     }
 
 
@@ -47,6 +49,7 @@ class Login extends React.Component {
 
 
     onSubmit = (e) => {
+        console.log(e);
         e.preventDefault();
         if (this.state.email == '' || this.state.password == '') {
             return alert('Please enter your email or password.')
@@ -94,12 +97,11 @@ class Login extends React.Component {
                                     <NHSFormGroup controlId="formBasicEmail">
                                         <NHSFormLabel>Email address</NHSFormLabel>
                                         <NHSFormControl type="email" placeholder="Enter email"
-                                                        onChange={this.onChange}/>
-                                        <Form.Text className="text-muted"> </Form.Text>
+                                                        onChange={this.onChange} name='email'/>
                                     </NHSFormGroup>
                                     <NHSFormGroup controlId="formBasicPassword">
                                         <NHSFormLabel>Password</NHSFormLabel>
-                                        <NHSFormControl type="password" placeholder="Password" onChange={
+                                        <NHSFormControl type="password" placeholder="Password" name='password' onChange={
                                             this.onChange}/>
                                     </NHSFormGroup>
                                     <Form.Group controlId="formBasicCheckbox">
