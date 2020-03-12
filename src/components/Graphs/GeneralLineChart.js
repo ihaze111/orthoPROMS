@@ -3,7 +3,8 @@ import Chart from "chart.js";
 
 let generalLineChartGraph;
 let anothaOneMore;
-const colours = ['maroon', 'green', 'blue', 'red', 'purple'];
+let heartRate;
+const colours = ['red', 'green', 'blue', 'red', 'purple'];
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;
@@ -27,6 +28,9 @@ class GeneralLineChart extends Component {
         }
         if (this.props.id === "myOxygen"){
             this.buildChart2();
+        }
+        if (this.props.id === "myHeart"){
+            this.buildChart3();
         }
     }
 
@@ -53,7 +57,7 @@ class GeneralLineChart extends Component {
             scales: {
                 xAxes: [{
                     gridLines: {
-                        display: true,
+                        display: false,
                         drawBorder: true,
                         drawOnChartArea: false
                     },
@@ -65,12 +69,15 @@ class GeneralLineChart extends Component {
                 yAxes: [{
                     gridLines: {
                         display: true,
-                        drawBorder: true,
-                        drawOnChartArea: false
+                        drawBorder: false,
+                        drawOnChartArea: true
                     },
                     scaleLabel: {
                         display: true,
                         labelString: this.props.yLabel
+                    },
+                    ticks: {
+                        padding: 15
                     }
                 }]
             }
@@ -88,7 +95,9 @@ class GeneralLineChart extends Component {
                 label: data.label,
                 data: data.data,
                 fill: false,
-                borderColor: colorIterator.next().value
+                borderColor: colorIterator.next().value,
+                pointRadius : 4,
+                borderWidth : 2
             }
         });
         const options = this.optionHolder();
@@ -111,11 +120,38 @@ class GeneralLineChart extends Component {
                 label: data.label,
                 data: data.data,
                 fill: false,
-                borderColor: colorIterator.next().value
+                borderColor: colorIterator.next().value,
+                pointRadius : 4,
+                borderWidth : 2
             }
         });
         const options = this.optionHolder();
         anothaOneMore = new Chart(anothaOne, {
+            type: "line",
+            data,
+            options
+        });
+
+    };
+
+    buildChart3 = () => {
+        const heartRateRef = this.chartRef.current.getContext("2d");
+        if (typeof heartRate !== "undefined") heartRate.destroy();
+        const data = {};
+        data.labels = this.props.labels; // this.props.time
+        const colorIterator = colours.values();
+        data.datasets = this.props.data.map((data) => {
+            return {
+                label: data.label,
+                data: data.data,
+                fill: false,
+                borderColor: colorIterator.next().value,
+                pointRadius : 4,
+                borderWidth : 2
+            }
+        });
+        const options = this.optionHolder();
+        heartRate = new Chart(heartRateRef, {
             type: "line",
             data,
             options

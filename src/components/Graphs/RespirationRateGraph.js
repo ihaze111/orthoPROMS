@@ -83,7 +83,9 @@ class RespirationRateGraph extends Component {
                         label: "Respiration Rate",
                         data: this.props.magnitude,
                         fill: false,
-                        borderColor: "blue"
+                        borderColor: "blue",
+                        pointRadius : 4,
+                        borderWidth : 2
                     }
                 ]
             },
@@ -91,7 +93,7 @@ class RespirationRateGraph extends Component {
                 title : {
                     display: true,
                     text : "Respiration Rate",
-                    fontSize: 18,
+                    fontSize: 22,
                     fontFamily: 'Lucida',
                     fontColor: '#000'
                     
@@ -128,12 +130,15 @@ class RespirationRateGraph extends Component {
                     yAxes: [{
                         gridLines: {
                             display : true,
-                            drawBorder: true,
+                            drawBorder: false,
                             drawOnChartArea : true
                         },
                         scaleLabel: {
                             display: true,
                             labelString: "Rate " + unit
+                        },
+                        ticks: {
+                            padding: 15
                         }
                     }]
                 }
