@@ -14,6 +14,7 @@ import NHSWrapper from "../components/NHS/NHSWrapper";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSCheckbox from "../components/NHS/NHSCheckbox";
 import NHSFooter from "../components/NHS/NHSFooter";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/NHS/NHSPanel";
 
 
 class Login extends React.Component {
@@ -86,46 +87,63 @@ class Login extends React.Component {
 //     }
     render() {
         return (
-            <div>
+            <div style={{ backgroundColor: '#f0f4f5' }}>
                 <NHSHeader navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
                         <div class="nhsuk-grid-row">
                             <div class="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
-                                    <h1 style={{ fontWeight: 'bold' }}>Enter your login details</h1><br />
-                                    <NHSFormGroup controlId="formBasicEmail">
-                                        <NHSFormLabel>Email address</NHSFormLabel>
-                                        <NHSFormControl type="email" placeholder="Enter email"
-                                                        onChange={this.onChange} name='email'/>
-                                    </NHSFormGroup>
-                                    <NHSFormGroup controlId="formBasicPassword">
-                                        <NHSFormLabel>Password</NHSFormLabel>
-                                        <NHSFormControl type="password" placeholder="Password" name='password' onChange={
-                                            this.onChange}/>
-                                    </NHSFormGroup>
-                                    <Form.Group controlId="formBasicCheckbox">
-                                        <NHSCheckbox type="checkbox" label="Keep me logged in"/>
-                                    </Form.Group>
-                                    <NHSButton onClick={this.onSubmit} type="submit" style={{ marginRight: '10px' }}>Log
-                                        in</NHSButton>
-                                    <p><a href={'/Reset'}>Forgot your
-                                        password?</a></p>
+                                    <NHSPanelWithLabel>
+                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with orthoPROMS</NHSPanelTitle>
+                                        <NHSPanelBody>
+                                            <h1 style={{ fontWeight: 'bold' }}>Enter your login details</h1><br/>
+                                            <NHSFormGroup controlId="formBasicEmail">
+                                                <NHSFormLabel>Email address</NHSFormLabel>
+                                                <NHSFormControl type="email" placeholder="Enter email"
+                                                                onChange={this.onChange} name='email'/>
+                                            </NHSFormGroup>
+                                            <NHSFormGroup controlId="formBasicPassword">
+                                                <NHSFormLabel>Password</NHSFormLabel>
+                                                <NHSFormControl type="password" placeholder="Password" name='password'
+                                                                onChange={
+                                                                    this.onChange}/>
+                                            </NHSFormGroup>
+                                            <Form.Group controlId="formBasicCheckbox">
+                                                <NHSCheckbox type="checkbox" label="Keep me logged in"/>
+                                            </Form.Group>
+                                            <NHSButton onClick={this.onSubmit} type="submit"
+                                                       style={{ marginRight: '10px' }}>Log
+                                                in</NHSButton>
+                                            <p><a href={'/Reset'}>Forgot your
+                                                password?</a></p>
+                                        </NHSPanelBody>
+                                    </NHSPanelWithLabel>
                                     <p>or</p>
-                                    <NHSButtonLink type="button" href={'/Register?id=' + this.state.id}>
-                                        Register
-                                    </NHSButtonLink><br/>
+                                    <NHSPanelWithLabel>
+                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Register with orthoPROMS</NHSPanelTitle>
+                                        <NHSPanelBody>
+                                            <NHSButtonLink type="button" href={'/Register?id=' + this.state.id}>
+                                                Register
+                                            </NHSButtonLink>
+                                        </NHSPanelBody>
+                                    </NHSPanelWithLabel>
                                     <p>or</p>
-                                    <div>
-                                        <GoogleLogin
-                                            clientId="1026232614474-9uipnerkha7t6vqo8rsetj2q8ffk5fg4.apps.googleusercontent.com"
-                                            buttonText="Login"
-                                            onSuccess={this.onSignIn} onFailure={this.onSignIn}
-                                            cookiePolicy={'single_host_origin'}
-                                            style={{ 'widht': '100%' }}
-                                            className="btn  btn-block"> <span> Login with Google  </span>
-                                        </GoogleLogin>
-                                    </div>
+                                    <NHSPanelWithLabel>
+                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with Google</NHSPanelTitle>
+                                        <NHSPanelBody>
+                                            <div>
+                                                <GoogleLogin
+                                                    clientId="1026232614474-9uipnerkha7t6vqo8rsetj2q8ffk5fg4.apps.googleusercontent.com"
+                                                    buttonText="Login"
+                                                    onSuccess={this.onSignIn} onFailure={this.onSignIn}
+                                                    cookiePolicy={'single_host_origin'}
+                                                    style={{ 'widht': '100%' }}
+                                                    className="btn  btn-block"> <span> Login with Google  </span>
+                                                </GoogleLogin>
+                                            </div>
+                                        </NHSPanelBody>
+                                    </NHSPanelWithLabel>
                                 </Form>
                             </div>
                         </div>
