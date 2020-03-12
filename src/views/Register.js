@@ -194,7 +194,7 @@ class Register extends React.Component {
                                             </NHSFormGroup>
                                         </Col>
                                     </Row>
-                                    <NHSButton>Submit</NHSButton>
+                                    <NHSButton onClick={this.onSubmit} type="submit">Submit</NHSButton>
                                 </Form>
                             </div>
                         </div>
