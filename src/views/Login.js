@@ -93,7 +93,7 @@ class Login extends React.Component {
                         <div class="nhsuk-grid-row">
                             <div class="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
-                                    <h1 style={{ fontWeight: 'bold' }}>Enter your login details</h1>
+                                    <h1 style={{ fontWeight: 'bold' }}>Enter your login details</h1><br />
                                     <NHSFormGroup controlId="formBasicEmail">
                                         <NHSFormLabel>Email address</NHSFormLabel>
                                         <NHSFormControl type="email" placeholder="Enter email"
