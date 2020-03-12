@@ -5,7 +5,7 @@ export function NHSPanelTitle(props) {
 }
 
 export function NHSPanelBody(props) {
-    return <div {...props} />;
+    return props.children;
 }
 
 export function NHSPanel(props) {
