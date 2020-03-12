@@ -14,6 +14,7 @@ import NHSWrapper from "../components/NHS/NHSWrapper";
 import NHSFooter from "../components/NHS/NHSFooter";
 import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "./NHSComponents";
 import NHSCheckbox from "../components/NHS/NHSCheckbox";
+import NHSBackLink from "../components/NHS/NHSBackLink";
 
 class Register extends React.Component {
 
@@ -144,6 +145,7 @@ class Register extends React.Component {
                 <NHSHeader navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
+                        <NHSBackLink href={'/Login?id=' + qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id}>Go back</NHSBackLink>
                         <div className="nhsuk-grid-row">
                             <div className="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
@@ -192,9 +194,6 @@ class Register extends React.Component {
                                             </NHSFormGroup>
                                         </Col>
                                     </Row>
-                                    <NHSFormGroup controlId="formBasicCheckbox">
-                                        <NHSCheckbox label="Check me out"/>
-                                    </NHSFormGroup>
                                     <NHSButton>Submit</NHSButton>
                                 </Form>
                             </div>
