@@ -4,11 +4,11 @@ import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
 import HeaderMenu from '../components/HeaderMenu';
-import NHSHeader from "../components/NHS/NHSHeader";
-import NHSContainer from "../components/NHS/NHSContainer";
-import NHSWrapper from "../components/NHS/NHSWrapper";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/NHS/NHSPanel";
-import NHSFooter from "../components/NHS/NHSFooter";
+import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
+import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
+import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
+import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
 
 
 function DevelopersTableEntry(props) {

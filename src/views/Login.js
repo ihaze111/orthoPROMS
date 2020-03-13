@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { googleLogin, login } from '../actions/authActions.js'
 
 import GoogleLogin from 'react-google-login';
-import NHSHeader from "../components/NHS/NHSHeader";
-import { NHSButton, NHSButtonLink, NHSFormControl, NHSFormGroup, NHSFormLabel } from "../components/NHS/NHSComponents";
-import NHSWrapper from "../components/NHS/NHSWrapper";
-import NHSContainer from "../components/NHS/NHSContainer";
-import NHSCheckbox from "../components/NHS/NHSCheckbox";
-import NHSFooter from "../components/NHS/NHSFooter";
-import { NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/NHS/NHSPanel";
-import { NHSVectorArrowRightCircle } from "../components/NHS/NHSIcons";
+import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
+import { NHSButton, NHSButtonLink, NHSFormControl, NHSFormGroup, NHSFormLabel } from "../components/nhsuk-frontend-react/NHSComponents";
+import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
+import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
+import NHSCheckbox from "../components/nhsuk-frontend-react/NHSCheckbox";
+import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
+import { NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/nhsuk-frontend-react/NHSPanel";
+import { NHSVectorArrowRightCircle } from "../components/nhsuk-frontend-react/NHSIcons";
 
 
 class Login extends React.Component {
