@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Chart, { Tooltip } from "chart.js";
+import Chart from "chart.js";
 
 let radarGraph;
 const colours = ['rgb(255,99,132)', 'rgb(54,162,235)', 'green'];
