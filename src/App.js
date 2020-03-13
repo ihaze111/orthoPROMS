@@ -9,6 +9,7 @@ import Login from './views/Login';
 import Register from './views/Register';
 import About from './views/About';
 import Reset from './views/Reset';
+import NationalStatistics from './views/NationalStatistics';
 import 'nhsuk-frontend/dist/nhsuk.min.js';
 import 'nhsuk-frontend/packages/nhsuk.scss';
 
@@ -58,6 +59,7 @@ class App extends React.Component {
                     <Route path="/Clinician" component={PatientList}/>
                     <Route path="/PatientRecords" component={PatientRecords}/>
                     <Route path="/Reset" component={Reset}/>
+                    <Route path="/NationalStatistics" component={NationalStatistics}/>
                 </Router>
             </Router>
         )
