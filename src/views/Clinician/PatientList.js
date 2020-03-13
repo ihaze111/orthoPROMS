@@ -4,10 +4,10 @@ import Table from 'react-bootstrap/Table';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
 import getEHRs from "../../components/Queries/GetEHRs";
-import NHSHeader from "../../components/NHS/NHSHeader";
-import NHSContainer from "../../components/NHS/NHSContainer";
-import NHSWrapper from "../../components/NHS/NHSWrapper";
-import { NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr } from "../../components/NHS/NHSTableWrapperTest";
+import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
+import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
+import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
+import { NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr } from "../../components/nhsuk-frontend-react/NHSTableWrapperTest";
 
 class PatientListTable extends React.Component {
     constructor(props) {
