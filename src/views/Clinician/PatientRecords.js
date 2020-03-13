@@ -44,106 +44,6 @@ class PatientRecords extends React.Component {
     componentDidMount() {
         loadEhrId.call(this);
 
-
-        // var bodyComp = {
-        //     chart: {
-        //         type: 'variablepie'
-        //     },
-        //     title: {
-        //         text: 'Body Composition'
-        //     },
-        //     tooltip: {
-        //         headerFormat: '',
-        //         pointFormat: '<span style="color:{point.color}"></span> <b> {point.name}</b><br/>' +
-        //             'Composition: <b>{point.y}</b>%<br/>'
-        //     },
-        //     series: [{
-        //         minPointSize: 10,
-        //         innerSize: '20%',
-        //         zMin: 0,
-        //         name: 'body composition',
-        //         data: [{
-        //             name: 'Fat Percentage',
-        //             y: 10,
-        //             z: 3
-        //         },
-        //             {
-        //                 name: 'Hydrogen',
-        //                 y: 3,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Carbon',
-        //                 y: 10,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Oxygen',
-        //                 y: 2,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Water',
-        //                 y: 20,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Protein',
-        //                 y: 10,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Bone',
-        //                 y: 40,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Skeletal Muscle',
-        //                 y: 3,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Adipose Tissue',
-        //                 y: 2,
-        //                 z: 3
-        //             }]
-        //     }]
-        // };
-
-        // var bodyTemp = {
-        //     chart: {
-        //         type: 'columnrange'
-        //     },
-        //     title: {
-        //         text: 'Body Temperature'
-        //     },
-        //     xAxis: {
-        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-        //     },
-        //     yAxis: {
-        //         title: {
-        //             text: 'Temperature ( °C )'
-        //         }
-        //     },
-        //     tooltip: {
-        //         valueSuffix: '°C'
-        //     },
-        //     plotOptions: {
-        //         columnrange: {
-        //             dataLabels: {
-        //                 enabled: true,
-        //                 formatter: function () {
-        //                     return this.y + '°C';
-        //                 },
-        //                 y: 0
-        //             }
-        //         }
-        //     },
-        //     series: [{
-        //         name: 'Temperatures',
-        //         data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
-        //     }]
-        // };
     }
 
     render() {
@@ -342,10 +242,10 @@ class PatientRecords extends React.Component {
                                                     </Card>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="details">
-                                                    <h3>Allergic Details</h3>
+                                                    <h3><strong>Allergic Details</strong></h3>
                                                     <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div>
                                                     <br/>
-                                                    <h3>Procedures Details</h3>
+                                                    <h3><strong>Procedures Details</strong></h3>
                                                     <div><ProceduresTable ehrId={this.state.ehrId}/></div>
                                                 </Tab.Pane>
                                             </Tab.Content>

@@ -480,19 +480,13 @@ export function HeartGraph(props) {
 }
 
 function PatientAllergicTableEntry(props) {
-    // return <tr key={"allergies" + props.index}>
-    // <td key={"allergies" + props.index + "cause"}>{props.cause}</td>
-    // <td key={"allergies" + props.index + "comment"}>{props.comment}</td>
-    // <td key={"allergies" + props.index + "reaction"}>{props.reaction}</td>
-    // <td key={"allergies" + props.index + "exclusion"}>{props.exclusion}</td>
-    // <td key={"allergies" + props.index + "update_exclusion_date"}>{props.update_exclusion_date}</td>
-    return <tr key={"allergies" + props.index}>
-        <td key={"allergies" + props.index + "cause"}>{props.cause}</td>
-        <td key={"allergies" + props.index + "comment"}>{props.comment} {props.exclusion}</td>
-        <td key={"allergies" + props.index + "reaction"}>{props.reaction}</td>
-        <td key={"allergies" + props.index + "update_exclusion_date"}>{props.update_exclusion_date} </td>
-        <td key={"allergies" + props.index + "composer"}>{props.composer}</td>
-    </tr>;
+    return <NHSTr key={"allergies" + props.index}>
+        <NHSTd key={"allergies" + props.index + "cause"}>{props.cause}</NHSTd>
+        <NHSTd key={"allergies" + props.index + "comment"}>{props.comment} {props.exclusion}</NHSTd>
+        <NHSTd key={"allergies" + props.index + "reaction"}>{props.reaction}</NHSTd>
+        <NHSTd key={"allergies" + props.index + "update_exclusion_date"}>{props.update_exclusion_date} </NHSTd>
+        <NHSTd key={"allergies" + props.index + "composer"}>{props.composer}</NHSTd>
+    </NHSTr>;
 }
 
 class Allergies extends React.Component {
@@ -517,41 +511,55 @@ class Allergies extends React.Component {
                 }
             )
         } else {
-            return <tr key="noAllergiesRow">
-                <td key="noAllergiesData" colSpan="6">No allergies records were found</td>
-            </tr>;
+            return <NHSTr key="noAllergiesRow">
+                <NHSTd key="noAllergiesData" colSpan="6">No allergies records were found</NHSTd>
+            </NHSTr>;
         }
     }
 }
 
 export function PatientAllergiesTable(props) {
     if (props.ehrId) {
-        return <Table striped bordered hover>
-            <thead>
-            <PatientAllergicTableEntry cause="Cause"
-                                       comment="Comment"
-                                       reaction="Reaction"
-                                       update_exclusion_date="Exclusion of Adverse Reaction Date Last Updated"
-                                       composer="Composer Name"/>
-            </thead>
-            <tbody>
-            <Allergies key='allergies' ehrId={props.ehrId}/>
-            </tbody>
-        </Table>;
+        return <NHSTableWrapper>
+        <NHSTable>
+            <NHSTHead>
+                <NHSTr key={"allergiesno" + props.index}>
+                    <NHSTh key={"allergiesno" + props.index + "cause"}>Cause</NHSTh>
+                    <NHSTh
+                        key={"allergiesno" + props.index + "comment"}>Comment</NHSTh>
+                    <NHSTh
+                        key={"allergiesno" + props.index + "reaction"}>Reaction</NHSTh>
+                    <NHSTh
+                        key={"allergiesno" + props.index + "update_Exclusion_date"}>Exclusion Date</NHSTh>
+                    <NHSTh
+                        key={"allergiesno" + props.index + "composer"}>Composer Name</NHSTh>
+                </NHSTr>
+            </NHSTHead>
+            <NHSTBody>
+                <Allergies key='allergies' ehrId={props.ehrId}/>
+            </NHSTBody>
+        </NHSTable></NHSTableWrapper>;
     } else {
         return null;
     }
 }
 
 function ProceduresTableEntry(props) {
-    return <tr key={"procedures" + props.index}>
-        <td key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</td>
-        <td key={"procedures" + props.index + "notes"}>{props.notes}</td>
-        <td key={"procedures" + props.index + "careflow_step"}>{props.careflow_step}</td>
-        <td key={"procedures" + props.index + "current_state"}>{props.current_state} </td>
-        <td key={"procedures" + props.index + "name"}>{props.name}</td>
-        <td key={"procedures" + props.index + "time"}>{props.time}</td>
-    </tr>;
+    // return <tr key={"procedures" + props.index}>
+    //     <td key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</td>
+    //     <td key={"procedures" + props.index + "notes"}>{props.notes}</td>
+    //     <td key={"procedures" + props.index + "careflow_step"}>{props.careflow_step}</td>
+    //     <td key={"procedures" + props.index + "current_state"}>{props.current_state} </td>
+    //     <td key={"procedures" + props.index + "name"}>{props.name}</td>
+    //     <td key={"procedures" + props.index + "time"}>{props.time}</td>
+    // </tr>;
+    return <NHSTr key={"procedures" + props.index}>
+        <NHSTd key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</NHSTd>
+        <NHSTd key={"proceduress" + props.index + "notes"}>{props.notes}</NHSTd>
+        <NHSTd key={"procedures" + props.index + "careflow_step"}>{props.careflow_step}</NHSTd>
+        <NHSTd key={"procedures" + props.index + "time"}>{props.time} </NHSTd>
+        <NHSTd key={"procedures" + props.index + "name"}>{props.name}</NHSTd>
+    </NHSTr>;
 }
 
 class Procedures extends React.Component {
@@ -576,28 +584,47 @@ class Procedures extends React.Component {
                 }
             )
         } else {
-            return <tr key="noProceduresRow">
-                <td key="noProceduresData" colSpan="7">No procedures records were found</td>
-            </tr>;
+            return <NHSTr key="noProceduresRow">
+                <NHSTd key="noProceduresData" colSpan="7">No procedures records were found</NHSTd>
+            </NHSTr>;
         }
     }
 }
 
 export function ProceduresTable(props) {
     if (props.ehrId) {
-        return <Table striped bordered hover>
-            <thead>
-            <ProceduresTableEntry procedure_name="Procedure"
-                                  notes="Notes"
-                                  careflow_step="Careflow Step"
-                                  current_state="Current State"
-                                  name="Composer Name"
-                                  time="Time"/>
-            </thead>
-            <tbody>
-            <Procedures key='procedures' ehrId={props.ehrId}/>
-            </tbody>
-        </Table>;
+        return <NHSTableWrapper>
+        <NHSTable>
+            <NHSTHead>
+                <NHSTr key={"proceduresno" + props.index}>
+                    <NHSTh key={"proceduresno" + props.index + "procedure_name"}>Procedure</NHSTh>
+                    <NHSTh
+                        key={"proceduresno" + props.index + "notes"}>Notes</NHSTh>
+                    <NHSTh
+                        key={"proceduresno" + props.index + "careflow_step"}>Careflow Step</NHSTh>
+                    <NHSTh
+                        key={"proceduresno" + props.index + "time"}>Time</NHSTh>
+                    <NHSTh
+                        key={"proceduresno" + props.index + "name"}>Composer Name</NHSTh>
+                </NHSTr>
+            </NHSTHead>
+            <NHSTBody>
+                <Allergies key='procedures' ehrId={props.ehrId}/>
+            </NHSTBody>
+        </NHSTable></NHSTableWrapper>;
+        // return <Table striped bordered hover>
+        //     <thead>
+        //     <ProceduresTableEntry procedure_name="Procedure"
+        //                           notes="Notes"
+        //                           careflow_step="Careflow Step"
+        //                           current_state="Current State"
+        //                           name="Composer Name"
+        //                           time="Time"/>
+        //     </thead>
+        //     <tbody>
+        //     <Procedures key='procedures' ehrId={props.ehrId}/>
+        //     </tbody>
+        // </Table>;
     } else {
         return null;
     }
