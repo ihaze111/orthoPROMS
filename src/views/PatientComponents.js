@@ -545,14 +545,6 @@ export function PatientAllergiesTable(props) {
 }
 
 function ProceduresTableEntry(props) {
-    // return <tr key={"procedures" + props.index}>
-    //     <td key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</td>
-    //     <td key={"procedures" + props.index + "notes"}>{props.notes}</td>
-    //     <td key={"procedures" + props.index + "careflow_step"}>{props.careflow_step}</td>
-    //     <td key={"procedures" + props.index + "current_state"}>{props.current_state} </td>
-    //     <td key={"procedures" + props.index + "name"}>{props.name}</td>
-    //     <td key={"procedures" + props.index + "time"}>{props.time}</td>
-    // </tr>;
     return <NHSTr key={"procedures" + props.index}>
         <NHSTd key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</NHSTd>
         <NHSTd key={"proceduress" + props.index + "notes"}>{props.notes}</NHSTd>
@@ -609,22 +601,9 @@ export function ProceduresTable(props) {
                 </NHSTr>
             </NHSTHead>
             <NHSTBody>
-                <Allergies key='procedures' ehrId={props.ehrId}/>
+                <Procedures key='procedures' ehrId={props.ehrId}/>
             </NHSTBody>
         </NHSTable></NHSTableWrapper>;
-        // return <Table striped bordered hover>
-        //     <thead>
-        //     <ProceduresTableEntry procedure_name="Procedure"
-        //                           notes="Notes"
-        //                           careflow_step="Careflow Step"
-        //                           current_state="Current State"
-        //                           name="Composer Name"
-        //                           time="Time"/>
-        //     </thead>
-        //     <tbody>
-        //     <Procedures key='procedures' ehrId={props.ehrId}/>
-        //     </tbody>
-        // </Table>;
     } else {
         return null;
     }
