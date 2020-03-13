@@ -1,5 +1,5 @@
 import React from 'react';
-import { NHSTd, NHSTr } from "../NHS/NHSTableWrapperTest";
+import { NHSTd, NHSTr } from "../nhsuk-frontend-react/NHSTableWrapperTest";
 
 function PatientListEntry(props) {
     return (

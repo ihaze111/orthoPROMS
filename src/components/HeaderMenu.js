@@ -74,7 +74,7 @@ class HeaderMenu extends React.Component {
             </Navbar.Collapse>
         </Navbar>);
 
-// import NHSHeader from "./NHS/NHSHeader";
+// import NHSHeader from "./nhsuk-frontend-react/NHSHeader";
 
 // function HeaderMenu(props) {
 //     return NHSHeader(props);
