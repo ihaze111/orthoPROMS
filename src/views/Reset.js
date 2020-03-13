@@ -8,7 +8,7 @@ import NHSHeader from "../components/NHS/NHSHeader";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSWrapper from "../components/NHS/NHSWrapper";
 import NHSFooter from "../components/NHS/NHSFooter";
-import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "./NHSComponents";
+import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "../components/NHS/NHSComponents";
 import NHSBackLink from "../components/NHS/NHSBackLink";
 
 import {
