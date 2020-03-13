@@ -6,7 +6,7 @@ import { googleLogin, login } from '../actions/authActions.js'
 
 import GoogleLogin from 'react-google-login';
 import NHSHeader from "../components/NHS/NHSHeader";
-import { NHSButton, NHSButtonLink, NHSFormControl, NHSFormGroup, NHSFormLabel } from "./NHSComponents";
+import { NHSButton, NHSButtonLink, NHSFormControl, NHSFormGroup, NHSFormLabel } from "../components/NHS/NHSComponents";
 import NHSWrapper from "../components/NHS/NHSWrapper";
 import NHSContainer from "../components/NHS/NHSContainer";
 import NHSCheckbox from "../components/NHS/NHSCheckbox";

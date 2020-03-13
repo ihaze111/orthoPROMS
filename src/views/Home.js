@@ -1,6 +1,6 @@
 import React from 'react';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import {NHSButton, NHSButtonSecondary} from "./NHSComponents";
+import {NHSButton, NHSButtonSecondary} from "../components/NHS/NHSComponents";
 
 
 
