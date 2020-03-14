@@ -49,7 +49,7 @@ class Register extends React.Component {
             return alert('Please enter your e-mail.')
         }
         // 验证密码
-        if (this.state.password == '' || this.state.passwordConfirmation == '') {
+        if (this.state.password === '' || this.state.passwordConfirmation === '') {
             return alert('Please enter your password')
         }
         if (this.state.password !== this.state.passwordConfirmation) {
@@ -127,9 +127,9 @@ class Register extends React.Component {
     componentDidMount() {
         let id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
         let type
-        if (id == 1) {
+        if (id === 1) {
             type = 'Patient'
-        } else if (id == 2) {
+        } else if (id === 2) {
             type = 'Clinicians'
         } else {
             window.location.href = "/"

@@ -211,12 +211,12 @@ class PatientRecords extends React.Component {
                                                                 takes</p>
                                                             <p>4.Questions you want to ask the doctor</p>
                                                         </div>}/><br/>
-                                                    <Card style={{ width: "100%" }}>
-                                                        <Card.Header>
-                                                            <Card.Title>Laboratory Orders and Reports</Card.Title>
-                                                        </Card.Header>
-                                                        <Card.Body>
-                                                            <Tab.Container defaultActiveKey="labOrders">
+                                                    <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
+                                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                                                            Laboratory Orders and Reports
+                                                        </NHSPanelTitle>
+                                                        <NHSPanelBody>
+                                                        <Tab.Container defaultActiveKey="labOrders">
                                                                 <Nav variant="tabs"
                                                                      style={{ marginBottom: '40px' }}>
                                                                     <Nav.Item>
@@ -238,8 +238,8 @@ class PatientRecords extends React.Component {
                                                                     </Tab.Pane>
                                                                 </Tab.Content>
                                                             </Tab.Container>
-                                                        </Card.Body>
-                                                    </Card>
+                                                        </NHSPanelBody>
+                                                    </NHSPanelWithLabel>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="details">
                                                     <h3><strong>Allergic Details</strong></h3>
