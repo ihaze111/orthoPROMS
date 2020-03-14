@@ -58,7 +58,7 @@ class Reset extends React.Component {
         }
 
         // 验证密码
-        if (this.state.password == '' || this.state.passwordConfirmation == '') {
+        if (this.state.password === '' || this.state.passwordConfirmation === '') {
             return alert('Please enter your NewPassword')
         }
         if (this.state.password !== this.state.passwordConfirmation) {
