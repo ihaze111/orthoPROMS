@@ -1,17 +1,11 @@
 import React from 'react';
-import Card, { CardSubtitle } from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
-
-import HeaderMenu from "../../components/HeaderMenu";
 import {
     PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph,
     OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable, LabOrdersTable, LabReportsTable
 }
     from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
@@ -22,6 +16,7 @@ import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
 import NHSBackLink from "../../components/nhsuk-frontend-react/NHSBackLink";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
+import { NHSFormLabel, NHSButton, NHSTextArea, NHSFormGroup, NHSFormHint } from '../../components/nhsuk-frontend-react/NHSComponents';
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -39,6 +34,30 @@ class PatientRecords extends React.Component {
 
     goBack() {
         this.props.history.goBack();
+    }
+
+    onSubmit = (e) => {
+        // console.log(e);
+        // e.preventDefault();
+        // if (this.state.email === '' || this.state.password === '') {
+        //     return alert('Please enter your email or password.')
+        // }
+        // let type = this.state.id === 1 ? 'Patient' : 'Clinicians'
+        // this.props.login({ ...this.state, type }).then(
+        //     res => {
+        //         alert(res.message)
+        //         if (res.code === 200) {
+        //             let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+        //             if (xx === "1") {
+
+        //                 window.location.href = "/Patient?id=" + xx;
+        //             } else if (xx === "2") {
+        //                 window.location.href = "/Clinician?id=" + xx;
+        //             }
+        //         }
+
+        //     }
+        // )
     }
 
     componentDidMount() {
@@ -211,6 +230,16 @@ class PatientRecords extends React.Component {
                                                                 takes</p>
                                                             <p>4.Questions you want to ask the doctor</p>
                                                         </div>}/><br/>
+                                                    <NHSFormGroup>
+                                                        <NHSFormLabel>
+                                                            <strong>Clinician's Log</strong>
+                                                        </NHSFormLabel>
+                                                        <NHSFormHint>
+                                                            Record any findings and records of this patient here.
+                                                        </NHSFormHint>
+                                                        <NHSTextArea id="log" name="log" rows="4" aria-describedby="log-hint"></NHSTextArea><br/>
+                                                        <NHSButton onClick={this.onSubmit} type="submit">Submit</NHSButton>
+                                                    </NHSFormGroup>
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
                                                         <NHSPanelTitle class="nhsuk-panel-with-label__label">
                                                             Laboratory Orders and Reports
