@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
 
+
 let radarGraph;
 const colours = ['rgb(255,99,132)', 'rgb(54,162,235)', 'green'];
 const pointColours = colours;
@@ -12,7 +13,7 @@ Chart.defaults.global.legend.display = true;
 class RadarGraph extends Component{
     render(){
         return (
-            <RadarChart id={"myRadar"} labels={["Pain","Activity limitations and support requirements", "Walking","Walking surfaces"]} data={
+            <RadarChart id={"myRadar"} labels={this.props.label} data={
                 [{
                     label : "Pre-Operation",
                     data: this.props.preOp
@@ -46,6 +47,7 @@ class RadarChart extends Component {
     start = () => {
         if (this.props.id === "myRadar"){
             this.buildChart();
+            console.log(this.props.preOp);
         }
     }
 

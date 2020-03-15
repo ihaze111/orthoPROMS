@@ -21,6 +21,8 @@ import BloodPressureGraph from "../components/Graphs/BloodPressureGraph";
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
 
+import {DownloadCSV} from "../components/DownloadCSV";
+
 import {
     NHSSummaryList,
     NHSSummaryListKey,
@@ -156,7 +158,8 @@ class Scores extends React.Component {
             walkingArray: [],
             walking_surfacesArray: [],
             totalArray: [],
-            regTimeArray: []
+            regTimeArray: [],
+            label: ["Pain","Activity limitations and support requirements","Walking","Walking surfaces","Total score"]
         };
     }
 
@@ -185,13 +188,14 @@ class Scores extends React.Component {
             this.pushArray(e);
         });
         if (this.state.painArray.length > 0) {
-            return <div><ScoresGraph pain={this.state.painArray}
+            return <div><React.Fragment><ScoresGraph pain={this.state.painArray}
                                      limit={this.state.limitationsArray}
                                      walking={this.state.walkingArray}
                                      surface={this.state.walking_surfacesArray}
                                      total={this.state.totalArray}
                                      time={this.state.regTimeArray}
-            /></div>
+            /><br/><br/><DownloadCSV array={[this.state.label,this.state.painArray,this.state.limitationsArray,this.state.walkingArray,this.state.walking_surfacesArray,this.state.totalArray]}
+            fileName={"Scores.csv"} /></React.Fragment></div>
         } else {
             return <p>No scores were found</p>;
         }
@@ -212,7 +216,8 @@ class EpisodeScores extends React.Component {
         this.state = {
             preOp: [],
             oneWeekPostOp: [],
-            sixWeeksPostOp: []
+            sixWeeksPostOp: [],
+            labels: ["Pain","Activity limitations and support requirements", "Walking","Walking surfaces"]
         };
     }
 
@@ -241,9 +246,13 @@ class EpisodeScores extends React.Component {
         if (!this.state.episodeScores) return null;
         this.pushIntoCategory(this.state.episodeScores);
         if (this.state.episodeScores.length > 0) {
-            return <RadarGraph preOp={this.state.preOp}
+            return <React.Fragment><RadarGraph preOp={this.state.preOp}
                                oneWeek={this.state.oneWeekPostOp}
-                               sixWeeks={this.state.sixWeeksPostOp}/>
+                               sixWeeks={this.state.sixWeeksPostOp}
+                               label={this.state.labels}/><br/><br/>
+                               <DownloadCSV array={[this.state.labels,this.state.preOp,this.state.oneWeekPostOp,this.state.sixWeeksPostOp]}
+                                    fileName={"Episode_Scores.csv"} />
+                               </React.Fragment>
         } else {
             return <p>No episode scores were found</p>;
         }
