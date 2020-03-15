@@ -7,10 +7,10 @@ function processOtherDetails(tree) {
         vitalStatus: '',
         birthYear: ''
     };
-    if (tree == null) return processedResult;
-    if (tree['@class'] == 'ITEM_TREE' && 'items' in tree) {
+    if (tree === null) return processedResult;
+    if (tree['@class'] === 'ITEM_TREE' && 'items' in tree) {
         const treeItem = tree.items[0];
-        if (treeItem.archetype_node_id == 'openEHR-EHR-CLUSTER.person_anonymised_parent.v1') {
+        if (treeItem.archetype_node_id === 'openEHR-EHR-CLUSTER.person_anonymised_parent.v1') {
             treeItem.items.forEach((item) => {
                 switch (item.archetype_node_id) {
                     case 'at0001':

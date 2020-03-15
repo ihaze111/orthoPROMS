@@ -4,7 +4,7 @@ import Chart from "chart.js";
 let generalLineChartGraph;
 let anothaOneMore;
 let heartRate;
-const colours = ['red', 'green', 'blue', 'red', 'purple'];
+const colours = ['red', 'green', 'blue', 'orange', 'purple'];
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;

@@ -1,17 +1,11 @@
 import React from 'react';
-import Card, { CardSubtitle } from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import back from "../../components/Clinician/back.png";
 import "../../components/Clinician/PatientRecordsStyle.css";
-
-import HeaderMenu from "../../components/HeaderMenu";
 import {
     PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph,
     OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable, LabOrdersTable, LabReportsTable
 }
     from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
 import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
@@ -22,6 +16,7 @@ import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
 import NHSBackLink from "../../components/nhsuk-frontend-react/NHSBackLink";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
+import { NHSFormLabel, NHSButton, NHSTextArea, NHSFormGroup, NHSFormHint } from '../../components/nhsuk-frontend-react/NHSComponents';
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -41,109 +36,33 @@ class PatientRecords extends React.Component {
         this.props.history.goBack();
     }
 
+    onSubmit = (e) => {
+        // console.log(e);
+        // e.preventDefault();
+        // if (this.state.email === '' || this.state.password === '') {
+        //     return alert('Please enter your email or password.')
+        // }
+        // let type = this.state.id === 1 ? 'Patient' : 'Clinicians'
+        // this.props.login({ ...this.state, type }).then(
+        //     res => {
+        //         alert(res.message)
+        //         if (res.code === 200) {
+        //             let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+        //             if (xx === "1") {
+
+        //                 window.location.href = "/Patient?id=" + xx;
+        //             } else if (xx === "2") {
+        //                 window.location.href = "/Clinician?id=" + xx;
+        //             }
+        //         }
+
+        //     }
+        // )
+    }
+
     componentDidMount() {
         loadEhrId.call(this);
 
-
-        // var bodyComp = {
-        //     chart: {
-        //         type: 'variablepie'
-        //     },
-        //     title: {
-        //         text: 'Body Composition'
-        //     },
-        //     tooltip: {
-        //         headerFormat: '',
-        //         pointFormat: '<span style="color:{point.color}"></span> <b> {point.name}</b><br/>' +
-        //             'Composition: <b>{point.y}</b>%<br/>'
-        //     },
-        //     series: [{
-        //         minPointSize: 10,
-        //         innerSize: '20%',
-        //         zMin: 0,
-        //         name: 'body composition',
-        //         data: [{
-        //             name: 'Fat Percentage',
-        //             y: 10,
-        //             z: 3
-        //         },
-        //             {
-        //                 name: 'Hydrogen',
-        //                 y: 3,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Carbon',
-        //                 y: 10,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Oxygen',
-        //                 y: 2,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Water',
-        //                 y: 20,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Protein',
-        //                 y: 10,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Bone',
-        //                 y: 40,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Skeletal Muscle',
-        //                 y: 3,
-        //                 z: 3
-        //             },
-        //             {
-        //                 name: 'Adipose Tissue',
-        //                 y: 2,
-        //                 z: 3
-        //             }]
-        //     }]
-        // };
-
-        // var bodyTemp = {
-        //     chart: {
-        //         type: 'columnrange'
-        //     },
-        //     title: {
-        //         text: 'Body Temperature'
-        //     },
-        //     xAxis: {
-        //         categories: ['2019/11/20', '2019/11/23', '2019/11/26', '2019/12/10', '2019/12/14', '2019/12/20']
-        //     },
-        //     yAxis: {
-        //         title: {
-        //             text: 'Temperature ( °C )'
-        //         }
-        //     },
-        //     tooltip: {
-        //         valueSuffix: '°C'
-        //     },
-        //     plotOptions: {
-        //         columnrange: {
-        //             dataLabels: {
-        //                 enabled: true,
-        //                 formatter: function () {
-        //                     return this.y + '°C';
-        //                 },
-        //                 y: 0
-        //             }
-        //         }
-        //     },
-        //     series: [{
-        //         name: 'Temperatures',
-        //         data: [[36.5, 36.8], [36.8, 37.1], [37.4, 38.0], [37.5, 37.9], [37.2, 37.9]]
-        //     }]
-        // };
     }
 
     render() {
@@ -311,12 +230,22 @@ class PatientRecords extends React.Component {
                                                                 takes</p>
                                                             <p>4.Questions you want to ask the doctor</p>
                                                         </div>}/><br/>
-                                                    <Card style={{ width: "100%" }}>
-                                                        <Card.Header>
-                                                            <Card.Title>Laboratory Orders and Reports</Card.Title>
-                                                        </Card.Header>
-                                                        <Card.Body>
-                                                            <Tab.Container defaultActiveKey="labOrders">
+                                                    <NHSFormGroup>
+                                                        <NHSFormLabel>
+                                                            <strong>Clinician's Log</strong>
+                                                        </NHSFormLabel>
+                                                        <NHSFormHint>
+                                                            Record any findings and records of this patient here.
+                                                        </NHSFormHint>
+                                                        <NHSTextArea id="log" name="log" rows="4" aria-describedby="log-hint"></NHSTextArea><br/>
+                                                        <NHSButton onClick={this.onSubmit} type="submit">Submit</NHSButton>
+                                                    </NHSFormGroup>
+                                                    <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
+                                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                                                            Laboratory Orders and Reports
+                                                        </NHSPanelTitle>
+                                                        <NHSPanelBody>
+                                                        <Tab.Container defaultActiveKey="labOrders">
                                                                 <Nav variant="tabs"
                                                                      style={{ marginBottom: '40px' }}>
                                                                     <Nav.Item>
@@ -338,14 +267,14 @@ class PatientRecords extends React.Component {
                                                                     </Tab.Pane>
                                                                 </Tab.Content>
                                                             </Tab.Container>
-                                                        </Card.Body>
-                                                    </Card>
+                                                        </NHSPanelBody>
+                                                    </NHSPanelWithLabel>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="details">
-                                                    <h3>Allergic Details</h3>
+                                                    <h3><strong>Allergic Details</strong></h3>
                                                     <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div>
                                                     <br/>
-                                                    <h3>Procedures Details</h3>
+                                                    <h3><strong>Procedures Details</strong></h3>
                                                     <div><ProceduresTable ehrId={this.state.ehrId}/></div>
                                                 </Tab.Pane>
                                             </Tab.Content>

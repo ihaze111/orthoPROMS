@@ -36,7 +36,7 @@ class NationalStatistics extends React.Component {
                                 What Is IPROMS?
                             </NHSPanelTitle>
                             <NHSPanelBody>
-                                <div style={{ width: '1000px', height: '400px' }}><RangeEpisodeScoresGraph/></div>
+                                <div style={{paddingTop:'10px', width: '850px', height: '650px' }}><RangeEpisodeScoresGraph/></div>
                             </NHSPanelBody>
                         </NHSPanel>
                     </NHSWrapper>
