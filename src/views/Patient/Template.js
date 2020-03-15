@@ -3,9 +3,19 @@ import CDROptions from "../../components/Queries/CDROptions";
 
 import { Form, Input, RadioGroup } from 'formsy-react-components';
 import getWebTemplate from "../../components/GetWebTemplate";
+// import JsonFormInputToReact from "../../ehr-template-react-generator/view";
+import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
 import JsonFormInputToReact from "../../ehr-template-react-generator/view";
+import NHSFormsyInput from "../../ehr-template-react-generator/NHSFormsyInput";
+import {
+    NHSPanel,
+    NHSPanelBody,
+    NHSPanelTitle,
+    NHSPanelWithLabel
+} from "../../components/nhsuk-frontend-react/NHSPanel";
 
 function commitComposition(model) {
+    console.log(model);
     const compositionSring = {
         "ctx/language": "en",
         "ctx/territory": "GB",
@@ -48,7 +58,8 @@ export default class Template extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getWebTemplate();
+        let promise = getWebTemplate('Foot_and_Ankle_PROMs-v0');
+        // let promise = getWebTemplate('WHO - Suspected Covid-19 assessment.v0');
         promise.then((e) => {
             this.setState({ canSubmit: this.state.canSubmit, template: e });
         });
@@ -72,13 +83,39 @@ export default class Template extends React.Component {
         return (
             <div>
                 <Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
-                    {sample.map((jsonInputObject) => {
-                        return JsonFormInputToReact(jsonInputObject);
-                    })}
+                    {/*{sample.map((jsonInputObject) => {*/}
+                    {/*    return JsonFormInputToNHSReact(jsonInputObject);*/}
+                    {/*})}*/}
+                    {RecursiveCard({ color: true, ...sample })}
                     <input style={{ marginLeft: "50%" }} className="btn btn-primary" type="submit"
                            disabled={!this.state.canSubmit} defaultValue="Submit"/>
                 </Form>
             </div>
         );
     }
+}
+
+function RecursiveCard(props) {
+    let children, inputs = null;
+    if ('children' in props) {
+        children = props.children.map((child) => {
+            const newProps = child;
+            newProps.color = !props.color;
+            return RecursiveCard(newProps);
+        });
+    }
+    if ('inputs' in props) {
+        inputs = JsonFormInputToNHSReact(props.inputs);
+    }
+    let color = '#f0f4f5';
+    if (props.color) {
+        color = 'white';
+    }
+    return <NHSPanelWithLabel style={{ backgroundColor: color }}>
+        <NHSPanelTitle class="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
+        <NHSPanelBody>
+            {inputs}
+            {children}
+        </NHSPanelBody>
+    </NHSPanelWithLabel>;
 }
