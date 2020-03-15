@@ -16,12 +16,12 @@ import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NHSHeader from "../../components/NHS/NHSHeader";
-import NHSContainer from "../../components/NHS/NHSContainer";
-import NHSWrapper from "../../components/NHS/NHSWrapper";
-import NHSBackLink from "../../components/NHS/NHSBackLink";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/NHS/NHSPanel";
-import NHSFooter from "../../components/NHS/NHSFooter";
+import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
+import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
+import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
+import NHSBackLink from "../../components/nhsuk-frontend-react/NHSBackLink";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/nhsuk-frontend-react/NHSPanel";
+import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>

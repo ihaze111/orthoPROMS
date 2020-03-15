@@ -4,12 +4,12 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import qs from "qs";
 
-import NHSHeader from "../components/NHS/NHSHeader";
-import NHSContainer from "../components/NHS/NHSContainer";
-import NHSWrapper from "../components/NHS/NHSWrapper";
-import NHSFooter from "../components/NHS/NHSFooter";
-import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "../components/NHS/NHSComponents";
-import NHSBackLink from "../components/NHS/NHSBackLink";
+import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
+import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
+import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
+import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
+import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "../components/nhsuk-frontend-react/NHSComponents";
+import NHSBackLink from "../components/nhsuk-frontend-react/NHSBackLink";
 
 import {
     connect

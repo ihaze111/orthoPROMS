@@ -9,12 +9,12 @@ import * as PropTypes from "prop-types";
 import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph } from "../PatientComponents";
 import { getSubjectId, getEHRId } from "../PatientUtils";
 import Template from "./Template";
-import NHSHeader from "../../components/NHS/NHSHeader";
-import NHSContainer from "../../components/NHS/NHSContainer";
-import NHSWrapper from "../../components/NHS/NHSWrapper";
-import { NHSTableWrapperTest } from "../../components/NHS/NHSTableWrapperTest";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/NHS/NHSPanel";
-import NHSFooter from "../../components/NHS/NHSFooter";
+import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
+import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
+import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
+import { NHSTableWrapperTest } from "../../components/nhsuk-frontend-react/NHSTableWrapperTest";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/nhsuk-frontend-react/NHSPanel";
+import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
 
 // import Chart1 from "../../components/Graphs/Chart1";
 

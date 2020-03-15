@@ -26,7 +26,7 @@ import {
     NHSSummaryListKey,
     NHSSummaryListRow,
     NHSSummaryListValue
-} from "../components/NHS/NHSSummaryList";
+} from "../components/nhsuk-frontend-react/NHSSummaryList";
 import {
     NHSTable,
     NHSTableWrapper,
@@ -35,7 +35,7 @@ import {
     NHSTh,
     NHSTHead,
     NHSTr
-} from "../components/NHS/NHSTableWrapperTest";
+} from "../components/nhsuk-frontend-react/NHSTableWrapperTest";
 
 export class PatientOverview extends React.Component {
     constructor(props) {
