@@ -5,10 +5,10 @@ import HeaderMenu from '../components/HeaderMenu';
 import { RangeEpisodeScoresGraph } from './PatientComponents'
 import { loadEhrId } from "./PatientUtils";
 import $ from "jquery";
-import NHSHeader from "../components/NHS/NHSHeader";
-import NHSContainer from "../components/NHS/NHSContainer";
-import NHSWrapper from "../components/NHS/NHSWrapper";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/NHS/NHSPanel";
+import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
+import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
+import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
 
 class NationalStatistics extends React.Component {
     constructor(props) {
