@@ -50,10 +50,10 @@ class Login extends React.Component {
     onSubmit = (e) => {
         console.log(e);
         e.preventDefault();
-        if (this.state.email == '' || this.state.password == '') {
+        if (this.state.email === '' || this.state.password === '') {
             return alert('Please enter your email or password.')
         }
-        let type = this.state.id == 1 ? 'Patient' : 'Clinicians'
+        let type = this.state.id === 1 ? 'Patient' : 'Clinicians'
         this.props.login({ ...this.state, type }).then(
             res => {
                 alert(res.message)

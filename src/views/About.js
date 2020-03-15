@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
 import HeaderMenu from '../components/HeaderMenu';
 import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";

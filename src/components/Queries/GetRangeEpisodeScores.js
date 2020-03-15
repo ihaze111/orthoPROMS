@@ -44,11 +44,11 @@ async function getRangeEpisodeScores() {
                 Object.keys(sums).map((key1) => {
                     result[key1] = sums[key1] / lengths[key];
                 });
-                if (key == "1 week post-operative") {
+                if (key === "1 week post-operative") {
                     resultWithKey["oneWeek"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
-                } else if (key == "Pre-operative") {
+                } else if (key === "Pre-operative") {
                     resultWithKey["preOp"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
-                } else if (key == "6 weeks post-operative") {
+                } else if (key === "6 weeks post-operative") {
                     resultWithKey["sixWeeks"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
                 }
             });
