@@ -6,7 +6,7 @@ export function DownloadCSV(props){
     console.log(props);
     var data = [transpose(props.array)];
     console.log(data);
-    return <CSVLink data={data} filename={props.fileName}><NHSButton>Download as CSV</NHSButton></CSVLink>
+    return <CSVLink data={data} filename={props.fileName}><NHSButton>Export To CSV</NHSButton></CSVLink>
 }
 
 function transpose(array){
