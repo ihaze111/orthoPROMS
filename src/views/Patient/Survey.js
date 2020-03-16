@@ -2,7 +2,7 @@ import React from 'react';
 import CDROptions from "../../components/Queries/CDROptions";
 
 import { Form, Input, RadioGroup } from 'formsy-react-components';
-import getWebTemplate from "../../components/GetWebTemplate";
+import getFlatProcessedTemplate from "../../components/GetFlatProcessedTemplate";
 // import JsonFormInputToReact from "../../ehr-template-react-generator/view";
 import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
 import JsonFormInputToReact from "../../ehr-template-react-generator/view";
@@ -13,6 +13,7 @@ import {
     NHSPanelTitle,
     NHSPanelWithLabel
 } from "../../components/nhsuk-frontend-react/NHSPanel";
+import getStructuredProcessedTemplate from "../../components/GetStructuredProcessedTemplate";
 
 function commitComposition(model) {
     console.log(model);
@@ -49,7 +50,7 @@ function commitComposition(model) {
     });
 }
 
-export default class Template extends React.Component {
+export class FlatSurvey extends React.Component {
     constructor(props) {
         super(props);
         this.disableButton = this.disableButton.bind(this);
@@ -58,8 +59,53 @@ export default class Template extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getWebTemplate('Foot_and_Ankle_PROMs-v0');
-        // let promise = getWebTemplate('WHO - Suspected Covid-19 assessment.v0');
+        let promise = getFlatProcessedTemplate(this.props.templateId);
+        promise.then((e) => {
+            this.setState({ canSubmit: this.state.canSubmit, template: e });
+        });
+    }
+
+    disableButton() {
+        this.setState({ canSubmit: false });
+    }
+
+    enableButton() {
+        this.setState({ canSubmit: true });
+    }
+
+    submit(model) {
+        commitComposition(model);
+    }
+
+    render() {
+        if (!this.state.template) return null;
+        const sample = this.state.template;
+        return (
+            <div>
+                <Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+                    {sample.map((jsonInputObject) => {
+                        return JsonFormInputToNHSReact(jsonInputObject)
+                    })}
+                    <input style={{ marginLeft: "50%" }} className="btn btn-primary" type="submit"
+                           disabled={!this.state.canSubmit} defaultValue="Submit"/>
+                </Form>
+            </div>
+        );
+    }
+}
+
+export class StructuredSurvey extends React.Component {
+    constructor(props) {
+        super(props);
+        this.disableButton = this.disableButton.bind(this);
+        this.enableButton = this.enableButton.bind(this);
+        this.state = { canSubmit: false };
+    }
+
+    componentDidMount() {
+        // let promise = getFlatProcessedTemplate('Foot_and_Ankle_PROMs-v0');
+        let promise = getStructuredProcessedTemplate(this.props.templateId);
+        // let promise = getStructuredProcessedTemplate('WHO - Suspected Covid-19 assessment.v0');
         promise.then((e) => {
             this.setState({ canSubmit: this.state.canSubmit, template: e });
         });
@@ -84,7 +130,7 @@ export default class Template extends React.Component {
             <div>
                 <Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
                     {/*{sample.map((jsonInputObject) => {*/}
-                    {/*    return JsonFormInputToNHSReact(jsonInputObject);*/}
+                    {/*    return JsonFormInputToNHSReact(jsonInputObject)*/}
                     {/*})}*/}
                     {RecursiveCard({ color: true, ...sample })}
                     <input style={{ marginLeft: "50%" }} className="btn btn-primary" type="submit"
