@@ -4,7 +4,7 @@ import CDROptions from "../../components/Queries/CDROptions";
 import { Form, Input, RadioGroup } from 'formsy-react-components';
 import getFlatProcessedTemplate from "../../components/GetFlatProcessedTemplate";
 // import JsonFormInputToReact from "../../ehr-template-react-generator/view";
-// import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
+import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
 import JsonFormInputToReact from "../../ehr-template-react-generator/view";
 // import NHSFormsyInput from "../../ehr-template-react-generator/NHSFormsyInput";
 import {
