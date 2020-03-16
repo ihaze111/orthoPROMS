@@ -151,7 +151,7 @@ function RecursiveCard(props) {
         });
     }
     if ('inputs' in props) {
-        inputs = JsonFormInputToReact(props.inputs);
+        inputs = JsonFormInputToNHSReact(props.inputs);
     }
     let color = '#f0f4f5';
     if (props.color) {
