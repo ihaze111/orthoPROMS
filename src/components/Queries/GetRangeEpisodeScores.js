@@ -29,8 +29,6 @@ async function getRangeEpisodeScores() {
             });
             const lengths = {};
             Object.keys(episode_time_list).map((e) => { lengths[e] = episode_time_list[e].length});
-            console.log({lengths});
-            console.log(episode_time_list);
             const resultWithKey = {};
             Object.keys(episode_time_list).map((key) => {
                 const result = {};
@@ -52,7 +50,6 @@ async function getRangeEpisodeScores() {
                     resultWithKey["sixWeeks"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
                 }
             });
-            console.log(resultWithKey);
             return(resultWithKey);
         } else {
             return [];

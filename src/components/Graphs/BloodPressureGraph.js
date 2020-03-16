@@ -20,7 +20,7 @@ class BloodPressureGraph extends Component{
                     label: "Diastolic",
                     data: this.props.diastolic
                 }]
-            } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure" + this.props.units}/>
+            } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure " + this.props.units}/>
         )
     }
 }

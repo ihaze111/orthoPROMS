@@ -370,7 +370,8 @@ class RangeEpisodeScores extends React.Component {
         this.state = {
             preOp: [],
             oneWeekPostOp: [],
-            sixWeeksPostOp: []
+            sixWeeksPostOp: [],
+            labels: ["Pain","Activity limitations and support requirements", "Walking","Walking surfaces"]
         };
     }
 
@@ -382,13 +383,16 @@ class RangeEpisodeScores extends React.Component {
     }
 
     render() {
+        
         if (!this.state.rangeEpisodeScores) return null;
-        console.log(this.state.rangeEpisodeScores.preOp);
-        console.log(this.state.rangeEpisodeScores.oneWeekPostOp);
-        console.log(this.state.rangeEpisodeScores.sixWeeksPostOp);
-        return <RadarGraph preOp={this.state.rangeEpisodeScores.preOp}
+        if (this.state.rangeEpisodeScores.length !== null){
+            return <RadarGraph preOp={this.state.rangeEpisodeScores.preOp}
                            oneWeek={this.state.rangeEpisodeScores.oneWeek}
-                           sixWeeks={this.state.rangeEpisodeScores.sixWeeks}/>
+                           sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
+                           label={this.state.labels}/>
+        }else{
+            return <p>No reading can be found!</p>
+        }
     }
 }
 
@@ -659,7 +663,7 @@ class LabOrders extends React.Component {
 export function LabOrdersTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
-        <NHSTable >
+        <NHSTable>
             <NHSTHead >
                 <NHSTr key={"ordersno" + props.index} >
                     <NHSTh key={"ordersno" + props.index + "request"} style={{width: '8px'}}>Requests</NHSTh>
