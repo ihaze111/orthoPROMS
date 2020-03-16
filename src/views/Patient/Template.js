@@ -4,9 +4,9 @@ import CDROptions from "../../components/Queries/CDROptions";
 import { Form, Input, RadioGroup } from 'formsy-react-components';
 import getWebTemplate from "../../components/GetWebTemplate";
 // import JsonFormInputToReact from "../../ehr-template-react-generator/view";
-import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
+// import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
 import JsonFormInputToReact from "../../ehr-template-react-generator/view";
-import NHSFormsyInput from "../../ehr-template-react-generator/NHSFormsyInput";
+// import NHSFormsyInput from "../../ehr-template-react-generator/NHSFormsyInput";
 import {
     NHSPanel,
     NHSPanelBody,
@@ -105,7 +105,7 @@ function RecursiveCard(props) {
         });
     }
     if ('inputs' in props) {
-        inputs = JsonFormInputToNHSReact(props.inputs);
+        inputs = JsonFormInputToReact(props.inputs);
     }
     let color = '#f0f4f5';
     if (props.color) {

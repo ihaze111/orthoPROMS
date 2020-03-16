@@ -47,7 +47,6 @@ class RadarChart extends Component {
     start = () => {
         if (this.props.id === "myRadar"){
             this.buildChart();
-            console.log(this.props.preOp);
         }
     }
 
