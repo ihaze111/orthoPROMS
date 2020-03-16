@@ -8,7 +8,7 @@ import $ from 'jquery';
 import * as PropTypes from "prop-types";
 import { PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph } from "../PatientComponents";
 import { getSubjectId, getEHRId } from "../PatientUtils";
-import Template from "./Template";
+import { StructuredSurvey, FlatSurvey } from "./Survey";
 import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
@@ -77,7 +77,8 @@ function PatientSelf(props) {
                                     <div><Chart1 bingbong="bingbong"/></div> */}
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="survey">
-                                        <Template/>
+                                        <StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>
+                                        {/*<FlatSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>*/}
                                         <SurveySuccess/>
                                     </Tab.Pane>
                                 </Tab.Content>
