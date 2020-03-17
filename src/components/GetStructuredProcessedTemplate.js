@@ -12,6 +12,7 @@ async function getStructuredProcessedTemplate(templateName) {
         let language = template.defaultLanguage;
         let tree = template.tree;
         processedResult = treeTrawlGettingStructuredInputs(tree, language, []);
+        console.log(processedResult);
     } catch (error) {
         console.log(error);
     }

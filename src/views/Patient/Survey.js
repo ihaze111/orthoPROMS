@@ -103,9 +103,7 @@ export class StructuredSurvey extends React.Component {
     }
 
     componentDidMount() {
-        // let promise = getFlatProcessedTemplate('Foot_and_Ankle_PROMs-v0');
         let promise = getStructuredProcessedTemplate(this.props.templateId);
-        // let promise = getStructuredProcessedTemplate('WHO - Suspected Covid-19 assessment.v0');
         promise.then((e) => {
             this.setState({ canSubmit: this.state.canSubmit, template: e });
         });
@@ -129,9 +127,6 @@ export class StructuredSurvey extends React.Component {
         return (
             <div>
                 <Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
-                    {/*{sample.map((jsonInputObject) => {*/}
-                    {/*    return JsonFormInputToNHSReact(jsonInputObject)*/}
-                    {/*})}*/}
                     {RecursiveCard({ color: true, ...sample })}
                     <input style={{ marginLeft: "50%" }} className="btn btn-primary" type="submit"
                            disabled={!this.state.canSubmit} defaultValue="Submit"/>
@@ -150,18 +145,22 @@ function RecursiveCard(props) {
             return RecursiveCard(newProps);
         });
     }
-    if ('inputs' in props) {
-        inputs = JsonFormInputToNHSReact(props.inputs);
-    }
     let color = '#f0f4f5';
     if (props.color) {
         color = 'white';
     }
-    return <NHSPanelWithLabel style={{ backgroundColor: color }}>
-        <NHSPanelTitle class="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
-        <NHSPanelBody>
-            {inputs}
-            {children}
-        </NHSPanelBody>
-    </NHSPanelWithLabel>;
+    if ('inputs' in props) {
+        inputs = JsonFormInputToNHSReact(props.inputs);
+    }
+    if ('inputs' in props || 'children' in props) {
+        return <NHSPanelWithLabel style={{ backgroundColor: color }}>
+            <NHSPanelTitle class="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
+            <NHSPanelBody>
+                {inputs}
+                {children}
+            </NHSPanelBody>
+        </NHSPanelWithLabel>;
+    } else {
+        return null;
+    }
 }
