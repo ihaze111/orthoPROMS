@@ -1,17 +1,17 @@
 import React from 'react';
+import { NHSTd, NHSTr } from "../nhsuk-frontend-react/NHSTableWrapperTest";
 
 function PatientListEntry(props) {
     return (
-        <tr>
-            <td>{props.id}</td>
-            <td><a href={"PatientRecords?id=" + props.id + "&name=" + props.name + "&patientno=" + props.patientNumber
-             + "&birthday=" + props.birthday + "&reason=" + props.ailments}>{props.name}</a></td>
-            <td>{props.patientNumber}</td>
-            <td>{props.birthday}</td>
-            <td>{props.date}</td>
-            <td>{props.patientType}</td>
-            <td>{props.ailments}</td>
-        </tr>
+        <NHSTr>
+            <NHSTd>{props.id}</NHSTd>
+            <NHSTd><a href={"PatientRecords?subjectId=" + props.subjectId}>{props.nhsNumber}</a></NHSTd>
+            <NHSTd>{props.gender}</NHSTd>
+            <NHSTd>{props.sex}</NHSTd>
+            <NHSTd>{props.vitalStatus}</NHSTd>
+            <NHSTd>{props.birthYear}</NHSTd>
+            {/* <td>{props.timeCreated}</td> */}
+        </NHSTr>
     );
 }
 
