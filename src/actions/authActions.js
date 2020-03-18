@@ -6,13 +6,13 @@ import {
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 
 export const setCurrentUser = (user, isGoogleLogin) => {
-  
+
   let obj = {
     type: SET_CURRENT_USER,
     user,
     isGoogleLogin: isGoogleLogin
   }
-  // console.log(obj)
+  console.log(obj)
   return obj
 }
 
