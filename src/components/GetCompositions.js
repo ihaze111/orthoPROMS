@@ -8,7 +8,13 @@ async function getCompositions(ehrId) {
         " b_a[openEHR-EHR-OBSERVATION.aofas.v0] and CLUSTER b_b[openEHR-EHR-CLUSTER.episode_details_northproms.v0])" +
         " where a/name/value='UCLH Foot and ankle PROMs' and e/ehr_id/value='" + ehrId + "'";
     return await CDRAQLQuery(aql, (result) => {
-        return result.resultSet ? result.resultSet : [];
+        if (result.resultSet) {
+            return result.resultSet.map((e) => {
+                return e;
+            });
+        } else {
+            return [];
+        }
     });
 }
 

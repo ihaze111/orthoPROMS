@@ -1,8 +1,8 @@
 import qs from "qs";
-import CDROptions from "../components/Queries/CDROptions";
+import CDROptions from "../components/CDROptions";
 const request = require('request-promise');
 
-export async function getEHRId(subjectId) {
+async function getEHRId(subjectId) {
     let processedResult;
     const options = CDROptions.generateRequestOptions("/rest/v1/ehr/?subjectId=" + subjectId + "&subjectNamespace=uk.nhs.nhs_number");
     await request(options, function (error, response) {

@@ -12,7 +12,7 @@ export const setCurrentUser = (user, isGoogleLogin) => {
     user,
     isGoogleLogin: isGoogleLogin
   }
-  // console.log(obj)
+  console.log(obj)
   return obj
 }
 
