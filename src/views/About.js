@@ -1,12 +1,12 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
-import HeaderMenu from '../components/HeaderMenu';
-import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
+import { NHSHeaderOrthoPROMS } from "../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
+import HeaderMenu from "../components/HeaderMenu";
 
 
 function DevelopersTableEntry(props) {
@@ -27,7 +27,7 @@ class About extends React.Component {
     render() {
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
-                <NHSHeader/>
+                <HeaderMenu/>
                 <NHSContainer>
                     <NHSWrapper>
                         <h1>About Us</h1>

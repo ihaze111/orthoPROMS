@@ -19,6 +19,7 @@ import {
     sendCode,
     reset
 } from '../actions/signupActions'
+import HeaderMenu from "../components/HeaderMenu";
 
 class Reset extends React.Component {
 
@@ -128,7 +129,7 @@ class Reset extends React.Component {
 
 
         return ( <div>
-            <NHSHeader navigationDisabled searchDisabled/>
+            <HeaderMenu navigationDisabled searchDisabled/>
             <NHSContainer>
                 <NHSWrapper>
                     <NHSBackLink href={'/Login?id=' + qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id}>Go back</NHSBackLink>

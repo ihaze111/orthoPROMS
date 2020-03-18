@@ -49,7 +49,7 @@ class PatientListTable extends React.Component {
 function PatientList() {
     return (
         <div style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
-            <NHSHeader/>
+            <HeaderMenu/>
             <NHSContainer>
                 <NHSWrapper>
                     <h1>Patient List</h1>

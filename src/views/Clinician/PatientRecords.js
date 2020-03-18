@@ -17,6 +17,7 @@ import NHSBackLink from "../../components/nhsuk-frontend-react/NHSBackLink";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
 import { NHSFormLabel, NHSButton, NHSTextArea, NHSFormGroup, NHSFormHint } from '../../components/nhsuk-frontend-react/NHSComponents';
+import HeaderMenu from "../../components/HeaderMenu";
 
 function PatientRecordsReport(props) {
     return <div style={{ width: "90%" }}>
@@ -70,7 +71,7 @@ class PatientRecords extends React.Component {
         // console.log(this.state.ehrId);
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
-                <NHSHeader/>
+                <HeaderMenu/>
                 <NHSContainer>
                     <NHSWrapper>
                         <NHSBackLink onClick={this.goBack}>Go back</NHSBackLink>

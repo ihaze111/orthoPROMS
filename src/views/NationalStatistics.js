@@ -28,7 +28,7 @@ class NationalStatistics extends React.Component {
     render() {
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
-                <NHSHeader/>
+                <HeaderMenu/>
                 <NHSContainer>
                     <NHSWrapper>
                         <NHSPanel>

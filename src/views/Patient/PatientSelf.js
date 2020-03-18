@@ -15,6 +15,7 @@ import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
 import { NHSTableWrapperTest } from "../../components/nhsuk-frontend-react/NHSTableWrapperTest";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
+import HeaderMenu from "../../components/HeaderMenu";
 
 // import Chart1 from "../../components/Graphs/Chart1";
 
@@ -37,7 +38,7 @@ function PatientSelf(props) {
     });
     return (
         <div style={{ backgroundColor: '#f0f4f5' }}>
-            <NHSHeader/>
+            <HeaderMenu/>
             <NHSContainer>
                 <NHSWrapper>
                     <PatientOverview subjectId={subjectId}/>

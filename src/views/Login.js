@@ -13,6 +13,7 @@ import NHSCheckbox from "../components/nhsuk-frontend-react/NHSCheckbox";
 import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
 import { NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/nhsuk-frontend-react/NHSPanel";
 import { NHSVectorArrowRightCircle } from "../components/nhsuk-frontend-react/NHSIcons";
+import HeaderMenu from "../components/HeaderMenu";
 
 
 class Login extends React.Component {
@@ -86,7 +87,7 @@ class Login extends React.Component {
     render() {
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
-                <NHSHeader navigationDisabled searchDisabled/>
+                <HeaderMenu navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
                         <div class="nhsuk-grid-row">

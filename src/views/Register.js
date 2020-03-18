@@ -142,7 +142,7 @@ class Register extends React.Component {
 
         return (
             <div>
-                <NHSHeader navigationDisabled searchDisabled/>
+                <HeaderMenu navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
                         <NHSBackLink href={'/Login?id=' + qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id}>Go back</NHSBackLink>
