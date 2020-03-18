@@ -126,13 +126,14 @@ class Register extends React.Component {
 
     componentDidMount() {
         let id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-        let type
-        if (id === 1) {
-            type = 'Patient'
-        } else if (id === 2) {
-            type = 'Clinicians'
+        let type;
+        if (id === '1') {
+            type = 'Patient';
+        } else if (id === '2') {
+            type = 'Clinicians';
         } else {
-            window.location.href = "/"
+            //TODO: better solution than redirect?
+            window.location.href = "/";
         }
         this.setState({ type })
     }
