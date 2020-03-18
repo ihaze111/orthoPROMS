@@ -119,10 +119,6 @@ class About extends React.Component {
                                             <tbody>
                                             <PartnersEntry name="Apperta Foundation"
                                                            website="https://apperta.org/"/>
-                                            <PartnersEntry name="Code4Health"
-                                                           website="https://code4health.org/"/>
-                                            <PartnersEntry name="National Health Service (NHS) Digital"
-                                                           website="https://digital.nhs.uk/"/>
                                             </tbody>
                                         </Table>
                                     </div>
