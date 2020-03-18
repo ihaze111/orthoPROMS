@@ -3,17 +3,17 @@ import CDRAQLQuery from "./CDRAQLQuery";
 function callbackProcessing(result) {
     return result.resultSet.map((e) => {
         let final = {};
-        final.patientId = e.ehr_id.value || "";
+        final.patientId = e.ehr_id ? e.ehr_id.value : "";
         if (e.other_details) {
-            final.gender = e.other_details.items[0].items[0].value.value || "";
-            final.sex = e.other_details.items[0].items[1].value.value || "";
-            final.vitalStatus = e.other_details.items[0].items[2].value.value || "";
-            final.birthYear = e.other_details.items[0].items[3].value.value || "";
-            final.nhsNumber = e.nhsNumber.value || "";
-            final.timeCreated = e.time_created.value || "";
+            final.gender = e.other_details ? e.other_details.items[0].items[0].value.value : "";
+            final.sex =  e.other_details ? e.other_details.items[0].items[1].value.value : "";
+            // final.vitalStatus = e.other_details.items[0].items[2].value.value || "";
+            // final.birthYear = e.other_details.items[0].items[3].value.value || "";
+            final.nhsNumber = e.nhsNumber ? e.nhsNumber.value : "";
+            final.timeCreated = e.time_created ? e.time_created.value : "";
         }
         if(e.nhsNumber) {
-            final.subjectId = e.nhsNumber.value;
+            final.subjectId = e.nhsNumber ? e.nhsNumber.value : "";
         }
         return final;
     });
