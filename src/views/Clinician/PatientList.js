@@ -4,8 +4,14 @@ import Table from 'react-bootstrap/Table';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
 import getEHRs from "../../components/GetEHRs";
+import { connect } from 'react-redux'
+import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
+import { handleCliniSearch,setPatientList } from '../../actions/clinicianActions'
 
-class PatientListTable extends React.Component {
+
+class PatientListtable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -14,13 +20,15 @@ class PatientListTable extends React.Component {
     componentDidMount() {
         let promise = getEHRs();
         promise.then((e) => {
+            this.props.setPatientList(e)
             this.setState({ ehrs: e });
         });
     }
 
     render() {
-        if (!this.state.ehrs) return null;
-        return <Table striped bordered hover>
+        let { patientListFiltered } = this.props
+        if(patientListFiltered.length > 0){
+            return <Table striped bordered hover>
             <thead>
             <tr>
                 <th>#</th>
@@ -33,29 +41,74 @@ class PatientListTable extends React.Component {
             </tr>
             </thead>
             <tbody>
-            {this.state.ehrs.map((e, index) => {
+            {patientListFiltered.map((e, index) => {
                 e.id = index + 1;
                 return PatientListEntry(e);
             })}
             </tbody>
         </Table>;
+        } else {
+            return (
+                <div>
+                    <Alert key="warning" variant="warning" className="text-left">
+                        No patients were found
+                    </Alert>
+                </div>
+            )
+        }
+
+        
+        
+    }
+}
+const PatientListTable = connect(
+    state => {
+        return {
+            patientListFiltered: state.clinician.patientListFiltered,
+
+        }
+    },
+    {
+        setPatientList
+    }
+)(PatientListtable)
+
+class PatientList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    onChange = e => {
+        this.props.handleCliniSearch(e.target.value)
+    }
+
+    render() {
+        let { search } = this.props
+        return (
+            <div>
+                <HeaderMenu/>
+                <Container>
+                    <div style={{ height: '50px' }}></div>
+                    <div style={{ display: 'block', textAlign: 'center' }}>
+                        <div><h1>Patient List<Form inline style={{'float': 'right'}}>
+                                <FormControl type="text" placeholder="Search"  value={search} onChange={ this.onChange } className="mr-sm-2" />
+                                </Form></h1></div>
+                        <PatientListTable/>
+                    </div>
+                </Container>
+
+            </div>
+        );
     }
 }
 
-function PatientList() {
-    return (
-        <div>
-            <HeaderMenu/>
-            <Container>
-                <div style={{ height: '50px' }}></div>
-                <div style={{ display: 'block', textAlign: 'center' }}>
-                    <div><h1>Patient List</h1></div>
-                    <PatientListTable/>
-                </div>
-            </Container>
-
-        </div>
-    );
-}
-
-export default PatientList;
+export default connect(
+    state => {
+        return {
+            search: state.clinician.search
+        }
+    },
+    {
+        handleCliniSearch
+    }
+)(PatientList)

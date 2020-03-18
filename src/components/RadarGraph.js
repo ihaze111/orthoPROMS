@@ -8,7 +8,7 @@ const RadarGraph = props => {
     const preOperation = props.preOp;
     const oneWeekPostOperation = props.oneWeek;
     const sixWeeksPostOperation = props.sixWeeks;
-
+    
     const radarOptions = {
         chart: {
             polar: true,
@@ -79,9 +79,10 @@ const RadarGraph = props => {
             }]
         }
     };
-
-    require('highcharts/highcharts-more')(HighCharts);
+    HighChartsMore(HighCharts)
+    // require('highcharts/highcharts-more')(HighCharts);
     return(
+        
             <HighchartsReact
                 highcharts={HighCharts}
                 options={radarOptions}
