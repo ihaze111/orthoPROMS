@@ -1,11 +1,8 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { logout } from '../actions/authActions';
 import { GoogleLogout } from 'react-google-login'
 import { NHSSearch } from "./nhsuk-frontend-react/NHSSearch";
@@ -19,7 +16,7 @@ import {
     NHSWidthContainer
 } from "./nhsuk-frontend-react/NHSHeader";
 import { NHSVectorChevronRight } from "./nhsuk-frontend-react/NHSIcons";
-
+import { handleSearch } from '../actions/appActions'
 
 class HeaderMenu extends React.Component {
 
@@ -33,6 +30,15 @@ class HeaderMenu extends React.Component {
         window.location.href = '/';
     };
 
+    constructor(props) {
+        super(props)
+    }
+
+    onChange = e => {
+        // this.setState({[e.target.name]: e.target.value})
+        this.props.handleSearch(e.target.value)
+    }
+
     handleIPROMS = () => {
         if (window.confirm("Exiting to the home page will log you out, are you sure you want to leave？")) {
             this.handleClick();
@@ -40,7 +46,7 @@ class HeaderMenu extends React.Component {
     };
 
     componentDidMount() {
-        console.log(this.props.isGoogleLogin);
+        // console.log(this.props.isGoogleLogin);
     };
 
     render() {
@@ -64,7 +70,7 @@ class HeaderMenu extends React.Component {
         const headerContent = this.props.searchDisabled && this.props.navigationDisabled ? null :
             <NHSHeaderContent>
                 <NHSHeaderMenuToggle/>
-                {search}
+                {/*{search}*/}
             </NHSHeaderContent>;
         return (
             <NHSHeader>
@@ -72,9 +78,9 @@ class HeaderMenu extends React.Component {
                     <a onClick={this.handleIPROMS}><NHSAppLogo
                         smaller={this.props.navigationDisabled}>orthoPROMS</NHSAppLogo></a>
                     {headerContent}
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-                        <Button variant="outline-success" style={{ 'marginRight': '16px' }}>Search</Button>
+                    <Form inline style={{float: 'right'}}>
+                        {/*<FormControl type="text" placeholder="Search" className="mr-sm-2"/>*/}
+                        {/*<Button variant="outline-success" style={{ 'marginRight': '16px' }}>Search</Button>*/}
                         <Button variant="outline-primary"
                                 className={((this.props.isAuthenticated) && (!this.props.isGoogleLogin)) ? 'd-block' :
                                     'd-none'} onClick={this.handleClick}>logout</Button>
@@ -94,8 +100,8 @@ class HeaderMenu extends React.Component {
             </NHSHeader>
         );
     }
-}
 
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -105,4 +111,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { logout })(HeaderMenu)
-

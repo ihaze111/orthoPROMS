@@ -21,7 +21,7 @@ import BloodPressureGraph from "../components/Graphs/BloodPressureGraph";
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
 
-import {DownloadCSV} from "../components/DownloadCSV";
+import { DownloadCSV } from "../components/DownloadCSV";
 
 import {
     NHSSummaryList,
@@ -39,6 +39,10 @@ import {
     NHSTr
 } from "../components/nhsuk-frontend-react/NHSTableWrapperTest";
 
+import { connect } from "react-redux";
+import { setCompositions } from "../actions/appActions";
+import Table from "react-bootstrap/Table";
+
 export class PatientOverview extends React.Component {
     constructor(props) {
         super(props);
@@ -48,7 +52,7 @@ export class PatientOverview extends React.Component {
     componentDidMount() {
         let subjectId = this.props.subjectId;
         let promise = getEHRBySubjectId(subjectId);
-        promise.then((e) => {
+        promise.then(e => {
             this.setState({ ehr: e });
         });
     }
@@ -95,7 +99,7 @@ function PatientProgressTableEntry(props) {
     </NHSTr>;
 }
 
-class Compositions extends React.Component {
+class Composition extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -103,19 +107,20 @@ class Compositions extends React.Component {
 
     componentDidMount() {
         let promise = getCompositions(this.props.ehrId);
-        promise.then((e) => {
+        promise.then(e => {
+            this.props.setCompositions(e);
             this.setState({ compositions: e });
         });
     }
 
     render() {
-        if (!this.state.compositions) return null;
-        if (this.state.compositions.length > 0) {
-            return this.state.compositions.map((e, index) => {
-                    e.index = index;
-                    return PatientProgressTableEntry(e)
-                }
-            )
+        let { compositionsFiltered } = this.props;
+        if (!compositionsFiltered) return null;
+        if (compositionsFiltered.length > 0) {
+            return compositionsFiltered.map((e, index) => {
+                e.index = index;
+                return PatientProgressTableEntry(e);
+            });
         } else {
             return <NHSTr key="noCompositionsRow">
                 <NHSTd key="noCompositionsData" colSpan="4">No compositions were found</NHSTd>
@@ -123,6 +128,17 @@ class Compositions extends React.Component {
         }
     }
 }
+
+const Compositions = connect(
+    state => {
+        return {
+            compositionsFiltered: state.app.compositionsFiltered
+        };
+    },
+    {
+        setCompositions
+    }
+)(Composition);
 
 export function PatientProgressTable(props) {
     if (props.ehrId) {
@@ -143,7 +159,9 @@ export function PatientProgressTable(props) {
                 <NHSTBody>
                     <Compositions key='compositions' ehrId={props.ehrId}/>
                 </NHSTBody>
-            </NHSTable></NHSTableWrapper>;
+            </NHSTable>
+        </NHSTableWrapper>
+            ;
     } else {
         return null;
     }
@@ -159,17 +177,21 @@ class Scores extends React.Component {
             walking_surfacesArray: [],
             totalArray: [],
             regTimeArray: [],
-            label: ["Pain","Activity limitations and support requirements","Walking","Walking surfaces","Total score"]
+            label: ["Pain", "Activity limitations and support requirements", "Walking", "Walking surfaces",
+                "Total score"],
+            isLoading: true
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let promise = getScores(this.props.ehrId);
-        promise.then((e) => {
-            this.setState({ scores: e });
+        promise.then(e => {
+            e.forEach(el => {
+                this.pushArray(el);
+            });
+            this.setState({ scores: e, isLoading: false });
         });
     }
-
 
     pushArray(props) {
         this.state.painArray.push(props.pain);
@@ -182,24 +204,35 @@ class Scores extends React.Component {
     }
 
     render() {
-        if (!this.state.scores) return null;
-        // eslint-disable-next-line array-callback-return
-        this.state.scores.map((e) => {
-            this.pushArray(e);
-        });
-        if (this.state.painArray.length > 0) {
-            return <div><React.Fragment><ScoresGraph pain={this.state.painArray}
+        let { isLoading } = this.state;
+        if (isLoading) {
+            return <p>Loading...</p>;
+        } else {
+            if (this.state.painArray.length > 0) {
+                return <div>
+                    <React.Fragment>
+                        <ScoresGraph pain={this.state.painArray}
                                      limit={this.state.limitationsArray}
                                      walking={this.state.walkingArray}
                                      surface={this.state.walking_surfacesArray}
                                      total={this.state.totalArray}
-                                     time={this.state.regTimeArray}
-            /><br/><br/><DownloadCSV array={[this.state.label,this.state.painArray,this.state.limitationsArray,this.state.walkingArray,this.state.walking_surfacesArray,this.state.totalArray]}
-            fileName={"Scores.csv"} /></React.Fragment></div>
-        } else {
-            return <p>No scores were found</p>;
+                                     time={this.state.regTimeArray}/>
+                        <br/><br/>
+                        <DownloadCSV array={[this.state.label, this.state.painArray, this.state.limitationsArray,
+                            this.state.walkingArray, this.state.walking_surfacesArray, this.state.totalArray]}
+                                     fileName={"Scores.csv"}/></React.Fragment></div>
+            } else {
+                return <p>No scores were found</p>;
+            }
         }
     }
+
+    // if (this.state.painArray.length > 0) {
+    //     return
+    // } else {
+    //     return <p>No scores were found</p>;
+    // }
+
 }
 
 export function ScoresArray(props) {
@@ -217,14 +250,17 @@ class EpisodeScores extends React.Component {
             preOp: [],
             oneWeekPostOp: [],
             sixWeeksPostOp: [],
-            labels: ["Pain","Activity limitations and support requirements", "Walking","Walking surfaces"]
+            labels: ["Pain", "Activity limitations and support requirements", "Walking", "Walking surfaces"],
+            isLoading: true
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let promise = getEpisodeScores(this.props.ehrId);
-        promise.then((e) => {
-            this.setState({ episodeScores: e });
+        promise.then(e => {
+            this.pushIntoCategory(e);
+            console.log("到这里了", e);
+            this.setState({ episodeScores: e, isLoading: false });
         });
     }
 
@@ -241,21 +277,27 @@ class EpisodeScores extends React.Component {
         }
     }
 
-
     render() {
-        if (!this.state.episodeScores) return null;
-        this.pushIntoCategory(this.state.episodeScores);
-        if (this.state.episodeScores.length > 0) {
-            return <React.Fragment><RadarGraph preOp={this.state.preOp}
-                               oneWeek={this.state.oneWeekPostOp}
-                               sixWeeks={this.state.sixWeeksPostOp}
-                               label={this.state.labels}/><br/><br/>
-                               <DownloadCSV array={[this.state.labels,this.state.preOp,this.state.oneWeekPostOp,this.state.sixWeeksPostOp]}
-                                    fileName={"Episode_Scores.csv"} />
-                               </React.Fragment>
+        // if (!this.state.episodeScores) return null;
+        // this.pushIntoCategory(this.state.episodeScores);
+        let { isLoading } = this.state;
+        if (isLoading) {
+            return <p>No scores were found</p>;
         } else {
-            return <p>No episode scores were found</p>;
+            return <React.Fragment><RadarGraph preOp={this.state.preOp}
+                                               oneWeek={this.state.oneWeekPostOp}
+                                               sixWeeks={this.state.sixWeeksPostOp}
+                                               label={this.state.labels}/><br/><br/>
+                <DownloadCSV
+                    array={[this.state.labels, this.state.preOp, this.state.oneWeekPostOp, this.state.sixWeeksPostOp]}
+                    fileName={"Episode_Scores.csv"}/>
+            </React.Fragment>;
         }
+        // if (this.state.episodeScores.length > 0) {
+
+        // } else {
+        //     return <p>No episode scores were found</p>;
+        // }
     }
 }
 
@@ -371,7 +413,7 @@ class RangeEpisodeScores extends React.Component {
             preOp: [],
             oneWeekPostOp: [],
             sixWeeksPostOp: [],
-            labels: ["Pain","Activity limitations and support requirements", "Walking","Walking surfaces"]
+            labels: ["Pain", "Activity limitations and support requirements", "Walking", "Walking surfaces"]
         };
     }
 
@@ -383,14 +425,14 @@ class RangeEpisodeScores extends React.Component {
     }
 
     render() {
-        
+
         if (!this.state.rangeEpisodeScores) return null;
-        if (this.state.rangeEpisodeScores.length !== null){
+        if (this.state.rangeEpisodeScores.length !== null) {
             return <RadarGraph preOp={this.state.rangeEpisodeScores.preOp}
-                           oneWeek={this.state.rangeEpisodeScores.oneWeek}
-                           sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
-                           label={this.state.labels}/>
-        }else{
+                               oneWeek={this.state.rangeEpisodeScores.oneWeek}
+                               sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
+                               label={this.state.labels}/>
+        } else {
             return <p>No reading can be found!</p>
         }
     }
@@ -534,24 +576,24 @@ class Allergies extends React.Component {
 export function PatientAllergiesTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
-        <NHSTable>
-            <NHSTHead>
-                <NHSTr key={"allergiesno" + props.index}>
-                    <NHSTh key={"allergiesno" + props.index + "cause"}>Cause</NHSTh>
-                    <NHSTh
-                        key={"allergiesno" + props.index + "comment"}>Comment</NHSTh>
-                    <NHSTh
-                        key={"allergiesno" + props.index + "reaction"}>Reaction</NHSTh>
-                    <NHSTh
-                        key={"allergiesno" + props.index + "update_Exclusion_date"}>Exclusion Date</NHSTh>
-                    <NHSTh
-                        key={"allergiesno" + props.index + "composer"}>Composer Name</NHSTh>
-                </NHSTr>
-            </NHSTHead>
-            <NHSTBody>
-                <Allergies key='allergies' ehrId={props.ehrId}/>
-            </NHSTBody>
-        </NHSTable></NHSTableWrapper>;
+            <NHSTable>
+                <NHSTHead>
+                    <NHSTr key={"allergiesno" + props.index}>
+                        <NHSTh key={"allergiesno" + props.index + "cause"}>Cause</NHSTh>
+                        <NHSTh
+                            key={"allergiesno" + props.index + "comment"}>Comment</NHSTh>
+                        <NHSTh
+                            key={"allergiesno" + props.index + "reaction"}>Reaction</NHSTh>
+                        <NHSTh
+                            key={"allergiesno" + props.index + "update_Exclusion_date"}>Exclusion Date</NHSTh>
+                        <NHSTh
+                            key={"allergiesno" + props.index + "composer"}>Composer Name</NHSTh>
+                    </NHSTr>
+                </NHSTHead>
+                <NHSTBody>
+                    <Allergies key='allergies' ehrId={props.ehrId}/>
+                </NHSTBody>
+            </NHSTable></NHSTableWrapper>;
     } else {
         return null;
     }
@@ -599,24 +641,24 @@ class Procedures extends React.Component {
 export function ProceduresTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
-        <NHSTable>
-            <NHSTHead>
-                <NHSTr key={"proceduresno" + props.index}>
-                    <NHSTh key={"proceduresno" + props.index + "procedure_name"}>Procedure</NHSTh>
-                    <NHSTh
-                        key={"proceduresno" + props.index + "notes"}>Notes</NHSTh>
-                    <NHSTh
-                        key={"proceduresno" + props.index + "careflow_step"}>Careflow Step</NHSTh>
-                    <NHSTh
-                        key={"proceduresno" + props.index + "time"}>Time</NHSTh>
-                    <NHSTh
-                        key={"proceduresno" + props.index + "name"}>Composer Name</NHSTh>
-                </NHSTr>
-            </NHSTHead>
-            <NHSTBody>
-                <Procedures key='procedures' ehrId={props.ehrId}/>
-            </NHSTBody>
-        </NHSTable></NHSTableWrapper>;
+            <NHSTable>
+                <NHSTHead>
+                    <NHSTr key={"proceduresno" + props.index}>
+                        <NHSTh key={"proceduresno" + props.index + "procedure_name"}>Procedure</NHSTh>
+                        <NHSTh
+                            key={"proceduresno" + props.index + "notes"}>Notes</NHSTh>
+                        <NHSTh
+                            key={"proceduresno" + props.index + "careflow_step"}>Careflow Step</NHSTh>
+                        <NHSTh
+                            key={"proceduresno" + props.index + "time"}>Time</NHSTh>
+                        <NHSTh
+                            key={"proceduresno" + props.index + "name"}>Composer Name</NHSTh>
+                    </NHSTr>
+                </NHSTHead>
+                <NHSTBody>
+                    <Procedures key='procedures' ehrId={props.ehrId}/>
+                </NHSTBody>
+            </NHSTable></NHSTableWrapper>;
     } else {
         return null;
     }
@@ -663,22 +705,22 @@ class LabOrders extends React.Component {
 export function LabOrdersTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
-        <NHSTable>
-            <NHSTHead >
-                <NHSTr key={"ordersno" + props.index} >
-                    <NHSTh key={"ordersno" + props.index + "request"} style={{width: '8px'}}>Requests</NHSTh>
-                    <NHSTh
-                        key={"ordersno" + props.index + "timing"}>Request Timing</NHSTh>
-                    <NHSTh
-                        key={"ordersno" + props.index + "context_time"} >Time</NHSTh>
-                    <NHSTh
-                        key={"ordersno" + props.index + "composer"}>Composer Name</NHSTh>
-                </NHSTr>
-            </NHSTHead>
-            <NHSTBody>
-                <LabOrders key='orders' ehrId={props.ehrId}/>
-            </NHSTBody>
-        </NHSTable></NHSTableWrapper>;
+            <NHSTable>
+                <NHSTHead>
+                    <NHSTr key={"ordersno" + props.index}>
+                        <NHSTh key={"ordersno" + props.index + "request"} style={{ width: '8px' }}>Requests</NHSTh>
+                        <NHSTh
+                            key={"ordersno" + props.index + "timing"}>Request Timing</NHSTh>
+                        <NHSTh
+                            key={"ordersno" + props.index + "context_time"}>Time</NHSTh>
+                        <NHSTh
+                            key={"ordersno" + props.index + "composer"}>Composer Name</NHSTh>
+                    </NHSTr>
+                </NHSTHead>
+                <NHSTBody>
+                    <LabOrders key='orders' ehrId={props.ehrId}/>
+                </NHSTBody>
+            </NHSTable></NHSTableWrapper>;
     } else {
         return null;
     }
@@ -726,24 +768,24 @@ class LabReports extends React.Component {
 export function LabReportsTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
-        <NHSTable >
-            <NHSTHead >
-                <NHSTr key={"reportsno" + props.index} >
-                    <NHSTh key={"reportsno" + props.index + "test"} style={{width: '8px'}}>Tests</NHSTh>
-                    <NHSTh
-                        key={"reportsno" + props.index + "comment"}>Comment</NHSTh>
-                    <NHSTh
-                        key={"reportsno" + props.index + "conclusion"}>Conclusion</NHSTh>
-                    <NHSTh
-                        key={"reportsno" + props.index + "test_timestamp"}>Time</NHSTh>
-                    <NHSTh
-                        key={"reportsno" + props.index + "composer"}>Composer Name</NHSTh>
-                </NHSTr>
-            </NHSTHead>
-            <NHSTBody>
-                <LabReports key='reports' ehrId={props.ehrId}/>
-            </NHSTBody>
-        </NHSTable></NHSTableWrapper>;
+            <NHSTable>
+                <NHSTHead>
+                    <NHSTr key={"reportsno" + props.index}>
+                        <NHSTh key={"reportsno" + props.index + "test"} style={{ width: '8px' }}>Tests</NHSTh>
+                        <NHSTh
+                            key={"reportsno" + props.index + "comment"}>Comment</NHSTh>
+                        <NHSTh
+                            key={"reportsno" + props.index + "conclusion"}>Conclusion</NHSTh>
+                        <NHSTh
+                            key={"reportsno" + props.index + "test_timestamp"}>Time</NHSTh>
+                        <NHSTh
+                            key={"reportsno" + props.index + "composer"}>Composer Name</NHSTh>
+                    </NHSTr>
+                </NHSTHead>
+                <NHSTBody>
+                    <LabReports key='reports' ehrId={props.ehrId}/>
+                </NHSTBody>
+            </NHSTable></NHSTableWrapper>;
     } else {
         return null;
     }

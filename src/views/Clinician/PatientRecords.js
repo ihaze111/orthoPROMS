@@ -68,7 +68,6 @@ class PatientRecords extends React.Component {
 
     render() {
         let subjectId = getSubjectId(this.props.location.search);
-        // console.log(this.state.ehrId);
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
                 <HeaderMenu/>
