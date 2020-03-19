@@ -32,25 +32,25 @@ class PatientListtable extends React.Component {
     render() {
         let { patientListFiltered } = this.props
         if(patientListFiltered.length > 0){
-            return <Table striped bordered hover>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>NHS Number</th>
-                <th>Gender</th>
-                <th>Sex</th>
-                <th>Vital Status</th>
-                <th>Birth Year</th>
-                <th>Time created</th>
-            </tr>
-            </thead>
-            <tbody>
-            {patientListFiltered.map((e, index) => {
-                e.id = index + 1;
-                return PatientListEntry(e);
-            })}
-            </tbody>
-        </Table>;
+            return <NHSTable>
+                <NHSTHead>
+                    <NHSTr>
+                        <NHSTh>#</NHSTh>
+                        <NHSTh>NHS Number</NHSTh>
+                        <NHSTh>Gender</NHSTh>
+                        <NHSTh>Sex</NHSTh>
+                        <NHSTh>Vital Status</NHSTh>
+                        <NHSTh>Birth Year</NHSTh>
+                        {/* <th>Time created</th> */}
+                    </NHSTr>
+                </NHSTHead>
+                <NHSTBody>
+                    {patientListFiltered.map((e, index) => {
+                        e.id = index + 1;
+                        return PatientListEntry(e);
+                    })}
+                </NHSTBody>
+            </NHSTable>;
         } else {
             return (
                 <div>
@@ -64,29 +64,6 @@ class PatientListtable extends React.Component {
 
 
     }
-    //NEWER NHS
-//    render() {
-//         if (!this.state.ehrs) return null;
-//         return <NHSTable>
-//             <NHSTHead>
-//                 <NHSTr>
-//                     <NHSTh>#</NHSTh>
-//                     <NHSTh>NHS Number</NHSTh>
-//                     <NHSTh>Gender</NHSTh>
-//                     <NHSTh>Sex</NHSTh>
-//                     <NHSTh>Vital Status</NHSTh>
-//                     <NHSTh>Birth Year</NHSTh>
-//                     {/* <th>Time created</th> */}
-//                 </NHSTr>
-//             </NHSTHead>
-//             <NHSTBody>
-//                 {this.state.ehrs.map((e, index) => {
-//                     e.id = index + 1;
-//                     return PatientListEntry(e);
-//                 })}
-//             </NHSTBody>
-//         </NHSTable>;
-//     }
 
 }
 
@@ -102,20 +79,6 @@ const PatientListTable = connect(
     }
 )(PatientListtable)
 
-// function PatientList() {
-//     return (
-//         <div style={{ fontFamily: 'Frutiger W01, Arial, Sans-serif' }}>
-//             <HeaderMenu/>
-//             <NHSContainer>
-//                 <NHSWrapper>
-//                     <h1>Patient List</h1>
-//                     <PatientListTable/>
-//                 </NHSWrapper>
-//             </NHSContainer>
-//         </div>
-//     );
-// }
-
 class PatientList extends React.Component {
     constructor(props) {
         super(props);
@@ -126,22 +89,20 @@ class PatientList extends React.Component {
     }
 
     render() {
-        let { search } = this.props
+        let { search } = this.props;
         return (
-            <div>
-            <HeaderMenu/>
-            <Container>
-            <div style={{ height: '50px' }}></div>
-        <div style={{ display: 'block', textAlign: 'center' }}>
-    <div><h1>Patient List<Form inline style={{'float': 'right'}}>
-    <FormControl type="text" placeholder="Search"  value={search} onChange={ this.onChange } className="mr-sm-2" />
-            </Form></h1></div>
-        <PatientListTable/>
-        </div>
-        </Container>
-
-        </div>
-    );
+            <div style={{ fontFamily: 'Arial, Sans-serif' }}>
+                <HeaderMenu/>
+                <NHSContainer>
+                    <NHSWrapper>
+                        <h1>Patient List<Form inline style={{'float': 'right'}}>
+                            <FormControl type="text" placeholder="Search"  value={search} onChange={ this.onChange } className="mr-sm-2" />
+                        </Form></h1>
+                        <PatientListTable/>
+                    </NHSWrapper>
+                </NHSContainer>
+            </div>
+        );
     }
 }
 
