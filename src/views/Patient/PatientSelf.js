@@ -42,73 +42,6 @@ function SurveySuccess() {
 
 SurveySuccess.propTypes = { onClose: PropTypes.func };
 
-//NEWER NHS
-//function PatientSelf(props) {
-//     let subjectId = getSubjectId(props.location.search);
-//     const [ehrId, setEhrId] = useState('');
-//     getEHRId(subjectId).then((e) => {
-//         setEhrId(e);
-//     });
-//     return (
-//         <div style={{ backgroundColor: '#f0f4f5' }}>
-//             <HeaderMenu/>
-//             <NHSContainer>
-//                 <NHSWrapper>
-//                     <PatientOverview subjectId={subjectId}/>
-//                     <NHSPanel>
-//                         <NHSPanelTitle>
-//                             Details
-//                         </NHSPanelTitle>
-//                         <NHSPanelBody>
-//                             <Tab.Container defaultActiveKey="myProgress">
-//                                 <Nav variant="tabs" style={{ marginBottom: '40px' }}>
-//                                     <Nav.Item>
-//                                         <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
-//                                     </Nav.Item>
-//                                     <Nav.Item>
-//                                         <Nav.Link eventKey="myData">My Data</Nav.Link>
-//                                     </Nav.Item>
-//                                     <Nav.Item>
-//                                         <Nav.Link eventKey="survey">Survey</Nav.Link>
-//                                     </Nav.Item>
-//                                     {/* <Nav.Item>
-//                                         <Nav.Link eventKey="test">Test</Nav.Link>
-//                                     </Nav.Item> */}
-//                                 </Nav>
-//                                 <Tab.Content>
-//                                     <Tab.Pane eventKey="myProgress">
-//                                         <PatientProgressTable ehrId={ehrId}/>
-//                                     </Tab.Pane>
-//                                     {/* <Tab.Pane eventKey="test">
-//                                         <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
-//                                     </Tab.Pane> */}
-//                                     <Tab.Pane eventKey="myData">
-//                                         <div><ScoresArray ehrId={ehrId}/></div>
-//                                         <br/><br/><br/>
-//                                         <div><EpisodeScoresGraph
-//                                             ehrId={ehrId}/></div>
-//                                         {/* <br/><br/><br/>
-//                                     <div><Chart1 bingbong="bingbong"/></div> */}
-//                                     </Tab.Pane>
-//                                     <Tab.Pane eventKey="survey">
-//                                         <StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>
-//                                         {/*<StructuredSurvey templateId={'WHO - Suspected Covid-19 assessment.v0'}/>*/}
-//                                         {/*<FlatSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>*/}
-//                                         <SurveySuccess/>
-//                                     </Tab.Pane>
-//                                 </Tab.Content>
-//                             </Tab.Container>
-//                         </NHSPanelBody>
-//                     </NHSPanel>
-//
-//                 </NHSWrapper>
-//             </NHSContainer>
-//             <NHSFooter/>
-//         </div>
-//     );
-// }
-
-
 class PatientSelf extends React.Component {
   constructor(props) {
     super(props);
@@ -161,69 +94,70 @@ class PatientSelf extends React.Component {
     let subjectId = getSubjectId(this.props.location.search);
     let { search } = this.props;
     return (
-      <div>
-        <HeaderMenu />
-        <Container style={{ marginTop: "50px" }}>
-          <PatientOverview subjectId={subjectId} />
-          <Card>
-            <Card.Header>
-              <Card.Title>
-                Details
-                <Form inline style={{ float: "right" }}>
-                  <FormControl
-                    type="text"
-                    placeholder="Search"
-                    value={search}
-                    onChange={this.onChange}
-                    className="mr-sm-2"
-                  />
-                </Form>
-              </Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Tab.Container defaultActiveKey="myProgress">
-                <Nav variant="tabs" style={{ marginBottom: "40px" }}>
-                  <Nav.Item>
-                    <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="myData">My Data</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="survey">Survey</Nav.Link>
-                  </Nav.Item>
-                  {/* <Nav.Item>
+        <div style={{ backgroundColor: '#f0f4f5' }}>
+          <HeaderMenu/>
+          <NHSContainer>
+            <NHSWrapper>
+              <PatientOverview subjectId={subjectId}/>
+              <NHSPanel>
+                <NHSPanelTitle>
+                  Details
+                  <Form inline style={{ float: "right" }}>
+                    <FormControl
+                        type="text"
+                        placeholder="Search"
+                        value={search}
+                        onChange={this.onChange}
+                        className="mr-sm-2"
+                    />
+                  </Form>
+                </NHSPanelTitle>
+                <NHSPanelBody>
+                  <Tab.Container defaultActiveKey="myProgress">
+                    <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                      <Nav.Item>
+                        <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="myData">My Data</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="survey">Survey</Nav.Link>
+                      </Nav.Item>
+                      {/* <Nav.Item>
                                         <Nav.Link eventKey="test">Test</Nav.Link>
                                     </Nav.Item> */}
-                </Nav>
-                <Tab.Content>
-                  <Tab.Pane eventKey="myProgress">
-                    <PatientProgressTable ehrId={this.state.ehrId} />
-                  </Tab.Pane>
-                  {/* <Tab.Pane eventKey="test">
+                    </Nav>
+                    <Tab.Content>
+                      <Tab.Pane eventKey="myProgress">
+                        <PatientProgressTable ehrId={this.state.ehrId}/>
+                      </Tab.Pane>
+                      {/* <Tab.Pane eventKey="test">
                                         <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                     </Tab.Pane> */}
-                  <Tab.Pane eventKey="myData">
-                    <div>
-                      <ScoresArray ehrId={this.state.ehrId} />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div style={{ width: "1000px", height: "400px" }}>
-                      <EpisodeScoresGraph ehrId={this.state.ehrId} />
-                    </div>
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="survey">
-                    {/* <Template />*/}
-                    <SurveySuccess />
-                  </Tab.Pane>
-                </Tab.Content>
-              </Tab.Container>
-            </Card.Body>
-          </Card>
-        </Container>
-      </div>
+                      <Tab.Pane eventKey="myData">
+                        <div><ScoresArray ehrId={this.state.ehrId}/></div>
+                        <br/><br/><br/>
+                        <div><EpisodeScoresGraph
+                            ehrId={this.state.ehrId}/></div>
+                        {/* <br/><br/><br/>
+                                    <div><Chart1 bingbong="bingbong"/></div> */}
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="survey">
+                        <StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>
+                        {/*<StructuredSurvey templateId={'WHO - Suspected Covid-19 assessment.v0'}/>*/}
+                        {/*<FlatSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>*/}
+                        <SurveySuccess/>
+                      </Tab.Pane>
+                    </Tab.Content>
+                  </Tab.Container>
+                </NHSPanelBody>
+              </NHSPanel>
+
+            </NHSWrapper>
+          </NHSContainer>
+          <NHSFooter/>
+        </div>
     );
   }
 }
