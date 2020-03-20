@@ -75,8 +75,8 @@ class HeaderMenu extends React.Component {
         return (
             <NHSHeader>
                 <NHSHeaderContainer>
-                    <a onClick={this.handleIPROMS}><NHSAppLogo
-                        smaller={this.props.navigationDisabled}>orthoPROMS</NHSAppLogo></a>
+                    <NHSAppLogo
+                        smaller={this.props.navigationDisabled}>orthoPROMS</NHSAppLogo>
                     {headerContent}
                     <Form inline style={{float: 'right'}}>
                         {/*<FormControl type="text" placeholder="Search" className="mr-sm-2"/>*/}
