@@ -20,7 +20,8 @@ import RespirationRateGraph from "../components/Graphs/RespirationRateGraph";
 import BloodPressureGraph from "../components/Graphs/BloodPressureGraph";
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
-
+import Pagination  from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
 import { DownloadCSV } from "../components/DownloadCSV";
 
 import {
@@ -102,7 +103,10 @@ function PatientProgressTableEntry(props) {
 class Composition extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            page: 0,
+            List: []
+        };
     }
 
     componentDidMount() {
@@ -113,14 +117,37 @@ class Composition extends React.Component {
         });
     }
 
+    componentWillReceiveProps (nextProps) {
+        let Lists = nextProps.compositionsFiltered
+        this.setState({
+            List: ( Lists || []).slice(0, 10)
+        })
+    }
+
+    handlePageChange (e) {
+        let  { compositionsFiltered }= this.props
+
+        this.setState({
+            page: e,
+            List: e >= 1 ? compositionsFiltered.slice((e-1)*10, e*10) : compositionsFiltered.slice(0, 10) 
+        });
+    }
+
     render() {
         let { compositionsFiltered } = this.props;
+        let List = this.state.List;
         if (!compositionsFiltered) return null;
         if (compositionsFiltered.length > 0) {
-            return compositionsFiltered.map((e, index) => {
-                e.index = index;
-                return PatientProgressTableEntry(e);
-            });
+            return <>
+            {
+                List.map((e, index) => {
+                    e.index = index;
+                    return PatientProgressTableEntry(e);
+                })
+            }
+            <Pagination current={this.state.page} total={compositionsFiltered.length}  onChange={this.handlePageChange.bind(this)}></Pagination>
+            </>
+           
         } else {
             return <NHSTr key="noCompositionsRow">
                 <NHSTd key="noCompositionsData" colSpan="4">No compositions were found</NHSTd>

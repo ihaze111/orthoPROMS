@@ -40,6 +40,7 @@ class Reset extends React.Component {
     }
 
     onChange = (e) => {
+        // console.log(e.target.name, e.target.value);
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -54,6 +55,9 @@ class Reset extends React.Component {
         if (email === '') {
             return alert('Please enter your e-mail.')
         }
+
+        console.log(code);
+
         if (code === '') {
             return alert('Please enter code')
         }
@@ -82,7 +86,9 @@ class Reset extends React.Component {
         )
     }
 
-    handleClick = () => {
+    handleClick = (e) => {
+        e.preventDefault();
+
         let email = this.state.email
         if (email === '') {
             return alert('Please enter your e-mail.')
@@ -103,6 +109,8 @@ class Reset extends React.Component {
             }
         )
     }
+
+
 
     count = () => {
         let timer = this.state.timer
