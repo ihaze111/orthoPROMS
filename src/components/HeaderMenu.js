@@ -27,7 +27,17 @@ class HeaderMenu extends React.Component {
 
     handleLogin = () => {
         // !this.props.isAuthenticated && (window.location.href = '/');
-        window.location.href = '/';
+        // window.location.href = '/';
+        // Patient
+
+        if(window.location.pathname === '/Patient'){
+            window.location.href = '/Patient';
+        }
+
+        if(window.location.pathname === '/Clinician'){
+            window.location.href = '/Clinician';
+        }
+
     };
 
     constructor(props) {
@@ -48,6 +58,8 @@ class HeaderMenu extends React.Component {
     componentDidMount() {
         // console.log(this.props.isGoogleLogin);
     };
+
+   
 
     render() {
         const navigation = this.props.navigationDisabled ? null :

@@ -44,7 +44,12 @@ class Register extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        let email = this.state.email
+        let email = this.state.email;
+        let code = this.state.code;
+        if (code === '') {
+            return alert('Please enter code')
+        }
+
         if (email === '') {
             return alert('Please enter your e-mail.')
         }
@@ -52,6 +57,7 @@ class Register extends React.Component {
         if (this.state.password === '' || this.state.passwordConfirmation === '') {
             return alert('Please enter your password')
         }
+       
         if (this.state.password !== this.state.passwordConfirmation) {
             return alert('Entered passwords differ!')
         }
@@ -90,7 +96,9 @@ class Register extends React.Component {
 
     }
 
-    handleClick = () => {
+    handleClick = (e) => {
+        e.preventDefault();
+
         let email = this.state.email
         if (email === '') {
             return alert('Please enter your e-mail.')
@@ -146,7 +154,7 @@ class Register extends React.Component {
                 <HeaderMenu navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
-                        <NHSBackLink href={'/Login?id=' + qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id}>Go back</NHSBackLink>
+                        <NHSBackLink href={'/'}>Go back</NHSBackLink>
                         <div className="nhsuk-grid-row">
                             <div className="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>

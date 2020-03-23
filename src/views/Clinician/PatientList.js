@@ -13,12 +13,16 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import { handleCliniSearch,setPatientList } from '../../actions/clinicianActions'
-
+import Pagination  from 'rc-pagination';
+import 'rc-pagination/assets/index.css'
 
 class PatientListtable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            page: 1,
+            patientList: []
+        }
     }
 
     componentDidMount() {
@@ -29,10 +33,29 @@ class PatientListtable extends React.Component {
         });
     }
 
+    
+
+    componentWillReceiveProps (nextProps) {
+        let patientLists = nextProps.patientListFiltered
+        this.setState({
+            patientList: ( patientLists || []).slice(0, 10)
+        })
+    }
+
+    handlePageChange = (e) => {
+        let  { patientListFiltered }= this.props
+        this.setState({
+            page: e,
+            patientList: e >= 1 ? patientListFiltered.slice((e-1)*10, e*10) : patientListFiltered.slice(0, 10) 
+        })
+    }
+   
     render() {
         let { patientListFiltered } = this.props
-        if(patientListFiltered.length > 0){
-            return <NHSTable>
+        let { patientList } = this.state;
+        if((patientListFiltered || []).length > 0){
+            return <>
+               <NHSTable>
                 <NHSTHead>
                     <NHSTr>
                         <NHSTh>#</NHSTh>
@@ -45,12 +68,14 @@ class PatientListtable extends React.Component {
                     </NHSTr>
                 </NHSTHead>
                 <NHSTBody>
-                    {patientListFiltered.map((e, index) => {
+                    {patientList.map((e, index) => {
                         e.id = index + 1;
                         return PatientListEntry(e);
                     })}
                 </NHSTBody>
-            </NHSTable>;
+            </NHSTable>
+            <Pagination current={this.state.page} total={patientListFiltered.length}  onChange={this.handlePageChange.bind(this)}></Pagination>
+            </>
         } else {
             return (
                 <div>
@@ -71,7 +96,6 @@ const PatientListTable = connect(
     state => {
         return {
             patientListFiltered: state.clinician.patientListFiltered,
-
         }
     },
     {
@@ -82,6 +106,7 @@ const PatientListTable = connect(
 class PatientList extends React.Component {
     constructor(props) {
         super(props);
+       
     }
 
     onChange = e => {
