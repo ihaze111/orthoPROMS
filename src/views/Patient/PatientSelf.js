@@ -144,7 +144,8 @@ class PatientSelf extends React.Component {
                                     <div><Chart1 bingbong="bingbong"/></div> */}
                       </Tab.Pane>
                       <Tab.Pane eventKey="survey">
-                        <StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>
+          {/*<StructuredSurvey templateId={'NES-ACP_COVID.v0.0'} />*/}
+<StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>
                         {/*<StructuredSurvey templateId={'WHO - Suspected Covid-19 assessment.v0'}/>*/}
                         {/*<FlatSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>*/}
                         <SurveySuccess/>
