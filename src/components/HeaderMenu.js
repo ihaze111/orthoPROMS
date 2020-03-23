@@ -20,18 +20,34 @@ import { handleSearch } from '../actions/appActions'
 
 class HeaderMenu extends React.Component {
 
-    handleClick = () => {
+    handleClick = (e) => {
         this.props.logout();
         window.location.href = '/';
     };
 
-    handleLogin = () => {
+    handleLogin = (e) => {
         // !this.props.isAuthenticated && (window.location.href = '/');
-        window.location.href = '/';
+        // window.location.href = '/';
+        // Patient
+        e.preventDefault();
+
+        if(window.localStorage.getItem('id') == 1){
+            window.location.href = '/Patient';
+        }
+
+        if(window.localStorage.getItem('id') == 2){
+            window.location.href = '/Clinician';
+        }
+
     };
 
     constructor(props) {
         super(props)
+        this.state={
+            color: '#fff',
+            color1: '#fff',
+            color2: '#000'
+        }
     }
 
     onChange = e => {
@@ -46,8 +62,9 @@ class HeaderMenu extends React.Component {
     };
 
     componentDidMount() {
-        // console.log(this.props.isGoogleLogin);
+        // console.log(this.props.isGoogleLogin)
     };
+
 
     render() {
         const navigation = this.props.navigationDisabled ? null :
@@ -56,12 +73,12 @@ class HeaderMenu extends React.Component {
                     <NHSHeaderMenu/>
                     <NHSNav>
                         <li className="nhsuk-header__navigation-item" onClick={this.handleLogin}>
-                            <a className="nhsuk-header__navigation-link">
+                            <a className="nhsuk-header__navigation-link" >
                                 Home
                                 <NHSVectorChevronRight/>
                             </a>
                         </li>
-                        <NHSNavLink href='/About'>About</NHSNavLink>
+                        <NHSNavLink href='/About' >About</NHSNavLink>
                         <NHSNavLink href='/NationalStatistics'>National Statistics</NHSNavLink>
                     </NHSNav>
                 </NHSWidthContainer>
@@ -83,7 +100,7 @@ class HeaderMenu extends React.Component {
                         {/*<Button variant="outline-success" style={{ 'marginRight': '16px' }}>Search</Button>*/}
                         <Button variant="outline-primary"
                                 className={((this.props.isAuthenticated) && (!this.props.isGoogleLogin)) ? 'd-block' :
-                                    'd-none'} onClick={this.handleClick}>logout</Button>
+                                    'd-none'} onClick={()=> this.handleClick}>logout</Button>
                         <GoogleLogout
                             // clientId="435425463824-lso8p4egc7hasvbkrbff4h60g60se5l3.apps.googleusercontent.com"
                             // clientId="1026232614474-aoptfdrk515oa3svfpmol9h6j57gifhn.apps.googleusercontent.com"

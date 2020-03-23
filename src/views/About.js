@@ -24,7 +24,18 @@ function PartnersEntry(props) {
 }
 
 class About extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            color: false
+        };
+      }
+    
+    componentWillMount () {
+        
+    }
     render() {
+        const { color } = this.state;
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
                 <HeaderMenu/>

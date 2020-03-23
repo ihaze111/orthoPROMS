@@ -41,8 +41,10 @@ class Login extends React.Component {
         this.props.googleLogin({ token: id_token, user: profile })
         let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
         if (xx === "1") {
+            window.localStorage.setItem('id', 1);
             window.location.href = "/Patient?id=" + xx;
         } else if (xx === "2") {
+            window.localStorage.setItem('id', 2);
             window.location.href = "/Clinician?id=" + xx;
         }
     }
@@ -61,9 +63,10 @@ class Login extends React.Component {
                 if (res.code === 200) {
                     let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
                     if (xx === "1") {
-
+                        window.localStorage.setItem('id', 1);
                         window.location.href = "/Patient?id=" + xx;
                     } else if (xx === "2") {
+                        window.localStorage.setItem('id', 2);
                         window.location.href = "/Clinician?id=" + xx;
                     }
                 }
