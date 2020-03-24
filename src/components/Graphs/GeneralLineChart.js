@@ -102,7 +102,6 @@ class GeneralLineChart extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="general">
                 <canvas
