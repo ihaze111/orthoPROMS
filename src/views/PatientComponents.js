@@ -1,17 +1,17 @@
 import React from "react";
 
-import getCompositions from "../components/Queries/GetCompositions";
-import getEHRByNHSNumber from "../components/Queries/GetEHRByNHSNumber";
-import getScores from "../components/Queries/GetScores";
-import getEpisodeScores from "../components/Queries/GetEpisodeScores";
-import getRespirationRate from "../components/Queries/GetRespirationRate";
-import getBloodPressure from "../components/Queries/GetBloodPressure";
-import getIndirectOximetry from "../components/Queries/GetIndirectOximetry";
-import getHeartRate from "../components/Queries/GetHeartRate";
-import getAllergicList from "../components/Queries/GetAllergicList";
-import getProcedures from "../components/Queries/GetProcedures";
-import getLabOrders from "../components/Queries/GetLabOrders";
-import getLabReports from "../components/Queries/GetLabReports";
+import getAllCompositionsByEHRId from "../components/Queries/getAllCompositionsByEHRId";
+import getEHRByNHSNumber from "../components/Queries/getEHRByNHSNumber";
+import getAOFASScoresAgainstTimeByEHRId from "../components/Queries/getAOFASScoresAgainstTimeByEHRId";
+import getAOFASScoresAgainstEpisodeByEHRId from "../components/Queries/getAOFASScoresAgainstEpisodeByEHRId";
+import getRespirationRateAgainstTimeByEHRId from "../components/Queries/getRespirationRateAgainstTimeByEHRId";
+import getBloodPressureByEHRId from "../components/Queries/getBloodPressureByEHRId";
+import getIndirectOximetryAgainstTimeByEHRId from "../components/Queries/getIndirectOximetryAgainstTimeByEHRId";
+import getHeartRatesAgainstTimeByEHRId from "../components/Queries/getHeartRatesAgainstTimeByEHRId";
+import getAllergiesListByEHRId from "../components/Queries/getAllergiesListByEHRId";
+import getProceduresListByEHRId from "../components/Queries/getProceduresListByEHRId";
+import getLabOrdersListByEHRId from "../components/Queries/getLabOrdersListByEHRId";
+import getLabReportsListByEHRId from "../components/Queries/getLabReportsListByEHRId";
 
 import ScoresGraph from "../components/Graphs/ScoresGraph";
 import RespirationRateGraph from "../components/Graphs/RespirationRateGraph";
@@ -109,7 +109,7 @@ class Composition extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getCompositions(this.props.ehrId);
+        let promise = getAllCompositionsByEHRId(this.props.ehrId);
         promise.then(e => {
             this.props.setCompositions(e);
             this.setState({ compositions: e });
@@ -210,7 +210,7 @@ class Scores extends React.Component {
     }
 
     componentWillMount() {
-        let promise = getScores(this.props.ehrId);
+        let promise = getAOFASScoresAgainstTimeByEHRId(this.props.ehrId);
         promise.then(e => {
             e.forEach(el => {
                 this.pushArray(el);
@@ -282,7 +282,7 @@ class EpisodeScores extends React.Component {
     }
 
     componentWillMount() {
-        let promise = getEpisodeScores(this.props.ehrId);
+        let promise = getAOFASScoresAgainstEpisodeByEHRId(this.props.ehrId);
         promise.then(e => {
             this.pushIntoCategory(e);
             this.setState({ episodeScores: e, isLoading: false });
@@ -343,7 +343,7 @@ class RespirationRate extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getRespirationRate(this.props.ehrId);
+        let promise = getRespirationRateAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ respirationRate: e });
         });
@@ -391,7 +391,7 @@ class BloodPressure extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getBloodPressure(this.props.ehrId);
+        let promise = getBloodPressureByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ bloodPressure: e });
         });
@@ -439,7 +439,7 @@ class IndirectOximetry extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getIndirectOximetry(this.props.ehrId);
+        let promise = getIndirectOximetryAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ indirectOximetry: e });
         });
@@ -485,7 +485,7 @@ class HeartRate extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getHeartRate(this.props.ehrId);
+        let promise = getHeartRatesAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ heartRate: e });
         });
@@ -538,7 +538,7 @@ class Allergies extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getAllergicList(this.props.ehrId);
+        let promise = getAllergiesListByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ allergies: e });
         });
@@ -603,7 +603,7 @@ class Procedures extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getProcedures(this.props.ehrId);
+        let promise = getProceduresListByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ procedures: e });
         });
@@ -667,7 +667,7 @@ class LabOrders extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getLabOrders(this.props.ehrId);
+        let promise = getLabOrdersListByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ orders: e });
         });
@@ -730,7 +730,7 @@ class LabReports extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getLabReports(this.props.ehrId);
+        let promise = getLabReportsListByEHRId(this.props.ehrId);
         promise.then((e) => {
             this.setState({ reports: e });
         });

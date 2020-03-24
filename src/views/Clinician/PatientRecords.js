@@ -41,7 +41,6 @@ class PatientRecords extends React.Component {
 
     componentDidMount() {
         loadEhrId.call(this);
-
     }
 
     render() {
@@ -224,7 +223,7 @@ class PatientRecords extends React.Component {
                                                                     <Nav.Item>
                                                                         <Nav.Link eventKey="labOrders">Lab
                                                                             Orders</Nav.Link>
-                                                                    </Nav.Item>   
+                                                                    </Nav.Item>
                                                                 </Nav>
                                                                 <Tab.Content>
                                                                 <Tab.Pane eventKey="labReports">
@@ -240,7 +239,7 @@ class PatientRecords extends React.Component {
                                                     </NHSPanelWithLabel>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="details">
-                                                    <h3><strong>Allergic Details</strong></h3>
+                                                    <h3><strong>Allergy Details</strong></h3>
                                                     <div><PatientAllergiesTable ehrId={this.state.ehrId}/></div>
                                                     <br/>
                                                     <h3><strong>Procedures Details</strong></h3>

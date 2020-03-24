@@ -1,6 +1,6 @@
 import React from 'react';
-import getRangeEpisodeScores from "../components/Queries/GetRangeEpisodeScores";
-import getEHRs from '../components/Queries/GetEHRs';
+import getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs from "../components/Queries/getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs";
+import getAllEHRsInCDR from '../components/Queries/getAllEHRsInCDR';
 import GenderDistributionGraph from '../components/Graphs/GenderDistributionGraph';
 import AgeDistributionGraph from '../components/Graphs/AgeDistributionGraph';
 import AverageScoresRange from '../components/Graphs/AverageScoresRange';
@@ -32,7 +32,7 @@ class RangeEpisodeScores extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getRangeEpisodeScores();
+        let promise = getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs();
         promise.then((e) => {
             this.setState({ rangeEpisodeScores: e });
         });
@@ -65,7 +65,7 @@ class GenderDistribution extends React.Component{
     }
 
     componentDidMount(){
-        let promise = getEHRs();
+        let promise = getAllEHRsInCDR();
         let genderList = [];
         promise.then((e) => {
             for (var i = 0; i < e.length; i++){
@@ -127,7 +127,7 @@ class AgeDistribution extends React.Component{
     }
 
     componentDidMount(){
-        let promise = getEHRs();
+        let promise = getAllEHRsInCDR();
         let ageList = [];
         promise.then((e) => {
             for (var i = 0; i < e.length; i++){
@@ -197,7 +197,7 @@ class AgeDistribution extends React.Component{
     }
 
     render(){
-        
+
         if (!this.state.ages){return null}
         if (this.state.ages.length > 0){
             let distribution = this.pushIntoCategories(this.state.ages);

@@ -1,6 +1,6 @@
 import CDRAQLQuery from "./CDRAQLQuery";
 
-async function getRangeEpisodeScores() {
+async function getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs() {
     const aql = "select\n" +
         "    a_b/data[at0001]/events[at0002]/data[at0003]/items[at0028]/value/value as pain,\n" +
         "    a_b/data[at0001]/events[at0002]/data[at0003]/items[at0033]/value/value as limitations,\n" +
@@ -55,4 +55,4 @@ async function getRangeEpisodeScores() {
     });
 }
 
-export default getRangeEpisodeScores;
+export default getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs;

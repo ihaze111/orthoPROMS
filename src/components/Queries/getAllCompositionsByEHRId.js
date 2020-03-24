@@ -1,6 +1,6 @@
 import CDRAQLQuery from "./CDRAQLQuery";
 
-async function getCompositions(ehrId) {
+async function getAllCompositionsByEHRId(ehrId) {
     const aql = "select a/uid/value as comp_id, e/ehr_status/subject/external_ref/id/value as nhs_number," +
         " a/composer/name as composer_name, b_b/items[at0001]/value/value as episode_identifier," +
         " b_a/data[at0001]/events[at0002]/data[at0003]/items[at0027]/value/value as aofas_comment from EHR e" +
@@ -12,4 +12,4 @@ async function getCompositions(ehrId) {
     });
 }
 
-export default getCompositions;
+export default getAllCompositionsByEHRId;

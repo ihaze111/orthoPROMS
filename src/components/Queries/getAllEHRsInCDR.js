@@ -64,11 +64,11 @@ function callbackProcessing(result) {
  * Return a promise that requests every EHR in the CDR that has an NHS number associated with it
  * @returns {Promise<*|[]|{gender, birthYear, sex, vitalStatus}>}
  */
-async function getEHRs() {
+async function getAllEHRsInCDR() {
     const aql = "select e/ehr_id as ehr_id, e/ehr_status/other_details as\n" +
         "         other_details,\n" +
         "         e/ehr_status/subject/external_ref/id as nhsNumber, e/time_created as time_created from ehr e where e/ehr_status/subject/external_ref/namespace = 'uk.nhs.nhs_number'";
     return await CDRAQLQuery(aql, callbackProcessing);
 }
 
-export default getEHRs;
+export default getAllEHRsInCDR;

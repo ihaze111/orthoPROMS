@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
-import getEHRs from "../../components/Queries/GetEHRs";
+import getAllEHRsInCDR from "../../components/Queries/getAllEHRsInCDR";
 import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
@@ -26,7 +26,7 @@ class PatientListtable extends React.Component {
     }
 
     componentDidMount() {
-        let promise = getEHRs();
+        let promise = getAllEHRsInCDR();
         promise.then((e) => {
             this.props.setPatientList(e)
             this.setState({ ehrs: e });
