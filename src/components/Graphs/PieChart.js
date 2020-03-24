@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
+import * as PropTypes from "prop-types";
 
-Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
+Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = false;
 
 const graphReferences = {};
@@ -12,7 +13,10 @@ const colours = ['rgba(255,0,0,0.5)', 'rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)'];
  * percentages, Takes: id string, labels array, data array, title string
  */
 class PieChart extends Component {
-    chartRef = React.createRef();
+    constructor(props) {
+        super(props);
+        this.chartRef = React.createRef();
+    }
 
     componentDidMount() {
         this.buildChart(this.props.id);
@@ -22,7 +26,7 @@ class PieChart extends Component {
         this.buildChart(this.props.id);
     }
 
-    optionHolder = () => {
+    optionHolder() {
         return {
             title: {
                 display: true,
@@ -58,7 +62,7 @@ class PieChart extends Component {
         };
     }
 
-    buildChart = (ref) => {
+    buildChart(ref) {
         const pieChartRef = this.chartRef.current.getContext("2d");
         if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
@@ -77,8 +81,7 @@ class PieChart extends Component {
             data,
             options
         });
-
-    };
+    }
 
     render() {
         return (
@@ -91,5 +94,12 @@ class PieChart extends Component {
         )
     }
 }
+
+PieChart.propTypes = {
+    id: PropTypes.string,
+    data: PropTypes.array,
+    labels: PropTypes.array,
+    title: PropTypes.string
+};
 
 export default PieChart;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
 import * as PropTypes from "prop-types";
-import GenderDistributionGraph from "./GenderDistributionGraph";
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
