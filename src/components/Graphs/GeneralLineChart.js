@@ -1,40 +1,33 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
+import * as PropTypes from "prop-types";
 
-let generalLineChartGraph;
-let anothaOneMore;
-let heartRate;
+const graphReferences = {};
 const colours = ['red', 'green', 'blue', 'orange', 'purple'];
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;
 
+/**
+ * A generalized line chart - graphs based on categorical data at base (or for example time values), equidistantly
+ * spaced, and continuous scale on y-axis.
+ * Takes: id string, labels array, data array, title string, xLabel string, yLabel string
+ */
 class GeneralLineChart extends Component {
-    chartRef = React.createRef();
+    constructor(props) {
+        super(props);
+        this.chartRef = React.createRef();
+    }
 
     componentDidMount() {
-        // this.buildChart();
-        this.start();
+        this.buildChart(this.props.id);
     }
 
     componentDidUpdate() {
-        // this.buildChart();
-        this.start();
+        this.buildChart(this.props.id);
     }
 
-    start = () => {
-        if (this.props.id === "myScores"){
-            this.buildChart1();
-        }
-        if (this.props.id === "myOxygen"){
-            this.buildChart2();
-        }
-        if (this.props.id === "myHeart"){
-            this.buildChart3();
-        }
-    }
-
-    optionHolder = () =>{
+    optionHolder() {
         return {
             title: {
                 display: true,
@@ -84,9 +77,9 @@ class GeneralLineChart extends Component {
         };
     }
 
-    buildChart1 = () => {
+    buildChart(ref) {
         const myScoresGraphRef = this.chartRef.current.getContext("2d");
-        if (typeof generalLineChartGraph !== "undefined") generalLineChartGraph.destroy();
+        if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
         data.labels = this.props.labels; // this.props.time
         const colorIterator = colours.values();
@@ -96,70 +89,20 @@ class GeneralLineChart extends Component {
                 data: data.data,
                 fill: false,
                 borderColor: colorIterator.next().value,
-                pointRadius : 4,
-                borderWidth : 2
+                pointRadius: 4,
+                borderWidth: 2
             }
         });
         const options = this.optionHolder();
-        generalLineChartGraph = new Chart(myScoresGraphRef, {
+        graphReferences[ref] = new Chart(myScoresGraphRef, {
             type: "line",
             data,
             options
         });
-
-    };
-
-    buildChart2 = () => {
-        const anothaOne = this.chartRef.current.getContext("2d");
-        if (typeof anothaOneMore !== "undefined") anothaOneMore.destroy();
-        const data = {};
-        data.labels = this.props.labels; // this.props.time
-        const colorIterator = colours.values();
-        data.datasets = this.props.data.map((data) => {
-            return {
-                label: data.label,
-                data: data.data,
-                fill: false,
-                borderColor: colorIterator.next().value,
-                pointRadius : 4,
-                borderWidth : 2
-            }
-        });
-        const options = this.optionHolder();
-        anothaOneMore = new Chart(anothaOne, {
-            type: "line",
-            data,
-            options
-        });
-
-    };
-
-    buildChart3 = () => {
-        const heartRateRef = this.chartRef.current.getContext("2d");
-        if (typeof heartRate !== "undefined") heartRate.destroy();
-        const data = {};
-        data.labels = this.props.labels; // this.props.time
-        const colorIterator = colours.values();
-        data.datasets = this.props.data.map((data) => {
-            return {
-                label: data.label,
-                data: data.data,
-                fill: false,
-                borderColor: colorIterator.next().value,
-                pointRadius : 4,
-                borderWidth : 2
-            }
-        });
-        const options = this.optionHolder();
-        heartRate = new Chart(heartRateRef, {
-            type: "line",
-            data,
-            options
-        });
-
-    };
+    }
 
     render() {
+        console.log(this.props);
         return (
             <div className="general">
                 <canvas
@@ -170,5 +113,14 @@ class GeneralLineChart extends Component {
         )
     }
 }
+
+GeneralLineChart.propTypes = {
+    id: PropTypes.string,
+    labels: PropTypes.array,
+    data: PropTypes.array,
+    title: PropTypes.string,
+    xLabel: PropTypes.string,
+    yLabel: PropTypes.string
+};
 
 export default GeneralLineChart;
