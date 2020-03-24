@@ -153,7 +153,7 @@ function RecursiveCard(props) {
     if ('inputs' in props) {
         inputs = JsonFormInputToNHSReact(props.inputs);
     }
-    if ('inputs' in props || 'children' in props) {
+    if ('children' in props) {
         return <NHSPanelWithLabel style={{ backgroundColor: color }}>
             <NHSPanelTitle class="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
             <NHSPanelBody>
@@ -161,6 +161,8 @@ function RecursiveCard(props) {
                 {children}
             </NHSPanelBody>
         </NHSPanelWithLabel>;
+    } else if ('inputs' in props) {
+        return JsonFormInputToNHSReact(props.inputs);
     } else {
         return null;
     }
