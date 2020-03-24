@@ -15,7 +15,6 @@ import Alert from 'react-bootstrap/Alert';
 import { handleCliniSearch,setPatientList } from '../../actions/clinicianActions'
 import Pagination  from 'rc-pagination';
 import 'rc-pagination/assets/index.css'
-import { AverageGenderGraph } from '../NationalStatisticsComponents';
 
 class PatientListtable extends React.Component {
     constructor(props) {
