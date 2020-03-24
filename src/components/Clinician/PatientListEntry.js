@@ -1,6 +1,13 @@
 import React from 'react';
 import { NHSTd, NHSTr } from "../nhsuk-frontend-react/NHSTableWrapperTest";
+import * as PropTypes from "prop-types";
 
+/**
+ * Create an (NHS-styled) table entry for an individual patient in the list of patients that is displayed to a clinician
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function PatientListEntry(props) {
     return (
         <NHSTr>
@@ -10,9 +17,18 @@ function PatientListEntry(props) {
             <NHSTd>{props.sex}</NHSTd>
             <NHSTd>{props.vitalStatus}</NHSTd>
             <NHSTd>{props.birthYear}</NHSTd>
-            {/* <td>{props.timeCreated}</td> */}
         </NHSTr>
     );
 }
+
+PatientListEntry.propTypes = {
+    id: PropTypes.number,
+    subjectId: PropTypes.string,
+    nhsNumber: PropTypes.string,
+    gender: PropTypes.string,
+    sex: PropTypes.string,
+    vitalStatus: PropTypes.string,
+    birthYear: PropTypes.string
+};
 
 export default PatientListEntry;
