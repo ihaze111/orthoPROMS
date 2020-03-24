@@ -1,19 +1,20 @@
 import environment from "../../environment";
 
+/**
+ * The standard headers used for calls to the CDr, including the authorisation string
+ * @type {{Authorization: *, "Ehr-Session-disabled": string, "Content-Type": string}}
+ */
 const CDRHeaders = {
     'Ehr-Session-disabled': '{{Ehr-Session}}',
     'Content-Type': 'application/json',
     'Authorization': environment.api_authorisation,
 };
 
+/**
+ * Object containing headers and options to use with axios to run HTTP calls to the CDR
+ * @type {{CDRHeaders: {Authorization: *, "Ehr-Session-disabled": string, "Content-Type": string}, generateQueryOptions(*=): *, generateAxiosOptions(*): *}}
+ */
 const CDROptions = {
-    generateRequestOptions(url) {
-        return {
-            'method': 'GET',
-            'url': environment.api_url + url,
-            headers: CDRHeaders,
-        };
-    },
     generateAxiosOptions(url) {
         return {
             method: 'get',
@@ -31,11 +32,7 @@ const CDROptions = {
             })
         };
     },
-    CDRHeaders: {
-        'Ehr-Session-disabled': '{{Ehr-Session}}',
-        'Content-Type': 'application/json',
-        'Authorization': environment.api_authorisation,
-    }
+    CDRHeaders
 };
 
 export default CDROptions;
