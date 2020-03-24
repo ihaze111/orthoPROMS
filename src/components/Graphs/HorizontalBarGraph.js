@@ -1,42 +1,22 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
-let horizontalBarGraph;
 
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
 
+const graphReferences = {};
 const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)','rgba(0,255,0,0.5)','rgba(255,165,0,0.5)','rgba(238,130,238,0.5)','rgba(0,255,255,0.5)'];
 
-class HorizontalBarGraph extends Component{
-    render(){
-        return (
-            <HorizontalBar id={"myHorizontalBarGraph"} labels={this.props.labels} data={
-                [{
-                    data: this.props.ageDistribute
-                }]
-            } title={this.props.title} />
-        )
-    }
-}
-
-class HorizontalBar extends Component {
+class HorizontalBarGraph extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-        // this.buildChart();
-        this.start();
+        this.buildChart(this.props.id);
     }
 
     componentDidUpdate() {
-        // this.buildChart();
-        this.start();
-    }
-
-    start = () => {
-        if (this.props.id === "myHorizontalBarGraph"){
-            this.buildChart();
-        }
+        this.buildChart(this.props.id);
     }
 
     optionHolder = () =>{
@@ -74,21 +54,20 @@ class HorizontalBar extends Component {
         };
     }
 
-    buildChart = () => {
+    buildChart = (ref) => {
         const horizontalBarGraphRef = this.chartRef.current.getContext("2d");
-        if (typeof horizontalBarGraph !== "undefined") horizontalBarGraph.destroy();
+        if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
         data.labels = this.props.labels; 
         data.datasets = this.props.data.map((data) => {
             return {
-                label: data.label,
                 data: data.data,
                 fill: true,
                 backgroundColor: colours
             }
         });
         const options = this.optionHolder();
-        horizontalBarGraph = new Chart(horizontalBarGraphRef, {
+        graphReferences[ref] = new Chart(horizontalBarGraphRef, {
             type: "horizontalBar",
             data,
             options

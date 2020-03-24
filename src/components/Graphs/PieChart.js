@@ -6,36 +6,18 @@ let pieChart;
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
 
+const graphReferences = {};
 const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)'];
 
-class PieChart extends Component{
-    render(){
-        return (
-            <PieGraph id={"myPieChart"} labels={this.props.labels} data={
-                [{
-                    label : ["Male", "Female", "Not Defined"],
-                    data: this.props.genderDistribution
-                }]
-            } title={this.props.title} />
-        )
-    }
-}
-
-class PieGraph extends Component {
+class PieChart extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-        this.start();
+        this.buildChart(this.props.id);
     }
 
     componentDidUpdate() {
-        this.start();
-    }
-
-    start = () => {
-        if (this.props.id === "myPieChart"){
-            this.buildChart();
-        }
+        this.buildChart(this.props.id);
     }
 
     optionHolder = () =>{
@@ -74,9 +56,9 @@ class PieGraph extends Component {
         };
     }
 
-    buildChart = () => {
+    buildChart = (ref) => {
         const pieChartRef = this.chartRef.current.getContext("2d");
-        if (typeof pieChart !== "undefined") pieChart.destroy();
+        if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
         data.labels = this.props.labels; 
         data.datasets = this.props.data.map((data) => {
@@ -88,7 +70,7 @@ class PieGraph extends Component {
             }
         });
         const options = this.optionHolder();
-        pieChart = new Chart(pieChartRef, {
+        graphReferences[ref] = new Chart(pieChartRef, {
             type: "pie",
             data,
             options

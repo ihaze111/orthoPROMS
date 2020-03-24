@@ -124,24 +124,16 @@ class PatientSelf extends React.Component {
                       <Nav.Item>
                         <Nav.Link eventKey="survey">Survey</Nav.Link>
                       </Nav.Item>
-                      {/* <Nav.Item>
-                                        <Nav.Link eventKey="test">Test</Nav.Link>
-                                    </Nav.Item> */}
                     </Nav>
                     <Tab.Content>
                       <Tab.Pane eventKey="myProgress">
                         <PatientProgressTable ehrId={this.state.ehrId}/>
                       </Tab.Pane>
-                      {/* <Tab.Pane eventKey="test">
-                                        <div style={{width: '1000px', height: '400px'}}><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
-                                    </Tab.Pane> */}
                       <Tab.Pane eventKey="myData">
                         <div><ScoresArray ehrId={this.state.ehrId}/></div>
                         <br/><br/><br/>
                         <div><EpisodeScoresGraph
                             ehrId={this.state.ehrId}/></div>
-                        {/* <br/><br/><br/>
-                                    <div><Chart1 bingbong="bingbong"/></div> */}
                       </Tab.Pane>
                       <Tab.Pane eventKey="survey">
           {/*<StructuredSurvey templateId={'NES-ACP_COVID.v0.0'} />*/}

@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderMenu from '../components/HeaderMenu';
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
-import { RangeEpisodeScoresGraph, GenderDistributionGraph, AgeDistributionGraph } from './NationalStatisticsComponents'
+import { RangeEpisodeScoresGraph, GenderDistributeGraph, AgeDistributeGraph } from './NationalStatisticsComponents'
 import { loadEhrId } from "./PatientUtils";
 import $ from "jquery";
 import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
@@ -56,10 +56,10 @@ class NationalStatistics extends React.Component {
                                         <div><RangeEpisodeScoresGraph /></div>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="admin_gender">
-                                        <div><GenderDistributionGraph/></div>
+                                        <div><GenderDistributeGraph/></div>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="averageAge">
-                                        <div><AgeDistributionGraph/></div>
+                                        <div><AgeDistributeGraph/></div>
                                     </Tab.Pane>
                                     {/* <Tab.Pane eventKey="indirectOximetry">
                                         <div></div>

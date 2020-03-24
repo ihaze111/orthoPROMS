@@ -1,9 +1,9 @@
 import React from 'react';
-import RadarGraph from '../components/Graphs/RadarGraph';
 import getRangeEpisodeScores from "../components/Queries/GetRangeEpisodeScores";
 import getEHRs from '../components/Queries/GetEHRs';
-import PieChart from '../components/Graphs/PieChart';
-import HorizontalBarGraph from '../components/Graphs/HorizontalBarGraph';
+import GenderDistributionGraph from '../components/Graphs/GenderDistributionGraph';
+import AgeDistributionGraph from '../components/Graphs/AgeDistributionGraph';
+import AverageScoresRange from '../components/Graphs/AverageScoresRange';
 
 function occurrence(array){
     var result = {};
@@ -42,7 +42,7 @@ class RangeEpisodeScores extends React.Component {
 
         if (!this.state.rangeEpisodeScores) return null;
         if (this.state.rangeEpisodeScores.length !== null) {
-            return <RadarGraph preOp={this.state.rangeEpisodeScores.preOp}
+            return <AverageScoresRange preOp={this.state.rangeEpisodeScores.preOp}
                                oneWeek={this.state.rangeEpisodeScores.oneWeek}
                                sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
                                label={this.state.labels}/>
@@ -105,7 +105,7 @@ class GenderDistribution extends React.Component{
             this.pushIntoArray(male);
             this.pushIntoArray(female);
             this.pushIntoArray(unknown);
-            return <PieChart title={"Gender Distribution"}
+            return <GenderDistributionGraph title={"Gender Distribution"}
                                 genderDistribution={this.state.admin_genders}
                                 labels={["Male", "Female", "Not Defined"]}/>
         }else{
@@ -114,7 +114,7 @@ class GenderDistribution extends React.Component{
     }
 }
 
-export function GenderDistributionGraph(){
+export function GenderDistributeGraph(){
     return <div><GenderDistribution/></div>
 }
 
@@ -202,7 +202,7 @@ class AgeDistribution extends React.Component{
         if (this.state.ages.length > 0){
             let distribution = this.pushIntoCategories(this.state.ages);
             return <React.Fragment><div><p style={{fontSize: 20}}><strong>Average Age : {Math.round(this.averageAge(this.state.ages))} Years Old</strong></p></div>
-                        <HorizontalBarGraph title={"Age Distribution"}
+                        <AgeDistributionGraph title={"Age Distribution"}
                                 ageDistribute={distribution}
                                 labels={["Under 18","18-35","36-53","54-71","72-90",
                                 "Over 90"]}/>
@@ -213,6 +213,6 @@ class AgeDistribution extends React.Component{
     }
 }
 
-export function AgeDistributionGraph(){
+export function AgeDistributeGraph(){
     return <div><AgeDistribution/></div>
 }

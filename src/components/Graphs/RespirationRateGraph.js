@@ -22,7 +22,7 @@ class RespirationRateGraph extends Component {
 }
 
 RespirationRateGraph.propTypes = {
-    heartRates: PropTypes.array,
+    magnitude: PropTypes.array,
     time: PropTypes.array,
     units: PropTypes.string
 };

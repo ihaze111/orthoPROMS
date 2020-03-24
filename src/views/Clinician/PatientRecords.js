@@ -10,7 +10,6 @@ import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
 import NHSBackLink from "../../components/nhsuk-frontend-react/NHSBackLink";
@@ -38,27 +37,6 @@ class PatientRecords extends React.Component {
     }
 
     onSubmit = (e) => {
-        // console.log(e);
-        // e.preventDefault();
-        // if (this.state.email === '' || this.state.password === '') {
-        //     return alert('Please enter your email or password.')
-        // }
-        // let type = this.state.id === 1 ? 'Patient' : 'Clinicians'
-        // this.props.login({ ...this.state, type }).then(
-        //     res => {
-        //         alert(res.message)
-        //         if (res.code === 200) {
-        //             let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-        //             if (xx === "1") {
-
-        //                 window.location.href = "/Patient?id=" + xx;
-        //             } else if (xx === "2") {
-        //                 window.location.href = "/Clinician?id=" + xx;
-        //             }
-        //         }
-
-        //     }
-        // )
     }
 
     componentDidMount() {
@@ -119,10 +97,6 @@ class PatientRecords extends React.Component {
                                                                         <Nav.Link eventKey="respirationRate">Respiration
                                                                             Rate</Nav.Link>
                                                                     </Nav.Item>
-                                                                    {/* <Nav.Item>
-                                                                    <Nav.Link eventKey="bodyComposition">Body
-                                                                        Composition</Nav.Link>
-                                                                </Nav.Item> */}
                                                                     <Nav.Item>
                                                                         <Nav.Link eventKey="indirectOximetry">Oxygen
                                                                             Saturation</Nav.Link>
@@ -141,11 +115,6 @@ class PatientRecords extends React.Component {
                                                                         <div><RespirationGraph
                                                                             ehrId={this.state.ehrId}/></div>
                                                                     </Tab.Pane>
-                                                                    {/* <Tab.Pane eventKey="bodyComposition">
-                                                                    <div id="bodyCompContainer"
-                                                                         style={{ width: '700px', height: '500px' }}
-                                                                         className="sbodyComp"/>
-                                                                </Tab.Pane> */}
                                                                     <Tab.Pane eventKey="indirectOximetry">
                                                                         <div><OxygenConcentrationGraph
                                                                             ehrId={this.state.ehrId}/></div>

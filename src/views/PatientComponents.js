@@ -14,11 +14,11 @@ import getLabOrders from "../components/Queries/GetLabOrders";
 import getLabReports from "../components/Queries/GetLabReports";
 
 import ScoresGraph from "../components/Graphs/ScoresGraph";
-import RadarGraph from "../components/Graphs/RadarGraph";
 import RespirationRateGraph from "../components/Graphs/RespirationRateGraph";
 import BloodPressureGraph from "../components/Graphs/BloodPressureGraph";
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
+import IndividualScoresRange from "../components/Graphs/IndividualScoresRange";
 import Pagination  from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import { DownloadCSV } from "../components/DownloadCSV";
@@ -41,7 +41,7 @@ import {
 
 import { connect } from "react-redux";
 import { setCompositions } from "../actions/appActions";
-import Table from "react-bootstrap/Table";
+
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -310,7 +310,7 @@ class EpisodeScores extends React.Component {
             return <p>Loading...</p>;
         } else {
             if (this.state.episodeScores.length > 0){
-                return <React.Fragment><RadarGraph preOp={this.state.preOp}
+                return <React.Fragment><IndividualScoresRange preOp={this.state.preOp}
                                                oneWeek={this.state.oneWeekPostOp}
                                                sixWeeks={this.state.sixWeeksPostOp}
                                                label={this.state.labels}/><br/><br/>
@@ -322,11 +322,6 @@ class EpisodeScores extends React.Component {
                 return <p>No scores were found</p>
             }
         }
-        // if (this.state.episodeScores.length > 0) {
-
-        // } else {
-        //     return <p>No episode scores were found</p>;
-        // }
     }
 }
 

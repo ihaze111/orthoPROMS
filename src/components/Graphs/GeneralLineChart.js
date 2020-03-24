@@ -20,7 +20,6 @@ class GeneralLineChart extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         this.buildChart(this.props.id);
     }
 
@@ -29,7 +28,6 @@ class GeneralLineChart extends Component {
     }
 
     optionHolder() {
-        const unit = this.props.units ? this.props.units : ""
         return {
             title: {
                 display: true,
