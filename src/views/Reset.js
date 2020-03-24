@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import qs from "qs";
 
-import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
 import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";

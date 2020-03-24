@@ -1,7 +1,5 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import Accordion from 'react-bootstrap/Accordion';
-import { NHSHeaderOrthoPROMS } from "../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
