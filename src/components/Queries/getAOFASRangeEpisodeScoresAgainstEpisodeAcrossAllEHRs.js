@@ -14,9 +14,6 @@ async function getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs() {
         "    OBSERVATION a_b[openEHR-EHR-OBSERVATION.aofas.v0])";
     return await CDRAQLQuery(aql, (result) => {
         if (result.resultSet) {
-            // return result.resultSet.map((e) => {
-            //     return e;
-            // });
             const episode_time_list = {};
             result.resultSet.map((e) => {
                 if (!(e.episode_identifier.value in episode_time_list)) {
@@ -40,13 +37,12 @@ async function getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs() {
                 Object.keys(sums).map((key1) => {
                     result[key1] = sums[key1] / lengths[key];
                 });
-                if (key === "1 week post-operative") {
-                    resultWithKey["oneWeek"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
-                } else if (key === "Pre-operative") {
-                    resultWithKey["preOp"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
-                } else if (key === "6 weeks post-operative") {
-                    resultWithKey["sixWeeks"] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
-                }
+                const episodeIdentifierToSimpleKey = {
+                    "1 week post-operative": "oneWeek",
+                    "Pre-operative": "preOp",
+                    "6 weeks post-operative": "sixWeeks"
+                };
+                resultWithKey[episodeIdentifierToSimpleKey[key]] = [result.pain, result.limitations, result.walking, result.walking_surfaces];
             });
             return(resultWithKey);
         } else {

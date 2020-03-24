@@ -18,22 +18,13 @@ function processOtherDetails(tree) {
         const treeItem = tree.items[0];
         if (treeItem.archetype_node_id === 'openEHR-EHR-CLUSTER.person_anonymised_parent.v1') {
             treeItem.items.forEach((item) => {
-                switch (item.archetype_node_id) {
-                    case 'at0001':
-                        processedResult.gender = item.value.value;
-                        break;
-                    case 'at0002':
-                        processedResult.sex = item.value.value;
-                        break;
-                    case 'at0003':
-                        processedResult.vitalStatus = item.value.value;
-                        break;
-                    case 'at0014':
-                        processedResult.birthYear = item.value.value;
-                        break;
-                    default:
-                        break;
-                }
+                const nodeIdToKey = {
+                    'at0001': 'gender',
+                    'at0002': 'sex',
+                    'at0003': 'vitalStatus',
+                    'at0014': 'birthYear'
+                };
+                processedResult[nodeIdToKey[item.archetype_node_id]] = item.value.value;
             });
         }
     }
