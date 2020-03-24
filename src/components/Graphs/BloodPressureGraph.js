@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
+import * as PropTypes from "prop-types";
 
 let bloodPressureGraph;
 const colours = ['red', 'navy'];
@@ -8,43 +9,58 @@ const fillColours = ['rgb(255,0,0,0.4)', 'rgb(0,0,128,0.4)'];
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;
 
-class BloodPressureGraph extends Component{
-    render(){
+/**
+ * Build a graph based on the arrays of systolic and diastolic blood pressure provided
+ */
+class BloodPressureGraph extends Component {
+    render() {
         return (
             <BloodPressureChart id={"myBlood"} labels={this.props.time} data={
                 [{
-                    label : "Systolic",
+                    label: "Systolic",
                     data: this.props.systolic
                 },
-                {
-                    label: "Diastolic",
-                    data: this.props.diastolic
-                }]
+                    {
+                        label: "Diastolic",
+                        data: this.props.diastolic
+                    }]
             } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure " + this.props.units}/>
         )
     }
 }
 
+BloodPressureGraph.propTypes = {
+    systolic: PropTypes.array,
+    diastolic: PropTypes.array,
+    time: PropTypes.array,
+    units: PropTypes.string
+};
+
+/**
+ * Use provided data with labels to build the blood pressure graph using Chart.js
+ */
 class BloodPressureChart extends Component {
-    chartRef = React.createRef();
+    constructor(props) {
+        super(props);
+        console.log(props);
+        this.chartRef = React.createRef();
+    }
 
     componentDidMount() {
-        // this.buildChart();
         this.start();
     }
 
     componentDidUpdate() {
-        // this.buildChart();
         this.start();
     }
 
-    start = () => {
-        if (this.props.id === "myBlood"){
+    start() {
+        if (this.props.id === "myBlood") {
             this.buildChart();
         }
     }
 
-    optionHolder = () =>{
+    optionHolder() {
         return {
             title: {
                 display: true,
@@ -94,7 +110,7 @@ class BloodPressureChart extends Component {
         };
     }
 
-    buildChart = () => {
+    buildChart() {
         const bloodPressureGraphRef = this.chartRef.current.getContext("2d");
         if (typeof bloodPressureGraph !== "undefined") bloodPressureGraph.destroy();
         const data = {};
@@ -108,8 +124,8 @@ class BloodPressureChart extends Component {
                 fill: 'start',
                 borderColor: colorIterator.next().value,
                 backgroundColor: fillIterator.next().value,
-                pointRadius : 4,
-                borderWidth : 2
+                pointRadius: 4,
+                borderWidth: 2
             }
         });
         const options = this.optionHolder();
@@ -118,8 +134,7 @@ class BloodPressureChart extends Component {
             data,
             options
         });
-
-    };
+    }
 
     render() {
         return (
@@ -133,80 +148,13 @@ class BloodPressureChart extends Component {
     }
 }
 
-
-// import React from "react";
-// import HighCharts from "highcharts";
-// import HighchartsReact from "highcharts-react-official";
-
-// const BloodPressureGraph = props => {
-//     const systolic = props.systolic;
-//     const diastolic = props.diastolic;
-//     const time = props.time;
-//     const unit = props.units;
-
-//     const options = {
-//         chart: {
-//             type : "area"
-//         },
-//         title: {
-//             text : "Blood Pressure"
-//         },
-//         xAxis: {
-//             title : {
-//                 text : "Time"
-//             },
-//             categories: time
-//         },
-//         yAxis: {
-//             min: 0,
-//             title : {
-//                 text : "Blood Pressure / " + unit 
-//             },
-//             labels: {
-//                 overflow: 'justify'
-//             }
-//         },
-//         plotOptions: {
-//             bar: {
-//                 dataLabels: {
-//                     enabled: true
-//                 }
-//             }
-//         },
-//         legend: {
-//             layout: 'vertical',
-//             align: 'right',
-//             verticalAlign: 'top',
-//             x: 0,
-//             y: -10,
-//             floating: true,
-//             borderWidth: 1,
-//             shadow: true
-//         },
-//         tooltip:{
-//             valueSuffix : unit
-//         },
-//         series : [
-//             {
-//                 name: "Systolic",
-//                 data: systolic
-//             },
-//             {
-//                 name: "Diastolic",
-//                 data: diastolic
-//             }
-//         ]
-//     };
-
-//     return(
-//         <div>
-//             <HighchartsReact
-//                 highcharts={HighCharts}
-//                 constructorType={"chart"}
-//                 options={options}
-//             />
-//         </div>
-//     );
-// };
+BloodPressureChart.propTypes = {
+    id: PropTypes.string,
+    labels: PropTypes.array,
+    data: PropTypes.array,
+    title: PropTypes.string,
+    xLabel: PropTypes.string,
+    yLabel: PropTypes.string
+};
 
 export default BloodPressureGraph;
