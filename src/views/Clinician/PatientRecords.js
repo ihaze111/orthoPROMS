@@ -69,7 +69,7 @@ class PatientRecords extends React.Component {
                                                     <Nav.Link eventKey="patientProgress">Patient Progress</Nav.Link>
                                                 </Nav.Item>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="report">Report</Nav.Link>
+                                                    <Nav.Link eventKey="labReport">Lab Report</Nav.Link>
                                                 </Nav.Item>
                                             </Nav>
                                         </Col>
@@ -129,8 +129,8 @@ class PatientRecords extends React.Component {
                                                     <div><ScoresArray ehrId={this.state.ehrId}/></div>
                                                     <div><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                                 </Tab.Pane>
-                                                <Tab.Pane eventKey="report">
-                                                    <PatientRecordsReport
+                                                <Tab.Pane eventKey="labReport">
+                                                    {/* <PatientRecordsReport
                                                         content={<div><p>Initial treatment for a broken leg usually
                                                             begins
                                                             in an
@@ -208,7 +208,7 @@ class PatientRecords extends React.Component {
                                                         </NHSFormHint>
                                                         <NHSTextArea id="log" name="log" rows="4" aria-describedby="log-hint"></NHSTextArea><br/>
                                                         <NHSButton onClick={this.onSubmit} type="submit">Submit</NHSButton>
-                                                    </NHSFormGroup>
+                                                    </NHSFormGroup> */}
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
                                                         <NHSPanelTitle class="nhsuk-panel-with-label__label">
                                                             Laboratory Orders and Reports
@@ -217,22 +217,22 @@ class PatientRecords extends React.Component {
                                                         <Tab.Container defaultActiveKey="labOrders">
                                                                 <Nav variant="tabs"
                                                                      style={{ marginBottom: '40px' }}>
+                                                                         <Nav.Item>
+                                                                    <Nav.Link eventKey="labReports">Lab
+                                                                            Reports</Nav.Link>
+                                                                    </Nav.Item>
                                                                     <Nav.Item>
                                                                         <Nav.Link eventKey="labOrders">Lab
                                                                             Orders</Nav.Link>
-                                                                    </Nav.Item>
-                                                                    <Nav.Item>
-                                                                        <Nav.Link eventKey="labReports">Lab
-                                                                            Reports</Nav.Link>
-                                                                    </Nav.Item>
+                                                                    </Nav.Item>   
                                                                 </Nav>
                                                                 <Tab.Content>
+                                                                <Tab.Pane eventKey="labReports">
+                                                                    <LabReportsTable ehrId={this.state.ehrId}/>
+                                                                    </Tab.Pane>
                                                                     <Tab.Pane eventKey="labOrders">
                                                                         <div><LabOrdersTable
                                                                             ehrId={this.state.ehrId}/></div>
-                                                                    </Tab.Pane>
-                                                                    <Tab.Pane eventKey="labReports">
-                                                                        <LabReportsTable ehrId={this.state.ehrId}/>
                                                                     </Tab.Pane>
                                                                 </Tab.Content>
                                                             </Tab.Container>

@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import RadarGraph from "./RadarGraph";
 import * as PropTypes from "prop-types";
 
+/**
+ * Build a graph based on the national average scores range categorically and its values
+ */
+
 class AverageScoresRange extends Component{
     render(){
         return (

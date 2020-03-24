@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
 
+
+/**
+ * A generalized Radar Chart - graphs based on categories and its associated values,
+ * Takes: id string, labels array, data array, title string
+ */
+
+
 const graphReferences = {};
 const colours = ['rgb(255,99,132)', 'rgb(54,162,235)', 'green'];
 const pointColours = colours;

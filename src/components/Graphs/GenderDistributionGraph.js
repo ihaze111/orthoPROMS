@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import PieChart from "./PieChart";
 import * as PropTypes from "prop-types";
 
+/**
+ * Build a pie chart based on the national average of patients' administrative gender and the number of patients in each gender
+ */
+
+
 class GenderDistributionGraph extends Component{
     render(){
         return (

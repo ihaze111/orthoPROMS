@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import HorizontalBarGraph from "./HorizontalBarGraph";
 import * as PropTypes from "prop-types";
 
+/**
+ * Build a graph based on arrays of age ranges and the sum of each age range
+ */
+
 class AgeDistributionGraph extends Component{
     render(){
         return (

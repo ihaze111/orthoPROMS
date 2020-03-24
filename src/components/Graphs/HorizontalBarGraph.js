@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
 
+/**
+ * A generalized Horizontal Bar Chart - graphs based on an array of categories and its values in array,
+ * Takes: id string, labels array, data array, title string
+ */
+
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
