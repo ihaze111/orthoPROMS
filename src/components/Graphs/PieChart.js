@@ -25,12 +25,10 @@ class PieGraph extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-        // this.buildChart();
         this.start();
     }
 
     componentDidUpdate() {
-        // this.buildChart();
         this.start();
     }
 

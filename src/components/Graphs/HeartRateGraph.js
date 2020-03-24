@@ -6,7 +6,9 @@ import * as PropTypes from "prop-types";
  * Build a graph based on the an array of heartRates and an array of times
  */
 class HeartRateGraph extends Component {
+    
     render() {
+        console.log(this.props);
         return (
             <GeneralLineChart id={"myHeart"} labels={this.props.time} data={
                 [
@@ -16,7 +18,7 @@ class HeartRateGraph extends Component {
                     }
                 ]
             }
-                              title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units}/>
+            title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units}/>
         );
     }
 }
