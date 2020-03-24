@@ -1,5 +1,4 @@
 import AbstractChart from "./AbstractChart";
-var Chart = require("chart.js");
 
 class ColumnChart extends AbstractChart {
 
