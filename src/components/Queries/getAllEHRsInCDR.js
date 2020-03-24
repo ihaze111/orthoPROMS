@@ -61,8 +61,17 @@ function callbackProcessing(result) {
 }
 
 /**
- * Return a promise that requests every EHR in the CDR that has an NHS number associated with it
- * @returns {Promise<*|[]|{gender, birthYear, sex, vitalStatus}>}
+ * Get a list every EHR in the CDR that has an NHS number associated with it, for display in a table, containing:
+ * - EHR id
+ * - Other details (anonymized data), which are simplified into
+ *      - Administrative Gender
+ *      - Birth Sex
+ *      - Vital Status
+ *      - Birth Year
+ * - NHS Number
+ * - Time created
+ * @returns {Promise<*>} A promise which will return a JSON list of the
+ * EHRs, as processed in callbackProcessing
  */
 async function getAllEHRsInCDR() {
     const aql = "select e/ehr_id as ehr_id, e/ehr_status/other_details as\n" +

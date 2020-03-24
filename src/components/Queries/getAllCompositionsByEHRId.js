@@ -1,5 +1,16 @@
 import CDRAQLQuery from "./CDRAQLQuery";
 
+/**
+ * Get a list of all compositions relating to an EHR id, for display in a table, containing:
+ * - Composition id
+ * - NHS Number
+ * - Composer Name
+ * - Episode identifier (e.g. 'One week post-op')
+ * - Comment
+ * @param ehrId EHR id of patient
+ * @returns {Promise<*>} A promise that will return the result in JSON, as processed by the callback function
+ * (currently no processing)
+ */
 async function getAllCompositionsByEHRId(ehrId) {
     const aql = "select a/uid/value as comp_id, e/ehr_status/subject/external_ref/id/value as nhs_number," +
         " a/composer/name as composer_name, b_b/items[at0001]/value/value as episode_identifier," +
