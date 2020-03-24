@@ -42,7 +42,6 @@ BloodPressureGraph.propTypes = {
 class BloodPressureChart extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.chartRef = React.createRef();
     }
 
