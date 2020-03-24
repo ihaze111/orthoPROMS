@@ -5,8 +5,6 @@ import * as PropTypes from "prop-types";
 /**
  * Build a pie chart based on the national average of patients' administrative gender and the number of patients in each gender
  */
-
-
 class GenderDistributionGraph extends Component{
     render(){
         return (
@@ -22,7 +20,8 @@ class GenderDistributionGraph extends Component{
 
 GenderDistributionGraph.propTypes = {
     genderDistribution: PropTypes.array,
-    labels: PropTypes.array
+    labels: PropTypes.array,
+    title: PropTypes.string
 };
 
 export default GenderDistributionGraph;

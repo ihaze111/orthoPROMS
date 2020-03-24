@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
-
-
-/**
- * A generalized Radar Chart - graphs based on categories and its associated values,
- * Takes: id string, labels array, data array, title string
- */
-
+import * as PropTypes from "prop-types";
 
 const graphReferences = {};
 const colours = ['rgb(255,99,132)', 'rgb(54,162,235)', 'green'];
@@ -16,8 +10,15 @@ const fillColours = ['rgb(255,99,132,0.3)', 'rgb(54,162,235,0.3)', 'rgb(0,128,0,
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;
 
+/**
+ * A generalized Radar Chart - graphs based on categories and its associated values,
+ * Takes: id string, labels array, data array, title string
+ */
 class RadarGraph extends Component {
-    chartRef = React.createRef();
+    constructor(props) {
+        super(props);
+        this.chartRef = React.createRef();
+    }
 
     componentDidMount() {
         this.buildChart(this.props.id);
@@ -27,7 +28,7 @@ class RadarGraph extends Component {
         this.buildChart(this.props.id);
     }
 
-    optionHolder = () =>{
+    optionHolder() {
         return {
             title: {
                 display: true,
@@ -55,11 +56,11 @@ class RadarGraph extends Component {
         };
     }
 
-    buildChart = (ref) => {
+    buildChart(ref) {
         const radarGraphRef = this.chartRef.current.getContext("2d");
         if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
-        data.labels = this.props.labels; 
+        data.labels = this.props.labels;
         const colorIterator = colours.values();
         const pointColoursIterator = pointColours.values();
         const fillIterator = fillColours.values();
@@ -84,8 +85,7 @@ class RadarGraph extends Component {
             data,
             options
         });
-
-    };
+    }
 
     render() {
         return (
@@ -98,5 +98,12 @@ class RadarGraph extends Component {
         )
     }
 }
+
+RadarGraph.propTypes = {
+    id: PropTypes.string,
+    data: PropTypes.array,
+    labels: PropTypes.array,
+    title: PropTypes.string
+};
 
 export default RadarGraph;

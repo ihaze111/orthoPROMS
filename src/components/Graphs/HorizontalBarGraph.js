@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
-
-/**
- * A generalized Horizontal Bar Chart - graphs based on an array of categories and its values in array,
- * Takes: id string, labels array, data array, title string
- */
-
+import * as PropTypes from "prop-types";
+import GenderDistributionGraph from "./GenderDistributionGraph";
 
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
 
 const graphReferences = {};
-const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)','rgba(0,255,0,0.5)','rgba(255,165,0,0.5)','rgba(238,130,238,0.5)','rgba(0,255,255,0.5)'];
+const colours = ['rgba(255,0,0,0.5)', 'rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)', 'rgba(255,165,0,0.5)',
+    'rgba(238,130,238,0.5)', 'rgba(0,255,255,0.5)'];
 
+/**
+ * A generalized Horizontal Bar Chart - graphs based on an array of categories and its values in array,
+ * Takes: id string, labels array, data array, title string
+ */
 class HorizontalBarGraph extends Component {
-    chartRef = React.createRef();
+    constructor(props) {
+        super(props);
+        this.chartRef = React.createRef();
+    }
 
     componentDidMount() {
         this.buildChart(this.props.id);
@@ -24,7 +28,7 @@ class HorizontalBarGraph extends Component {
         this.buildChart(this.props.id);
     }
 
-    optionHolder = () =>{
+    optionHolder() {
         return {
             title: {
                 display: true,
@@ -59,11 +63,11 @@ class HorizontalBarGraph extends Component {
         };
     }
 
-    buildChart = (ref) => {
+    buildChart(ref) {
         const horizontalBarGraphRef = this.chartRef.current.getContext("2d");
         if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
-        data.labels = this.props.labels; 
+        data.labels = this.props.labels;
         data.datasets = this.props.data.map((data) => {
             return {
                 data: data.data,
@@ -78,7 +82,7 @@ class HorizontalBarGraph extends Component {
             options
         });
 
-    };
+    }
 
     render() {
         return (
@@ -91,5 +95,12 @@ class HorizontalBarGraph extends Component {
         )
     }
 }
+
+HorizontalBarGraph.propTypes = {
+    id: PropTypes.string,
+    data: PropTypes.array,
+    labels: PropTypes.array,
+    title: PropTypes.string
+};
 
 export default HorizontalBarGraph;

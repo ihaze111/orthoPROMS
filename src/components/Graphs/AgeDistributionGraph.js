@@ -5,7 +5,6 @@ import * as PropTypes from "prop-types";
 /**
  * Build a graph based on arrays of age ranges and the sum of each age range
  */
-
 class AgeDistributionGraph extends Component{
     render(){
         return (
@@ -20,7 +19,8 @@ class AgeDistributionGraph extends Component{
 
 AgeDistributionGraph.propTypes = {
     ageDistribute: PropTypes.array,
-    labels: PropTypes.array
+    labels: PropTypes.array,
+    title: PropTypes.string
 };
 
 export default AgeDistributionGraph;

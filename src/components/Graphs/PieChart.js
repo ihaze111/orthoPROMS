@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
 
-/**
- * A generalized Pie Chart - graphs based on categories and its associated values with tooltips showing its values in percentages,
- * Takes: id string, labels array, data array, title string
- */
-
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
 
 const graphReferences = {};
-const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)'];
+const colours = ['rgba(255,0,0,0.5)', 'rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)'];
 
+/**
+ * A generalized Pie Chart - graphs based on categories and its associated values with tooltips showing its values in
+ * percentages, Takes: id string, labels array, data array, title string
+ */
 class PieChart extends Component {
     chartRef = React.createRef();
 
@@ -23,7 +22,7 @@ class PieChart extends Component {
         this.buildChart(this.props.id);
     }
 
-    optionHolder = () =>{
+    optionHolder = () => {
         return {
             title: {
                 display: true,
@@ -43,16 +42,16 @@ class PieChart extends Component {
                 enabled: true,
                 displayColors: true,
                 callbacks: {
-                    label: function(tooltipItem, data) {
-                      var dataset = data.datasets[tooltipItem.datasetIndex];
-                      var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-                      var total = meta.total;
-                      var currentValue = dataset.data[tooltipItem.index];
-                      var percentage = parseFloat((currentValue/total*100).toFixed(1));
-                      return currentValue + ' (' + percentage + '%)';
+                    label: function (tooltipItem, data) {
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+                        var total = meta.total;
+                        var currentValue = dataset.data[tooltipItem.index];
+                        var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+                        return currentValue + ' (' + percentage + '%)';
                     },
-                    title: function(tooltipItem, data) {
-                      return data.labels[tooltipItem[0].index];
+                    title: function (tooltipItem, data) {
+                        return data.labels[tooltipItem[0].index];
                     }
                 }
             }
@@ -63,7 +62,7 @@ class PieChart extends Component {
         const pieChartRef = this.chartRef.current.getContext("2d");
         if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
-        data.labels = this.props.labels; 
+        data.labels = this.props.labels;
         data.datasets = this.props.data.map((data) => {
             return {
                 label: data.label,

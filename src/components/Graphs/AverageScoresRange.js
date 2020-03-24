@@ -5,7 +5,6 @@ import * as PropTypes from "prop-types";
 /**
  * Build a graph based on the national average scores range categorically and its values
  */
-
 class AverageScoresRange extends Component{
     render(){
         return (
@@ -28,8 +27,10 @@ class AverageScoresRange extends Component{
 }
 
 AverageScoresRange.propTypes = {
-    ageDistribute: PropTypes.array,
-    labels: PropTypes.array
+    label: PropTypes.array,
+    preOp: PropTypes.array,
+    oneWeek: PropTypes.array,
+    sixWeeks: PropTypes.array
 };
 
 export default AverageScoresRange;
