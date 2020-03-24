@@ -1,5 +1,11 @@
 import CDRAQLQuery from "./CDRAQLQuery";
 
+/**
+ * Return simplified JSON regarding anonymous data about the patient
+ * Uses specification of anonymized patient archetype: https://ckm.openehr.org/ckm/archetypes/1013.1.1745
+ * @param tree
+ * @returns {{gender: string, birthYear: string, sex: string, vitalStatus: string}}
+ */
 function processOtherDetails(tree) {
     let processedResult = {
         gender: '',
@@ -34,6 +40,11 @@ function processOtherDetails(tree) {
     return processedResult;
 }
 
+/**
+ * Simplify the JSON in the result of the EHR call
+ * @param result
+ * @returns {*}
+ */
 function callbackProcessing(result) {
     return result.resultSet.map((e) => {
         let final = {};
@@ -49,6 +60,10 @@ function callbackProcessing(result) {
     });
 }
 
+/**
+ * Return a promise that requests every EHR in the CDR that has an NHS number associated with it
+ * @returns {Promise<*|[]|{gender, birthYear, sex, vitalStatus}>}
+ */
 async function getEHRs() {
     const aql = "select e/ehr_id as ehr_id, e/ehr_status/other_details as\n" +
         "         other_details,\n" +
