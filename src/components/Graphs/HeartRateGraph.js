@@ -1,20 +1,30 @@
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import GeneralLineChart from "./GeneralLineChart";
+import * as PropTypes from "prop-types";
 
-class HeartRateGraph extends Component{
-    render(){
+/**
+ * Build a graph based on the an array of heartRates and an array of times
+ */
+class HeartRateGraph extends Component {
+    render() {
         return (
             <GeneralLineChart id={"myHeart"} labels={this.props.time} data={
                 [
                     {
-                        label : "Heart Rate",
+                        label: "Heart Rate",
                         data: this.props.heartRates
                     }
                 ]
             }
-            title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units}/>
+                              title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units}/>
         );
     }
 }
+
+HeartRateGraph.propTypes = {
+    heartRates: PropTypes.array,
+    time: PropTypes.array,
+    units: PropTypes.string
+};
 
 export default HeartRateGraph;

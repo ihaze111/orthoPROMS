@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import GeneralLineChart from './GeneralLineChart';
+import * as PropTypes from "prop-types";
 
+/**
+ * Build a graph based on the an array of oxygen concentration percentages and an array of times
+ */
 class OxygenSaturationGraph extends Component {
     render() {
         return (
@@ -15,5 +19,11 @@ class OxygenSaturationGraph extends Component {
         );
     }
 }
+
+OxygenSaturationGraph.propTypes = {
+    percent: PropTypes.array,
+    time: PropTypes.array,
+    units: PropTypes.string
+};
 
 export default OxygenSaturationGraph;

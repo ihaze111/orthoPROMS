@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import GeneralLineChart from "./GeneralLineChart";
+import * as PropTypes from "prop-types";
 
+/**
+ * Build a graph based on arrays of standard pain scores and an array of times
+ */
 class ScoresGraph extends Component {
     render() {
         return (
@@ -25,9 +29,23 @@ class ScoresGraph extends Component {
                     label: "Total Score",
                     data: this.props.total,
                 }
-            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"} />
+            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"}/>
         )
     }
 }
+
+ScoresGraph.propTypes = {
+    id: PropTypes.string,
+    pain: PropTypes.array,
+    limit: PropTypes.array,
+    walking: PropTypes.array,
+    surface: PropTypes.array,
+    total: PropTypes.array,
+    time: PropTypes.array,
+    xLabel: PropTypes.string,
+    yLabel: PropTypes.string,
+    title: PropTypes.string,
+    units: PropTypes.string
+};
 
 export default ScoresGraph;
