@@ -4,7 +4,6 @@ import getCompositions from "../components/Queries/GetCompositions";
 import getEHRBySubjectId from "../components/Queries/GetEHRBySubjectId";
 import getScores from "../components/Queries/GetScores";
 import getEpisodeScores from "../components/Queries/GetEpisodeScores";
-import getRangeEpisodeScores from "../components/Queries/GetRangeEpisodeScores";
 import getRespirationRate from "../components/Queries/GetRespirationRate";
 import getBloodPressure from "../components/Queries/GetBloodPressure";
 import getIndirectOximetry from "../components/Queries/GetIndirectOximetry";
@@ -286,7 +285,6 @@ class EpisodeScores extends React.Component {
         let promise = getEpisodeScores(this.props.ehrId);
         promise.then(e => {
             this.pushIntoCategory(e);
-            console.log("到这里了", e);
             this.setState({ episodeScores: e, isLoading: false });
         });
     }
@@ -309,16 +307,20 @@ class EpisodeScores extends React.Component {
         // this.pushIntoCategory(this.state.episodeScores);
         let { isLoading } = this.state;
         if (isLoading) {
-            return <p>No scores were found</p>;
+            return <p>Loading...</p>;
         } else {
-            return <React.Fragment><RadarGraph preOp={this.state.preOp}
+            if (this.state.episodeScores.length > 0){
+                return <React.Fragment><RadarGraph preOp={this.state.preOp}
                                                oneWeek={this.state.oneWeekPostOp}
                                                sixWeeks={this.state.sixWeeksPostOp}
                                                label={this.state.labels}/><br/><br/>
-                <DownloadCSV
-                    array={[this.state.labels, this.state.preOp, this.state.oneWeekPostOp, this.state.sixWeeksPostOp]}
-                    fileName={"Episode_Scores.csv"}/>
-            </React.Fragment>;
+                    <DownloadCSV
+                        array={[this.state.labels, this.state.preOp, this.state.oneWeekPostOp, this.state.sixWeeksPostOp]}
+                        fileName={"Episode_Scores.csv"}/>
+                </React.Fragment>;
+            }else{
+                return <p>No scores were found</p>
+            }
         }
         // if (this.state.episodeScores.length > 0) {
 
@@ -430,43 +432,6 @@ export function PressureGraph(props) {
     } else {
         return null;
     }
-}
-
-
-class RangeEpisodeScores extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            preOp: [],
-            oneWeekPostOp: [],
-            sixWeeksPostOp: [],
-            labels: ["Pain", "Activity limitations and support requirements", "Walking", "Walking surfaces"]
-        };
-    }
-
-    componentDidMount() {
-        let promise = getRangeEpisodeScores();
-        promise.then((e) => {
-            this.setState({ rangeEpisodeScores: e });
-        });
-    }
-
-    render() {
-
-        if (!this.state.rangeEpisodeScores) return null;
-        if (this.state.rangeEpisodeScores.length !== null) {
-            return <RadarGraph preOp={this.state.rangeEpisodeScores.preOp}
-                               oneWeek={this.state.rangeEpisodeScores.oneWeek}
-                               sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
-                               label={this.state.labels}/>
-        } else {
-            return <p>No reading can be found!</p>
-        }
-    }
-}
-
-export function RangeEpisodeScoresGraph() {
-    return <div><RangeEpisodeScores/></div>
 }
 
 class IndirectOximetry extends React.Component {

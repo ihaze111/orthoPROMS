@@ -20,9 +20,7 @@ async function getRangeEpisodeScores() {
             const episode_time_list = {};
             result.resultSet.map((e) => {
                 if (!(e.episode_identifier.value in episode_time_list)) {
-                    episode_time_list[e.episode_identifier.value] = [
-                        e
-                    ];
+                    episode_time_list[e.episode_identifier.value] = [e];
                 } else {
                     episode_time_list[e.episode_identifier.value].push(e);
                 }
