@@ -1,45 +1,20 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
-import * as PropTypes from "prop-types";
 
-const graphReferences = {};
+/**
+ * A generalized Horizontal Bar Chart - graphs based on an array of categories and its values in array,
+ * Takes: id string, labels array, data array, title string
+ */
 
-Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
+
+Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
 
-const colours = ['rgba(255,0,0,0.5)', 'rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)', 'rgba(255,165,0,0.5)',
-    'rgba(238,130,238,0.5)', 'rgba(0,255,255,0.5)'];
+const graphReferences = {};
+const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)','rgba(0,255,0,0.5)','rgba(255,165,0,0.5)','rgba(238,130,238,0.5)','rgba(0,255,255,0.5)'];
 
-/**
- * Build a graph based on the an array of age frequency values and an array of times
- */
 class HorizontalBarGraph extends Component {
-    render() {
-        return (
-            <HorizontalBar id={"myHorizontalBarGraph"} labels={this.props.labels} data={
-                [{
-                    data: this.props.ageDistribute
-                }]
-            } title={this.props.title}/>
-        )
-    }
-}
-
-HorizontalBarGraph.propTypes = {
-    labels: PropTypes.array,
-    ageDistribute: PropTypes.array,
-    title: PropTypes.string
-};
-
-
-/**
- * Use provided data with labels to build the age distribution graph using Chart.js
- */
-class HorizontalBar extends Component {
-    constructor(props) {
-        super(props);
-        this.chartRef = React.createRef();
-    }
+    chartRef = React.createRef();
 
     componentDidMount() {
         this.buildChart(this.props.id);
@@ -49,7 +24,7 @@ class HorizontalBar extends Component {
         this.buildChart(this.props.id);
     }
 
-    optionHolder() {
+    optionHolder = () =>{
         return {
             title: {
                 display: true,
@@ -84,14 +59,13 @@ class HorizontalBar extends Component {
         };
     }
 
-    buildChart(ref) {
+    buildChart = (ref) => {
         const horizontalBarGraphRef = this.chartRef.current.getContext("2d");
         if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
-        data.labels = this.props.labels;
+        data.labels = this.props.labels; 
         data.datasets = this.props.data.map((data) => {
             return {
-                label: data.label,
                 data: data.data,
                 fill: true,
                 backgroundColor: colours
@@ -104,7 +78,7 @@ class HorizontalBar extends Component {
             options
         });
 
-    }
+    };
 
     render() {
         return (
@@ -117,12 +91,5 @@ class HorizontalBar extends Component {
         )
     }
 }
-
-HorizontalBar.propTypes = {
-    id: PropTypes.string,
-    labels: PropTypes.array,
-    data: PropTypes.array,
-    title: PropTypes.string
-};
 
 export default HorizontalBarGraph;

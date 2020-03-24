@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import Chart from "chart.js";
 
 
-let radarGraph;
+/**
+ * A generalized Radar Chart - graphs based on categories and its associated values,
+ * Takes: id string, labels array, data array, title string
+ */
+
+
+const graphReferences = {};
 const colours = ['rgb(255,99,132)', 'rgb(54,162,235)', 'green'];
 const pointColours = colours;
 const fillColours = ['rgb(255,99,132,0.3)', 'rgb(54,162,235,0.3)', 'rgb(0,128,0,0.3)'];
@@ -10,44 +16,15 @@ const fillColours = ['rgb(255,99,132,0.3)', 'rgb(54,162,235,0.3)', 'rgb(0,128,0,
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif";
 Chart.defaults.global.legend.display = true;
 
-class RadarGraph extends Component{
-    render(){
-        return (
-            <RadarChart id={"myRadar"} labels={this.props.label} data={
-                [{
-                    label : "Pre-Operation",
-                    data: this.props.preOp
-                },
-                {
-                    label: "One Week Post-Operation",
-                    data: this.props.oneWeek
-                },
-                {
-                    label: "Six Weeks Post-Operation",
-                    data: this.props.sixWeeks
-                }]
-            } title={"Scores Range"} />
-        )
-    }
-}
-
-class RadarChart extends Component {
+class RadarGraph extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
-        // this.buildChart();
-        this.start();
+        this.buildChart(this.props.id);
     }
 
     componentDidUpdate() {
-        // this.buildChart();
-        this.start();
-    }
-
-    start = () => {
-        if (this.props.id === "myRadar"){
-            this.buildChart();
-        }
+        this.buildChart(this.props.id);
     }
 
     optionHolder = () =>{
@@ -78,9 +55,9 @@ class RadarChart extends Component {
         };
     }
 
-    buildChart = () => {
+    buildChart = (ref) => {
         const radarGraphRef = this.chartRef.current.getContext("2d");
-        if (typeof radarGraph !== "undefined") radarGraph.destroy();
+        if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
         data.labels = this.props.labels; 
         const colorIterator = colours.values();
@@ -102,7 +79,7 @@ class RadarChart extends Component {
             }
         });
         const options = this.optionHolder();
-        radarGraph = new Chart(radarGraphRef, {
+        graphReferences[ref] = new Chart(radarGraphRef, {
             type: "radar",
             data,
             options

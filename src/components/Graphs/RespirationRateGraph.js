@@ -1,114 +1,30 @@
-import React, { Component } from 'react'
-import Chart from "chart.js";
-let myRespirationRateGraph;
+import React, { Component } from "react";
+import GeneralLineChart from "./GeneralLineChart";
+import * as PropTypes from "prop-types";
 
-Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
-Chart.defaults.global.legend.display = true;
-
+/**
+ * Build a graph based on the an array of respirationRates and an array of times
+ */
 class RespirationRateGraph extends Component {
-    chartRef = React.createRef();
-
-    constructor(props){
-        super(props);
-    }
-
-    componentDidMount() {
-        this.buildChart();
-    }
-
-    componentDidUpdate() {
-        this.buildChart();
-    }
-
-    buildChart = () => {
-        const myRespirationRateGraphRef = this.chartRef.current.getContext("2d");
-
-        if (typeof myRespirationRateGraph !== "undefined") myRespirationRateGraph.destroy();
-        const unit = this.props.units;
-        myRespirationRateGraph= new Chart(myRespirationRateGraphRef, {
-            type: "line",
-            data: {
-                labels: this.props.time,
-                datasets: [
+    render() {
+        return (
+            <GeneralLineChart id={"myRespirationRate"} labels={this.props.time} data={
+                [
                     {
                         label: "Respiration Rate",
-                        data: this.props.magnitude,
-                        fill: false,
-                        borderColor: "blue",
-                        pointRadius : 4,
-                        borderWidth : 2
+                        data: this.props.magnitude
                     }
                 ]
-            },
-            options: {
-                title : {
-                    display: true,
-                    text : "Respiration Rate",
-                    fontSize: 22,
-                    fontFamily: 'Lucida',
-                    fontColor: '#000'
-                    
-                },
-                legend: {
-                    display:true,
-                    position: 'bottom',
-                    labels: {
-                        fontColor: '#000'
-                    }
-                },
-                tooltips: {
-                    enabled: true,
-                    displayColors: true,
-                    mode: 'single',
-                    callbacks: {
-                        label: function (tooltipItems, data){
-                            return tooltipItems.yLabel + unit;
-                        }
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display : true,
-                            drawBorder: true,
-                            drawOnChartArea : false
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: "Date/Time"
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            display : true,
-                            drawBorder: false,
-                            drawOnChartArea : true
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: "Rate " + unit
-                        },
-                        ticks: {
-                            padding: 15
-                        }
-                    }]
-                }
             }
-        });
-
-    }
-
-    render() {
-
-        return (
-            <div className="respiration">
-                <canvas
-                    id="myRespirationRate"
-                    ref={this.chartRef}
-                />
-            </div>
-        )
+                              title={"Respiration Rate"} xLabel={"Date/Time"} yLabel={"Respiration Rate " + this.props.units}/>
+        );
     }
 }
+
+RespirationRateGraph.propTypes = {
+    magnitude: PropTypes.array,
+    time: PropTypes.array,
+    units: PropTypes.string
+};
 
 export default RespirationRateGraph;

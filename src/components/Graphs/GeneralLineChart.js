@@ -45,7 +45,7 @@ class GeneralLineChart extends Component {
             },
             tooltips: {
                 enabled: true,
-                displayColors: true
+                displayColors: true,
             },
             scales: {
                 xAxes: [{
@@ -78,7 +78,7 @@ class GeneralLineChart extends Component {
     }
 
     buildChart(ref) {
-        const myScoresGraphRef = this.chartRef.current.getContext("2d");
+        const myGeneralGraphRef = this.chartRef.current.getContext("2d");
         if (typeof graphReferences[ref] !== "undefined") graphReferences[ref].destroy();
         const data = {};
         data.labels = this.props.labels; // this.props.time
@@ -94,7 +94,7 @@ class GeneralLineChart extends Component {
             }
         });
         const options = this.optionHolder();
-        graphReferences[ref] = new Chart(myScoresGraphRef, {
+        graphReferences[ref] = new Chart(myGeneralGraphRef, {
             type: "line",
             data,
             options
