@@ -31,7 +31,7 @@ class NationalStatistics extends React.Component {
                 <NHSContainer>
                     <NHSWrapper>
                     <NHSPanelWithLabel style={{backgroundColor: '#fff'}}>
-                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                        <NHSPanelTitle className="nhsuk-panel-with-label__label">
                             National Statistics
                         </NHSPanelTitle>
                         <NHSPanelBody>
