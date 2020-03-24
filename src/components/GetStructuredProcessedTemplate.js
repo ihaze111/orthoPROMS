@@ -4,7 +4,7 @@ import * as axios from "axios";
 
 async function getStructuredProcessedTemplate(templateName) {
     let processedResult = [];
-    const options = CDROptions.generateAxiosOptions("/rest/v1/template/" + templateName);
+    const options = CDROptions.generateGetAxiosOptions("/rest/v1/template/" + templateName);
     try {
         const response = await axios(options);
         const result = response.data;

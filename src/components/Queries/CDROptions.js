@@ -12,14 +12,23 @@ const CDRHeaders = {
 
 /**
  * Object containing headers and options to use with axios to run HTTP calls to the CDR
- * @type {{CDRHeaders: {Authorization: *, "Ehr-Session-disabled": string, "Content-Type": string}, generateQueryOptions(*=): *, generateAxiosOptions(*): *}}
+ * @type {{CDRHeaders: {Authorization: *, "Ehr-Session-disabled": string, "Content-Type": string},
+ *     generateQueryOptions(*=): *, generateAxiosOptions(*): *}}
  */
 const CDROptions = {
-    generateAxiosOptions(url) {
+    generateGetAxiosOptions(url) {
         return {
             method: 'get',
             url: environment.api_url + url,
             headers: CDRHeaders,
+        };
+    },
+    generatePostAxiosOptions(url, data) {
+        return {
+            method: 'post',
+            url: environment.api_url + url,
+            headers: CDRHeaders,
+            data,
         };
     },
     generateQueryOptions(aql) {

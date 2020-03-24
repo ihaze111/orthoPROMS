@@ -3,7 +3,7 @@ import * as axios from "axios";
 
 async function getEHRByNHSNumber(subjectId) {
     let processedResult = [];
-    const options = CDROptions.generateAxiosOptions("/rest/v1/ehr/?subjectId=" + subjectId + "&subjectNamespace=uk.nhs.nhs_number");
+    const options = CDROptions.generateGetAxiosOptions("/rest/v1/ehr/?subjectId=" + subjectId + "&subjectNamespace=uk.nhs.nhs_number");
     try {
         const response = await axios(options);
         const result = response.data;

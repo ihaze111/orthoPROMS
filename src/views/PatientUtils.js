@@ -4,7 +4,7 @@ import * as axios from "axios";
 
 export async function getEHRId(subjectId) {
     let processedResult = '';
-    const options = CDROptions.generateAxiosOptions("/rest/v1/ehr/?subjectId=" + subjectId + "&subjectNamespace=uk.nhs.nhs_number");
+    const options = CDROptions.generateGetAxiosOptions("/rest/v1/ehr/?subjectId=" + subjectId + "&subjectNamespace=uk.nhs.nhs_number");
     //TODO: improve handling of http response
     try {
         const response = await axios(options);

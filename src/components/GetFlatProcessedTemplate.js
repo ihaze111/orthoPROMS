@@ -7,7 +7,7 @@ import * as axios from "axios";
 
 async function getFlatProcessedTemplate(templateName) {
     let processedResult = [];
-    const options = CDROptions.generateAxiosOptions("/rest/v1/template/" + templateName);
+    const options = CDROptions.generateGetAxiosOptions("/rest/v1/template/" + templateName);
     axios(options)
         .then(function (response) {
             console.log(response);
