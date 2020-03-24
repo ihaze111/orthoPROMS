@@ -6,22 +6,21 @@ let horizontalBarGraph;
 Chart.defaults.global.defaultFontFamily = "'PT Sans', sans-serif"
 Chart.defaults.global.legend.display = false;
 
-const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)', 'rgba(0,255,0,0.5)'];
+const colours = ['rgba(255,0,0,0.5)','rgba(0,0,128,0.5)','rgba(0,255,0,0.5)','rgba(255,165,0,0.5)','rgba(238,130,238,0.5)','rgba(0,255,255,0.5)'];
 
-class PieChart extends Component{
+class HorizontalBarGraph extends Component{
     render(){
         return (
-            <PieGraph id={"myPieChart"} labels={this.props.labels} data={
+            <HorizontalBar id={"myHorizontalBarGraph"} labels={this.props.labels} data={
                 [{
-                    label : ["Male", "Female", "Not Defined"],
-                    data: this.props.genderDistribution
+                    data: this.props.ageDistribute
                 }]
             } title={this.props.title} />
         )
     }
 }
 
-class PieGraph extends Component {
+class HorizontalBar extends Component {
     chartRef = React.createRef();
 
     componentDidMount() {
@@ -35,7 +34,7 @@ class PieGraph extends Component {
     }
 
     start = () => {
-        if (this.props.id === "myPieChart"){
+        if (this.props.id === "myHorizontalBarGraph"){
             this.buildChart();
         }
     }
@@ -49,29 +48,28 @@ class PieGraph extends Component {
                 fontFamily: 'Lucida',
                 fontColor: '#000000'
             },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    fontColor: '#000'
-                }
-            },
             tooltips: {
                 enabled: true,
-                displayColors: true,
-                callbacks: {
-                    label: function(tooltipItem, data) {
-                      var dataset = data.datasets[tooltipItem.datasetIndex];
-                      var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-                      var total = meta.total;
-                      var currentValue = dataset.data[tooltipItem.index];
-                      var percentage = parseFloat((currentValue/total*100).toFixed(1));
-                      return currentValue + ' (' + percentage + '%)';
+                displayColors: true
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: true,
+                        drawBorder: true,
+                        drawOnChartArea: true
                     },
-                    title: function(tooltipItem, data) {
-                      return data.labels[tooltipItem[0].index];
+                    ticks: {
+                        beginAtZero: true
                     }
-                }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: true,
+                        drawOnChartArea: false
+                    }
+                }]
             }
         };
     }
@@ -100,7 +98,7 @@ class PieGraph extends Component {
 
     render() {
         return (
-            <div className="pie">
+            <div className="horizontalBar">
                 <canvas
                     id={this.props.id}
                     ref={this.chartRef}
@@ -110,4 +108,4 @@ class PieGraph extends Component {
     }
 }
 
-export default PieChart;
+export default HorizontalBarGraph;
