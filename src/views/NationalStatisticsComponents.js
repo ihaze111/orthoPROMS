@@ -4,6 +4,7 @@ import getAllEHRsInCDR from '../components/Queries/getAllEHRsInCDR';
 import GenderDistributionGraph from '../components/Graphs/GenderDistributionGraph';
 import AgeDistributionGraph from '../components/Graphs/AgeDistributionGraph';
 import AverageScoresRange from '../components/Graphs/AverageScoresRange';
+import { DownloadCSV } from "../components/DownloadCSV";
 
 function occurrence(array){
     var result = {};
@@ -42,10 +43,16 @@ class RangeEpisodeScores extends React.Component {
 
         if (!this.state.rangeEpisodeScores) return null;
         if (this.state.rangeEpisodeScores.length !== null) {
-            return <AverageScoresRange preOp={this.state.rangeEpisodeScores.preOp}
-                               oneWeek={this.state.rangeEpisodeScores.oneWeek}
-                               sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
-                               label={this.state.labels}/>
+            return <div><React.Fragment>
+                <AverageScoresRange preOp={this.state.rangeEpisodeScores.preOp}
+                                    oneWeek={this.state.rangeEpisodeScores.oneWeek}
+                                    sixWeeks={this.state.rangeEpisodeScores.sixWeeks}
+                                    label={this.state.labels}/>
+                <br/><br/>
+                <DownloadCSV array={[this.state.labels, this.state.rangeEpisodeScores.preOp, this.state.rangeEpisodeScores.oneWeek,
+                            this.state.rangeEpisodeScores.sixWeeks]} fileName={"AverageScores.csv"}/>
+                        </React.Fragment>
+                    </div>
         } else {
             return <p>No reading can be found!</p>
         }
@@ -60,7 +67,8 @@ class GenderDistribution extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            admin_genders: []
+            admin_genders: [],
+            labels: ["Male", "Female", "Not Defined"]
         };
     }
 
@@ -105,9 +113,13 @@ class GenderDistribution extends React.Component{
             this.pushIntoArray(male);
             this.pushIntoArray(female);
             this.pushIntoArray(unknown);
-            return <GenderDistributionGraph title={"Gender Distribution"}
-                                genderDistribution={this.state.admin_genders}
-                                labels={["Male", "Female", "Not Defined"]}/>
+            return <div><React.Fragment><GenderDistributionGraph title={"Gender Distribution"}
+                                            genderDistribution={this.state.admin_genders}
+                                            labels={this.state.labels}/>
+                        <br/><br/>
+                        <DownloadCSV array={[this.state.labels, this.state.admin_genders]} fileName={"GenderDistribution.csv"}/>
+                        </React.Fragment>
+                    </div>
         }else{
             return <p>No data obtained</p>
         }
@@ -122,7 +134,9 @@ class AgeDistribution extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            ageDistributed: []
+            ageDistributed: [],
+            labels: ["Under 18","18-35","36-53","54-71","72-90",
+            "Over 90"]
         };
     }
 
@@ -204,8 +218,9 @@ class AgeDistribution extends React.Component{
             return <React.Fragment><div><p style={{fontSize: 20}}><strong>Average Age : {Math.round(this.averageAge(this.state.ages))} Years Old</strong></p></div>
                         <AgeDistributionGraph title={"Age Distribution"}
                                 ageDistribute={distribution}
-                                labels={["Under 18","18-35","36-53","54-71","72-90",
-                                "Over 90"]}/>
+                                labels={this.state.labels}/>
+                    <br/><br/>
+                    <DownloadCSV array={[this.state.labels, distribution]} fileName={"AgeDistribution.csv"}/>    
                     </React.Fragment>
         }else{
             return <p>No data obtained</p>

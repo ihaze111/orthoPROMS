@@ -3,6 +3,7 @@ import React from 'react';
 import { NHSButton } from "./nhsuk-frontend-react/NHSComponents";
 
 export function DownloadCSV(props){
+    console.log(props);
     var data = [transpose(props.array)];
     return <CSVLink data={data} filename={props.fileName}><NHSButton>Export To CSV</NHSButton></CSVLink>
 }
