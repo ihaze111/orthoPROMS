@@ -1,14 +1,13 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
 import HeaderMenu from '../components/HeaderMenu';
-import { RangeEpisodeScoresGraph } from './PatientComponents'
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
+import { RangeEpisodeScoresGraph, GenderDistributionGraph } from './NationalStatisticsComponents'
 import { loadEhrId } from "./PatientUtils";
 import $ from "jquery";
-import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
+import { NHSPanelWithLabel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
 
 class NationalStatistics extends React.Component {
     constructor(props) {
@@ -31,14 +30,55 @@ class NationalStatistics extends React.Component {
                 <HeaderMenu/>
                 <NHSContainer>
                     <NHSWrapper>
-                        <NHSPanel>
+                    <NHSPanelWithLabel style={{backgroundColor: '#fff'}}>
+                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                            National Statistics
+                        </NHSPanelTitle>
+                        <NHSPanelBody>
+                            <Tab.Container defaultActiveKey="episodeScores">
+                                <Nav variant="tabs"
+                                    style={{ marginBottom: '40px' }}>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="episodeScores">Episode Scores Range</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="admin_gender">Gender Distribution</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="averageAge">Age Distribution</Nav.Link>
+                                    </Nav.Item>
+                                    {/* <Nav.Item>
+                                        <Nav.Link eventKey="indirectOximetry">Oxygen Saturation</Nav.Link>
+                                    </Nav.Item> */}
+                                </Nav>
+                                <Tab.Content>
+                                    <Tab.Pane eventKey="episodeScores">
+                                        <div><RangeEpisodeScoresGraph /></div>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="admin_gender">
+                                        <div><GenderDistributionGraph/></div>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="averageAge">
+                                        <div></div>
+                                    </Tab.Pane>
+                                    {/* <Tab.Pane eventKey="indirectOximetry">
+                                        <div></div>
+                                    </Tab.Pane> */}
+                                </Tab.Content>
+                            </Tab.Container>
+                        </NHSPanelBody>
+                    </NHSPanelWithLabel>
+                        {/* <NHSPanel>
                             <NHSPanelTitle>
-                                What Is IPROMS?
+                                National Statistics
                             </NHSPanelTitle>
                             <NHSPanelBody>
-                                <div style={{paddingTop:'10px', width: '850px', height: '650px' }}><RangeEpisodeScoresGraph /></div>
+                                <div style={{paddingTop:'10px', width: '850px', height: '550px' }}><RangeEpisodeScoresGraph /></div>
+                                <div><AverageGenderGraph/></div>
                             </NHSPanelBody>
-                        </NHSPanel>
+
+                        </NHSPanel> */}
+                        
                     </NHSWrapper>
                 </NHSContainer>
             </div>
