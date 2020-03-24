@@ -26,11 +26,11 @@ class HeaderMenu extends React.Component {
     handleLogin = (e) => {
         e.preventDefault();
 
-        if(window.localStorage.getItem('id') === 1){
+        if(window.localStorage.getItem('id') == 1){
             window.location.href = '/Patient';
         }
 
-        if(window.localStorage.getItem('id') === 2){
+        if(window.localStorage.getItem('id') == 2){
             window.location.href = '/Clinician';
         }
 
