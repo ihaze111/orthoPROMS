@@ -13,7 +13,6 @@ import NationalStatistics from './views/NationalStatistics';
 import 'nhsuk-frontend/dist/nhsuk.min.js';
 import 'nhsuk-frontend/packages/nhsuk.scss';
 
-
 class App extends React.Component {
 
     startApp = () => {

@@ -50,9 +50,13 @@ function callbackProcessing(result) {
 }
 
 async function getEHRs() {
-    const aql = "select e/ehr_id as ehr_id, e/ehr_status/other_details as" +
-        " other_details," +
-        " e/ehr_status/subject/external_ref/id as nhsNumber, e/time_created as time_created from ehr e";
+    const aql = "select\n" +
+        "    e#ehr_id as ehr_id,\n" +
+        "    e/ehr_status/other_details as other_details,\n" +
+        "    e#ehr_status/subject/external_ref/id as nhsNumber,\n" +
+        "    e#time_created as time_created\n" +
+        "from EHR e\n" +
+        "where e#ehr_status/subject/external_ref/namespace='uk.nhs.nhs_number'";
     return await CDRAQLQuery(aql, callbackProcessing);
 }
 
