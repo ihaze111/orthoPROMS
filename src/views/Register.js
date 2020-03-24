@@ -1,19 +1,16 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import HeaderMenu from "../components/HeaderMenu";
 import { connect } from 'react-redux';
 import qs from "qs";
 
-import { userSignupRequest, sendCode, checkCode } from '../actions/signupActions'
-import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
+import { userSignupRequest, sendCode, checkCode } from '../actions/signupActions';
 import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
 import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
 import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "../components/nhsuk-frontend-react/NHSComponents";
-import NHSCheckbox from "../components/nhsuk-frontend-react/NHSCheckbox";
 import NHSBackLink from "../components/nhsuk-frontend-react/NHSBackLink";
 
 class Register extends React.Component {

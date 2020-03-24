@@ -215,7 +215,7 @@ class Scores extends React.Component {
             e.forEach(el => {
                 this.pushArray(el);
             });
-            this.setState({ scores: e, isLoading: false });
+            this.setState({isLoading: false });
         });
     }
 
@@ -252,13 +252,6 @@ class Scores extends React.Component {
             }
         }
     }
-
-    // if (this.state.painArray.length > 0) {
-    //     return
-    // } else {
-    //     return <p>No scores were found</p>;
-    // }
-
 }
 
 export function ScoresArray(props) {
@@ -303,8 +296,7 @@ class EpisodeScores extends React.Component {
     }
 
     render() {
-        // if (!this.state.episodeScores) return null;
-        // this.pushIntoCategory(this.state.episodeScores);
+        if (!this.state.episodeScores) return null;
         let { isLoading } = this.state;
         if (isLoading) {
             return <p>Loading...</p>;
@@ -345,6 +337,9 @@ class RespirationRate extends React.Component {
     componentDidMount() {
         let promise = getRespirationRateAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
+            e.forEach(el =>{
+                this.pushIntoArrays(el);
+            });
             this.setState({ respirationRate: e });
         });
     }
@@ -359,9 +354,6 @@ class RespirationRate extends React.Component {
     render() {
         if (!this.state.respirationRate) return null;
         // eslint-disable-next-line array-callback-return
-        this.state.respirationRate.map((e) => {
-            this.pushIntoArrays(e);
-        });
         if (this.state.respirationRate.length > 0) {
             return <RespirationRateGraph magnitude={this.state.respiration_magnitude}
                                          time={this.state.time}
@@ -393,6 +385,9 @@ class BloodPressure extends React.Component {
     componentDidMount() {
         let promise = getBloodPressureByEHRId(this.props.ehrId);
         promise.then((e) => {
+            e.forEach(el => {
+                this.pushIntoArrays(el);
+            });
             this.setState({ bloodPressure: e });
         });
     }
@@ -407,9 +402,6 @@ class BloodPressure extends React.Component {
 
     render() {
         if (!this.state.bloodPressure) return null;
-        this.state.bloodPressure.map((e) => {
-            this.pushIntoArrays(e);
-        });
         if (this.state.bloodPressure.length > 0) {
             return <BloodPressureGraph systolic={this.state.systolicRate}
                                        diastolic={this.state.diastolicRate}
@@ -441,6 +433,9 @@ class IndirectOximetry extends React.Component {
     componentDidMount() {
         let promise = getIndirectOximetryAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
+            e.forEach(el => {
+                this.pushIntoArraysandCalculate(el);
+            })
             this.setState({ indirectOximetry: e });
         });
     }
@@ -455,9 +450,6 @@ class IndirectOximetry extends React.Component {
 
     render() {
         if (!this.state.indirectOximetry) return null;
-        this.state.indirectOximetry.map((e) => {
-            this.pushIntoArraysandCalculate(e);
-        });
         if (this.state.indirectOximetry.length > 0) {
             return <OxygenSaturationGraph percent={this.state.concentration}
                                           time={this.state.time}/>
@@ -487,6 +479,9 @@ class HeartRate extends React.Component {
     componentDidMount() {
         let promise = getHeartRatesAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
+            e.forEach(el => {
+                this.pushIntoArrays(el);
+            })
             this.setState({ heartRate: e });
         });
     }
@@ -500,9 +495,6 @@ class HeartRate extends React.Component {
 
     render() {
         if (!this.state.heartRate) return null;
-        this.state.heartRate.map((e) => {
-            this.pushIntoArrays(e);
-        });
         if (this.state.heartRate.length > 0) {
             return <HeartRateGraph heartRates={this.state.heartRateReadings}
                                    time={this.state.time}

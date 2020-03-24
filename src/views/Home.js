@@ -1,6 +1,4 @@
 import React from 'react';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import {NHSButton, NHSButtonSecondary} from "../components/nhsuk-frontend-react/NHSComponents";
 import NHSContainer from '../components/nhsuk-frontend-react/NHSContainer';
 import NHSWrapper from '../components/nhsuk-frontend-react/NHSWrapper';
 import { NHSPanelWithLabel, NHSPanelTitle, NHSPanelBody } from '../components/nhsuk-frontend-react/NHSPanel';

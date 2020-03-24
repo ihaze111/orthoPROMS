@@ -1,6 +1,5 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
 import { logout } from '../actions/authActions';
@@ -16,7 +15,6 @@ import {
     NHSWidthContainer
 } from "./nhsuk-frontend-react/NHSHeader";
 import { NHSVectorChevronRight } from "./nhsuk-frontend-react/NHSIcons";
-import { handleSearch } from '../actions/appActions'
 
 class HeaderMenu extends React.Component {
 
@@ -26,16 +24,13 @@ class HeaderMenu extends React.Component {
     };
 
     handleLogin = (e) => {
-        // !this.props.isAuthenticated && (window.location.href = '/');
-        // window.location.href = '/';
-        // Patient
         e.preventDefault();
 
-        if(window.localStorage.getItem('id') == 1){
+        if(window.localStorage.getItem('id') === 1){
             window.location.href = '/Patient';
         }
 
-        if(window.localStorage.getItem('id') == 2){
+        if(window.localStorage.getItem('id') === 2){
             window.location.href = '/Clinician';
         }
 
