@@ -1,7 +1,7 @@
 import React from "react";
 
 import getCompositions from "../components/Queries/GetCompositions";
-import getEHRBySubjectId from "../components/Queries/GetEHRBySubjectId";
+import getEHRByNHSNumber from "../components/Queries/GetEHRByNHSNumber";
 import getScores from "../components/Queries/GetScores";
 import getEpisodeScores from "../components/Queries/GetEpisodeScores";
 import getRespirationRate from "../components/Queries/GetRespirationRate";
@@ -51,7 +51,7 @@ export class PatientOverview extends React.Component {
 
     componentDidMount() {
         let subjectId = this.props.subjectId;
-        let promise = getEHRBySubjectId(subjectId);
+        let promise = getEHRByNHSNumber(subjectId);
         promise.then(e => {
             this.setState({ ehr: e });
         });
@@ -128,7 +128,7 @@ class Composition extends React.Component {
 
         this.setState({
             page: e,
-            List: e >= 1 ? compositionsFiltered.slice((e-1)*10, e*10) : compositionsFiltered.slice(0, 10) 
+            List: e >= 1 ? compositionsFiltered.slice((e-1)*10, e*10) : compositionsFiltered.slice(0, 10)
         });
     }
 
@@ -146,7 +146,7 @@ class Composition extends React.Component {
             }
             <Pagination current={this.state.page} total={compositionsFiltered.length}  onChange={this.handlePageChange.bind(this)}></Pagination>
             </>
-           
+
         } else {
             return <NHSTr key="noCompositionsRow">
                 <NHSTd key="noCompositionsData" colSpan="4">No compositions were found</NHSTd>

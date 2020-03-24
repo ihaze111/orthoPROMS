@@ -33,7 +33,7 @@ class PatientListtable extends React.Component {
         });
     }
 
-    
+
 
     componentWillReceiveProps (nextProps) {
         let patientLists = nextProps.patientListFiltered
@@ -46,10 +46,10 @@ class PatientListtable extends React.Component {
         let  { patientListFiltered }= this.props
         this.setState({
             page: e,
-            patientList: e >= 1 ? patientListFiltered.slice((e-1)*10, e*10) : patientListFiltered.slice(0, 10) 
+            patientList: e >= 1 ? patientListFiltered.slice((e-1)*10, e*10) : patientListFiltered.slice(0, 10)
         })
     }
-   
+
     render() {
         let { patientListFiltered } = this.props
         let { patientList } = this.state;
@@ -106,7 +106,7 @@ const PatientListTable = connect(
 class PatientList extends React.Component {
     constructor(props) {
         super(props);
-       
+
     }
 
     onChange = e => {
