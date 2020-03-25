@@ -1,15 +1,10 @@
 import React from 'react';
 import CDROptions from "../../components/Queries/CDROptions";
-
-import { Form, Input, RadioGroup } from 'formsy-react-components';
+import { Form } from 'formsy-react-components';
 import getFlatProcessedTemplate from "../../components/GetFlatProcessedTemplate";
-// import JsonFormInputToReact from "../../ehr-template-react-generator/view";
 import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
-// import JsonFormInputToReact from "../../ehr-template-react-generator/view";
-// import NHSFormsyInput from "../../ehr-template-react-generator/NHSFormsyInput";
 import ReactDOM from "react-dom";
 import {
-    NHSPanel,
     NHSPanelBody,
     NHSPanelTitle,
     NHSPanelWithLabel
@@ -103,8 +98,21 @@ export class StructuredSurvey extends React.Component {
     componentDidMount() {
         let promise = getStructuredProcessedTemplate(this.props.templateId);
         promise.then((e) => {
-            this.setState({ canSubmit: this.state.canSubmit, template: e });
+            this.setState({ canSubmit: this.state.canSubmit, template: e, mapping: getMappingOfTemplate(e, []) });
         });
+    }
+
+    backToForm() {
+        document.getElementById('result').hidden = true;
+        document.getElementById('surveyForm').hidden = false;
+    }
+
+    async submitModel(model) {
+        const reply = await commitComposition(model);
+        const element = <p>{JSON.stringify(reply)}</p>;
+        ReactDOM.render(element, document.getElementById('result'));
+        document.getElementById('result').hidden = false;
+        document.getElementById('surveyForm').hidden = true;
     }
 
     disableButton() {
@@ -115,55 +123,81 @@ export class StructuredSurvey extends React.Component {
         this.setState({ canSubmit: true });
     }
 
-    async submit(model) {
-        const reply = await commitComposition(model);
-        const element = <p>{JSON.stringify(reply)}</p>;
+    submitMe(model, thisAccess) {
+        const element = <div>{Object.keys(model).map((e) => {
+            if (thisAccess.state.mapping[e].length == 1) {
+                return <p>{thisAccess.state.mapping[e][0]}: {model[e]}</p>;
+            } else {
+                return <p>{thisAccess.state.mapping[e][0]}: {thisAccess.state.mapping[e][1][model[e]]} </p>
+            }
+        })}
+            <button onClick={this.backToForm}>change</button>
+            <button onClick={() => this.submitModel(model)}>submit</button>
+        </div>;
         ReactDOM.render(element, document.getElementById('result'));
+        document.getElementById('result').hidden = false;
+        document.getElementById('surveyForm').hidden = true;
     }
 
     render() {
         if (!this.state.template) return null;
-        const sample = this.state.template;
+        let sample = this.state.template;
         return (
             <div>
-                <Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+                <Form onValidSubmit={(model) => this.submitMe(model, this)} onValid={this.enableButton} onInvalid={this.disableButton} id={'surveyForm'}>
                     {RecursiveCard({ color: true, ...sample })}
                     <NHSButton type="submit"
                                disabled={!this.state.canSubmit} defaultValue="Submit">Submit</NHSButton>
                 </Form>
-                <span id='result'></span>
+                <div id={'result'} hidden>
+                </div>
             </div>
         );
     }
 }
 
-function RecursiveCard(props) {
-    let children, inputs = null;
+function getMappingOfTemplate(e) {
+    const result = {};
+    getMappingOfTemplateAux(e, []).map((keys) => {
+        if (keys.type == 'options') {
+            const mapping2 = {};
+            keys.inputOptions.map((j) => {
+                mapping2[j.value] = j.label;
+            });
+            result[keys.name] = [keys.label, mapping2];
+        } else {
+            result[keys.name] = [keys.label];
+        }
+    });
+    return result;
+}
+
+function getMappingOfTemplateAux(props, result) {
     if ('children' in props) {
-        children = props.children.map((child) => {
-            const newProps = child;
-            newProps.color = !props.color;
-            return RecursiveCard(newProps);
+        props.children.map((child) => {
+            getMappingOfTemplateAux(child, result);
         });
+    } else if ('inputs' in props) {
+        result.push(props.inputs);
     }
-    let color = '#f0f4f5';
-    if (props.color) {
-        color = 'white';
-    }
-    if ('inputs' in props) {
-        inputs = JsonFormInputToNHSReact(props.inputs);
-    }
+    return result;
+}
+
+
+function RecursiveCard(props) {
+    let color = props.color ? '#ffffff' : '#f0f4f5';
     if ('children' in props) {
         return <NHSPanelWithLabel style={{ backgroundColor: color }}>
             <NHSPanelTitle class="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
             <NHSPanelBody>
-                {inputs}
-                {children}
+                {JsonFormInputToNHSReact(props.inputs)}
+                {props.children.map((child) => {
+                    return RecursiveCard({ ...child, color: !props.color });
+                })}
             </NHSPanelBody>
         </NHSPanelWithLabel>;
     } else if ('inputs' in props) {
         return JsonFormInputToNHSReact(props.inputs);
-    } else {
-        return null;
     }
+    return null;
 }
