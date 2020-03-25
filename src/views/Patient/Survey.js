@@ -5,13 +5,19 @@ import getFlatProcessedTemplate from "../../components/GetFlatProcessedTemplate"
 import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
 import ReactDOM from "react-dom";
 import {
-    NHSPanelBody,
+    NHSPanelBody, NHSPanelConfirmation,
     NHSPanelTitle,
     NHSPanelWithLabel
 } from "../../components/nhsuk-frontend-react/NHSPanel";
 import getStructuredProcessedTemplate from "../../components/GetStructuredProcessedTemplate";
 import * as axios from "axios";
 import { NHSButton } from "../../components/nhsuk-frontend-react/NHSComponents";
+import {
+    NHSSummaryList, NHSSummaryListChange,
+    NHSSummaryListKey,
+    NHSSummaryListRow,
+    NHSSummaryListValue
+} from "../../components/nhsuk-frontend-react/NHSSummaryList";
 
 async function commitComposition(model) {
     let processedResult = [];
@@ -29,15 +35,18 @@ async function commitComposition(model) {
     const options = CDROptions.generatePostAxiosOptions(url, data);
     try {
         const response = await axios(options);
-        // const result = response.data;
+        const result = response.data;
         if (response.status == 201) {
-            processedResult = 'Successfully committed';
+            processedResult = {
+                message: 'Successfully committed',
+                commitId: result.compositionUid
+            };
             // processedResult = result;
         } else {
-            processedResult = 'Error committing';
+            processedResult = { message: 'Error committing' };
         }
     } catch (error) {
-        processedResult = 'Error committing';
+        processedResult = { message: 'Error committing' };
         throw new Error(error);
     }
     return processedResult;
@@ -109,7 +118,24 @@ export class StructuredSurvey extends React.Component {
 
     async submitModel(model) {
         const reply = await commitComposition(model);
-        const element = <p>{JSON.stringify(reply)}</p>;
+        // NHSPanelConfirmation
+        let element;
+        if ('commitId' in reply) {
+             element = <NHSPanelConfirmation>
+                <NHSPanelTitle>{reply.message}</NHSPanelTitle>
+                <NHSPanelBody>
+                    Composition identifier:
+                    <strong>{reply.commitId}</strong>
+                </NHSPanelBody>
+            </NHSPanelConfirmation>;
+        } else {
+            element = <NHSPanelConfirmation>
+                <NHSPanelTitle>{reply.message}</NHSPanelTitle>
+                <NHSPanelBody>
+                    Please try again later, or contact your admin team.
+                </NHSPanelBody>
+            </NHSPanelConfirmation>;
+        }
         ReactDOM.render(element, document.getElementById('result'));
         document.getElementById('result').hidden = false;
         document.getElementById('surveyForm').hidden = true;
@@ -124,15 +150,26 @@ export class StructuredSurvey extends React.Component {
     }
 
     submitMe(model, thisAccess) {
-        const element = <div>{Object.keys(model).map((e) => {
-            if (thisAccess.state.mapping[e].length == 1) {
-                return <p>{thisAccess.state.mapping[e][0]}: {model[e]}</p>;
-            } else {
-                return <p>{thisAccess.state.mapping[e][0]}: {thisAccess.state.mapping[e][1][model[e]]} </p>
-            }
-        })}
-            <button onClick={this.backToForm}>change</button>
-            <button onClick={() => this.submitModel(model)}>submit</button>
+        const element = <div>
+            <h2>Review your answers</h2>
+            <NHSSummaryList>{Object.keys(model).map((e) => {
+                if (thisAccess.state.mapping[e].length == 1) {
+                    return <NHSSummaryListRow>
+                        <NHSSummaryListKey>{thisAccess.state.mapping[e][0]}</NHSSummaryListKey>
+                        <NHSSummaryListValue>{model[e]}</NHSSummaryListValue>
+                        <NHSSummaryListChange onClick={this.backToForm}/>
+                    </NHSSummaryListRow>;
+                } else {
+                    return <NHSSummaryListRow>
+                        <NHSSummaryListKey>{thisAccess.state.mapping[e][0]}</NHSSummaryListKey>
+                        <NHSSummaryListValue>{thisAccess.state.mapping[e][1][model[e]]}</NHSSummaryListValue>
+                        <NHSSummaryListChange onClick={this.backToForm}/>
+                    </NHSSummaryListRow>;
+                }
+            })}
+            </NHSSummaryList>
+            <NHSButton onClick={this.backToForm} style={{ marginRight: '10px' }}>Edit your answers</NHSButton>
+            <NHSButton onClick={() => this.submitModel(model)}>Submit</NHSButton>
         </div>;
         ReactDOM.render(element, document.getElementById('result'));
         document.getElementById('result').hidden = false;
@@ -144,7 +181,8 @@ export class StructuredSurvey extends React.Component {
         let sample = this.state.template;
         return (
             <div>
-                <Form onValidSubmit={(model) => this.submitMe(model, this)} onValid={this.enableButton} onInvalid={this.disableButton} id={'surveyForm'}>
+                <Form onValidSubmit={(model) => this.submitMe(model, this)} onValid={this.enableButton}
+                      onInvalid={this.disableButton} id={'surveyForm'}>
                     {RecursiveCard({ color: true, ...sample })}
                     <NHSButton type="submit"
                                disabled={!this.state.canSubmit} defaultValue="Submit">Submit</NHSButton>
