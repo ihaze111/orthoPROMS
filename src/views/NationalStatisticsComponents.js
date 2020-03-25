@@ -83,23 +83,6 @@ class GenderDistribution extends React.Component{
         this.setState({genders : genderList});
     }
 
-    occurrence = (array) => {
-        var result = {};
-
-        if (array instanceof Array){
-            array.forEach(function (x, i){
-                if (!result[x]){
-                    result[x] = [i];
-                }
-                else{
-                    result[x].push(i);
-                }
-            });
-        }
-        return result;
-    }
-
-
     pushIntoArray(props){
         this.state.admin_genders.push(props);
     }

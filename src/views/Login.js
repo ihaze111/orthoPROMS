@@ -75,17 +75,6 @@ class Login extends React.Component {
 
     }
 
-
-// import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormLabel, NHSButtonSecondary } from './NHSComponents';
-// import NHSHeader from "../components/nhsuk-frontend-react/NHSHeader";
-// import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
-// import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
-
-// class Login extends React.Component {
-//     componentDidMount(){
-//         var id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-//         this.setState({id: id})
-//     }
     render() {
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
@@ -158,52 +147,6 @@ class Login extends React.Component {
 
         );
     }
-
-    // componentDidMount() {
-    //     var xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-
-    //     $(".login").click(function () {
-    //         if (xx === "1") {
-    //             window.location.href = "/Patient?id=" + xx;
-    //         } else if (xx === "2") {
-    //             window.location.href = "/Clinician?id=" + xx;
-    //         } else {
-    //             // TODO: error
-    //         }
-    //     })
-    // }
-
-    // render() {
-    //     return (
-    //         <div>
-    //             <NHSHeader navigationDisabled searchDisabled/>
-    //             <NHSContainer>
-    //                 <NHSWrapper style={{display: 'flex', justifyContent: 'center'}}>
-    //                     <Form>
-    //                         <NHSFormGroup controlId="formBasicEmail">
-    //                             <NHSFormLabel>Email address</NHSFormLabel>
-    //                             <NHSFormControl type="email" placeholder="Enter email"/>
-    //                         </NHSFormGroup>
-
-    //                         <NHSFormGroup controlId="formBasicPassword">
-    //                             <NHSFormLabel>Password</NHSFormLabel>
-    //                             <NHSFormControl type="password" placeholder="Password"/>
-    //                         </NHSFormGroup>
-    //                         <Form.Group controlId="formBasicCheckbox">
-    //                             <Form.Check type="checkbox" label="Keep me logged in"/>
-    //                         </Form.Group>
-    //                         <NHSButton className="login">Log in</NHSButton>&nbsp;&nbsp;&nbsp;&nbsp;
-    //                         <a href="/Register">
-    //                             <NHSButton>Register</NHSButton>
-    //                         </a><br/>
-    //                         <Button variant="link" onClick={this.handleClick}>Forgot your password?</Button>
-    //                     </Form>
-    //                 </NHSWrapper>
-    //             </NHSContainer>
-    //         </div>
-
-    //     );
-    // }
 }
 
 export default connect(null, { login, googleLogin })(Login)

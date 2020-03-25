@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import Card from 'react-bootstrap/Card';
 import Tab from 'react-bootstrap/Tab';
 import Alert from 'react-bootstrap/Alert';
 import Nav from 'react-bootstrap/Nav';
 
 import $ from 'jquery';
-import Container from "react-bootstrap/Container";
 
 import HeaderMenu from "../../components/HeaderMenu";
 import * as PropTypes from "prop-types";
@@ -22,14 +20,10 @@ import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 import { handleSearch } from "../../actions/appActions";
 import { StructuredSurvey, FlatSurvey } from "./Survey";
-import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
-import { NHSTableWrapperTest } from "../../components/nhsuk-frontend-react/NHSTableWrapperTest";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
-
-// import Chart1 from "../../components/Graphs/Chart1";
 
 class PatientSelf extends React.Component {
   constructor(props) {
