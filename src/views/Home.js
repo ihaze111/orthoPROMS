@@ -1,9 +1,9 @@
 import React from 'react';
-import NHSContainer from '../components/nhsuk-frontend-react/NHSContainer';
-import NHSWrapper from '../components/nhsuk-frontend-react/NHSWrapper';
-import { NHSPanelWithLabel, NHSPanelTitle, NHSPanelBody } from '../components/nhsuk-frontend-react/NHSPanel';
-import { NHSVectorArrowRightCircle } from "../components/nhsuk-frontend-react/NHSIcons";
-import NHSFooter from "../components/nhsuk-frontend-react/NHSFooter";
+import NHSContainer from '../components/nhsuk-frontend-react/src/NHSContainer';
+import NHSWrapper from '../components/nhsuk-frontend-react/src/NHSWrapper';
+import { NHSPanelWithLabel, NHSPanelTitle, NHSPanelBody } from '../components/nhsuk-frontend-react/src/NHSPanel';
+import { NHSVectorArrowRightCircle } from "../components/nhsuk-frontend-react/src/NHSIcons";
+import NHSFooter from "../components/nhsuk-frontend-react/src/NHSFooter";
 
 
 

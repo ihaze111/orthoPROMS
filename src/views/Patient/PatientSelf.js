@@ -20,11 +20,10 @@ import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 import { handleSearch } from "../../actions/appActions";
 import { StructuredSurvey } from "./Survey";
-import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
-import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
-import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/nhsuk-frontend-react/NHSPanel";
-import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
+import NHSContainer from "../../components/nhsuk-frontend-react/src/NHSContainer";
+import NHSWrapper from "../../components/nhsuk-frontend-react/src/NHSWrapper";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/nhsuk-frontend-react/src/NHSPanel";
+import NHSFooter from "../../components/nhsuk-frontend-react/src/NHSFooter";
 
 class PatientSelf extends React.Component {
     constructor(props) {
@@ -96,7 +95,6 @@ class PatientSelf extends React.Component {
                                 </Tab.Container>
                             </NHSPanelBody>
                         </NHSPanel>
-
                     </NHSWrapper>
                 </NHSContainer>
                 <NHSFooter/>

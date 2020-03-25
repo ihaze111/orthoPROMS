@@ -5,9 +5,9 @@ import Nav from "react-bootstrap/Nav";
 import { RangeEpisodeScoresGraph, GenderDistributeGraph, AgeDistributeGraph } from './NationalStatisticsComponents'
 import { loadEhrId } from "./PatientUtils";
 import $ from "jquery";
-import NHSContainer from "../components/nhsuk-frontend-react/NHSContainer";
-import NHSWrapper from "../components/nhsuk-frontend-react/NHSWrapper";
-import { NHSPanelWithLabel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/NHSPanel";
+import NHSContainer from "../components/nhsuk-frontend-react/src/NHSContainer";
+import NHSWrapper from "../components/nhsuk-frontend-react/src/NHSWrapper";
+import { NHSPanelWithLabel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/src/NHSPanel";
 
 class NationalStatistics extends React.Component {
     constructor(props) {
