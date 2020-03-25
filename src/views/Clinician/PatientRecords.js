@@ -15,7 +15,6 @@ import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
 import NHSBackLink from "../../components/nhsuk-frontend-react/NHSBackLink";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/nhsuk-frontend-react/NHSPanel";
 import NHSFooter from "../../components/nhsuk-frontend-react/NHSFooter";
-import { NHSFormLabel, NHSButton, NHSTextArea, NHSFormGroup, NHSFormHint } from '../../components/nhsuk-frontend-react/NHSComponents';
 import HeaderMenu from "../../components/HeaderMenu";
 
 function PatientRecordsReport(props) {
@@ -36,8 +35,8 @@ class PatientRecords extends React.Component {
         this.props.history.goBack();
     }
 
-    onSubmit = (e) => {
-    }
+    // cliniciansLogOnSubmit = (e) => {
+    // }
 
     componentDidMount() {
         loadEhrId.call(this);
@@ -129,75 +128,7 @@ class PatientRecords extends React.Component {
                                                     <div><EpisodeScoresGraph ehrId={this.state.ehrId}/></div>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="labReport">
-                                                    {/* <PatientRecordsReport
-                                                        content={<div><p>Initial treatment for a broken leg usually
-                                                            begins
-                                                            in an
-                                                            emergency room or
-                                                            urgent care clinic. Here, doctors typically evaluate
-                                                            your injury
-                                                            and
-                                                            immobilize your leg with a splint. If you have a
-                                                            displaced
-                                                            fracture,
-                                                            your
-                                                            doctor may need to manipulate the pieces back into their
-                                                            proper
-                                                            positions
-                                                            before applying a splint — a process called reduction.
-                                                            Some
-                                                            fractures are
-                                                            splinted for a day to allow swelling to subside before
-                                                            they are
-                                                            casted.</p>
-                                                            <p>After your cast or splint is removed, you'll likely
-                                                                need
-                                                                rehabilitation
-                                                                exercises or physical therapy to reduce stiffness
-                                                                and
-                                                                restore
-                                                                movement
-                                                                in
-                                                                the injured leg. Because you haven't moved your leg
-                                                                for a
-                                                                while,
-                                                                you may
-                                                                even have stiffness and weakened muscles in
-                                                                uninjured areas.
-                                                                Rehabilitation
-                                                                can help, but it may take up to several months — or
-                                                                even
-                                                                longer
-                                                                — for
-                                                                complete healing of severe injuries.</p>
-                                                            <p>For some injuries, your doctor may also recommend an
-                                                                external
-                                                                fixation
-                                                                device
-                                                                — a frame outside your leg attached to the bone with
-                                                                pins.
-                                                                This
-                                                                device
-                                                                provides stability during the healing process and is
-                                                                usually
-                                                                removed
-                                                                after
-                                                                about six to eight weeks. There's a risk of
-                                                                infection around
-                                                                the
-                                                                surgical
-                                                                pins connected to the external fixation device.</p>
-                                                            <p>What Can You Do?</p>
-                                                            <p>1.Detailed descriptions of the symptoms and the
-                                                                precipitating
-                                                                event</p>
-                                                            <p>2.Information about past medical problems</p>
-                                                            <p>3.All the medications and dietary supplements you or
-                                                                your
-                                                                child
-                                                                takes</p>
-                                                            <p>4.Questions you want to ask the doctor</p>
-                                                        </div>}/><br/>
+                                                    {/*
                                                     <NHSFormGroup>
                                                         <NHSFormLabel>
                                                             <strong>Clinician's Log</strong>
@@ -206,7 +137,7 @@ class PatientRecords extends React.Component {
                                                             Record any findings and records of this patient here.
                                                         </NHSFormHint>
                                                         <NHSTextArea id="log" name="log" rows="4" aria-describedby="log-hint"></NHSTextArea><br/>
-                                                        <NHSButton onClick={this.onSubmit} type="submit">Submit</NHSButton>
+                                                        <NHSButton onClick={this.cliniciansLogOnSubmit} type="submit">Submit</NHSButton>
                                                     </NHSFormGroup> */}
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
                                                         <NHSPanelTitle class="nhsuk-panel-with-label__label">

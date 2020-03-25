@@ -39,7 +39,6 @@ class Reset extends React.Component {
     }
 
     onChange = (e) => {
-        // console.log(e.target.name, e.target.value);
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -93,7 +92,6 @@ class Reset extends React.Component {
             return alert('Please enter your e-mail.')
         }
 
-        // 发送验证码
         this.props.sendCode(this.state).then(
             res => {
                 if (res.data.code === 200) {

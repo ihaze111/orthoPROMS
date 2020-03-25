@@ -63,12 +63,7 @@ class About extends React.Component {
                                 </div>
                             </NHSPanelBody>
                         </NHSPanel>
-                        {/* <Accordion defaultActiveKey="1"> */}
                         <NHSPanel>
-                            {/* <Accordion.Toggle as={Card.Header} eventKey="0">
-                            Developers
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0"> */}
                             <NHSPanelTitle>
                                 Developers
                             </NHSPanelTitle>
@@ -93,13 +88,8 @@ class About extends React.Component {
                                     </Table>
                                 </div>
                             </NHSPanelBody>
-                            {/* </Accordion.Collapse> */}
                         </NHSPanel>
                         <NHSPanel>
-                            {/* <Accordion.Toggle as={Card.Header} eventKey="0">
-                            Our Partners
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0"> */}
                             <NHSPanelTitle>
                                 Our Partners
                             </NHSPanelTitle>
@@ -133,9 +123,7 @@ class About extends React.Component {
                                     </div>
                                 </div>
                             </NHSPanelBody>
-                            {/* </Accordion.Collapse> */}
                         </NHSPanel>
-                        {/* </Accordion> */}
                     </NHSWrapper>
                 </NHSContainer>
                 <NHSFooter/>

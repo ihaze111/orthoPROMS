@@ -47,9 +47,6 @@ class NationalStatistics extends React.Component {
                                     <Nav.Item>
                                         <Nav.Link eventKey="averageAge">Age Distribution</Nav.Link>
                                     </Nav.Item>
-                                    {/* <Nav.Item>
-                                        <Nav.Link eventKey="indirectOximetry">Oxygen Saturation</Nav.Link>
-                                    </Nav.Item> */}
                                 </Nav>
                                 <Tab.Content>
                                     <Tab.Pane eventKey="episodeScores">
@@ -61,24 +58,10 @@ class NationalStatistics extends React.Component {
                                     <Tab.Pane eventKey="averageAge">
                                         <div><AgeDistributeGraph/></div>
                                     </Tab.Pane>
-                                    {/* <Tab.Pane eventKey="indirectOximetry">
-                                        <div></div>
-                                    </Tab.Pane> */}
                                 </Tab.Content>
                             </Tab.Container>
                         </NHSPanelBody>
                     </NHSPanelWithLabel>
-                        {/* <NHSPanel>
-                            <NHSPanelTitle>
-                                National Statistics
-                            </NHSPanelTitle>
-                            <NHSPanelBody>
-                                <div style={{paddingTop:'10px', width: '850px', height: '550px' }}><RangeEpisodeScoresGraph /></div>
-                                <div><AverageGenderGraph/></div>
-                            </NHSPanelBody>
-
-                        </NHSPanel> */}
-                        
                     </NHSWrapper>
                 </NHSContainer>
             </div>

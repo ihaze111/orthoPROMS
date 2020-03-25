@@ -1,10 +1,7 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Table from 'react-bootstrap/Table';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
 import getAllEHRsInCDR from "../../components/Queries/getAllEHRsInCDR";
-import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
 import { NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr } from "../../components/nhsuk-frontend-react/NHSTableWrapperTest";
