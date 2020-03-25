@@ -76,7 +76,7 @@ class PatientRecords extends React.Component {
                                                 <Tab.Pane eventKey="vitals">
                                                     <PatientOverview subjectId={subjectId}/>
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
-                                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                                                        <NHSPanelTitle className="nhsuk-panel-with-label__label">
                                                             Patient's History
                                                         </NHSPanelTitle>
                                                         <NHSPanelBody>
@@ -140,7 +140,7 @@ class PatientRecords extends React.Component {
                                                         <NHSButton onClick={this.cliniciansLogOnSubmit} type="submit">Submit</NHSButton>
                                                     </NHSFormGroup> */}
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
-                                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">
+                                                        <NHSPanelTitle className="nhsuk-panel-with-label__label">
                                                             Laboratory Orders and Reports
                                                         </NHSPanelTitle>
                                                         <NHSPanelBody>

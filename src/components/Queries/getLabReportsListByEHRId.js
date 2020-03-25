@@ -8,7 +8,6 @@ async function getLabReportsListByEHRId(ehrId) {
                 result.resultSet[i].test_timestamp = formatTime(result.resultSet[i].test_timestamp);
             }
         }
-        console.log(result.resultSet);
         return result.resultSet ? result.resultSet : [];
     });
 }
