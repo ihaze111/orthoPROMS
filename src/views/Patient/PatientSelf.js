@@ -21,7 +21,7 @@ import Form from "react-bootstrap/Form";
 
 import { connect } from "react-redux";
 import { handleSearch } from "../../actions/appActions";
-import { StructuredSurvey, FlatSurvey } from "./Survey";
+import { StructuredSurvey } from "./Survey";
 import NHSHeader from "../../components/nhsuk-frontend-react/NHSHeader";
 import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
 import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
@@ -95,7 +95,7 @@ class PatientSelf extends React.Component {
                       </Tab.Pane>
                       <Tab.Pane eventKey="survey">
           {/*<StructuredSurvey templateId={'NES-ACP_COVID.v0.0'} />*/}
-<StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>
+<StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'} ehrId={this.state.ehrId}/>
                         {/*<StructuredSurvey templateId={'WHO - Suspected Covid-19 assessment.v0'}/>*/}
                         {/*<FlatSurvey templateId={'Foot_and_Ankle_PROMs-v0'}/>*/}
                       </Tab.Pane>

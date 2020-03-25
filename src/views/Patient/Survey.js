@@ -19,9 +19,9 @@ import {
     NHSSummaryListValue
 } from "../../components/nhsuk-frontend-react/NHSSummaryList";
 
-async function commitComposition(model) {
+async function commitComposition(model, ehrId, templateId) {
     let processedResult = [];
-    const url = '/rest/v1/composition?ehrId=32a2d984-510b-40f8-8c4d-7e1556082455&templateId=Foot_and_Ankle_PROMs-v0&committerName=Dr nullnull&format=FLAT';
+    const url = '/rest/v1/composition?ehrId=' + ehrId + '&templateId=' + templateId + '&format=FLAT';
     const data = {
         ...model,
         "ctx/language": "en",
@@ -117,7 +117,7 @@ export class StructuredSurvey extends React.Component {
     }
 
     async submitModel(model) {
-        const reply = await commitComposition(model);
+        const reply = await commitComposition(model, this.props.ehrId, this.props.templateId);
         // NHSPanelConfirmation
         let element;
         if ('commitId' in reply) {
