@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
 import { logout } from '../actions/authActions';
 import { GoogleLogout } from 'react-google-login'
-import { NHSSearch } from "./nhsuk-frontend-react/src/NHSSearch";
+import { NHSSearch } from "./react-styled-nhs/src/NHSSearch";
 import {
     NHSAppLogo, NHSHeader, NHSHeaderContainer,
     NHSHeaderContent,
@@ -13,8 +13,8 @@ import {
     NHSNav,
     NHSNavLink,
     NHSWidthContainer
-} from "./nhsuk-frontend-react/src/NHSHeader";
-import { NHSVectorChevronRight } from "./nhsuk-frontend-react/src/NHSIcons";
+} from "./react-styled-nhs/src/NHSHeader";
+import { NHSVectorChevronRight } from "./react-styled-nhs/src/NHSIcons";
 
 class HeaderMenu extends React.Component {
 

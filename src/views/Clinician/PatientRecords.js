@@ -10,11 +10,11 @@ import Nav from "react-bootstrap/Nav";
 import { getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NHSContainer from "../../components/nhsuk-frontend-react/src/NHSContainer";
-import NHSWrapper from "../../components/nhsuk-frontend-react/src/NHSWrapper";
-import NHSBackLink from "../../components/nhsuk-frontend-react/src/NHSBackLink";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/nhsuk-frontend-react/src/NHSPanel";
-import NHSFooter from "../../components/nhsuk-frontend-react/src/NHSFooter";
+import NHSContainer from "../../components/react-styled-nhs/src/NHSContainer";
+import NHSWrapper from "../../components/react-styled-nhs/src/NHSWrapper";
+import NHSBackLink from "../../components/react-styled-nhs/src/NHSBackLink";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/react-styled-nhs/src/NHSPanel";
+import NHSFooter from "../../components/react-styled-nhs/src/NHSFooter";
 import HeaderMenu from "../../components/HeaderMenu";
 
 function PatientRecordsReport(props) {

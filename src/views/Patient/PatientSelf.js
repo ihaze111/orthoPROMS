@@ -20,10 +20,10 @@ import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 import { handleSearch } from "../../actions/appActions";
 import { StructuredSurvey } from "./Survey";
-import NHSContainer from "../../components/nhsuk-frontend-react/src/NHSContainer";
-import NHSWrapper from "../../components/nhsuk-frontend-react/src/NHSWrapper";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/nhsuk-frontend-react/src/NHSPanel";
-import NHSFooter from "../../components/nhsuk-frontend-react/src/NHSFooter";
+import NHSContainer from "../../components/react-styled-nhs/src/NHSContainer";
+import NHSWrapper from "../../components/react-styled-nhs/src/NHSWrapper";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/react-styled-nhs/src/NHSPanel";
+import NHSFooter from "../../components/react-styled-nhs/src/NHSFooter";
 
 class PatientSelf extends React.Component {
     constructor(props) {

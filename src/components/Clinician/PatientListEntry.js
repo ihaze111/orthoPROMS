@@ -1,5 +1,5 @@
 import React from 'react';
-import { NHSTd, NHSTr } from "../nhsuk-frontend-react/src/NHSTableWrapperTest";
+import { NHSTd, NHSTr } from "../react-styled-nhs/src/NHSTableWrapperTest";
 import * as PropTypes from "prop-types";
 
 /**

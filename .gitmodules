@@ -10,6 +10,6 @@
 [submodule "src/ehr-template-processor"]
 	path = src/ehr-template-processor
 	url = git@github.com:charlie-g-cowan/ehr-template-processor.git
-[submodule "src/components/nhsuk-frontend-react"]
-	path = src/components/nhsuk-frontend-react
-	url = git@github.com:charlie-g-cowan/nhsuk-frontend-react.git
+[submodule "src/components/react-styled-nhs"]
+	path = src/components/react-styled-nhs
+	url = git@github.com:charlie-g-cowan/react-styled-nhs.git

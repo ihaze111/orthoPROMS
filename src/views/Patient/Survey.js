@@ -8,16 +8,16 @@ import {
     NHSPanelBody, NHSPanelConfirmation,
     NHSPanelTitle,
     NHSPanelWithLabel
-} from "../../components/nhsuk-frontend-react/src/NHSPanel";
+} from "../../components/react-styled-nhs/src/NHSPanel";
 import getStructuredProcessedTemplate from "../../components/GetStructuredProcessedTemplate";
 import * as axios from "axios";
-import { NHSButton } from "../../components/nhsuk-frontend-react/src/NHSComponents";
+import { NHSButton } from "../../components/react-styled-nhs/src/NHSComponents";
 import {
     NHSSummaryList, NHSSummaryListChange,
     NHSSummaryListKey,
     NHSSummaryListRow,
     NHSSummaryListValue
-} from "../../components/nhsuk-frontend-react/src/NHSSummaryList";
+} from "../../components/react-styled-nhs/src/NHSSummaryList";
 
 async function commitComposition(model, ehrId, templateId) {
     let processedResult = [];

@@ -28,7 +28,7 @@ import {
     NHSSummaryListKey,
     NHSSummaryListRow,
     NHSSummaryListValue
-} from "../components/nhsuk-frontend-react/src/NHSSummaryList";
+} from "../components/react-styled-nhs/src/NHSSummaryList";
 import {
     NHSTable,
     NHSTableWrapper,
@@ -37,7 +37,7 @@ import {
     NHSTh,
     NHSTHead,
     NHSTr
-} from "../components/nhsuk-frontend-react/src/NHSTableWrapperTest";
+} from "../components/react-styled-nhs/src/NHSTableWrapperTest";
 
 import { connect } from "react-redux";
 import { setCompositions } from "../actions/appActions";

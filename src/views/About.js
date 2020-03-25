@@ -1,9 +1,9 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import NHSContainer from "../components/nhsuk-frontend-react/src/NHSContainer";
-import NHSWrapper from "../components/nhsuk-frontend-react/src/NHSWrapper";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/nhsuk-frontend-react/src/NHSPanel";
-import NHSFooter from "../components/nhsuk-frontend-react/src/NHSFooter";
+import NHSContainer from "../components/react-styled-nhs/src/NHSContainer";
+import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/react-styled-nhs/src/NHSPanel";
+import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
 import HeaderMenu from "../components/HeaderMenu";
 
 
