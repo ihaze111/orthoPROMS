@@ -1,6 +1,6 @@
 import {CSVLink} from "react-csv";
 import React from 'react';
-import { NHSButton } from "./nhsuk-frontend-react/NHSComponents";
+import { NHSButton } from "./nhsuk-frontend-react/src/NHSComponents";
 
 export function DownloadCSV(props){
     /**

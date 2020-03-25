@@ -2,9 +2,9 @@ import React from 'react';
 import HeaderMenu from "../../components/HeaderMenu";
 import PatientListEntry from "../../components/Clinician/PatientListEntry";
 import getAllEHRsInCDR from "../../components/Queries/getAllEHRsInCDR";
-import NHSContainer from "../../components/nhsuk-frontend-react/NHSContainer";
-import NHSWrapper from "../../components/nhsuk-frontend-react/NHSWrapper";
-import { NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr } from "../../components/nhsuk-frontend-react/NHSTableWrapperTest";
+import NHSContainer from "../../components/nhsuk-frontend-react/src/NHSContainer";
+import NHSWrapper from "../../components/nhsuk-frontend-react/src/NHSWrapper";
+import { NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr } from "../../components/nhsuk-frontend-react/src/NHSTableWrapperTest";
 import { connect } from 'react-redux'
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
