@@ -17,13 +17,6 @@ import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../
 import NHSFooter from "../../components/nhsuk-frontend-react/src/NHSFooter";
 import HeaderMenu from "../../components/HeaderMenu";
 
-function PatientRecordsReport(props) {
-    return <div style={{ width: "90%" }}>
-        <h3>REPORT</h3>
-        {props.content}
-    </div>;
-}
-
 class PatientRecords extends React.Component {
     constructor(props) {
         super(props);
