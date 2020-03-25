@@ -44,6 +44,7 @@ class PatientSelf extends React.Component {
 
     render() {
         let subjectId = getSubjectId(this.props.location.search);
+        // let subjectId = this.props.nhsNumber;
         let { search } = this.props;
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
@@ -105,7 +106,8 @@ class PatientSelf extends React.Component {
 
 export default connect(
     state => ({
-        search: state.app.search
+        search: state.app.search,
+        nhsNumber: state.auth.user.userJson.nhsNumber
     }),
     {
         handleSearch

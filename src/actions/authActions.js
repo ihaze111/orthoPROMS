@@ -1,18 +1,17 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode' 
+import jwtDecode from 'jwt-decode'
 import {
     SET_CURRENT_USER
 } from '../constants'
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 
 export const setCurrentUser = (user, isGoogleLogin) => {
-
     let obj = {
         type: SET_CURRENT_USER,
         user,
         isGoogleLogin: isGoogleLogin
     };
-    return obj
+    return obj;
 };
 
 
@@ -25,7 +24,7 @@ export const login = data => {
                     let isGoogleLogin = false;
                     localStorage.setItem('jwtToken', token);
                     localStorage.setItem('isGoogleLogin', false);
-                    setAuthorizationToken(token); 
+                    setAuthorizationToken(token);
                     let user = jwtDecode(token).userJson;
                     dispatch(setCurrentUser(user, isGoogleLogin));
                 }

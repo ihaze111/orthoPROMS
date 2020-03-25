@@ -48,7 +48,7 @@ class HeaderMenu extends React.Component {
     onChange = e => {
         // this.setState({[e.target.name]: e.target.value})
         this.props.handleSearch(e.target.value)
-    }
+    };
 
     handleIPROMS = () => {
         if (window.confirm("Exiting to the home page will log you out, are you sure you want to leave？")) {

@@ -1,11 +1,11 @@
 import { SET_CURRENT_USER } from '../constants'
-import isEmpty from 'lodash/isEmpty' 
+import isEmpty from 'lodash/isEmpty'
 
 const initialState = {
     isAuthenticated: false,
     user: {},
-    isGoogleLogin: false 
-}
+    isGoogleLogin: false
+};
 
 const auth = (state = initialState, action = {}) => {
     switch (action.type) {
@@ -14,10 +14,10 @@ const auth = (state = initialState, action = {}) => {
                 isAuthenticated: !isEmpty(action.user),
                 user: action.user,
                 isGoogleLogin: action.isGoogleLogin
-            }
+            };
         default:
             return state;
     }
-}
+};
 
 export default auth;

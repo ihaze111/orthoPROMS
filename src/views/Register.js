@@ -16,7 +16,7 @@ import NHSBackLink from "../components/react-styled-nhs/src/NHSBackLink";
 class Register extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             email: '',
             password: '',
@@ -28,21 +28,22 @@ class Register extends React.Component {
             clearInterval: false,
             btnText: 'Send Code',
             history: require('history').createBrowserHistory()
-        }
+        };
     }
 
     onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
+        this.setState({ [e.target.name]: e.target.value });
+    };
 
     goback = () => {
         this.state.history.goBack();
-    }
+    };
 
     onSubmit = (e) => {
         e.preventDefault();
         let email = this.state.email;
         let code = this.state.code;
+
         if (code === '') {
             return alert('Please enter code')
         }
@@ -68,35 +69,31 @@ class Register extends React.Component {
                         (res) => {
                             // 通知成功
                             if (res.data.code === 200) {
-                                console.log('注册成功')
-                                alert(res.data.message)
-                                this.goback()
+                                console.log('Registration success');
+                                alert(res.data.message);
+                                this.goback();
                             } else {
-                                alert(res.data.message)
-
+                                alert(res.data.message);
                             }
-
                         },
                         (res) => {
                             // 通知错误
-                            console.log(res)
+                            console.log(res);
                         }
                     )
                 } else {
-                    alert(res.data.message)
+                    alert(res.data.message);
                 }
             },
             res => {
-                console.log(res.message)
+                console.log(res.message);
             }
         )
-
-    }
+    };
 
     handleClick = (e) => {
         e.preventDefault();
-
-        let email = this.state.email
+        let email = this.state.email;
         if (email === '') {
             return alert('Please enter your e-mail.')
         }
@@ -105,20 +102,20 @@ class Register extends React.Component {
         this.props.sendCode(this.state).then(
             res => {
                 if (res.data.code === 200) {
-                    alert(res.data.message)
+                    alert(res.data.message);
                     this.count()
                 } else {
-                    alert(res.data.message)
+                    alert(res.data.message);
                 }
             },
             res => {
                 console.log(res)
             }
-        )
-    }
+        );
+    };
 
     count = () => {
-        let timer = this.state.timer
+        let timer = this.state.timer;
         let siv = setInterval(() => {
             this.setState({ timer: (timer--), btnText: timer, discodeBtn: true }, () => {
                 if (timer === 0) {
@@ -127,7 +124,7 @@ class Register extends React.Component {
                 }
             });
         }, 1000);
-    }
+    };
 
     componentDidMount() {
         let id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
@@ -144,8 +141,6 @@ class Register extends React.Component {
     }
 
     render() {
-
-
         return (
             <div>
                 <HeaderMenu navigationDisabled searchDisabled/>
@@ -197,6 +192,15 @@ class Register extends React.Component {
                                                 <NHSFormLabel>Confirmation Password</NHSFormLabel>
                                                 <NHSFormControl type="password" placeholder="Password"
                                                                 name="passwordConfirmation" onChange={this.onChange}/>
+                                            </NHSFormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <NHSFormGroup controlId="nhsNumber">
+                                                <NHSFormLabel>Confirmation Password</NHSFormLabel>
+                                                <NHSFormControl type="number" placeholder="NHS Number"
+                                                                name="nhsNumber" onChange={this.onChange}/>
                                             </NHSFormGroup>
                                         </Col>
                                     </Row>

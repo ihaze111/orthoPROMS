@@ -3,8 +3,6 @@ import HeaderMenu from '../components/HeaderMenu';
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import { RangeEpisodeScoresGraph, GenderDistributeGraph, AgeDistributeGraph } from './NationalStatisticsComponents'
-import { loadEhrId } from "./PatientUtils";
-import $ from "jquery";
 import NHSContainer from "../components/react-styled-nhs/src/NHSContainer";
 import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
 import { NHSPanelWithLabel, NHSPanelBody, NHSPanelTitle } from "../components/react-styled-nhs/src/NHSPanel";
@@ -15,13 +13,6 @@ class NationalStatistics extends React.Component {
         this.state = {
             painArray: []
         };
-    }
-
-    componentDidMount() {
-        loadEhrId.call(this);
-
-        $('#submitSurveyDialog').hide();
-
     }
 
     render() {
