@@ -8,7 +8,6 @@ import * as PropTypes from "prop-types";
 class HeartRateGraph extends Component {
     
     render() {
-        console.log(this.props);
         return (
             <GeneralLineChart id={"myHeart"} labels={this.props.time} data={
                 [

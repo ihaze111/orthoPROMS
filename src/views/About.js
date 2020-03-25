@@ -29,9 +29,6 @@ class About extends React.Component {
         };
       }
 
-    componentWillMount () {
-
-    }
     render() {
         const { color } = this.state;
         return (

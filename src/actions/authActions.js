@@ -12,7 +12,6 @@ export const setCurrentUser = (user, isGoogleLogin) => {
         user,
         isGoogleLogin: isGoogleLogin
     };
-    console.log(obj);
     return obj
 };
 

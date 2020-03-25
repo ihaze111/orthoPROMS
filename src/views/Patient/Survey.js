@@ -226,7 +226,7 @@ function RecursiveCard(props) {
     let color = props.color ? '#ffffff' : '#f0f4f5';
     if ('children' in props) {
         return <NHSPanelWithLabel style={{ backgroundColor: color }}>
-            <NHSPanelTitle class="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
+            <NHSPanelTitle className="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
             <NHSPanelBody>
                 {JsonFormInputToNHSReact(props.inputs)}
                 {props.children.map((child) => {
