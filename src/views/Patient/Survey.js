@@ -2,7 +2,7 @@ import React from 'react';
 import CDROptions from "../../components/Queries/CDROptions";
 import { Form } from 'formsy-react-components';
 import getFlatProcessedTemplate from "../../components/GetFlatProcessedTemplate";
-import JsonFormInputToNHSReact from "../../ehr-template-react-generator/viewNHS";
+import JsonFormInputToNHSReact from "../../ehr-template-react-generator/src/JsonFormInputToNHSReact";
 import ReactDOM from "react-dom";
 import {
     NHSPanelBody, NHSPanelConfirmation,
