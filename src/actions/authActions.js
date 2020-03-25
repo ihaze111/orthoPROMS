@@ -1,5 +1,5 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode' // 解析token
+import jwtDecode from 'jwt-decode' 
 import {
     SET_CURRENT_USER
 } from '../constants'
@@ -24,9 +24,9 @@ export const login = data => {
                 if (res.data.code === 200) {
                     const token = res.data.token;
                     let isGoogleLogin = false;
-                    localStorage.setItem('jwtToken', token); //将token存到localStorage中
+                    localStorage.setItem('jwtToken', token);
                     localStorage.setItem('isGoogleLogin', false);
-                    setAuthorizationToken(token); // 将token放进请求头
+                    setAuthorizationToken(token); 
                     let user = jwtDecode(token).userJson;
                     dispatch(setCurrentUser(user, isGoogleLogin));
                 }

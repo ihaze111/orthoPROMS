@@ -25,8 +25,3 @@ export const reset = data => {
 };
 
 
-// export const isUserExists = identifier=>{
-//     return dispatch =>{
-//         return axios.get(`/api/users/${identifier}`,identifier)
-//     }
-// }
