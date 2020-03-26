@@ -25,14 +25,19 @@ import NHSWrapper from "../../components/react-styled-nhs/src/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/react-styled-nhs/src/NHSPanel";
 import NHSFooter from "../../components/react-styled-nhs/src/NHSFooter";
 import getAllTemplatesInCDR from "../../components/Queries/getAllTemplatesInCDR";
+import NHSFormsyDropdown from "../../ehr-template-react-generator/src/NHSFormsyDropdown";
+import ReactDOM from 'react-dom';
+import { NHSButton } from "../../components/react-styled-nhs/src/NHSComponents";
 
 class PatientSelf extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             painArray: [],
+            templatesList: [],
             activeKey: ""
         };
+        this.onTemplateChange = this.onTemplateChange.bind(this);
     }
 
     componentDidMount() {
@@ -50,12 +55,21 @@ class PatientSelf extends React.Component {
         this.props.handleSearch(e.target.value);
     };
 
+    reloadPage() {
+        window.location.reload();
+    }
+
+    onTemplateChange(e) {
+        ReactDOM.render(<div><NHSButton onClick={this.reloadPage}>Change form</NHSButton><StructuredSurvey key='survey' id='survey' templateId={document.getElementById('select-template').value}
+                                    ehrId={this.state.ehrId}/></div>, document.getElementById('select-survey-form-group'));
+    };
+
     render() {
+        console.log(this.state);
         // let subjectId = getSubjectId(this.props.location.search);
         let subjectId = this.props.nhsNumber;
         let { search } = this.props;
-        return (
-            <div style={{ backgroundColor: '#f0f4f5' }}>
+        return <div style={{ backgroundColor: '#f0f4f5' }}>
                 <HeaderMenu/>
                 <NHSContainer>
                     <NHSWrapper>
@@ -97,16 +111,18 @@ class PatientSelf extends React.Component {
                                                 ehrId={this.state.ehrId}/></div>
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="survey">
+                                            <div id={'select-survey-form-group'}>
                                             <div className="nhsuk-form-group">
-                                                <label className="nhsuk-label">Template</label> <select className="nhsuk-select" id="select-template"
+                                                <label className="nhsuk-label">Template</label>
+                                                <select className="nhsuk-select" id="select-template"
                                                                           name="select-template">
-                                                {/*{this.state.templatesList.map((template) => {*/}
-                                                {/*    return <option value={template.templateId}>{template.templateId}</option>*/}
-                                                {/*})}*/}
+                                                {this.state.templatesList.map((template) => {
+                                                    return <option value={template.templateId}>{template.templateId}</option>
+                                                })}
                                             </select>
+                                                <NHSButton onClick={this.onTemplateChange}>Show</NHSButton>
                                             </div>
-                                            <StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}
-                                                              ehrId={this.state.ehrId}/>
+                                            </div>
                                         </Tab.Pane>
                                     </Tab.Content>
                                 </Tab.Container>
@@ -115,8 +131,7 @@ class PatientSelf extends React.Component {
                     </NHSWrapper>
                 </NHSContainer>
                 <NHSFooter/>
-            </div>
-        );
+            </div>;
     }
 }
 
