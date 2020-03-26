@@ -1,15 +1,15 @@
 [submodule "ehr-template-react-generator"]
 	path = ehr-template-react-generator
-	url = ../ehr-template-react-generator.git
+	url = ./ehr-template-react-generator.git
 [submodule "ehr-template-processor"]
 	path = ehr-template-processor
-	url = ../ehr-template-processor.git
+	url = ./ehr-template-processor.git
 [submodule "src/ehr-template-react-generator"]
 	path = src/ehr-template-react-generator
-	url = ../ehr-template-react-generator.git
+	url = ./ehr-template-react-generator.git
 [submodule "src/ehr-template-processor"]
 	path = src/ehr-template-processor
-	url = ../ehr-template-processor.git
+	url = ./ehr-template-processor.git
 [submodule "src/components/react-styled-nhs"]
 	path = src/components/react-styled-nhs
-	url = ../react-styled-nhs.git
+	url = ./react-styled-nhs.git
