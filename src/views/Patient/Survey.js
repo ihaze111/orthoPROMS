@@ -36,7 +36,7 @@ async function commitComposition(model, ehrId, templateId) {
     try {
         const response = await axios(options);
         const result = response.data;
-        if (response.status == 201) {
+        if (response.status === 201) {
             processedResult = {
                 message: 'Successfully committed',
                 commitId: result.compositionUid
@@ -159,7 +159,7 @@ export class StructuredSurvey extends React.Component {
         const element = <div>
             <h2>Review your answers</h2>
             <NHSSummaryList>{Object.keys(model).map((e) => {
-                if (thisAccess.state.mapping[e].length == 1) {
+                if (thisAccess.state.mapping[e].length === 1) {
                     return <NHSSummaryListRow>
                         <NHSSummaryListKey>{thisAccess.state.mapping[e][0]}</NHSSummaryListKey>
                         <NHSSummaryListValue>{model[e]}</NHSSummaryListValue>
@@ -203,7 +203,7 @@ export class StructuredSurvey extends React.Component {
 function getMappingOfTemplate(e) {
     const result = {};
     getMappingOfTemplateAux(e, []).map((keys) => {
-        if (keys.type == 'options') {
+        if (keys.type === 'options') {
             const mapping2 = {};
             keys.inputOptions.map((j) => {
                 mapping2[j.value] = j.label;

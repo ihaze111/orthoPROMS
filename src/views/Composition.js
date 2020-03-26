@@ -1,15 +1,7 @@
 import React from 'react';
-import CDROptions from "../components/Queries/CDROptions";
-import {
-    NHSPanelBody, NHSPanelConfirmation,
-    NHSPanelTitle,
-    NHSPanelWithLabel
-} from "../components/react-styled-nhs/src/NHSPanel";
 import getStructuredProcessedTemplate from "../components/GetStructuredProcessedTemplate";
-import * as axios from "axios";
-import { NHSButton } from "../components/react-styled-nhs/src/NHSComponents";
 import {
-    NHSSummaryList, NHSSummaryListChange,
+    NHSSummaryList,
     NHSSummaryListKey,
     NHSSummaryListRow,
     NHSSummaryListValue

@@ -7,10 +7,6 @@ import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
 
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
 

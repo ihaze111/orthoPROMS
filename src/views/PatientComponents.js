@@ -339,17 +339,17 @@ class EpisodeScores extends React.Component {
 
     pushIntoCategory(props) {
         props.map((prop) => {
-            if (prop.episode_identifier == 'Pre-operative') {
+            if (prop.episode_identifier === 'Pre-operative') {
                 this.state.preOp.push(prop.pain);
                 this.state.preOp.push(prop.limitations);
                 this.state.preOp.push(prop.walking);
                 this.state.preOp.push(prop.walking_surfaces);
-            } else if (prop.episode_identifier == '1 week post-operative') {
+            } else if (prop.episode_identifier === '1 week post-operative') {
                 this.state.oneWeekPostOp.push(prop.pain);
                 this.state.oneWeekPostOp.push(prop.limitations);
                 this.state.oneWeekPostOp.push(prop.walking);
                 this.state.oneWeekPostOp.push(prop.walking_surfaces);
-            } else if (prop.episode_identifier == '6 weeks post-operative') {
+            } else if (prop.episode_identifier === '6 weeks post-operative') {
                 this.state.sixWeeksPostOp.push(prop.pain);
                 this.state.sixWeeksPostOp.push(prop.limitations);
                 this.state.sixWeeksPostOp.push(prop.walking);
