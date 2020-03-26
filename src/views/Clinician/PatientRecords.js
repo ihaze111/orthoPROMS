@@ -1,8 +1,19 @@
 import React from 'react';
 import "../../components/Clinician/PatientRecordsStyle.css";
 import {
-    PatientOverview, PatientProgressTable, ScoresArray, EpisodeScoresGraph, RespirationGraph, PressureGraph,
-    OxygenConcentrationGraph, HeartGraph, PatientAllergiesTable, ProceduresTable, LabOrdersTable, LabReportsTable
+    PatientOverview,
+    PatientProgressTable,
+    ScoresArray,
+    EpisodeScoresGraph,
+    RespirationGraph,
+    PressureGraph,
+    OxygenConcentrationGraph,
+    HeartGraph,
+    PatientAllergiesTable,
+    ProceduresTable,
+    LabOrdersTable,
+    LabReportsTable,
+    PatientDemographics
 }
     from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
@@ -39,6 +50,7 @@ class PatientRecords extends React.Component {
     }
 
     render() {
+        if (!this.state.ehrId) return null;
         let subjectId = getSubjectId(this.props.location.search);
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
@@ -70,7 +82,13 @@ class PatientRecords extends React.Component {
                                         <Col sm={9}>
                                             <Tab.Content>
                                                 <Tab.Pane eventKey="vitals">
-                                                    <PatientOverview subjectId={subjectId}/>
+                                                    <NHSPanelWithLabel style={{margin: 0, backgroundColor: '#f0f4f5'}}>
+                                                        <NHSPanelTitle className="nhsuk-panel-with-label__label">Overview</NHSPanelTitle>
+                                                        <NHSPanelBody>
+                                                            <PatientOverview subjectId={subjectId}/>
+                                                            <PatientDemographics ehrId={this.state.ehrId}/>
+                                                        </NHSPanelBody>
+                                                    </NHSPanelWithLabel>
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
                                                         <NHSPanelTitle className="nhsuk-panel-with-label__label">
                                                             Patient's History

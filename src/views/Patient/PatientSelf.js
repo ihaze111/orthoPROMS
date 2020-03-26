@@ -11,7 +11,7 @@ import {
     PatientOverview,
     PatientProgressTable,
     ScoresArray,
-    EpisodeScoresGraph
+    EpisodeScoresGraph, PatientDemographics
 } from "../PatientComponents";
 import { getEHRId, getSubjectId, loadEhrId } from "../PatientUtils";
 import FormControl from "react-bootstrap/FormControl";
@@ -44,7 +44,10 @@ class PatientSelf extends React.Component {
         let promise = getEHRId(this.props.nhsNumber);
         promise.then((e) => {
             this.setState({ ehrId: e });
-        });
+        }).catch((error) => {
+            console.log(error);
+            }
+        );
         let promise2 = getAllTemplatesInCDR();
         promise2.then((e) => {
             this.setState({ templatesList: e });
@@ -60,91 +63,107 @@ class PatientSelf extends React.Component {
     }
 
     onTemplateChange(e) {
-        ReactDOM.render(<div><NHSButton onClick={this.reloadPage}>Change form</NHSButton><StructuredSurvey key='survey' id='survey' templateId={document.getElementById('select-template').value}
-                                    ehrId={this.state.ehrId}/></div>, document.getElementById('select-survey-form-group'));
+        ReactDOM.render(<div><NHSButton onClick={this.reloadPage}>Change form</NHSButton><StructuredSurvey key='survey'
+                                                                                                           id='survey'
+                                                                                                           templateId={document.getElementById('select-template').value}
+                                                                                                           ehrId={this.state.ehrId}/>
+        </div>, document.getElementById('select-survey-form-group'));
     };
 
     render() {
+        if (!this.state.ehrId) return <div>No EHR id found for your NHS number</div>;
         console.log(this.state);
         // let subjectId = getSubjectId(this.props.location.search);
         let subjectId = this.props.nhsNumber;
         let { search } = this.props;
+        console.log(this.state.ehrId);
         return <div style={{ backgroundColor: '#f0f4f5' }}>
-                <HeaderMenu/>
-                <NHSContainer>
-                    <NHSWrapper>
-                        <PatientOverview subjectId={subjectId}/>
-                        <NHSPanel>
-                            <NHSPanelTitle>
-                                Details
-                                <Form inline style={{ float: "right" }}>
-                                    <FormControl
-                                        type="text"
-                                        placeholder="Search"
-                                        value={search}
-                                        onChange={this.onChange}
-                                        className="mr-sm-2"
-                                    />
-                                </Form>
-                            </NHSPanelTitle>
-                            <NHSPanelBody>
-                                <Tab.Container defaultActiveKey="myProgress">
-                                    <Nav variant="tabs" style={{ marginBottom: '20px' }}>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="myProgress" className='nhsuk-button' style={{marginRight: '10px'}}>My Progress</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="myData" className='nhsuk-button' style={{marginRight: '10px'}}>My Data</Nav.Link>
-                                        </Nav.Item>
-                                        <Nav.Item>
-                                            <Nav.Link eventKey="survey" className='nhsuk-button'>Survey</Nav.Link>
-                                        </Nav.Item>
-                                    </Nav>
-                                    <Tab.Content>
-                                        <Tab.Pane eventKey="myProgress">
-                                            <PatientProgressTable ehrId={this.state.ehrId}/>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="myData">
-                                            <div><ScoresArray ehrId={this.state.ehrId}/></div>
-                                            <br/><br/><br/>
-                                            <div><EpisodeScoresGraph
-                                                ehrId={this.state.ehrId}/></div>
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="survey">
-                                            <div id={'select-survey-form-group'}>
+            <HeaderMenu/>
+            <NHSContainer>
+                <NHSWrapper>
+                    <NHSPanel>
+                        <NHSPanelTitle>Overview</NHSPanelTitle>
+                        <NHSPanelBody>
+                            <PatientOverview subjectId={subjectId}/>
+                            <PatientDemographics ehrId={this.state.ehrId}/>
+                        </NHSPanelBody>
+                    </NHSPanel>
+                    <NHSPanel>
+                        <NHSPanelTitle>
+                            Details
+                            <Form inline style={{ float: "right" }}>
+                                <FormControl
+                                    type="text"
+                                    placeholder="Search"
+                                    value={search}
+                                    onChange={this.onChange}
+                                    className="mr-sm-2"
+                                />
+                            </Form>
+                        </NHSPanelTitle>
+                        <NHSPanelBody>
+                            <Tab.Container defaultActiveKey="myProgress">
+                                <Nav variant="tabs" style={{ marginBottom: '20px' }}>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="myProgress" className='nhsuk-button'
+                                                  style={{ marginRight: '10px' }}>My Progress</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="myData" className='nhsuk-button'
+                                                  style={{ marginRight: '10px' }}>My Data</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="survey" className='nhsuk-button'>Survey</Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                                <Tab.Content>
+                                    <Tab.Pane eventKey="myProgress">
+                                        <PatientProgressTable ehrId={this.state.ehrId}/>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="myData">
+                                        <div><ScoresArray ehrId={this.state.ehrId}/></div>
+                                        <br/><br/><br/>
+                                        <div><EpisodeScoresGraph
+                                            ehrId={this.state.ehrId}/></div>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="survey">
+                                        <div id={'select-survey-form-group'}>
                                             <div className="nhsuk-form-group">
                                                 <label className="nhsuk-label">Template</label>
                                                 <select className="nhsuk-select" id="select-template"
-                                                                          name="select-template" style={{marginTop: '8px', marginRight: '10px'}} >
-                                                {this.state.templatesList.map((template) => {
-                                                    if (template.templateId == 'Foot_and_Ankle_PROMs-v0') {
-                                                        return <option
-                                                            value={template.templateId} selected="selected">{template.templateId}</option>
-                                                    } else {
-                                                        return <option
-                                                            value={template.templateId}>{template.templateId}</option>
-                                                    }
-                                                })}
-                                            </select>
+                                                        name="select-template"
+                                                        style={{ marginTop: '8px', marginRight: '10px' }}>
+                                                    {this.state.templatesList.map((template) => {
+                                                        if (template.templateId == 'Foot_and_Ankle_PROMs-v0') {
+                                                            return <option
+                                                                value={template.templateId}
+                                                                selected="selected">{template.templateId}</option>
+                                                        } else {
+                                                            return <option
+                                                                value={template.templateId}>{template.templateId}</option>
+                                                        }
+                                                    })}
+                                                </select>
                                                 <NHSButton onClick={this.onTemplateChange}>Show</NHSButton>
                                             </div>
-                                            </div>
-                                        </Tab.Pane>
-                                    </Tab.Content>
-                                </Tab.Container>
-                            </NHSPanelBody>
-                        </NHSPanel>
-                    </NHSWrapper>
-                </NHSContainer>
-                <NHSFooter/>
-            </div>;
+                                        </div>
+                                    </Tab.Pane>
+                                </Tab.Content>
+                            </Tab.Container>
+                        </NHSPanelBody>
+                    </NHSPanel>
+                </NHSWrapper>
+            </NHSContainer>
+            <NHSFooter/>
+        </div>;
     }
 }
 
 export default connect(
     state => ({
         search: state.app.search,
-        nhsNumber: state.auth.isAuthenticated ? (state.auth.isGoogleLogin ? "9999999000" : state.auth.user.userJson.nhsNumber) : ''
+        nhsNumber: state.auth.isAuthenticated ?
+            (state.auth.isGoogleLogin ? "9999999000" : state.auth.user.userJson.nhsNumber) : ''
     }),
     {
         handleSearch

@@ -19,7 +19,7 @@ import BloodPressureGraph from "../components/Graphs/BloodPressureGraph";
 import OxygenSaturationGraph from "../components/Graphs/OxygenSaturationGraph";
 import HeartRateGraph from "../components/Graphs/HeartRateGraph";
 import IndividualScoresRange from "../components/Graphs/IndividualScoresRange";
-import Pagination  from 'rc-pagination';
+import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 import { DownloadCSV } from "../components/DownloadCSV";
 
@@ -41,7 +41,48 @@ import {
 
 import { connect } from "react-redux";
 import { setCompositions } from "../actions/appActions";
+import getPatientDemographicsByEHRId from "../components/Queries/getPatientDemographicsByEHRId";
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/react-styled-nhs/src/NHSPanel";
 
+export class PatientDemographics extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentDidMount() {
+        let promise = getPatientDemographicsByEHRId(this.props.ehrId);
+        promise.then(e => {
+            this.setState({ demographics: e });
+            console.log(e);
+        });
+    }
+
+    render() {
+        if (!this.state.demographics) return <div></div>;
+        return <details className="nhsuk-details nhsuk-expander">
+                <summary className="nhsuk-details__summary">
+    <span className="nhsuk-details__summary-text">
+    Demographic information
+    </span>
+                </summary>
+                <div className="nhsuk-details__text">
+            <h4>Demographic information</h4>
+            <h5>Information stored in seperate demographic record</h5>
+            <NHSPanelBody>
+                <NHSSummaryList>
+                    {this.state.demographics.map((e) => {
+                        return <NHSSummaryListRow>
+                            <NHSSummaryListKey>{e[0]}</NHSSummaryListKey>
+                            <NHSSummaryListValue>{e[1]}</NHSSummaryListValue>
+                        </NHSSummaryListRow>;
+                    })}
+                </NHSSummaryList>
+            </NHSPanelBody>
+        </div>
+        </details>;
+    }
+}
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -60,10 +101,15 @@ export class PatientOverview extends React.Component {
     render() {
         if (!this.state.ehr) return null;
         return <div style={{ display: "flex" }}>
-            <NHSSummaryList style={{ width: '70%' }}>
+            <div style={{ width: '70%' }}>
+            <NHSSummaryList>
                 <NHSSummaryListRow>
                     <NHSSummaryListKey>EHR ID</NHSSummaryListKey>
                     <NHSSummaryListValue>{this.state.ehr.ehrId}</NHSSummaryListValue>
+                </NHSSummaryListRow>
+                <NHSSummaryListRow>
+                    <NHSSummaryListKey>NHS Number</NHSSummaryListKey>
+                    <NHSSummaryListValue>{this.props.subjectId}</NHSSummaryListValue>
                 </NHSSummaryListRow>
                 <NHSSummaryListRow>
                     <NHSSummaryListKey>Birth year</NHSSummaryListKey>
@@ -77,7 +123,12 @@ export class PatientOverview extends React.Component {
                     <NHSSummaryListKey>Birth sex</NHSSummaryListKey>
                     <NHSSummaryListValue>{this.state.ehr.birthSex}</NHSSummaryListValue>
                 </NHSSummaryListRow>
+                <NHSSummaryListRow>
+                    <NHSSummaryListKey>Vital status</NHSSummaryListKey>
+                    <NHSSummaryListValue>{this.state.ehr.vitalStatus}</NHSSummaryListValue>
+                </NHSSummaryListRow>
             </NHSSummaryList>
+            </div>
             <div style={{ width: "30%", alignSelf: "center", textAlign: "center" }}>
                 <img src="./240px-User_icon_2.svg.png"
                      style={{ width: "40%" }} alt=""/>
@@ -89,7 +140,8 @@ export class PatientOverview extends React.Component {
 function PatientProgressTableEntry(props) {
     // TODO: what happens if no NHS number?
     return <NHSTr key={"composition" + props.nhs_number + "no" + props.index}>
-        <NHSTd key={"composition" + props.nhs_number + "no" + props.index + "index"}><a href={'/Composition?compId=' + props.comp_id}>{props.index + 1}</a></NHSTd>
+        <NHSTd key={"composition" + props.nhs_number + "no" + props.index + "index"}><a
+            href={'/Composition?compId=' + props.comp_id}>{props.index + 1}</a></NHSTd>
         <NHSTd key={"composition" + props.nhs_number + "no" + props.index + "nhsNumber"}>{props.nhs_number}</NHSTd>
         <NHSTd
             key={"composition" + props.nhs_number + "no" + props.index + "composerName"}>{props.composer_name}</NHSTd>
@@ -117,18 +169,18 @@ class Composition extends React.Component {
         });
     }
 
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
         let Lists = nextProps.compositionsFiltered;
         this.setState({
-            List: ( Lists || []).slice(0, 10)
+            List: (Lists || []).slice(0, 10)
         })
     }
 
-    handlePageChange (e) {
-        let  { compositionsFiltered } = this.props;
+    handlePageChange(e) {
+        let { compositionsFiltered } = this.props;
         this.setState({
             page: e,
-            List: e >= 1 ? compositionsFiltered.slice((e-1)*10, e*10) : compositionsFiltered.slice(0, 10)
+            List: e >= 1 ? compositionsFiltered.slice((e - 1) * 10, e * 10) : compositionsFiltered.slice(0, 10)
         });
     }
 
@@ -138,13 +190,14 @@ class Composition extends React.Component {
         if (!compositionsFiltered) return null;
         if (compositionsFiltered.length > 0) {
             return <>
-            {
-                List.map((e, index) => {
-                    e.index = index;
-                    return PatientProgressTableEntry(e);
-                })
-            }
-            <Pagination current={this.state.page} total={compositionsFiltered.length}  onChange={this.handlePageChange.bind(this)}></Pagination>
+                {
+                    List.map((e, index) => {
+                        e.index = index;
+                        return PatientProgressTableEntry(e);
+                    })
+                }
+                <Pagination current={this.state.page} total={compositionsFiltered.length}
+                            onChange={this.handlePageChange.bind(this)}></Pagination>
             </>
 
         } else {
@@ -216,7 +269,7 @@ class Scores extends React.Component {
             e.forEach(el => {
                 this.pushArray(el);
             });
-            this.setState({isLoading: false });
+            this.setState({ isLoading: false });
         });
     }
 
@@ -286,22 +339,22 @@ class EpisodeScores extends React.Component {
 
     pushIntoCategory(props) {
         props.map((prop) => {
-           if (prop.episode_identifier == 'Pre-operative') {
-               this.state.preOp.push(prop.pain);
-               this.state.preOp.push(prop.limitations);
-               this.state.preOp.push(prop.walking);
-               this.state.preOp.push(prop.walking_surfaces);
-           } else if (prop.episode_identifier == '1 week post-operative') {
-               this.state.oneWeekPostOp.push(prop.pain);
-               this.state.oneWeekPostOp.push(prop.limitations);
-               this.state.oneWeekPostOp.push(prop.walking);
-               this.state.oneWeekPostOp.push(prop.walking_surfaces);
-           } else if (prop.episode_identifier == '6 weeks post-operative') {
-               this.state.sixWeeksPostOp.push(prop.pain);
-               this.state.sixWeeksPostOp.push(prop.limitations);
-               this.state.sixWeeksPostOp.push(prop.walking);
-               this.state.sixWeeksPostOp.push(prop.walking_surfaces);
-           }
+            if (prop.episode_identifier == 'Pre-operative') {
+                this.state.preOp.push(prop.pain);
+                this.state.preOp.push(prop.limitations);
+                this.state.preOp.push(prop.walking);
+                this.state.preOp.push(prop.walking_surfaces);
+            } else if (prop.episode_identifier == '1 week post-operative') {
+                this.state.oneWeekPostOp.push(prop.pain);
+                this.state.oneWeekPostOp.push(prop.limitations);
+                this.state.oneWeekPostOp.push(prop.walking);
+                this.state.oneWeekPostOp.push(prop.walking_surfaces);
+            } else if (prop.episode_identifier == '6 weeks post-operative') {
+                this.state.sixWeeksPostOp.push(prop.pain);
+                this.state.sixWeeksPostOp.push(prop.limitations);
+                this.state.sixWeeksPostOp.push(prop.walking);
+                this.state.sixWeeksPostOp.push(prop.walking_surfaces);
+            }
         });
     }
 
@@ -311,16 +364,17 @@ class EpisodeScores extends React.Component {
         if (isLoading) {
             return <p>Loading...</p>;
         } else {
-            if (this.state.episodeScores.length > 0){
+            if (this.state.episodeScores.length > 0) {
                 return <React.Fragment><IndividualScoresRange preOp={this.state.preOp}
-                                               oneWeek={this.state.oneWeekPostOp}
-                                               sixWeeks={this.state.sixWeeksPostOp}
-                                               label={this.state.labels}/><br/><br/>
+                                                              oneWeek={this.state.oneWeekPostOp}
+                                                              sixWeeks={this.state.sixWeeksPostOp}
+                                                              label={this.state.labels}/><br/><br/>
                     <DownloadCSV
-                        array={[this.state.labels, this.state.preOp, this.state.oneWeekPostOp, this.state.sixWeeksPostOp]}
+                        array={[this.state.labels, this.state.preOp, this.state.oneWeekPostOp,
+                            this.state.sixWeeksPostOp]}
                         fileName={"Episode_Scores.csv"}/>
                 </React.Fragment>;
-            }else{
+            } else {
                 return <p>No scores were found</p>
             }
         }
@@ -347,7 +401,7 @@ class RespirationRate extends React.Component {
     componentDidMount() {
         let promise = getRespirationRateAgainstTimeByEHRId(this.props.ehrId);
         promise.then((e) => {
-            e.forEach(el =>{
+            e.forEach(el => {
                 this.pushIntoArrays(el);
             });
             this.setState({ respirationRate: e });
