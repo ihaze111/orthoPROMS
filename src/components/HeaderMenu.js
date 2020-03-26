@@ -95,7 +95,7 @@ class HeaderMenu extends React.Component {
                         {/*<Button variant="outline-success" style={{ 'marginRight': '16px' }}>Search</Button>*/}
                         <Button variant="outline-primary"
                                 className={((this.props.isAuthenticated) && (!this.props.isGoogleLogin)) ? 'd-block' :
-                                    'd-none'} onClick={()=> this.handleClick}>logout</Button>
+                                    'd-none'} onClick={this.handleClick}>logout</Button>
                         <GoogleLogout
                             // clientId="435425463824-lso8p4egc7hasvbkrbff4h60g60se5l3.apps.googleusercontent.com"
                             // clientId="1026232614474-aoptfdrk515oa3svfpmol9h6j57gifhn.apps.googleusercontent.com"
