@@ -22,7 +22,7 @@ class Home extends React.Component {
                     textAlign: 'center !important'
                 }}>
                     <div style={{ justifyContent: 'center', paddingTop: '12%' }}>
-                        <div style={{ paddingLeft: '30%' }}>
+                        <div style={{ paddingLeft: '40%' }}>
                             <h1 style={{
                                 fontFamily: 'Frutiger W01, Arial, Sans-serif',
                                 fontWeight: '700',
