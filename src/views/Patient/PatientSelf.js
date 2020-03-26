@@ -144,7 +144,7 @@ class PatientSelf extends React.Component {
 export default connect(
     state => ({
         search: state.app.search,
-        nhsNumber: state.auth.user.userJson.nhsNumber
+        nhsNumber: state.auth.isAuthenticated ? (state.auth.isGoogleLogin ? "9999999000" : state.auth.user.userJson.nhsNumber) : ''
     }),
     {
         handleSearch
