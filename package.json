@@ -67,6 +67,5 @@
     "jsdoc": "^3.6.3",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6"
-  },
-  "proxy": "http://localhost:6060"
+  }
 }
