@@ -115,9 +115,15 @@ class PatientSelf extends React.Component {
                                             <div className="nhsuk-form-group">
                                                 <label className="nhsuk-label">Template</label>
                                                 <select className="nhsuk-select" id="select-template"
-                                                                          name="select-template">
+                                                                          name="select-template" style={{marginTop: '8px', marginRight: '10px'}} >
                                                 {this.state.templatesList.map((template) => {
-                                                    return <option value={template.templateId}>{template.templateId}</option>
+                                                    if (template.templateId == 'Foot_and_Ankle_PROMs-v0') {
+                                                        return <option
+                                                            value={template.templateId} selected="selected">{template.templateId}</option>
+                                                    } else {
+                                                        return <option
+                                                            value={template.templateId}>{template.templateId}</option>
+                                                    }
                                                 })}
                                             </select>
                                                 <NHSButton onClick={this.onTemplateChange}>Show</NHSButton>
