@@ -89,6 +89,7 @@ export class PatientOverview extends React.Component {
 function PatientProgressTableEntry(props) {
     // TODO: what happens if no NHS number?
     return <NHSTr key={"composition" + props.nhs_number + "no" + props.index}>
+        <NHSTd key={"composition" + props.nhs_number + "no" + props.index + "index"}><a href={'/Composition?compId=' + props.comp_id}>{props.index + 1}</a></NHSTd>
         <NHSTd key={"composition" + props.nhs_number + "no" + props.index + "nhsNumber"}>{props.nhs_number}</NHSTd>
         <NHSTd
             key={"composition" + props.nhs_number + "no" + props.index + "composerName"}>{props.composer_name}</NHSTd>
@@ -117,15 +118,14 @@ class Composition extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {
-        let Lists = nextProps.compositionsFiltered
+        let Lists = nextProps.compositionsFiltered;
         this.setState({
             List: ( Lists || []).slice(0, 10)
         })
     }
 
     handlePageChange (e) {
-        let  { compositionsFiltered }= this.props
-
+        let  { compositionsFiltered } = this.props;
         this.setState({
             page: e,
             List: e >= 1 ? compositionsFiltered.slice((e-1)*10, e*10) : compositionsFiltered.slice(0, 10)
@@ -172,6 +172,7 @@ export function PatientProgressTable(props) {
             <NHSTable>
                 <NHSTHead>
                     <NHSTr key={"compositionNHS Numberno" + props.index}>
+                        <NHSTh key={"compositionNHS Numberno" + props.index + "index"}>#</NHSTh>
                         <NHSTh key={"compositionNHS Numberno" + props.index + "nhsNumber"}>NHS Number</NHSTh>
                         <NHSTh
                             key={"compositionNHS Numberno" + props.index + "composerName"}>Composer Name</NHSTh>
