@@ -79,8 +79,8 @@ class GenderDistribution extends React.Component{
             for (var i = 0; i < e.length; i++){
                 genderList[i] = e[i].gender;
             }
+            this.setState({genders : genderList});
         });
-        this.setState({genders : genderList});
     }
 
     pushIntoArray(props){
@@ -132,8 +132,8 @@ class AgeDistribution extends React.Component{
                     ageList.push(this.calculateAge(e[i].birthYear));
                 }
             }
+            this.setState({ages : ageList});
         });
-        this.setState({ages : ageList});
     }
 
     calculateAge(birthDate){

@@ -35,8 +35,8 @@ class Home extends React.Component {
                     <div className="nhsuk-grid-row">
                         <div className="nhsuk-grid-column-one-half">
                             <NHSPanelWithLabel> <NHSPanelTitle
-                                class="nhsuk-panel-with-label__label"> Patient </NHSPanelTitle> <NHSPanelBody>
-                                <div class="nhsuk-u-reading-width">
+                                className="nhsuk-panel-with-label__label"> Patient </NHSPanelTitle> <NHSPanelBody>
+                                <div className="nhsuk-u-reading-width">
                                     <p>Login using your patient's account</p>
                                 </div>
                                 <div className="nhsuk-action-link">
@@ -48,8 +48,8 @@ class Home extends React.Component {
                         </div>
                         <div className="nhsuk-grid-column-one-half">
                             <NHSPanelWithLabel> <NHSPanelTitle
-                                class="nhsuk-panel-with-label__label"> Clinician </NHSPanelTitle> <NHSPanelBody>
-                                <div class="nhsuk-u-reading-width">
+                                className="nhsuk-panel-with-label__label"> Clinician </NHSPanelTitle> <NHSPanelBody>
+                                <div className="nhsuk-u-reading-width">
                                     <p>Login using your clinician's account</p>
                                 </div>
                                 <div className="nhsuk-action-link">
