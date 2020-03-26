@@ -13,7 +13,7 @@ import { handleCliniSearch, setPatientList } from '../../actions/clinicianAction
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css'
 
-class PatientListtable extends React.Component {
+class PatientListTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,7 +80,7 @@ const PatientListTable = connect(
     {
         setPatientList
     }
-)(PatientListtable);
+)(PatientListTable);
 
 class PatientList extends React.Component {
     constructor(props) {
