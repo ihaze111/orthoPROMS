@@ -1,7 +1,5 @@
 import CDROptions from "./Queries/CDROptions";
-import {
-    treeTrawlGettingFlatInputs,
-} from "../ehr-template-processor/src/template";
+import * as treeTrawlGettingFlatInputs from "../ehr-template-processor/src/template";
 import * as axios from "axios";
 
 async function getFlatProcessedTemplate(templateName) {
