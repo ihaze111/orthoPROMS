@@ -10,7 +10,13 @@ import { userSignupRequest, sendCode, checkCode } from '../actions/signupActions
 import NHSContainer from "../components/react-styled-nhs/src/NHSContainer";
 import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
 import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
-import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "../components/react-styled-nhs/src/NHSComponents";
+import {
+    NHSButton,
+    NHSFormControl,
+    NHSFormGroup,
+    NHSFormHint,
+    NHSFormLabel
+} from "../components/react-styled-nhs/src/NHSComponents";
 import NHSBackLink from "../components/react-styled-nhs/src/NHSBackLink";
 import { CDRHeaders } from "../components/Queries/CDROptions";
 import environment from "../environment";
@@ -154,7 +160,7 @@ class Register extends React.Component {
                         <div className="nhsuk-grid-row">
                             <div className="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
-                                    <h1 style={{ fontWeight: 'bold' }}>Register with orthoPROMS</h1><br />
+                                    <h1 style={{ fontWeight: 'bold' }}>Register with orthoPROMS</h1><br/>
                                     <Row>
                                         <Col>
                                             <NHSFormGroup controlId="formBasicEmail">

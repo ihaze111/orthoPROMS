@@ -39,12 +39,12 @@ class About extends React.Component {
                         <h1>About Us</h1>
                         <NHSPanel>
                             <NHSPanelTitle>
-                                What Is IPROMS?
+                                What Is orthoPROMS?
                             </NHSPanelTitle>
                             <NHSPanelBody>
                                 <div style={{ height: '10px' }}></div>
                                 <div style={{ width: '90%', display: 'flex' }}>
-                                    <p>IPROMS is a web-app intended for both clinicians and patients to record outcomes
+                                    <p>orthoPROMS is a web-app intended for both clinicians and patients to record outcomes
                                         from orthopaedic surgeries as well as storing and visualising data using openEHR
                                         standards.<br/><br/>
                                         We intend to help clinicians keep track of their patients' progress post-surgery
@@ -54,7 +54,7 @@ class About extends React.Component {
                                         would be
                                         beneficial for both patients and clinicians to determine the next step for
                                         recovery.<br/><br/>
-                                        IPROMS is a project made by three UCL students in partnership with Apperta
+                                        orthoPROMS is a project made by three UCL students in partnership with Apperta
                                         Foundation and Code4Health.
                                     </p>
                                 </div>
@@ -103,11 +103,6 @@ class About extends React.Component {
                                             <img
                                                 src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg"
                                                 alt="code4healthLogo" style={{ width: '30%' }}></img>
-                                        </a>
-                                        <a href="https://digital.nhs.uk/">
-                                            <img
-                                                src="https://digital.nhs.uk/webfiles/1576854238445/images/nhs-digital-logo.svg"
-                                                alt="nhsLogo" style={{ width: '15%' }}></img>
                                         </a>
                                     </div>
                                     <div>
