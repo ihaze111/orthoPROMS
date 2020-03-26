@@ -46,10 +46,11 @@ export const googleLogin = data => {
     }
 };
 
-export const logout = () => { // 退出登录
+export const logout = () => {
     return dispatch => {
-        localStorage.removeItem('jwtToken'); // 清除在localStorage中存的token
-        setAuthorizationToken(false); //这里是将头部的认证信息Authorization删除,以后不带上头部认证信息
-        dispatch(setCurrentUser({}, false)); //传入一个空对象;
+        localStorage.removeItem('jwtToken'); // Clear the token stored in localStorage
+        setAuthorizationToken(false); // Delete the header authentication Authorization, without the header
+        // authentication information in the future
+        dispatch(setCurrentUser({}, false)); // Pass in an empty object
     }
 };
