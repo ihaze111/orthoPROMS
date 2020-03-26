@@ -89,15 +89,15 @@ class PatientSelf extends React.Component {
                             </NHSPanelTitle>
                             <NHSPanelBody>
                                 <Tab.Container defaultActiveKey="myProgress">
-                                    <Nav variant="tabs" style={{ marginBottom: '40px' }}>
+                                    <Nav variant="tabs" style={{ marginBottom: '20px' }}>
                                         <Nav.Item>
-                                            <Nav.Link eventKey="myProgress">My Progress</Nav.Link>
+                                            <Nav.Link eventKey="myProgress" className='nhsuk-button' style={{marginRight: '10px'}}>My Progress</Nav.Link>
                                         </Nav.Item>
                                         <Nav.Item>
-                                            <Nav.Link eventKey="myData">My Data</Nav.Link>
+                                            <Nav.Link eventKey="myData" className='nhsuk-button' style={{marginRight: '10px'}}>My Data</Nav.Link>
                                         </Nav.Item>
                                         <Nav.Item>
-                                            <Nav.Link eventKey="survey">Survey</Nav.Link>
+                                            <Nav.Link eventKey="survey" className='nhsuk-button'>Survey</Nav.Link>
                                         </Nav.Item>
                                     </Nav>
                                     <Tab.Content>
