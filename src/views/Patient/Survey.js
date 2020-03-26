@@ -116,6 +116,10 @@ export class StructuredSurvey extends React.Component {
         document.getElementById('surveyForm').hidden = false;
     }
 
+    reloadPage() {
+        window.location.reload();
+    }
+
     async submitModel(model) {
         const reply = await commitComposition(model, this.props.ehrId, this.props.templateId);
         // NHSPanelConfirmation
@@ -127,6 +131,7 @@ export class StructuredSurvey extends React.Component {
                     Composition identifier:
                     <strong>{reply.commitId}</strong>
                 </NHSPanelBody>
+                 <NHSButton style={{float: 'right', marginTop: '10px'}} onClick={this.reloadPage}>Done</NHSButton>
             </NHSPanelConfirmation>;
         } else {
             element = <NHSPanelConfirmation>
@@ -134,6 +139,7 @@ export class StructuredSurvey extends React.Component {
                 <NHSPanelBody>
                     Please try again later, or contact your admin team.
                 </NHSPanelBody>
+                <NHSButton style={{float: 'right', marginTop: '10px'}} onClick={this.reloadPage}>Done</NHSButton>
             </NHSPanelConfirmation>;
         }
         ReactDOM.render(element, document.getElementById('result'));
