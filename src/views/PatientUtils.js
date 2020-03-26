@@ -22,8 +22,7 @@ export function getSubjectId(locationSearch) {
         qs.parse(locationSearch, { ignoreQueryPrefix: true }).subjectId : "9999999000"
 }
 
-export function loadEhrId() {
-    let subjectId = getSubjectId(this.props.location.search);
+export function loadEhrId(subjectId) {
     let promise = getEHRId(subjectId);
     promise.then((e) => {
         this.setState({ ehrId: e });

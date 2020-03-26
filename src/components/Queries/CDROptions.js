@@ -4,7 +4,7 @@ import environment from "../../environment";
  * The standard headers used for calls to the CDr, including the authorisation string
  * @type {{Authorization: *, "Ehr-Session-disabled": string, "Content-Type": string}}
  */
-const CDRHeaders = {
+export const CDRHeaders = {
     'Ehr-Session-disabled': '{{Ehr-Session}}',
     'Content-Type': 'application/json',
     'Authorization': environment.api_authorisation,

@@ -12,6 +12,10 @@ import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
 import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
 import { NHSButton, NHSFormControl, NHSFormGroup, NHSFormHint, NHSFormLabel } from "../components/react-styled-nhs/src/NHSComponents";
 import NHSBackLink from "../components/react-styled-nhs/src/NHSBackLink";
+import { CDRHeaders } from "../components/Queries/CDROptions";
+import environment from "../environment";
+import * as axios from "axios";
+
 
 class Register extends React.Component {
 
@@ -69,8 +73,8 @@ class Register extends React.Component {
                         (res) => {
                             // 通知成功
                             if (res.data.code === 200) {
+                                alert('registration success');
                                 console.log('Registration success');
-                                alert(res.data.message);
                                 this.goback();
                             } else {
                                 alert(res.data.message);
@@ -198,7 +202,7 @@ class Register extends React.Component {
                                     <Row>
                                         <Col>
                                             <NHSFormGroup controlId="nhsNumber">
-                                                <NHSFormLabel>Confirmation Password</NHSFormLabel>
+                                                <NHSFormLabel>NHS Number</NHSFormLabel>
                                                 <NHSFormControl type="number" placeholder="NHS Number"
                                                                 name="nhsNumber" onChange={this.onChange}/>
                                             </NHSFormGroup>

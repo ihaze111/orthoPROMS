@@ -277,22 +277,31 @@ class EpisodeScores extends React.Component {
     componentWillMount() {
         let promise = getAOFASScoresAgainstEpisodeByEHRId(this.props.ehrId);
         promise.then(e => {
+            console.log(e);
             this.pushIntoCategory(e);
             this.setState({ episodeScores: e, isLoading: false });
         });
     }
 
     pushIntoCategory(props) {
-        if (props.length > 0) {
-            this.state.preOp.push(props[0].pain);
-            this.state.preOp.push(props[0].limitations);
-            this.state.preOp.push(props[0].walking);
-            this.state.preOp.push(props[0].walking_surfaces);
-            this.state.oneWeekPostOp.push(props[1].pain);
-            this.state.oneWeekPostOp.push(props[1].limitations);
-            this.state.oneWeekPostOp.push(props[1].walking);
-            this.state.oneWeekPostOp.push(props[1].walking_surfaces);
-        }
+        props.map((prop) => {
+           if (prop.episode_identifier == 'Pre-operative') {
+               this.state.preOp.push(prop.pain);
+               this.state.preOp.push(prop.limitations);
+               this.state.preOp.push(prop.walking);
+               this.state.preOp.push(prop.walking_surfaces);
+           } else if (prop.episode_identifier == '1 week post-operative') {
+               this.state.oneWeekPostOp.push(prop.pain);
+               this.state.oneWeekPostOp.push(prop.limitations);
+               this.state.oneWeekPostOp.push(prop.walking);
+               this.state.oneWeekPostOp.push(prop.walking_surfaces);
+           } else if (prop.episode_identifier == '6 weeks post-operative') {
+               this.state.sixWeeksPostOp.push(prop.pain);
+               this.state.sixWeeksPostOp.push(prop.limitations);
+               this.state.sixWeeksPostOp.push(prop.walking);
+               this.state.sixWeeksPostOp.push(prop.walking_surfaces);
+           }
+        });
     }
 
     render() {

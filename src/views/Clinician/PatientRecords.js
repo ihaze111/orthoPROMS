@@ -7,7 +7,7 @@ import {
     from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
-import { getSubjectId, loadEhrId } from "../PatientUtils";
+import { getEHRId, getSubjectId, loadEhrId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import NHSContainer from "../../components/react-styled-nhs/src/NHSContainer";
@@ -32,7 +32,10 @@ class PatientRecords extends React.Component {
     // }
 
     componentDidMount() {
-        loadEhrId.call(this);
+        let promise = getEHRId(getSubjectId(this.props.location.search));
+        promise.then((e) => {
+            this.setState({ ehrId: e });
+        });
     }
 
     render() {

@@ -13,7 +13,7 @@ import {
     ScoresArray,
     EpisodeScoresGraph
 } from "../PatientComponents";
-import { getSubjectId, loadEhrId } from "../PatientUtils";
+import { getEHRId, getSubjectId, loadEhrId } from "../PatientUtils";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 
@@ -24,6 +24,7 @@ import NHSContainer from "../../components/react-styled-nhs/src/NHSContainer";
 import NHSWrapper from "../../components/react-styled-nhs/src/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/react-styled-nhs/src/NHSPanel";
 import NHSFooter from "../../components/react-styled-nhs/src/NHSFooter";
+import getAllTemplatesInCDR from "../../components/Queries/getAllTemplatesInCDR";
 
 class PatientSelf extends React.Component {
     constructor(props) {
@@ -35,7 +36,14 @@ class PatientSelf extends React.Component {
     }
 
     componentDidMount() {
-        loadEhrId.call(this);
+        let promise = getEHRId(this.props.nhsNumber);
+        promise.then((e) => {
+            this.setState({ ehrId: e });
+        });
+        let promise2 = getAllTemplatesInCDR();
+        promise2.then((e) => {
+            this.setState({ templatesList: e });
+        });
     }
 
     onChange = e => {
@@ -43,8 +51,8 @@ class PatientSelf extends React.Component {
     };
 
     render() {
-        let subjectId = getSubjectId(this.props.location.search);
-        // let subjectId = this.props.nhsNumber;
+        // let subjectId = getSubjectId(this.props.location.search);
+        let subjectId = this.props.nhsNumber;
         let { search } = this.props;
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
@@ -89,6 +97,14 @@ class PatientSelf extends React.Component {
                                                 ehrId={this.state.ehrId}/></div>
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="survey">
+                                            <div className="nhsuk-form-group">
+                                                <label className="nhsuk-label">Template</label> <select className="nhsuk-select" id="select-template"
+                                                                          name="select-template">
+                                                {/*{this.state.templatesList.map((template) => {*/}
+                                                {/*    return <option value={template.templateId}>{template.templateId}</option>*/}
+                                                {/*})}*/}
+                                            </select>
+                                            </div>
                                             <StructuredSurvey templateId={'Foot_and_Ankle_PROMs-v0'}
                                                               ehrId={this.state.ehrId}/>
                                         </Tab.Pane>
