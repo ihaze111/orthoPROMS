@@ -30,13 +30,13 @@ class NationalStatistics extends React.Component {
                                 <Nav variant="tabs"
                                     style={{ marginBottom: '40px' }}>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="episodeScores">Episode Scores Range</Nav.Link>
+                                        <Nav.Link eventKey="episodeScores" className='nhsuk-button' style={{marginRight: '10px'}}>Episode Scores Range</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="admin_gender">Gender Distribution</Nav.Link>
+                                        <Nav.Link eventKey="admin_gender" className='nhsuk-button' style={{marginRight: '10px'}}>Gender Distribution</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link eventKey="averageAge">Age Distribution</Nav.Link>
+                                        <Nav.Link eventKey="averageAge" className='nhsuk-button' style={{marginRight: '10px'}}>Age Distribution</Nav.Link>
                                     </Nav.Item>
                                 </Nav>
                                 <Tab.Content>

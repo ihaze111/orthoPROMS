@@ -54,16 +54,16 @@ class PatientRecords extends React.Component {
                                         <Col sm={3}>
                                             <Nav variant="pills" className="flex-column">
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="vitals">Vital Signs</Nav.Link>
+                                                    <Nav.Link eventKey="vitals" className='nhsuk-button'>Vital Signs</Nav.Link>
                                                 </Nav.Item>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="details">Details</Nav.Link>
+                                                    <Nav.Link eventKey="details" className='nhsuk-button'>Details</Nav.Link>
                                                 </Nav.Item>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="patientProgress">Patient Progress</Nav.Link>
+                                                    <Nav.Link eventKey="patientProgress" className='nhsuk-button'>Patient Progress</Nav.Link>
                                                 </Nav.Item>
                                                 <Nav.Item>
-                                                    <Nav.Link eventKey="labReport">Lab Report</Nav.Link>
+                                                    <Nav.Link eventKey="labReport" className='nhsuk-button'>Lab Report</Nav.Link>
                                                 </Nav.Item>
                                             </Nav>
                                         </Col>
@@ -80,19 +80,19 @@ class PatientRecords extends React.Component {
                                                                 <Nav variant="tabs"
                                                                      style={{ marginBottom: '40px' }}>
                                                                     <Nav.Item>
-                                                                        <Nav.Link eventKey="bloodPressure">Blood
+                                                                        <Nav.Link eventKey="bloodPressure" className='nhsuk-button' style={{marginRight: '10px'}}>Blood
                                                                             Pressure</Nav.Link>
                                                                     </Nav.Item>
                                                                     <Nav.Item>
-                                                                        <Nav.Link eventKey="heartRate">Heart
+                                                                        <Nav.Link eventKey="heartRate" className='nhsuk-button' style={{marginRight: '10px'}}>Heart
                                                                             Rate</Nav.Link>
                                                                     </Nav.Item>
                                                                     <Nav.Item>
-                                                                        <Nav.Link eventKey="respirationRate">Respiration
+                                                                        <Nav.Link eventKey="respirationRate" className='nhsuk-button' style={{marginRight: '10px'}}>Respiration
                                                                             Rate</Nav.Link>
                                                                     </Nav.Item>
                                                                     <Nav.Item>
-                                                                        <Nav.Link eventKey="indirectOximetry">Oxygen
+                                                                        <Nav.Link eventKey="indirectOximetry" className='nhsuk-button' style={{marginRight: '10px'}}>Oxygen
                                                                             Saturation</Nav.Link>
                                                                     </Nav.Item>
                                                                 </Nav>
@@ -144,11 +144,11 @@ class PatientRecords extends React.Component {
                                                                 <Nav variant="tabs"
                                                                      style={{ marginBottom: '40px' }}>
                                                                          <Nav.Item>
-                                                                    <Nav.Link eventKey="labReports">Lab
+                                                                    <Nav.Link eventKey="labReports" className='nhsuk-button' style={{marginRight: '10px'}}>Lab
                                                                             Reports</Nav.Link>
                                                                     </Nav.Item>
                                                                     <Nav.Item>
-                                                                        <Nav.Link eventKey="labOrders">Lab
+                                                                        <Nav.Link eventKey="labOrders" className='nhsuk-button' style={{marginRight: '10px'}}>Lab
                                                                             Orders</Nav.Link>
                                                                     </Nav.Item>
                                                                 </Nav>
