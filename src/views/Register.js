@@ -33,6 +33,7 @@ class Register extends React.Component {
             passwordConfirmation: '',
             type: '',
             code: '',
+            nhsNumber: '',
             timer: 60,
             discodeBtn: false,
             clearInterval: false,
