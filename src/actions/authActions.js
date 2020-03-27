@@ -17,9 +17,9 @@ export const setCurrentUser = (user, isGoogleLogin) => {
 
 
 export const login = data => {
-    return dispatch => {
+    return (dispatch) => {
         return new Promise((resolve, reject) => {
-            axios.post(environment.login_url + '/api/auth/signin', data).then(res => {
+            axios.post(environment.login_url + '/api/auth/signin', data).then((res) => {
                 if (res.data.code === 200) {
                     const token = res.data.token;
                     let isGoogleLogin = false;
@@ -28,10 +28,14 @@ export const login = data => {
                     setAuthorizationToken(token);
                     let user = jwtDecode(token).userJson;
                     dispatch(setCurrentUser(user, isGoogleLogin));
+                    resolve(res.data);
+                } else {
+                    reject(res.data);
                 }
-                resolve(res.data);
-            })
-        })
+            }).catch((resError) => {
+                reject(resError);
+            });
+        });
     }
 };
 
