@@ -4,6 +4,7 @@ import {
     SET_CURRENT_USER
 } from '../constants'
 import setAuthorizationToken from '../utils/setAuthorizationToken';
+import environment from '../environment.js';
 
 export const setCurrentUser = (user, isGoogleLogin) => {
     let obj = {
@@ -18,7 +19,7 @@ export const setCurrentUser = (user, isGoogleLogin) => {
 export const login = data => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            axios.post('/api/auth/signin', data).then(res => {
+            axios.post(environment.login_url + '/api/auth/signin', data).then(res => {
                 if (res.data.code === 200) {
                     const token = res.data.token;
                     let isGoogleLogin = false;
