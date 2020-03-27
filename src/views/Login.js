@@ -89,7 +89,6 @@ class Login extends React.Component {
     };
 
     render() {
-        let errorMessage;
         return (
             <div style={{ backgroundColor: '#f0f4f5' }}>
                 <HeaderMenu navigationDisabled searchDisabled/>
@@ -104,7 +103,8 @@ class Login extends React.Component {
                                             orthoPROMS</NHSPanelTitle>
                                         <NHSPanelBody>
                                             <NHSFormGroup error={this.state.error.all}>
-                                                <NHSFormGroup controlId="formBasicEmail" error={this.state.error.email || this.state.error.all}>
+                                                <NHSFormGroup controlId="formBasicEmail"
+                                                              error={this.state.error.email || this.state.error.all}>
                                                     <NHSFormLabel>Email address</NHSFormLabel>
                                                     <NHSFormControl type="email" placeholder="Enter email"
                                                                     onChange={this.onChange} name='email'

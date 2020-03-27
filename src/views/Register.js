@@ -12,7 +12,7 @@ import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
 import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
 import {
     NHSButton,
-    NHSFormControl,
+    NHSFormControl, NHSFormError,
     NHSFormGroup,
     NHSFormHint,
     NHSFormLabel
@@ -34,11 +34,12 @@ class Register extends React.Component {
             type: '',
             code: '',
             nhsNumber: '',
-            timer: 60,
+            timer: 180,
             discodeBtn: false,
             clearInterval: false,
             btnText: 'Send Code',
-            history: require('history').createBrowserHistory()
+            history: require('history').createBrowserHistory(),
+            error: { all: '' }
         };
     }
 
@@ -55,74 +56,94 @@ class Register extends React.Component {
         let email = this.state.email;
         let code = this.state.code;
 
-        if (code === '') {
-            return alert('Please enter code')
+        const error = {};
+        if (this.state.password === '') {
+            error.password = 'Please enter your password';
+        } else {
+            error.password = '';
         }
-
-        if (email === '') {
-            return alert('Please enter your e-mail.')
+        if (this.state.passwordConfirmation === '') {
+            error.passwordConfirmation = 'Please enter your password again for confirmation';
+        } else {
+            error.passwordConfirmation = '';
         }
-        // 验证密码
-        if (this.state.password === '' || this.state.passwordConfirmation === '') {
-            return alert('Please enter your password')
+        if (this.state.email === '' || this.state.email.search("@") === -1) {
+            error.email = 'Please enter a valid email';
+        } else {
+            error.email = '';
         }
-
+        if (this.state.code === '') {
+            error.code = 'Please enter the code that has been emailed to you';
+        } else {
+            error.code = '';
+        }
+        // N.B. NHS number requirements relaxed for easier testing
+        // if (this.state.nhsNumber.length !== 10 || this.state.nhsNumber.parseInt().toString() !==
+        // this.state.nhsNumber) { error.nhsNumber = 'Please enter a valid 10-digit NHS number';
+        if (this.state.nhsNumber === '' || String(parseInt(this.state.nhsNumber)) !== this.state.nhsNumber) {
+            error.nhsNumber = 'Please enter your NHS number';
+        } else {
+            error.nhsNumber = '';
+        }
         if (this.state.password !== this.state.passwordConfirmation) {
-            return alert('Entered passwords differ!')
+            error.passwordsTogether = 'Passwords do not match';
+        } else {
+            error.passwordsTogether = '';
         }
-
-        // 先验证验证码 再注册
-        this.props.checkCode({ code: this.state.code }).then(
-            res => {
-                if (res.data.code === 200) {
-                    // 验证码正确
-                    this.props.userSignupRequest(this.state).then(
-                        (res) => {
-                            // 通知成功
-                            if (res.data.code === 200) {
-                                alert('registration success');
-                                console.log('Registration success');
-                                this.goback();
-                            } else {
-                                alert(res.data.message);
+        this.setState({ error });
+        if (this.state.password !== '' && this.state.passwordConfirmation !== '' && this.state.email !== '' && this.state.code !== '' && this.state.password === this.state.passwordConfirmation && this.state.nhsNumber !== '' && String(parseInt(this.state.nhsNumber)) === this.state.nhsNumber) {
+            // Verify the verification code before registering
+            this.props.checkCode({ code: this.state.code }).then(
+                res => {
+                    if (res.data.code === 200) {
+                        // Verification code is correct
+                        this.props.userSignupRequest(this.state).then(
+                            (res) => {
+                                // Registration success
+                                if (res.data.code === 200) {
+                                    alert('registration success');
+                                    this.goback();
+                                } else {
+                                    this.setState({ error: { all: res.data.message } });
+                                }
+                            }, (res) => {
+                                // Registration error
+                                this.setState({ error: { all: JSON.stringify(res) } });
                             }
-                        },
-                        (res) => {
-                            // 通知错误
-                            console.log(res);
-                        }
-                    )
-                } else {
-                    alert(res.data.message);
+                        )
+                    } else {
+                        this.setState({ error: { all: res.data.message } });
+                    }
+                },
+                res => {
+                    this.setState({ error: { all: res.message } });
                 }
-            },
-            res => {
-                console.log(res.message);
-            }
-        )
+            );
+        }
     };
 
     handleClick = (e) => {
         e.preventDefault();
         let email = this.state.email;
-        if (email === '') {
-            return alert('Please enter your e-mail.')
-        }
-
-        // 发送验证码
-        this.props.sendCode(this.state).then(
-            res => {
-                if (res.data.code === 200) {
-                    alert(res.data.message);
-                    this.count()
-                } else {
-                    alert(res.data.message);
+        if (email === '' || email.search("@") === -1) {
+            this.setState({ error: { email: 'Please enter a valid email' } });
+        } else {
+            // Send the verification code
+            this.props.sendCode(this.state).then(
+                res => {
+                    if (res.data.code === 200) {
+                        this.setState({ codeSent: 'Code has been emailed to ' + res.data.data.email });
+                        this.setState({ error: {} });
+                        this.count();
+                    } else {
+                        this.setState({ error: { email: res.data.message } });
+                    }
+                }).catch(
+                res => {
+                    this.setState({ error: { email: res.message } });
                 }
-            },
-            res => {
-                console.log(res)
-            }
-        );
+            );
+        }
     };
 
     count = () => {
@@ -131,7 +152,7 @@ class Register extends React.Component {
             this.setState({ timer: (timer--), btnText: timer, discodeBtn: true }, () => {
                 if (timer === 0) {
                     clearInterval(siv);
-                    this.setState({ timer: 60, btnText: 'Resend', discodeBtn: false })
+                    this.setState({ timer: 180, btnText: 'Resend', discodeBtn: false })
                 }
             });
         }, 1000);
@@ -162,59 +183,66 @@ class Register extends React.Component {
                             <div className="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
                                     <h1 style={{ fontWeight: 'bold' }}>Register with orthoPROMS</h1><br/>
-                                    <Row>
-                                        <Col>
-                                            <NHSFormGroup controlId="formBasicEmail">
-                                                <NHSFormLabel>Email address</NHSFormLabel>
-                                                <NHSFormHint>
-                                                    We'll never share your email with anyone else.
-                                                </NHSFormHint>
-                                                <NHSFormControl type="email" placeholder="Enter email" name="email"
-                                                                onChange={this.onChange}/>
-                                            </NHSFormGroup>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
+                                    <NHSFormGroup error={this.state.error.all}>
+                                        <NHSFormGroup controlId="formBasicEmail"
+                                                      error={this.state.error.email || this.state.error.all}>
+                                            <NHSFormLabel>Email address</NHSFormLabel>
+                                            <NHSFormHint>
+                                                We'll never share your email with anyone else.
+                                            </NHSFormHint>
+                                            <NHSFormControl type="email" placeholder="Enter email" name="email"
+                                                            onChange={this.onChange}
+                                                            error={this.state.error.email || this.state.error.all}/>
+                                            <NHSFormError>{this.state.error.email}</NHSFormError>
+                                        </NHSFormGroup>
+                                        <NHSFormGroup error={this.state.error.code || this.state.error.all}>
+                                            <NHSButton variant="outline-primary" block
+                                                       style={{ 'margin-top': '32px' }}
+                                                       onClick={this.handleClick}
+                                                       disabled={this.state.discodeBtn}>{this.state.btnText}</NHSButton>
+                                            <p>{this.state.codeSent}</p> <br/>
                                             <NHSFormGroup controlId="formBasicCode">
                                                 <NHSFormLabel>Code</NHSFormLabel>
                                                 <NHSFormControl type="text" placeholder="Enter Code" name="code"
-                                                                onChange={this.onChange}/>
+                                                                onChange={this.onChange}
+                                                                error={this.state.error.code || this.state.error.all}/>
                                             </NHSFormGroup>
-                                        </Col>
-                                        <Col>
-                                            <NHSButton variant="outline-primary" block style={{ 'margin-top': '32px' }}
-                                                       onClick={this.handleClick}
-                                                       disabled={this.state.discodeBtn}>{this.state.btnText}</NHSButton>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <NHSFormGroup controlId="formBasicPassword">
+                                            <NHSFormError>{this.state.error.code}</NHSFormError>
+                                        </NHSFormGroup>
+                                        <NHSFormGroup
+                                            error={this.state.error.passwordsTogether || this.state.error.all}>
+                                            <NHSFormGroup controlId="formBasicPassword"
+                                                          error={this.state.error.password || this.state.error.all}>
                                                 <NHSFormLabel>Password</NHSFormLabel>
-                                                <NHSFormControl type="password" placeholder="Password" name="password"
-                                                                onChange={this.onChange}/>
+                                                <NHSFormControl type="password" placeholder="Password"
+                                                                name="password"
+                                                                onChange={this.onChange}
+                                                                error={this.state.error.password || this.state.error.all}/>
+                                                <NHSFormError>{this.state.error.password}</NHSFormError>
                                             </NHSFormGroup>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <NHSFormGroup controlId="formBasicPassword">
+
+                                            <NHSFormGroup controlId="formBasicPassword"
+                                                          error={this.state.error.passwordConfirmation || this.state.error.all}>
                                                 <NHSFormLabel>Confirmation Password</NHSFormLabel>
                                                 <NHSFormControl type="password" placeholder="Password"
-                                                                name="passwordConfirmation" onChange={this.onChange}/>
+                                                                name="passwordConfirmation" onChange={this.onChange}
+                                                                error={this.state.error.passwordConfirmation || this.state.error.all}/>
+                                                <NHSFormError>{this.state.error.passwordConfirmation}</NHSFormError>
                                             </NHSFormGroup>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <NHSFormGroup controlId="nhsNumber">
-                                                <NHSFormLabel>NHS Number</NHSFormLabel>
-                                                <NHSFormControl type="number" placeholder="NHS Number"
-                                                                name="nhsNumber" onChange={this.onChange}/>
-                                            </NHSFormGroup>
-                                        </Col>
-                                    </Row>
+
+                                            <NHSFormError>{this.state.error.passwordsTogether}</NHSFormError>
+                                        </NHSFormGroup>
+
+                                        <NHSFormGroup controlId="nhsNumber"
+                                                      error={this.state.error.nhsNumber || this.state.error.all}>
+                                            <NHSFormLabel>NHS Number</NHSFormLabel>
+                                            <NHSFormControl type="number" placeholder="NHS Number"
+                                                            name="nhsNumber" onChange={this.onChange}
+                                                            error={this.state.error.nhsNumber || this.state.error.all}/>
+                                            <NHSFormError>{this.state.error.nhsNumber}</NHSFormError>
+                                        </NHSFormGroup>
+                                        <NHSFormError>{this.state.error.all}</NHSFormError>
+                                    </NHSFormGroup>
                                     <NHSButton onClick={this.onSubmit} type="submit">Submit</NHSButton>
                                 </Form>
                             </div>
