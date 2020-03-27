@@ -1,5 +1,5 @@
 import CDROptions from "./Queries/CDROptions";
-import * as treeTrawlGettingStructuredInputs from "../ehr-template-processor/src/template";
+import {treeTrawlGettingStructuredInputs} from "../ehr-template-processor/src/template";
 import * as axios from "axios";
 
 async function getStructuredProcessedTemplate(templateName) {
