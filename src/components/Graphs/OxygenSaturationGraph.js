@@ -15,7 +15,7 @@ class OxygenSaturationGraph extends Component {
                 }]
             }
                               title={"Oxygen Concentration (Indirect Oximetry)"} xLabel={"Date/Time"}
-                              yLabel={"Oxygen Concentration / %"}/>
+                              yLabel={"Oxygen Concentration / %"} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         );
     }
 }

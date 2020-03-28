@@ -500,6 +500,7 @@ class IndirectOximetry extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            compIdArray: [],
             concentration: [],
             time: []
         };
@@ -510,12 +511,13 @@ class IndirectOximetry extends React.Component {
         promise.then((e) => {
             e.forEach(el => {
                 this.pushIntoArraysandCalculate(el);
-            })
+            });
             this.setState({ indirectOximetry: e });
         });
     }
 
     pushIntoArraysandCalculate(props) {
+        this.state.compIdArray.push(props.comp_id);
         var result = (props.numerator / props.denominator) * 100;
         this.state.concentration.push(result);
         this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
@@ -526,7 +528,8 @@ class IndirectOximetry extends React.Component {
     render() {
         if (!this.state.indirectOximetry) return null;
         if (this.state.indirectOximetry.length > 0) {
-            return <OxygenSaturationGraph percent={this.state.concentration}
+            return <OxygenSaturationGraph compId={this.state.compIdArray}
+                                          percent={this.state.concentration}
                                           time={this.state.time}/>
         } else {
             return <p>No oxygen concentration were recorded</p>;
