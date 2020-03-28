@@ -444,6 +444,7 @@ class BloodPressure extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            compIdArray: [],
             systolicRate: [],
             diastolicRate: [],
             time: []
@@ -461,6 +462,7 @@ class BloodPressure extends React.Component {
     }
 
     pushIntoArrays(props) {
+        this.state.compIdArray.push(props.comp_id);
         this.state.systolicRate.push(props.systolic.magnitude);
         this.state.diastolicRate.push(props.diastolic.magnitude);
         this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
@@ -471,7 +473,9 @@ class BloodPressure extends React.Component {
     render() {
         if (!this.state.bloodPressure) return null;
         if (this.state.bloodPressure.length > 0) {
-            return <BloodPressureGraph systolic={this.state.systolicRate}
+            return <BloodPressureGraph
+                                       compId={this.state.compIdArray}
+                                       systolic={this.state.systolicRate}
                                        diastolic={this.state.diastolicRate}
                                        time={this.state.time}
                                        units={this.state.bloodPressure[0].systolic.units}/>

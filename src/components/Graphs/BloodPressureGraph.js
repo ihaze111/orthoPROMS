@@ -24,7 +24,7 @@ class BloodPressureGraph extends Component {
                         label: "Diastolic",
                         data: this.props.diastolic
                     }]
-            } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure " + this.props.units}/>
+            } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure " + this.props.units} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         )
     }
 }
@@ -133,6 +133,15 @@ class BloodPressureChart extends Component {
             data,
             options
         });
+        if (this.props.linkList) {
+            const linkMapping = this.props.linkList;
+            this.chartRef.current.onclick = function (evt) {
+                const activePoint = bloodPressureGraph.getElementAtEvent(evt);
+                if (activePoint.length > 0) {
+                    window.location = linkMapping[activePoint[0]._index];
+                }
+            }
+        }
     }
 
     render() {
