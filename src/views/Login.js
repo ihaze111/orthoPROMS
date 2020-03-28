@@ -162,6 +162,12 @@ class Login extends React.Component {
                                             </div>
                                         </NHSPanelBody>
                                     </NHSPanelWithLabel>
+                                    <NHSPanelWithLabel>
+                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with NHS (mock up)</NHSPanelTitle>
+                                        <NHSPanelBody>
+                                            <NHSButton onClick={(e) => {e.preventDefault()}} style={{backgroundColor: 'blue'}}>Continue with NHS login</NHSButton>
+                                        </NHSPanelBody>
+                                    </NHSPanelWithLabel>
                                 </Form>
                             </div>
                         </div>
