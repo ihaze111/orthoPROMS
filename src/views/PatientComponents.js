@@ -397,6 +397,7 @@ class RespirationRate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            compIdArray: [],
             respiration_magnitude: [],
             time: []
         };
@@ -413,6 +414,7 @@ class RespirationRate extends React.Component {
     }
 
     pushIntoArrays(props) {
+        this.state.compIdArray.push(props.comp_id);
         this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
         this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
             || props.time.replace(/T/, ' ').substring(0, props.time.indexOf('Z')));
@@ -423,7 +425,8 @@ class RespirationRate extends React.Component {
         if (!this.state.respirationRate) return null;
         // eslint-disable-next-line array-callback-return
         if (this.state.respirationRate.length > 0) {
-            return <RespirationRateGraph magnitude={this.state.respiration_magnitude}
+            return <RespirationRateGraph compId={this.state.compIdArray}
+                                         magnitude={this.state.respiration_magnitude}
                                          time={this.state.time}
                                          units={this.state.respirationRate[0].respiration_rate.units}/>
         } else {

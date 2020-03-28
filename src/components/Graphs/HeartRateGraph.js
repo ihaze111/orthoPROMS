@@ -6,7 +6,6 @@ import * as PropTypes from "prop-types";
  * Build a graph based on the an array of heartRates and an array of times
  */
 class HeartRateGraph extends Component {
-
     render() {
         return (
             <GeneralLineChart id={"myHeart"} labels={this.props.time} data={

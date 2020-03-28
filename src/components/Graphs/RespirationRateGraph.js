@@ -16,7 +16,7 @@ class RespirationRateGraph extends Component {
                     }
                 ]
             }
-                              title={"Respiration Rate"} xLabel={"Date/Time"} yLabel={"Respiration Rate " + this.props.units}/>
+                              title={"Respiration Rate"} xLabel={"Date/Time"} yLabel={"Respiration Rate " + this.props.units} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         );
     }
 }
