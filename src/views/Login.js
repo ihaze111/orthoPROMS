@@ -27,15 +27,13 @@ class Login extends React.Component {
         this.state = {
             email: '',
             password: '',
-            id: 1,
+            id: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id !== undefined ? qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id : '1',
             error: { all: '' }
         };
     }
 
     onChange = (e) => {
-        console.log('hi');
         this.setState({ [e.target.name]: e.target.value });
-        console.log(this.state);
     };
 
 
