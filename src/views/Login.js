@@ -70,7 +70,7 @@ class Login extends React.Component {
         }
         this.setState({ error });
         if (this.state.password !== '' && this.state.email !== '') {
-            let type = this.state.id === 1 ? 'Patient' : 'Clinicians';
+            let type = this.state.id === 1 ? 'Patient' : 'Clinician';
             this.props.login({ ...this.state, type }).then(
                 (res) => {
                     let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
