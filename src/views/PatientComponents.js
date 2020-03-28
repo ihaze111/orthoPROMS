@@ -251,6 +251,7 @@ class Scores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            compIdArray: [],
             painArray: [],
             limitationsArray: [],
             walkingArray: [],
@@ -274,6 +275,7 @@ class Scores extends React.Component {
     }
 
     pushArray(props) {
+        this.state.compIdArray.push(props.comp_id);
         this.state.painArray.push(props.pain);
         this.state.limitationsArray.push(props.limitations);
         this.state.walkingArray.push(props.walking);
@@ -291,7 +293,9 @@ class Scores extends React.Component {
             if (this.state.painArray.length > 0) {
                 return <div>
                     <React.Fragment>
-                        <ScoresGraph pain={this.state.painArray}
+                        <ScoresGraph
+                                     compId={this.state.compIdArray}
+                                     pain={this.state.painArray}
                                      limit={this.state.limitationsArray}
                                      walking={this.state.walkingArray}
                                      surface={this.state.walking_surfacesArray}

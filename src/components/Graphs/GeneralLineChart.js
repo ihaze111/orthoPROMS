@@ -99,6 +99,15 @@ class GeneralLineChart extends Component {
             data,
             options
         });
+        if (this.props.linkList) {
+            const linkMapping = this.props.linkList;
+            this.chartRef.current.onclick = function (evt) {
+                const activePoint = graphReferences[ref].getElementAtEvent(evt);
+                if (activePoint.length > 0) {
+                    window.location = linkMapping[activePoint[0]._index];
+                }
+            }
+        }
     }
 
     render() {

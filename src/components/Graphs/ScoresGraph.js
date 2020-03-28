@@ -29,7 +29,7 @@ class ScoresGraph extends Component {
                     label: "Total Score",
                     data: this.props.total,
                 }
-            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"}/>
+            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         )
     }
 }
