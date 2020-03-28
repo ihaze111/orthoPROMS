@@ -21,7 +21,7 @@ module.exports = {
     "plugins": [
         "react"
     ],
-    "ignorePatterns": ["node_modules/"],
+    "ignorePatterns": ["node_modules/", "build/", "public/", "ehr-template-processor/", "ehr-template-react-generator/", "react-styled-nhs/"],
     "rules": {
     }
 };
