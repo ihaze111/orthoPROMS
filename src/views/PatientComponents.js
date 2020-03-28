@@ -202,7 +202,7 @@ class Composition extends React.Component {
 
         } else {
             return <NHSTr key="noCompositionsRow">
-                <NHSTd key="noCompositionsData" colSpan="4">No compositions were found</NHSTd>
+                <NHSTd key="noCompositionsData" colSpan="5">No compositions were found</NHSTd>
             </NHSTr>;
         }
     }
