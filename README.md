@@ -1,5 +1,7 @@
 # orthoPROMS
 
+[![ihaze111](https://circleci.com/gh/ihaze111/orthoPROMS/tree/master.svg?style=svg)](https://github.com/ihaze111/orthoPROMS)
+
  ## Orthopaedic PROMS (Patient-record outcome measures) visualisation based on openEHR standards.
 
 ### Abstract
