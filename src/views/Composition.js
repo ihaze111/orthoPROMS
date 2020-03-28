@@ -47,16 +47,26 @@ export class Composition extends React.Component {
                     return result.resultSet ? result.resultSet : [];
                 }).then((k) => {
                     const row = k[0];
+                    // Merge rows if query returns multiple rows for same commit
+                    k.map((queryRow) => {
+                        Object.keys(queryRow).map((queryCell) => {
+                            // TODO: look into specifics of how this works to prevent overwriting
+                            // NB if there are any different values in same column, this will overwrite
+                            row[queryCell] = row[queryCell] === null ? queryRow[queryCell] : row[queryCell];
+                        });
+                    });
+                    console.log(row);
                     const final = Object.keys(row).map((cell) => {
                         let valueToShow = JSON.stringify(row[cell]);
                             if (row[cell] != null && row[cell] != undefined) {
-                                console.log(row[cell]);
                             valueToShow = row[cell].value !== undefined && row[cell].value !== null ? row[cell].value :
-                                (row[cell].code_string ? row[cell].code_string : (row[cell].name ? row[cell].name : JSON.stringify((row[cell].terminology_id ? row[cell].terminology_id : '')))).toString();
+                                (row[cell].code_string ? row[cell].code_string : (row[cell].name ? row[cell].name : JSON.stringify((row[cell].terminology_id ? row[cell].terminology_id : JSON.stringify(row[cell]))))).toString();
                         }
                         return [mapping[cell][1], valueToShow];
                     });
                     this.setState({ composition: final });
+                }).catch((k) => {
+                    throw k;
                 });
             });
         });
@@ -88,6 +98,9 @@ export class Composition extends React.Component {
     }
 }
 
+function forceIdentifier(identifier) {
+    return identifier.replace(/[^A-Za-z09_]/gi, '');
+}
 
 function getAqlMappingOfTemplate(props, result) {
     if ('children' in props) {
@@ -95,7 +108,7 @@ function getAqlMappingOfTemplate(props, result) {
             getAqlMappingOfTemplate(child, result);
         });
     } else if ('aqlPath' in props) {
-        result[props.id] = [props.aqlPath, props.name];
+        result[forceIdentifier(props.id)] = [props.aqlPath, props.name];
     }
     return result;
 }
