@@ -543,6 +543,7 @@ class HeartRate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            compIdArray: [],
             heartRateReadings: [],
             time: []
         };
@@ -553,12 +554,13 @@ class HeartRate extends React.Component {
         promise.then((e) => {
             e.forEach(el => {
                 this.pushIntoArrays(el);
-            })
+            });
             this.setState({ heartRate: e });
         });
     }
 
     pushIntoArrays(props) {
+        this.state.compIdArray.push(props.comp_id);
         this.state.heartRateReadings.push(props.heart_rate.magnitude);
         this.state.time.push(props.time.replace(/T/, ' ').substring(0, props.time.indexOf('.'))
             || props.time.replace(/T/, ' ').substring(0, props.time.indexOf('Z')));
@@ -568,7 +570,8 @@ class HeartRate extends React.Component {
     render() {
         if (!this.state.heartRate) return null;
         if (this.state.heartRate.length > 0) {
-            return <HeartRateGraph heartRates={this.state.heartRateReadings}
+            return <HeartRateGraph compId={this.state.compIdArray}
+                                   heartRates={this.state.heartRateReadings}
                                    time={this.state.time}
                                    units={this.state.heartRate[0].heart_rate.units}/>
         } else {
