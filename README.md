@@ -28,9 +28,6 @@ There is a lack of open source, easy to use Patient Recorded Outcome Measures (P
 
 
 References:
-We found image for the doctor here: https://wallpapercave.com/medical-doctor-background
-We will likely change this photo later, as we can likely not use it in the final project.
-The NHS and Apperta logos are taken from their respective websites.
-
+The Apperta logo is taken from the Apperta websites.
 Attributions:
 "public/240px-User_icon_2.svg.png": The Tango Icon Team [Public domain]
