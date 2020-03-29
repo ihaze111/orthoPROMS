@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import Tab from 'react-bootstrap/Tab';
-import Alert from 'react-bootstrap/Alert';
 import Nav from 'react-bootstrap/Nav';
 
-import $ from 'jquery';
 
 import HeaderMenu from "../../components/HeaderMenu";
 import * as PropTypes from "prop-types";
@@ -13,7 +11,7 @@ import {
     ScoresArray,
     EpisodeScoresGraph, PatientDemographics
 } from "../PatientComponents";
-import { getEHRId, getSubjectId, loadEhrId } from "../PatientUtils";
+import { getEHRId } from "../PatientUtils";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 
@@ -25,7 +23,6 @@ import NHSWrapper from "../../components/react-styled-nhs/src/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../../components/react-styled-nhs/src/NHSPanel";
 import NHSFooter from "../../components/react-styled-nhs/src/NHSFooter";
 import getAllTemplatesInCDR from "../../components/Queries/getAllTemplatesInCDR";
-import NHSFormsyDropdown from "../../ehr-template-react-generator/src/NHSFormsyDropdown";
 import ReactDOM from 'react-dom';
 import { NHSButton } from "../../components/react-styled-nhs/src/NHSComponents";
 
@@ -38,6 +35,9 @@ class PatientSelf extends React.Component {
             activeKey: ""
         };
         this.onTemplateChange = this.onTemplateChange.bind(this);
+        this.onChange = e => {
+            this.props.handleSearch(e.target.value);
+        };
     }
 
     componentDidMount() {
@@ -53,10 +53,6 @@ class PatientSelf extends React.Component {
             this.setState({ templatesList: e });
         });
     }
-
-    onChange = e => {
-        this.props.handleSearch(e.target.value);
-    };
 
     reloadPage() {
         window.location.reload();

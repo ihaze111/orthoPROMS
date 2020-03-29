@@ -70,7 +70,7 @@ export class PatientDemographics extends React.Component {
                 <NHSPanelBody>
                     <NHSSummaryList>
                         {this.state.demographics.map((e) => {
-                            return <NHSSummaryListRow>
+                            return <NHSSummaryListRow key={"demographics-" + e[0]}>
                                 <NHSSummaryListKey>{e[0]}</NHSSummaryListKey>
                                 <NHSSummaryListValue>{e[1]}</NHSSummaryListValue>
                             </NHSSummaryListRow>;
@@ -227,7 +227,9 @@ class Composition extends React.Component {
 }
 
 Composition.propTypes = {
-    setCompositions: PropTypes.func
+    ehrId: PropTypes.string,
+    setCompositions: PropTypes.func,
+    compositionsFiltered: PropTypes.object
 };
 
 const Compositions = connect(

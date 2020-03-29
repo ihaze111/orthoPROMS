@@ -30,60 +30,55 @@ class Login extends React.Component {
             id: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id !== undefined ? qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id : '1',
             error: { all: '' }
         };
-    }
-
-    onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
-
-    onSignIn = (googleUser) => {
-        var profile = googleUser.getBasicProfile();
-        var id_token = googleUser.getAuthResponse().id_token;
-        this.props.googleLogin({ token: id_token, user: profile });
-        let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-        if (xx === "1") {
-            window.localStorage.setItem('id', 1);
-            window.location.href = "/Patient?id=" + xx;
-        } else if (xx === "2") {
-            window.localStorage.setItem('id', 2);
-            window.location.href = "/Clinician?id=" + xx;
-        }
-    };
-
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        const error = {};
-        if (this.state.password === '') {
-            error.password = 'Please enter your password';
-        } else {
-            error.password = '';
-        }
-        if (this.state.email === '') {
-            error.email = 'Please enter your email';
-        } else {
-            error.email = '';
-        }
-        this.setState({ error });
-        if (this.state.password !== '' && this.state.email !== '') {
-            let type = this.state.id === '1' ? 'Patient' : 'Clinician';
-            this.props.login({ ...this.state, type }).then(
-                (res) => {
-                    let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-                    if (xx === "1") {
-                        window.localStorage.setItem('id', 1);
-                        window.location.href = "/Patient?id=" + xx;
-                    } else if (xx === "2") {
-                        window.localStorage.setItem('id', 2);
-                        window.location.href = "/Clinician?id=" + xx;
+        this.onChange = (e) => {
+            this.setState({ [e.target.name]: e.target.value });
+        };
+        this.onSignIn = (googleUser) => {
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;
+            this.props.googleLogin({ token: id_token, user: profile });
+            let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+            if (xx === "1") {
+                window.localStorage.setItem('id', 1);
+                window.location.href = "/Patient?id=" + xx;
+            } else if (xx === "2") {
+                window.localStorage.setItem('id', 2);
+                window.location.href = "/Clinician?id=" + xx;
+            }
+        };
+        this.onSubmit = (e) => {
+            e.preventDefault();
+            const error = {};
+            if (this.state.password === '') {
+                error.password = 'Please enter your password';
+            } else {
+                error.password = '';
+            }
+            if (this.state.email === '') {
+                error.email = 'Please enter your email';
+            } else {
+                error.email = '';
+            }
+            this.setState({ error });
+            if (this.state.password !== '' && this.state.email !== '') {
+                let type = this.state.id === '1' ? 'Patient' : 'Clinician';
+                this.props.login({ ...this.state, type }).then(
+                    (res) => {
+                        let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+                        if (xx === "1") {
+                            window.localStorage.setItem('id', 1);
+                            window.location.href = "/Patient?id=" + xx;
+                        } else if (xx === "2") {
+                            window.localStorage.setItem('id', 2);
+                            window.location.href = "/Clinician?id=" + xx;
+                        }
                     }
-                }
-            ).catch((res) => {
-                this.setState({ error: { all: res.message } });
-            });
-        }
-    };
+                ).catch((res) => {
+                    this.setState({ error: { all: res.message } });
+                });
+            }
+        };
+    }
 
     render() {
         return (

@@ -20,7 +20,6 @@ import {
 } from '../actions/signupActions'
 import HeaderMenu from "../components/HeaderMenu";
 import * as PropTypes from "prop-types";
-import { PatientDemographics } from "./PatientComponents";
 
 class Reset extends React.Component {
 
@@ -190,7 +189,8 @@ class Reset extends React.Component {
 
 Reset.propTypes = {
     sendCode: PropTypes.func,
-    location: PropTypes.object
+    location: PropTypes.object,
+    reset: PropTypes.func
 };
 
 // export default Register;

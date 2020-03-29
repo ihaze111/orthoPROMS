@@ -52,50 +52,6 @@ async function commitComposition(model, ehrId, templateId) {
     return processedResult;
 }
 
-export class FlatSurvey extends React.Component {
-    constructor(props) {
-        super(props);
-        this.disableButton = this.disableButton.bind(this);
-        this.enableButton = this.enableButton.bind(this);
-        this.state = { canSubmit: false };
-    }
-
-    componentDidMount() {
-        let promise = getFlatProcessedTemplate(this.props.templateId);
-        promise.then((e) => {
-            this.setState({ canSubmit: this.state.canSubmit, template: e });
-        });
-    }
-
-    disableButton() {
-        this.setState({ canSubmit: false });
-    }
-
-    enableButton() {
-        this.setState({ canSubmit: true });
-    }
-
-    submit(model) {
-        commitComposition(model);
-    }
-
-    render() {
-        if (!this.state.template) return null;
-        const sample = this.state.template;
-        return (
-            <div>
-                <Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
-                    {sample.map((jsonInputObject) => {
-                        return JsonFormInputToNHSReact(jsonInputObject)
-                    })}
-                    <input style={{ marginLeft: "50%" }} className="btn btn-primary" type="submit"
-                           disabled={!this.state.canSubmit} defaultValue="Submit"/>
-                </Form>
-            </div>
-        );
-    }
-}
-
 export class StructuredSurvey extends React.Component {
     constructor(props) {
         super(props);

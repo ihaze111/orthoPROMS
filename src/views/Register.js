@@ -17,7 +17,6 @@ import {
 } from "../components/react-styled-nhs/src/NHSComponents";
 import NHSBackLink from "../components/react-styled-nhs/src/NHSBackLink";
 import * as PropTypes from "prop-types";
-import { PatientDemographics } from "./PatientComponents";
 
 class Register extends React.Component {
 
@@ -243,7 +242,7 @@ class Register extends React.Component {
     }
 }
 
-PatientDemographics.propTypes = {
+Register.propTypes = {
     checkCode: PropTypes.func,
     userSignupRequest: PropTypes.func,
     sendCode: PropTypes.func,
