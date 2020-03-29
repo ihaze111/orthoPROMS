@@ -1,7 +1,6 @@
 import React from 'react';
 import CDROptions from "../../components/Queries/CDROptions";
 import { Form } from 'formsy-react-components';
-import getFlatProcessedTemplate from "../../components/GetFlatProcessedTemplate";
 import JsonFormInputToNHSReact from "../../ehr-template-react-generator/src/JsonFormInputToNHSReact";
 import ReactDOM from "react-dom";
 import {
@@ -18,6 +17,7 @@ import {
     NHSSummaryListRow,
     NHSSummaryListValue
 } from "../../components/react-styled-nhs/src/NHSSummaryList";
+import * as PropTypes from "prop-types";
 
 async function commitComposition(model, ehrId, templateId) {
     let processedResult = [];
@@ -156,6 +156,11 @@ export class StructuredSurvey extends React.Component {
     }
 }
 
+StructuredSurvey.propTypes = {
+    ehrId: PropTypes.string,
+    templateId: PropTypes.string
+};
+
 function getMappingOfTemplate(e) {
     const result = {};
     getMappingOfTemplateAux(e, []).map((keys) => {
@@ -201,3 +206,11 @@ function RecursiveCard(props) {
     }
     return null;
 }
+
+
+RecursiveCard.propTypes = {
+    color: PropTypes.string,
+    name: PropTypes.string,
+    inputs: PropTypes.object,
+    children: PropTypes.array
+};
