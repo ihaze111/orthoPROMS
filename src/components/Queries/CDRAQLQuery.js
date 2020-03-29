@@ -1,6 +1,12 @@
 import CDROptions from "./CDROptions";
 import axios from "axios";
 
+export const QueryResultCallbackProcessing = {
+    ReturnResultSetOrOtherwiseEmptyArray: (result) => {
+        return result ? ('resultSet' in result ? ((result.resultSet && Object.keys(result.resultSet).length !== 0) ? result.resultSet : []) : []) : [];
+    }
+};
+
 /**
  * Perform a query to the CDR
  * @param aql Query, in Archetype Query Language, to run on the CDR

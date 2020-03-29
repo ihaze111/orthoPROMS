@@ -1,4 +1,4 @@
-import CDRAQLQuery from "./CDRAQLQuery";
+import CDRAQLQuery, { QueryResultCallbackProcessing } from "./CDRAQLQuery";
 
 async function getAOFASScoresAgainstTimeByEHRId(ehrId) {
     const aql = "select\n" +
@@ -12,9 +12,7 @@ async function getAOFASScoresAgainstTimeByEHRId(ehrId) {
         "from EHR e\n" +
         "contains COMPOSITION a\n" +
         "contains OBSERVATION a_a[openEHR-EHR-OBSERVATION.aofas.v0] where e/ehr_id/value='"+ ehrId +"'";
-    return await CDRAQLQuery(aql, (result) => {
-        return result.resultSet ? result.resultSet : [];
-    });
+    return await CDRAQLQuery(aql, QueryResultCallbackProcessing.ReturnResultSetOrOtherwiseEmptyArray);
 }
 
 export default getAOFASScoresAgainstTimeByEHRId;

@@ -1,4 +1,4 @@
-import CDRAQLQuery from "./CDRAQLQuery";
+import CDRAQLQuery, { QueryResultCallbackProcessing } from "./CDRAQLQuery";
 
 /**
  * Get a list of all compositions relating to an EHR id, for display in a table, containing:
@@ -18,9 +18,7 @@ async function getAllCompositionsByEHRId(ehrId) {
         " contains COMPOSITION a[openEHR-EHR-COMPOSITION.report.v1] contains ( OBSERVATION" +
         " b_a[openEHR-EHR-OBSERVATION.aofas.v0] and CLUSTER b_b[openEHR-EHR-CLUSTER.episode_details_northproms.v0])" +
         " where a/name/value='UCLH Foot and ankle PROMs' and e/ehr_id/value='" + ehrId + "'";
-    return await CDRAQLQuery(aql, (result) => {
-        return result.resultSet ? result.resultSet : [];
-    });
+    return await CDRAQLQuery(aql, QueryResultCallbackProcessing.ReturnResultSetOrOtherwiseEmptyArray);
 }
 
 export default getAllCompositionsByEHRId;
