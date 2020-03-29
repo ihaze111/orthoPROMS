@@ -1,6 +1,7 @@
 import {CSVLink} from "react-csv";
 import React from 'react';
 import { NHSButton } from "./react-styled-nhs/src/NHSComponents";
+import * as PropTypes from "prop-types";
 
 export function DownloadCSV(props){
     /**
@@ -8,9 +9,14 @@ export function DownloadCSV(props){
      * @param props.array of arrays used to visualise data
      * @returns a download link for .csv file containing data in csv format
      */
-    var data = [transpose(props.array)];
+    const data = [transpose(props.array)];
     return <CSVLink data={data} filename={props.fileName}><NHSButton>Export To CSV</NHSButton></CSVLink>
 }
+
+DownloadCSV.propTypes = {
+    array: PropTypes.array,
+    fileName: PropTypes.string
+};
 
 function transpose(array){
     /**

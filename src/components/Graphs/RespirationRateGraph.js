@@ -16,7 +16,9 @@ class RespirationRateGraph extends Component {
                     }
                 ]
             }
-                              title={"Respiration Rate"} xLabel={"Date/Time"} yLabel={"Respiration Rate " + this.props.units} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
+                              title={"Respiration Rate"} xLabel={"Date/Time"}
+                              yLabel={"Respiration Rate " + this.props.units}
+                              linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         );
     }
 }
@@ -24,7 +26,8 @@ class RespirationRateGraph extends Component {
 RespirationRateGraph.propTypes = {
     magnitude: PropTypes.array,
     time: PropTypes.array,
-    units: PropTypes.string
+    units: PropTypes.string,
+    compId: PropTypes.array
 };
 
 export default RespirationRateGraph;

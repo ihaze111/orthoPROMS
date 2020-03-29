@@ -23,7 +23,8 @@ class OxygenSaturationGraph extends Component {
 OxygenSaturationGraph.propTypes = {
     percent: PropTypes.array,
     time: PropTypes.array,
-    units: PropTypes.string
+    units: PropTypes.string,
+    compId: PropTypes.array
 };
 
 export default OxygenSaturationGraph;

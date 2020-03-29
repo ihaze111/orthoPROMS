@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
 import { logout } from '../actions/authActions';
 import { GoogleLogout } from 'react-google-login'
-import { NHSSearch } from "./react-styled-nhs/src/NHSSearch";
 import {
     NHSAppLogo, NHSHeader, NHSHeaderContainer,
     NHSHeaderContent,
@@ -15,51 +14,45 @@ import {
     NHSWidthContainer
 } from "./react-styled-nhs/src/NHSHeader";
 import { NHSVectorChevronRight } from "./react-styled-nhs/src/NHSIcons";
+import * as PropTypes from "prop-types";
 
 class HeaderMenu extends React.Component {
-
-    handleClick = (e) => {
-        this.props.logout();
-        window.location.href = '/';
-    };
-
-    handleLogin = (e) => {
-        e.preventDefault();
-
-        if(window.localStorage.getItem('id') == 1){
-            window.location.href = '/Patient';
-        }
-
-        if(window.localStorage.getItem('id') == 2){
-            window.location.href = '/Clinician';
-        }
-
-    };
-
     constructor(props) {
-        super(props)
-        this.state={
+        super(props);
+        this.state = {
             color: '#fff',
             color1: '#fff',
             color2: '#000'
-        }
+        };
+        this.handleClick = () => {
+            this.props.logout();
+            window.location.href = '/';
+        };
+        this.handleLogin = (e) => {
+            e.preventDefault();
+
+            if(window.localStorage.getItem('id') == 1){
+                window.location.href = '/Patient';
+            }
+
+            if(window.localStorage.getItem('id') == 2){
+                window.location.href = '/Clinician';
+            }
+        };
+        this.onChange = e => {
+            // this.setState({[e.target.name]: e.target.value})
+            this.props.handleSearch(e.target.value)
+        };
+        this.handleIPROMS = () => {
+            if (window.confirm("Exiting to the home page will log you out, are you sure you want to leave？")) {
+                this.handleClick();
+            }
+        };
     }
-
-    onChange = e => {
-        // this.setState({[e.target.name]: e.target.value})
-        this.props.handleSearch(e.target.value)
-    };
-
-    handleIPROMS = () => {
-        if (window.confirm("Exiting to the home page will log you out, are you sure you want to leave？")) {
-            this.handleClick();
-        }
-    };
 
     componentDidMount() {
         // console.log(this.props.isGoogleLogin)
-    };
-
+    }
 
     render() {
         const navigation = this.props.navigationDisabled ? null :
@@ -78,11 +71,9 @@ class HeaderMenu extends React.Component {
                     </NHSNav>
                 </NHSWidthContainer>
             </NHSHeaderNavigation>;
-        const search = this.props.searchDisabled ? null : <NHSSearch/>;
         const headerContent = this.props.searchDisabled && this.props.navigationDisabled ? null :
             <NHSHeaderContent>
                 <NHSHeaderMenuToggle/>
-                {/*{search}*/}
             </NHSHeaderContent>;
         return (
             <NHSHeader>
@@ -112,8 +103,16 @@ class HeaderMenu extends React.Component {
             </NHSHeader>
         );
     }
-
 }
+
+HeaderMenu.propTypes = {
+    navigationDisabled: PropTypes.bool,
+    logout: PropTypes.func,
+    handleSearch: PropTypes.func,
+    searchDisabled: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
+    isGoogleLogin: PropTypes.bool
+};
 
 const mapStateToProps = (state) => {
     return {

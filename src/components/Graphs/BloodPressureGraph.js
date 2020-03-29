@@ -24,7 +24,8 @@ class BloodPressureGraph extends Component {
                         label: "Diastolic",
                         data: this.props.diastolic
                     }]
-            } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure " + this.props.units} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
+            } title={"Blood Pressure"} xLabel={"Date/Time"} yLabel={"Blood Pressure " + this.props.units}
+                                linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         )
     }
 }
@@ -33,7 +34,8 @@ BloodPressureGraph.propTypes = {
     systolic: PropTypes.array,
     diastolic: PropTypes.array,
     time: PropTypes.array,
-    units: PropTypes.string
+    units: PropTypes.string,
+    compId: PropTypes.array
 };
 
 /**
@@ -166,7 +168,8 @@ BloodPressureChart.propTypes = {
     data: PropTypes.array,
     title: PropTypes.string,
     xLabel: PropTypes.string,
-    yLabel: PropTypes.string
+    yLabel: PropTypes.string,
+    linkList: PropTypes.array
 };
 
 export default BloodPressureGraph;

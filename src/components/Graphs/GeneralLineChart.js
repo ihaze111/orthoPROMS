@@ -132,7 +132,8 @@ GeneralLineChart.propTypes = {
     data: PropTypes.array,
     title: PropTypes.string,
     xLabel: PropTypes.string,
-    yLabel: PropTypes.string
+    yLabel: PropTypes.string,
+    linkList: PropTypes.array
 };
 
 export default GeneralLineChart;

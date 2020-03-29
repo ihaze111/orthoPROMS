@@ -29,7 +29,8 @@ class ScoresGraph extends Component {
                     label: "Total Score",
                     data: this.props.total,
                 }
-            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
+            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"}
+                              linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         )
     }
 }
@@ -45,7 +46,8 @@ ScoresGraph.propTypes = {
     xLabel: PropTypes.string,
     yLabel: PropTypes.string,
     title: PropTypes.string,
-    units: PropTypes.string
+    units: PropTypes.string,
+    compId: PropTypes.array
 };
 
 export default ScoresGraph;

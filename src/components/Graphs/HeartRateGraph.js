@@ -16,7 +16,8 @@ class HeartRateGraph extends Component {
                     }
                 ]
             }
-            title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
+                              title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units}
+                              linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
         );
     }
 }
@@ -24,7 +25,8 @@ class HeartRateGraph extends Component {
 HeartRateGraph.propTypes = {
     heartRates: PropTypes.array,
     time: PropTypes.array,
-    units: PropTypes.string
+    units: PropTypes.string,
+    compId: PropTypes.array
 };
 
 export default HeartRateGraph;
