@@ -9,7 +9,7 @@ export function DownloadCSV(props){
      * @param props.array of arrays used to visualise data
      * @returns a download link for .csv file containing data in csv format
      */
-    const data = [transpose(props.array)];
+    const data = [Transpose(props.array)];
     return <CSVLink data={data} filename={props.fileName}><NHSButton>Export To CSV</NHSButton></CSVLink>
 }
 
@@ -18,13 +18,16 @@ DownloadCSV.propTypes = {
     fileName: PropTypes.string
 };
 
-function transpose(array){
+export const TransposeFunction = {
     /**
      * Transpose an array of arrays to suit csv formatting
      * @param array of arrays needed to transpose
      * @returns transposed array of arrays
      */
-    return Object.keys(array[0]).map(function(x) {
-        return array.map(function(y) { return y[x]; });
-    });
-}
+    Transpose : (array) => {
+    
+        return Object.keys(array[0]).map(function(x) {
+            return array.map(function(y) { return y[x]; });
+        });
+    }
+};
