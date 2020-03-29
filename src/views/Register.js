@@ -1,7 +1,5 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import HeaderMenu from "../components/HeaderMenu";
 import { connect } from 'react-redux';
 import qs from "qs";
@@ -18,10 +16,8 @@ import {
     NHSFormLabel
 } from "../components/react-styled-nhs/src/NHSComponents";
 import NHSBackLink from "../components/react-styled-nhs/src/NHSBackLink";
-import { CDRHeaders } from "../components/Queries/CDROptions";
-import environment from "../environment";
-import * as axios from "axios";
-
+import * as PropTypes from "prop-types";
+import { PatientDemographics } from "./PatientComponents";
 
 class Register extends React.Component {
 
@@ -41,122 +37,114 @@ class Register extends React.Component {
             history: require('history').createBrowserHistory(),
             error: { all: '' }
         };
-    }
-
-    onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
-    goback = () => {
-        this.state.history.goBack();
-    };
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        let email = this.state.email;
-        let code = this.state.code;
-
-        const error = {};
-        if (this.state.password === '') {
-            error.password = 'Please enter your password';
-        } else {
-            error.password = '';
-        }
-        if (this.state.passwordConfirmation === '') {
-            error.passwordConfirmation = 'Please enter your password again for confirmation';
-        } else {
-            error.passwordConfirmation = '';
-        }
-        if (this.state.email === '' || this.state.email.search("@") === -1) {
-            error.email = 'Please enter a valid email';
-        } else {
-            error.email = '';
-        }
-        if (this.state.code === '') {
-            error.code = 'Please enter the code that has been emailed to you';
-        } else {
-            error.code = '';
-        }
-        // N.B. NHS number requirements relaxed for easier testing
-        // if (this.state.nhsNumber.length !== 10 || this.state.nhsNumber.parseInt().toString() !==
-        // this.state.nhsNumber) { error.nhsNumber = 'Please enter a valid 10-digit NHS number';
-        if (this.state.nhsNumber === '' || String(parseInt(this.state.nhsNumber)) !== this.state.nhsNumber) {
-            error.nhsNumber = 'Please enter your NHS number';
-        } else {
-            error.nhsNumber = '';
-        }
-        if (this.state.password !== this.state.passwordConfirmation) {
-            error.passwordsTogether = 'Passwords do not match';
-        } else {
-            error.passwordsTogether = '';
-        }
-        this.setState({ error });
-        if (this.state.password !== '' && this.state.passwordConfirmation !== '' && this.state.email !== '' && this.state.code !== '' && this.state.password === this.state.passwordConfirmation && this.state.nhsNumber !== '' && String(parseInt(this.state.nhsNumber)) === this.state.nhsNumber) {
-            // Verify the verification code before registering
-            this.props.checkCode({ code: this.state.code }).then(
-                res => {
-                    if (res.data.code === 200) {
-                        // Verification code is correct
-                        this.props.userSignupRequest(this.state).then(
-                            (res) => {
-                                // Registration success
-                                if (res.data.code === 200) {
-                                    alert('registration success');
-                                    this.goback();
-                                } else {
-                                    this.setState({ error: { all: res.data.message } });
+        this.onChange = (e) => {
+            this.setState({ [e.target.name]: e.target.value });
+        };
+        this.goback = () => {
+            this.state.history.goBack();
+        };
+        this.onSubmit = (e) => {
+            e.preventDefault();
+            const error = {};
+            if (this.state.password === '') {
+                error.password = 'Please enter your password';
+            } else {
+                error.password = '';
+            }
+            if (this.state.passwordConfirmation === '') {
+                error.passwordConfirmation = 'Please enter your password again for confirmation';
+            } else {
+                error.passwordConfirmation = '';
+            }
+            if (this.state.email === '' || this.state.email.search("@") === -1) {
+                error.email = 'Please enter a valid email';
+            } else {
+                error.email = '';
+            }
+            if (this.state.code === '') {
+                error.code = 'Please enter the code that has been emailed to you';
+            } else {
+                error.code = '';
+            }
+            // N.B. NHS number requirements relaxed for easier testing
+            // if (this.state.nhsNumber.length !== 10 || this.state.nhsNumber.parseInt().toString() !==
+            // this.state.nhsNumber) { error.nhsNumber = 'Please enter a valid 10-digit NHS number';
+            if (this.state.nhsNumber === '' || String(parseInt(this.state.nhsNumber)) !== this.state.nhsNumber) {
+                error.nhsNumber = 'Please enter your NHS number';
+            } else {
+                error.nhsNumber = '';
+            }
+            if (this.state.password !== this.state.passwordConfirmation) {
+                error.passwordsTogether = 'Passwords do not match';
+            } else {
+                error.passwordsTogether = '';
+            }
+            this.setState({ error });
+            if (this.state.password !== '' && this.state.passwordConfirmation !== '' && this.state.email !== '' && this.state.code !== '' && this.state.password === this.state.passwordConfirmation && this.state.nhsNumber !== '' && String(parseInt(this.state.nhsNumber)) === this.state.nhsNumber) {
+                // Verify the verification code before registering
+                this.props.checkCode({ code: this.state.code }).then(
+                    res => {
+                        if (res.data.code === 200) {
+                            // Verification code is correct
+                            this.props.userSignupRequest(this.state).then(
+                                (res) => {
+                                    // Registration success
+                                    if (res.data.code === 200) {
+                                        alert('registration success');
+                                        this.goback();
+                                    } else {
+                                        this.setState({ error: { all: res.data.message } });
+                                    }
+                                }, (res) => {
+                                    // Registration error
+                                    this.setState({ error: { all: JSON.stringify(res) } });
                                 }
-                            }, (res) => {
-                                // Registration error
-                                this.setState({ error: { all: JSON.stringify(res) } });
-                            }
-                        )
-                    } else {
-                        this.setState({ error: { all: res.data.message } });
+                            )
+                        } else {
+                            this.setState({ error: { all: res.data.message } });
+                        }
+                    },
+                    res => {
+                        this.setState({ error: { all: res.message } });
                     }
-                },
-                res => {
-                    this.setState({ error: { all: res.message } });
-                }
-            );
-        }
-    };
-
-    handleClick = (e) => {
-        e.preventDefault();
-        let email = this.state.email;
-        if (email === '' || email.search("@") === -1) {
-            this.setState({ error: { email: 'Please enter a valid email' } });
-        } else {
-            // Send the verification code
-            this.props.sendCode(this.state).then(
-                res => {
-                    if (res.data.code === 200) {
-                        this.setState({ codeSent: 'Code has been emailed to ' + res.data.data.email });
-                        this.setState({ error: {} });
-                        this.count();
-                    } else {
-                        this.setState({ error: { email: res.data.message } });
+                );
+            }
+        };
+        this.handleClick = (e) => {
+            e.preventDefault();
+            let email = this.state.email;
+            if (email === '' || email.search("@") === -1) {
+                this.setState({ error: { email: 'Please enter a valid email' } });
+            } else {
+                // Send the verification code
+                this.props.sendCode(this.state).then(
+                    res => {
+                        if (res.data.code === 200) {
+                            this.setState({ codeSent: 'Code has been emailed to ' + res.data.data.email });
+                            this.setState({ error: {} });
+                            this.count();
+                        } else {
+                            this.setState({ error: { email: res.data.message } });
+                        }
+                    }).catch(
+                    res => {
+                        this.setState({ error: { email: res.message } });
                     }
-                }).catch(
-                res => {
-                    this.setState({ error: { email: res.message } });
-                }
-            );
-        }
-    };
-
-    count = () => {
-        let timer = this.state.timer;
-        let siv = setInterval(() => {
-            this.setState({ timer: (timer--), btnText: timer, discodeBtn: true }, () => {
-                if (timer === 0) {
-                    clearInterval(siv);
-                    this.setState({ timer: 180, btnText: 'Resend', discodeBtn: false })
-                }
-            });
-        }, 1000);
-    };
+                );
+            }
+        };
+        this.count = () => {
+            let timer = this.state.timer;
+            let siv = setInterval(() => {
+                this.setState({ timer: (timer--), btnText: timer, discodeBtn: true }, () => {
+                    if (timer === 0) {
+                        clearInterval(siv);
+                        this.setState({ timer: 180, btnText: 'Resend', discodeBtn: false })
+                    }
+                });
+            }, 1000);
+        };
+    }
 
     componentDidMount() {
         let id = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
@@ -188,7 +176,7 @@ class Register extends React.Component {
                                                       error={this.state.error.email || this.state.error.all}>
                                             <NHSFormLabel>Email address</NHSFormLabel>
                                             <NHSFormHint>
-                                                We'll never share your email with anyone else.
+                                                We&apos;ll never share your email with anyone else.
                                             </NHSFormHint>
                                             <NHSFormControl type="email" placeholder="Enter email" name="email"
                                                             onChange={this.onChange}
@@ -254,6 +242,13 @@ class Register extends React.Component {
         );
     }
 }
+
+PatientDemographics.propTypes = {
+    checkCode: PropTypes.func,
+    userSignupRequest: PropTypes.func,
+    sendCode: PropTypes.func,
+    location: PropTypes.object
+};
 
 // export default Register;
 export default connect(null, { userSignupRequest, sendCode, checkCode })(Register)
