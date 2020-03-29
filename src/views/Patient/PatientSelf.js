@@ -130,7 +130,7 @@ class PatientSelf extends React.Component {
                                                         name="select-template"
                                                         style={{ marginTop: '8px', marginRight: '10px' }}>
                                                     {this.state.templatesList.map((template) => {
-                                                        if (template.templateId == 'Foot_and_Ankle_PROMs-v0') {
+                                                        if (template.templateId === 'Foot_and_Ankle_PROMs-v0') {
                                                             return <option
                                                                 value={template.templateId}
                                                                 selected="selected">{template.templateId}</option>

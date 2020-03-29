@@ -176,7 +176,7 @@ class Login extends React.Component {
 Login.propTypes = {
     location: PropTypes.object,
     googleLogin: PropTypes.func,
-    login: PropTypes. func
+    login: PropTypes.func
 };
 
 export default connect(null, { login, googleLogin })(Login)
