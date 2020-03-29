@@ -13,7 +13,7 @@ async function getAllergiesListByEHRId(ehrId) {
 }
 
 export function timeFormat(time) {
-    return time.replace(/T/, ' ').substring(0, time.indexOf('.'));
+    return time.indexOf('.') !== -1 ? time.replace(/T/, ' ').substring(0, time.indexOf('.')) : time.replace(/T/, ' ');
 }
 
 export default getAllergiesListByEHRId;
