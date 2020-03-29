@@ -31,11 +31,11 @@ class HeaderMenu extends React.Component {
         this.handleLogin = (e) => {
             e.preventDefault();
 
-            if(window.localStorage.getItem('id') == 1){
+            if(window.localStorage.getItem('id') === '1'){
                 window.location.href = '/Patient';
             }
 
-            if(window.localStorage.getItem('id') == 2){
+            if(window.localStorage.getItem('id') === '2'){
                 window.location.href = '/Clinician';
             }
         };
@@ -60,11 +60,11 @@ class HeaderMenu extends React.Component {
                 <NHSWidthContainer>
                     <NHSHeaderMenu/>
                     <NHSNav>
-                        <li className="nhsuk-header__navigation-item" onClick={this.handleLogin}>
-                            <a className="nhsuk-header__navigation-link" >
+                        <li className="nhsuk-header__navigation-item" onClick={this.handleLogin} style={{cursor: 'pointer'}}>
+                            <span className="nhsuk-header__navigation-link" >
                                 Home
                                 <NHSVectorChevronRight/>
-                            </a>
+                            </span>
                         </li>
                         <NHSNavLink href='/About' >About</NHSNavLink>
                         <NHSNavLink href='/NationalStatistics'>National Statistics</NHSNavLink>
