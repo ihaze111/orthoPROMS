@@ -16,6 +16,7 @@ import NHSBackLink from "../components/react-styled-nhs/src/NHSBackLink";
 import { createBrowserHistory } from "history";
 import NHSCheckbox from "../components/react-styled-nhs/src/NHSCheckbox";
 import { NHSFormGroup, NHSFormLabel } from "../components/react-styled-nhs/src/NHSComponents";
+import * as PropTypes from "prop-types";
 
 export class Composition extends React.Component {
     constructor(props) {
@@ -25,15 +26,14 @@ export class Composition extends React.Component {
         this.state = {
             showEmpty: false
         };
+        this.handleChange = (e) => {
+            this.setState({ 'showAll': e.target.checked });
+        };
     }
 
     goBack() {
         createBrowserHistory().goBack();
     }
-
-    handleChange = (e) => {
-        this.setState({ 'showAll': e.target.checked });
-    };
 
     componentDidMount() {
         let promise = getCompositionByCompositionId(this.compId);
@@ -147,6 +147,10 @@ export class Composition extends React.Component {
         );
     }
 }
+
+Composition.propTypes = {
+    location: PropTypes.object
+};
 
 function forceIdentifier(identifier) {
     return identifier.replace(/[^A-Za-z09_]/gi, '');

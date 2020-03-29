@@ -968,7 +968,7 @@ class LabReports extends React.Component {
     }
 }
 
-LabReportsTableEntry.propTypes = {
+LabReports.propTypes = {
     ehrId: PropTypes.string
 };
 

@@ -58,13 +58,13 @@ class PatientSelf extends React.Component {
         window.location.reload();
     }
 
-    onTemplateChange(e) {
+    onTemplateChange() {
         ReactDOM.render(<div><NHSButton onClick={this.reloadPage}>Change form</NHSButton><StructuredSurvey key='survey'
                                                                                                            id='survey'
                                                                                                            templateId={document.getElementById('select-template').value}
                                                                                                            ehrId={this.state.ehrId}/>
         </div>, document.getElementById('select-survey-form-group'));
-    };
+    }
 
     render() {
         if (!this.state.ehrId) return <div>No EHR id found for your NHS number</div>;
@@ -154,6 +154,12 @@ class PatientSelf extends React.Component {
         </div>;
     }
 }
+
+PatientSelf.propTypes = {
+    handleSearch: PropTypes.func,
+    nhsNumber: PropTypes.string,
+    search: PropTypes.string
+};
 
 export default connect(
     state => ({

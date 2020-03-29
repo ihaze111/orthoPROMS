@@ -18,6 +18,7 @@ import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
 import { NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../components/react-styled-nhs/src/NHSPanel";
 import { NHSVectorArrowRightCircle } from "../components/react-styled-nhs/src/NHSIcons";
 import HeaderMenu from "../components/HeaderMenu";
+import * as PropTypes from "prop-types";
 
 
 class Login extends React.Component {
@@ -63,7 +64,7 @@ class Login extends React.Component {
             if (this.state.password !== '' && this.state.email !== '') {
                 let type = this.state.id === '1' ? 'Patient' : 'Clinician';
                 this.props.login({ ...this.state, type }).then(
-                    (res) => {
+                    () => {
                         let xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
                         if (xx === "1") {
                             window.localStorage.setItem('id', 1);
@@ -86,12 +87,12 @@ class Login extends React.Component {
                 <HeaderMenu navigationDisabled searchDisabled/>
                 <NHSContainer>
                     <NHSWrapper>
-                        <div class="nhsuk-grid-row">
-                            <div class="nhsuk-grid-column-two-thirds">
+                        <div className="nhsuk-grid-row">
+                            <div className="nhsuk-grid-column-two-thirds">
                                 <Form onSubmit={this.onSubmit}>
                                     <h1 style={{ fontWeight: 'bold' }}>Choose an option to login</h1>
                                     <NHSPanelWithLabel>
-                                        <NHSPanelTitle class="nhsuk-panel-with-label__label">Login with
+                                        <NHSPanelTitle className="nhsuk-panel-with-label__label">Login with
                                             orthoPROMS</NHSPanelTitle>
                                         <NHSPanelBody>
                                             <NHSFormGroup error={this.state.error.all}>
@@ -171,6 +172,12 @@ class Login extends React.Component {
         );
     }
 }
+
+Login.propTypes = {
+    location: PropTypes.object,
+    googleLogin: PropTypes.func,
+    login: PropTypes. func
+};
 
 export default connect(null, { login, googleLogin })(Login)
 

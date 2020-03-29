@@ -33,7 +33,7 @@ class Home extends React.Component {
                             <NHSPanelWithLabel> <NHSPanelTitle
                                 className="nhsuk-panel-with-label__label"> Patient </NHSPanelTitle> <NHSPanelBody>
                                 <div className="nhsuk-u-reading-width">
-                                    <p>Login using your patient's account</p>
+                                    <p>Login using your patient&apos;s account</p>
                                 </div>
                                 <div className="nhsuk-action-link">
                                     <a className="nhsuk-action-link__link" href={'/Login?id=1'}>
@@ -46,7 +46,7 @@ class Home extends React.Component {
                             <NHSPanelWithLabel> <NHSPanelTitle
                                 className="nhsuk-panel-with-label__label"> Clinician </NHSPanelTitle> <NHSPanelBody>
                                 <div className="nhsuk-u-reading-width">
-                                    <p>Login using your clinician's account</p>
+                                    <p>Login using your clinician&apos;s account</p>
                                 </div>
                                 <div className="nhsuk-action-link">
                                     <a className="nhsuk-action-link__link" href={'/Login?id=2'}>
