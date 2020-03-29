@@ -15,25 +15,16 @@ import 'nhsuk-frontend/packages/nhsuk.scss';
 import { Composition } from "./views/Composition";
 
 class App extends React.Component {
-
     startApp = () => {
         let gapi = window.gapi;
         gapi.load('auth2', () => {
             gapi.auth2.init({
                 client_id: '435425463824-lso8p4egc7hasvbkrbff4h60g60se5l3.apps.googleusercontent.com'
             }).then(res => {
-                console.log(res)
+                console.log(res);
             })
         })
     };
-
-    componentDidMount() {
-        // this.startApp
-    }
-
-    handleScriptLoad = () => {
-        // this.startApp()
-    }
 
     render() {
         return (
