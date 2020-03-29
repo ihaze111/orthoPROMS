@@ -12,6 +12,7 @@ import Alert from 'react-bootstrap/Alert';
 import { handleCliniSearch, setPatientList } from '../../actions/clinicianActions'
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css'
+import * as PropTypes from "prop-types";
 
 class PatientListtable extends React.Component {
     constructor(props) {
@@ -19,7 +20,14 @@ class PatientListtable extends React.Component {
         this.state = {
             page: 1,
             patientList: []
-        }
+        };
+        this.handlePageChange = (e) => {
+            let { patientListFiltered } = this.props;
+            this.setState({
+                page: e,
+                patientList: e >= 1 ? patientListFiltered.slice((e - 1) * 10, e * 10) : patientListFiltered.slice(0, 10)
+            })
+        };
     }
 
     componentDidMount() {
@@ -36,14 +44,6 @@ class PatientListtable extends React.Component {
             patientList: (patientLists || []).slice(0, 10)
         })
     }
-
-    handlePageChange = (e) => {
-        let { patientListFiltered } = this.props;
-        this.setState({
-            page: e,
-            patientList: e >= 1 ? patientListFiltered.slice((e - 1) * 10, e * 10) : patientListFiltered.slice(0, 10)
-        })
-    };
 
     render() {
         let { patientListFiltered } = this.props
@@ -71,6 +71,11 @@ class PatientListtable extends React.Component {
     }
 }
 
+PatientListtable.propTypes = {
+    patientListFiltered: PropTypes.array,
+    setPatientList: PropTypes.func,
+};
+
 const PatientListTable = connect(
     state => {
         return {
@@ -85,12 +90,10 @@ const PatientListTable = connect(
 class PatientList extends React.Component {
     constructor(props) {
         super(props);
-
+        this.onChange = e => {
+            this.props.handleCliniSearch(e.target.value)
+        };
     }
-
-    onChange = e => {
-        this.props.handleCliniSearch(e.target.value)
-    };
 
     render() {
         let { search } = this.props;
@@ -107,6 +110,11 @@ class PatientList extends React.Component {
         );
     }
 }
+
+PatientList.propTypes = {
+    handleCliniSearch: PropTypes.func,
+    search: PropTypes.string
+};
 
 export default connect(
     state => {

@@ -5,6 +5,7 @@ import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/react-styled-nhs/src/NHSPanel";
 import NHSFooter from "../components/react-styled-nhs/src/NHSFooter";
 import HeaderMenu from "../components/HeaderMenu";
+import * as PropTypes from "prop-types";
 
 
 function DevelopersTableEntry(props) {
@@ -14,12 +15,22 @@ function DevelopersTableEntry(props) {
     </tr>);
 }
 
+DevelopersTableEntry.propTypes = {
+    name: PropTypes.string,
+    email: PropTypes.string
+};
+
 function PartnersEntry(props) {
     return (<tr>
         <td>{props.name}</td>
         <td><a href={props.website}>{props.website}</a></td>
     </tr>);
 }
+
+PartnersEntry.propTypes = {
+    name: PropTypes.string,
+    website: PropTypes.string
+};
 
 class About extends React.Component {
     render() {
@@ -39,7 +50,7 @@ class About extends React.Component {
                                     <p>orthoPROMS is a web-app intended for both clinicians and patients to record outcomes
                                         from orthopaedic surgeries as well as storing and visualising data using openEHR
                                         standards.<br/><br/>
-                                        We intend to help clinicians keep track of their patients' progress post-surgery
+                                        We intend to help clinicians keep track of their patients&apos; progress post-surgery
                                         while being a transparent medium for patients to see their own progress. At the
                                         same time,
                                         patients are able to give feedback on how their conditions after surgery that

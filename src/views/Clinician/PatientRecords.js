@@ -18,7 +18,7 @@ import {
     from "../PatientComponents";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
-import { getEHRId, getSubjectId, loadEhrId } from "../PatientUtils";
+import { getEHRId, getSubjectId } from "../PatientUtils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import NHSContainer from "../../components/react-styled-nhs/src/NHSContainer";
@@ -27,6 +27,7 @@ import NHSBackLink from "../../components/react-styled-nhs/src/NHSBackLink";
 import { NHSPanel, NHSPanelBody, NHSPanelTitle, NHSPanelWithLabel } from "../../components/react-styled-nhs/src/NHSPanel";
 import NHSFooter from "../../components/react-styled-nhs/src/NHSFooter";
 import HeaderMenu from "../../components/HeaderMenu";
+import * as PropTypes from "prop-types";
 
 class PatientRecords extends React.Component {
     constructor(props) {
@@ -91,7 +92,7 @@ class PatientRecords extends React.Component {
                                                     </NHSPanelWithLabel>
                                                     <NHSPanelWithLabel style={{backgroundColor: '#f0f4f5'}}>
                                                         <NHSPanelTitle className="nhsuk-panel-with-label__label">
-                                                            Patient's History
+                                                            Patient&apos;s History
                                                         </NHSPanelTitle>
                                                         <NHSPanelBody>
                                                             <Tab.Container defaultActiveKey="bloodPressure">
@@ -203,6 +204,11 @@ class PatientRecords extends React.Component {
         );
     }
 }
+
+PatientRecords.propTypes = {
+    history: PropTypes.object,
+    location: PropTypes.object
+};
 
 export default PatientRecords;
 
