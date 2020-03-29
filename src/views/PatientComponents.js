@@ -378,7 +378,7 @@ class EpisodeScores extends React.Component {
     }
 
     pushIntoCategory(props) {
-        props.map((prop) => {
+        props.forEach((prop) => {
             if (prop.episode_identifier === 'Pre-operative') {
                 this.state.preOp.push(prop.pain);
                 this.state.preOp.push(prop.limitations);

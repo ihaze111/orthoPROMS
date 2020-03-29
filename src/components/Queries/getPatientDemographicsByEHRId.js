@@ -9,7 +9,7 @@ async function getPatientDemographicsByEHRId(ehrId) {
         if (response.status === 200) {
             const r = response.data.party;
             if ('partyAdditionalInfo' in r) {
-                r.partyAdditionalInfo.map((addInfo) => {
+                r.partyAdditionalInfo.forEach((addInfo) => {
                     r[addInfo.key] = addInfo.value;
                 });
             }

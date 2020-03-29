@@ -42,7 +42,7 @@ export class Composition extends React.Component {
             templatePromise.then((j) => {
                 let mapping = getAqlMappingOfTemplate(j, {});
                 let queryArray = [];
-                Object.keys(mapping).map((i) => {
+                Object.keys(mapping).forEach((i) => {
                     queryArray.push("a" + mapping[i][0] + " as " + i);
                 });
                 let queryString = queryArray.join(', ');
@@ -56,8 +56,8 @@ export class Composition extends React.Component {
                 }).then((k) => {
                     const row = k[0];
                     // Merge rows if query returns multiple rows for same commit
-                    k.map((queryRow) => {
-                        Object.keys(queryRow).map((queryCell) => {
+                    k.forEach((queryRow) => {
+                        Object.keys(queryRow).forEach((queryCell) => {
                             // TODO: look into specifics of how this works to prevent overwriting
                             // NB if there are any different values in same column, this will overwrite
                             row[queryCell] = row[queryCell] === null ? queryRow[queryCell] : row[queryCell];
@@ -99,6 +99,9 @@ export class Composition extends React.Component {
                                 case 'DV_PARSABLE':
                                     valueToShow = row[cell].value;
                                     break;
+                                case 'DV_COUNT':
+                                    valueToShow = row[cell].magnitude;
+                                    break;
                                 default:
                                     valueToShow = JSON.stringify(row[cell]);
                                     break;
@@ -131,15 +134,13 @@ export class Composition extends React.Component {
                             <NHSCheckbox name={'showEmpty'}/>
                         </NHSFormGroup>
                         <NHSSummaryList style={{ width: '70%' }}>
-                            {this.state.composition.map(tableRow => {
-                                    if (this.state.showAll || tableRow[1] !== undefined) {
-                                        return <NHSSummaryListRow>
-                                            <NHSSummaryListKey>{tableRow[0]}</NHSSummaryListKey>
-                                            <NHSSummaryListValue>{tableRow[1]}</NHSSummaryListValue>
-                                        </NHSSummaryListRow>
-                                    }
-                                }
-                            )}
+                            {this.state.composition.filter(tableRow => this.state.showAll || tableRow[1] !== undefined).map(tableRow =>
+                                <NHSSummaryListRow key={"compositionProperty" + tableRow[0]}>
+                                    <NHSSummaryListKey>{tableRow[0]}</NHSSummaryListKey>
+                                    <NHSSummaryListValue>{tableRow[1]}</NHSSummaryListValue>
+                                </NHSSummaryListRow>
+                            )
+                            }
                         </NHSSummaryList>
                     </NHSWrapper>
                 </NHSContainer>
@@ -158,7 +159,7 @@ function forceIdentifier(identifier) {
 
 function getAqlMappingOfTemplate(props, result) {
     if ('children' in props) {
-        props.children.map((child) => {
+        props.children.forEach((child) => {
             getAqlMappingOfTemplate(child, result);
         });
     } else if ('aqlPath' in props) {

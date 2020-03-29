@@ -163,10 +163,10 @@ StructuredSurvey.propTypes = {
 
 function getMappingOfTemplate(e) {
     const result = {};
-    getMappingOfTemplateAux(e, []).map((keys) => {
+    getMappingOfTemplateAux(e, []).forEach((keys) => {
         if (keys.type === 'options') {
             const mapping2 = {};
-            keys.inputOptions.map((j) => {
+            keys.inputOptions.forEach((j) => {
                 mapping2[j.value] = j.label;
             });
             result[keys.name] = [keys.label, mapping2];
@@ -179,7 +179,7 @@ function getMappingOfTemplate(e) {
 
 function getMappingOfTemplateAux(props, result) {
     if ('children' in props) {
-        props.children.map((child) => {
+        props.children.forEach((child) => {
             getMappingOfTemplateAux(child, result);
         });
     } else if ('inputs' in props) {

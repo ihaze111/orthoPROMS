@@ -15,7 +15,7 @@ async function getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs() {
     return await CDRAQLQuery(aql, (result) => {
         if (result.resultSet) {
             const episode_time_list = {};
-            result.resultSet.map((e) => {
+            result.resultSet.forEach((e) => {
                 if (!(e.episode_identifier.value in episode_time_list)) {
                     episode_time_list[e.episode_identifier.value] = [e];
                 } else {
@@ -23,18 +23,18 @@ async function getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs() {
                 }
             });
             const lengths = {};
-            Object.keys(episode_time_list).map((e) => { lengths[e] = episode_time_list[e].length});
+            Object.keys(episode_time_list).forEach((e) => { lengths[e] = episode_time_list[e].length});
             const resultWithKey = {};
-            Object.keys(episode_time_list).map((key) => {
+            Object.keys(episode_time_list).forEach((key) => {
                 const result = {};
                 const sums = episode_time_list[key].reduce((accumulator, currentValue) => {
                     const returnObject = {};
-                    Object.keys(currentValue).map((objectVal) => {
+                    Object.keys(currentValue).forEach((objectVal) => {
                         returnObject[objectVal] = accumulator[objectVal] + currentValue[objectVal];
                     });
                     return returnObject;
                 });
-                Object.keys(sums).map((key1) => {
+                Object.keys(sums).forEach((key1) => {
                     result[key1] = sums[key1] / lengths[key];
                 });
                 const episodeIdentifierToSimpleKey = {
