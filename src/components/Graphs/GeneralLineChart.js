@@ -101,12 +101,16 @@ class GeneralLineChart extends Component {
         });
         if (this.props.linkList) {
             const linkMapping = this.props.linkList;
-            this.chartRef.current.onclick = function (evt) {
+            this.chartRef.current.onclick = (evt) => {
                 const activePoint = graphReferences[ref].getElementAtEvent(evt);
                 if (activePoint.length > 0) {
                     window.location = linkMapping[activePoint[0]._index];
                 }
-            }
+            };
+            this.chartRef.current.onmousemove = (evt) => {
+                const activePoint = graphReferences[ref].getElementAtEvent(evt);
+                this.chartRef.current.style.cursor = activePoint.length > 0 ? 'pointer' : 'default';
+            };
         }
     }
 
