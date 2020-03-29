@@ -42,7 +42,8 @@ import {
 import { connect } from "react-redux";
 import { setCompositions } from "../actions/appActions";
 import getPatientDemographicsByEHRId from "../components/Queries/getPatientDemographicsByEHRId";
-import { NHSPanel, NHSPanelBody, NHSPanelTitle } from "../components/react-styled-nhs/src/NHSPanel";
+import { NHSPanelBody } from "../components/react-styled-nhs/src/NHSPanel";
+import * as PropTypes from "prop-types";
 
 export class PatientDemographics extends React.Component {
     constructor(props) {
@@ -54,35 +55,36 @@ export class PatientDemographics extends React.Component {
         let promise = getPatientDemographicsByEHRId(this.props.ehrId);
         promise.then(e => {
             this.setState({ demographics: e });
-            console.log(e);
         });
     }
 
     render() {
         if (!this.state.demographics) return <div></div>;
         return <details className="nhsuk-details nhsuk-expander">
-                <summary className="nhsuk-details__summary">
-    <span className="nhsuk-details__summary-text">
-    Demographic information
-    </span>
-                </summary>
-                <div className="nhsuk-details__text">
-            <h4>Demographic information</h4>
-            <h5>Information stored in seperate demographic record</h5>
-            <NHSPanelBody>
-                <NHSSummaryList>
-                    {this.state.demographics.map((e) => {
-                        return <NHSSummaryListRow>
-                            <NHSSummaryListKey>{e[0]}</NHSSummaryListKey>
-                            <NHSSummaryListValue>{e[1]}</NHSSummaryListValue>
-                        </NHSSummaryListRow>;
-                    })}
-                </NHSSummaryList>
-            </NHSPanelBody>
-        </div>
+            <summary className="nhsuk-details__summary">
+                <span className="nhsuk-details__summary-text">Demographic information</span>
+            </summary>
+            <div className="nhsuk-details__text">
+                <h4>Demographic information</h4>
+                <h5>Information stored in seperate demographic record</h5>
+                <NHSPanelBody>
+                    <NHSSummaryList>
+                        {this.state.demographics.map((e) => {
+                            return <NHSSummaryListRow>
+                                <NHSSummaryListKey>{e[0]}</NHSSummaryListKey>
+                                <NHSSummaryListValue>{e[1]}</NHSSummaryListValue>
+                            </NHSSummaryListRow>;
+                        })}
+                    </NHSSummaryList>
+                </NHSPanelBody>
+            </div>
         </details>;
     }
 }
+
+PatientDemographics.propTypes = {
+    ehrId: PropTypes.string
+};
 
 export class PatientOverview extends React.Component {
     constructor(props) {
@@ -102,32 +104,32 @@ export class PatientOverview extends React.Component {
         if (!this.state.ehr) return null;
         return <div style={{ display: "flex" }}>
             <div style={{ width: '70%' }}>
-            <NHSSummaryList>
-                <NHSSummaryListRow>
-                    <NHSSummaryListKey>EHR ID</NHSSummaryListKey>
-                    <NHSSummaryListValue>{this.state.ehr.ehrId}</NHSSummaryListValue>
-                </NHSSummaryListRow>
-                <NHSSummaryListRow>
-                    <NHSSummaryListKey>NHS Number</NHSSummaryListKey>
-                    <NHSSummaryListValue>{this.props.subjectId}</NHSSummaryListValue>
-                </NHSSummaryListRow>
-                <NHSSummaryListRow>
-                    <NHSSummaryListKey>Birth year</NHSSummaryListKey>
-                    <NHSSummaryListValue>{this.state.ehr.birthYear}</NHSSummaryListValue>
-                </NHSSummaryListRow>
-                <NHSSummaryListRow>
-                    <NHSSummaryListKey>Administrative Gender</NHSSummaryListKey>
-                    <NHSSummaryListValue>{this.state.ehr.administrativeGender}</NHSSummaryListValue>
-                </NHSSummaryListRow>
-                <NHSSummaryListRow>
-                    <NHSSummaryListKey>Birth sex</NHSSummaryListKey>
-                    <NHSSummaryListValue>{this.state.ehr.birthSex}</NHSSummaryListValue>
-                </NHSSummaryListRow>
-                <NHSSummaryListRow>
-                    <NHSSummaryListKey>Vital status</NHSSummaryListKey>
-                    <NHSSummaryListValue>{this.state.ehr.vitalStatus}</NHSSummaryListValue>
-                </NHSSummaryListRow>
-            </NHSSummaryList>
+                <NHSSummaryList>
+                    <NHSSummaryListRow>
+                        <NHSSummaryListKey>EHR ID</NHSSummaryListKey>
+                        <NHSSummaryListValue>{this.state.ehr.ehrId}</NHSSummaryListValue>
+                    </NHSSummaryListRow>
+                    <NHSSummaryListRow>
+                        <NHSSummaryListKey>NHS Number</NHSSummaryListKey>
+                        <NHSSummaryListValue>{this.props.subjectId}</NHSSummaryListValue>
+                    </NHSSummaryListRow>
+                    <NHSSummaryListRow>
+                        <NHSSummaryListKey>Birth year</NHSSummaryListKey>
+                        <NHSSummaryListValue>{this.state.ehr.birthYear}</NHSSummaryListValue>
+                    </NHSSummaryListRow>
+                    <NHSSummaryListRow>
+                        <NHSSummaryListKey>Administrative Gender</NHSSummaryListKey>
+                        <NHSSummaryListValue>{this.state.ehr.administrativeGender}</NHSSummaryListValue>
+                    </NHSSummaryListRow>
+                    <NHSSummaryListRow>
+                        <NHSSummaryListKey>Birth sex</NHSSummaryListKey>
+                        <NHSSummaryListValue>{this.state.ehr.birthSex}</NHSSummaryListValue>
+                    </NHSSummaryListRow>
+                    <NHSSummaryListRow>
+                        <NHSSummaryListKey>Vital status</NHSSummaryListKey>
+                        <NHSSummaryListValue>{this.state.ehr.vitalStatus}</NHSSummaryListValue>
+                    </NHSSummaryListRow>
+                </NHSSummaryList>
             </div>
             <div style={{ width: "30%", alignSelf: "center", textAlign: "center" }}>
                 <img src="./240px-User_icon_2.svg.png"
@@ -136,6 +138,10 @@ export class PatientOverview extends React.Component {
         </div>;
     }
 }
+
+PatientOverview.propTypes = {
+    subjectId: PropTypes.object
+};
 
 function PatientProgressTableEntry(props) {
     // TODO: what happens if no NHS number?
@@ -151,6 +157,15 @@ function PatientProgressTableEntry(props) {
             key={"composition" + props.nhs_number + "no" + props.index + "aofasComment"}>{props.aofas_comment}</NHSTd>
     </NHSTr>;
 }
+
+PatientProgressTableEntry.propTypes = {
+    nhs_number: PropTypes.string,
+    index: PropTypes.number,
+    comp_id: PropTypes.string,
+    composer_name: PropTypes.string,
+    episode_identifier: PropTypes.string,
+    aofas_comment: PropTypes.string
+};
 
 class Composition extends React.Component {
     constructor(props) {
@@ -189,17 +204,20 @@ class Composition extends React.Component {
         let List = this.state.List;
         if (!compositionsFiltered) return null;
         if (compositionsFiltered.length > 0) {
-            return <>
+            return <React.Fragment>
                 {
                     List.map((e, index) => {
                         e.index = index;
                         return PatientProgressTableEntry(e);
                     })
                 }
-                <Pagination current={this.state.page} total={compositionsFiltered.length}
-                            onChange={this.handlePageChange.bind(this)}></Pagination>
-            </>
-
+                <NHSTr key="paginationRow">
+                    <NHSTd colSpan="5" key="paginationCell">
+                        <Pagination current={this.state.page} total={compositionsFiltered.length}
+                                    onChange={this.handlePageChange.bind(this)}/>
+                    </NHSTd>
+                </NHSTr>
+            </React.Fragment>;
         } else {
             return <NHSTr key="noCompositionsRow">
                 <NHSTd key="noCompositionsData" colSpan="5">No compositions were found</NHSTd>
@@ -207,6 +225,10 @@ class Composition extends React.Component {
         }
     }
 }
+
+Composition.propTypes = {
+    setCompositions: PropTypes.func
+};
 
 const Compositions = connect(
     state => {
@@ -240,12 +262,16 @@ export function PatientProgressTable(props) {
                     <Compositions key='compositions' ehrId={props.ehrId}/>
                 </NHSTBody>
             </NHSTable>
-        </NHSTableWrapper>
-            ;
+        </NHSTableWrapper>;
     } else {
         return null;
     }
 }
+
+PatientProgressTable.propTypes = {
+    index: PropTypes.number,
+    ehrId: PropTypes.string
+};
 
 class Scores extends React.Component {
     constructor(props) {
@@ -294,13 +320,13 @@ class Scores extends React.Component {
                 return <div>
                     <React.Fragment>
                         <ScoresGraph
-                                     compId={this.state.compIdArray}
-                                     pain={this.state.painArray}
-                                     limit={this.state.limitationsArray}
-                                     walking={this.state.walkingArray}
-                                     surface={this.state.walking_surfacesArray}
-                                     total={this.state.totalArray}
-                                     time={this.state.regTimeArray}/>
+                            compId={this.state.compIdArray}
+                            pain={this.state.painArray}
+                            limit={this.state.limitationsArray}
+                            walking={this.state.walkingArray}
+                            surface={this.state.walking_surfacesArray}
+                            total={this.state.totalArray}
+                            time={this.state.regTimeArray}/>
                         <br/><br/>
                         <DownloadCSV array={[this.state.label, this.state.painArray, this.state.limitationsArray,
                             this.state.walkingArray, this.state.walking_surfacesArray, this.state.totalArray]}
@@ -312,6 +338,10 @@ class Scores extends React.Component {
     }
 }
 
+Scores.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function ScoresArray(props) {
     if (props.ehrId) {
         return <div><Scores ehrId={props.ehrId}/></div>
@@ -319,6 +349,10 @@ export function ScoresArray(props) {
         return null;
     }
 }
+
+ScoresArray.propTypes = {
+    ehrId: PropTypes.string
+};
 
 class EpisodeScores extends React.Component {
     constructor(props) {
@@ -385,6 +419,10 @@ class EpisodeScores extends React.Component {
     }
 }
 
+EpisodeScores.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function EpisodeScoresGraph(props) {
     if (props.ehrId) {
         return <div><EpisodeScores ehrId={props.ehrId}/></div>
@@ -392,6 +430,10 @@ export function EpisodeScoresGraph(props) {
         return null;
     }
 }
+
+EpisodeScoresGraph.propTypes = {
+    ehrId: PropTypes.string
+};
 
 class RespirationRate extends React.Component {
     constructor(props) {
@@ -435,6 +477,11 @@ class RespirationRate extends React.Component {
     }
 }
 
+
+RespirationRate.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function RespirationGraph(props) {
     if (props.ehrId) {
         return <div><RespirationRate ehrId={props.ehrId}/></div>
@@ -442,6 +489,10 @@ export function RespirationGraph(props) {
         return null;
     }
 }
+
+RespirationGraph.propTypes = {
+    ehrId: PropTypes.string
+};
 
 class BloodPressure extends React.Component {
     constructor(props) {
@@ -477,16 +528,21 @@ class BloodPressure extends React.Component {
         if (!this.state.bloodPressure) return null;
         if (this.state.bloodPressure.length > 0) {
             return <BloodPressureGraph
-                                       compId={this.state.compIdArray}
-                                       systolic={this.state.systolicRate}
-                                       diastolic={this.state.diastolicRate}
-                                       time={this.state.time}
-                                       units={this.state.bloodPressure[0].systolic.units}/>
+                compId={this.state.compIdArray}
+                systolic={this.state.systolicRate}
+                diastolic={this.state.diastolicRate}
+                time={this.state.time}
+                units={this.state.bloodPressure[0].systolic.units}/>
         } else {
             return <p>No Blood Pressure were recorded</p>;
         }
     }
 }
+
+
+BloodPressure.propTypes = {
+    ehrId: PropTypes.string
+};
 
 export function PressureGraph(props) {
     if (props.ehrId) {
@@ -495,6 +551,10 @@ export function PressureGraph(props) {
         return null;
     }
 }
+
+PressureGraph.propTypes = {
+    ehrId: PropTypes.string
+};
 
 class IndirectOximetry extends React.Component {
     constructor(props) {
@@ -537,6 +597,10 @@ class IndirectOximetry extends React.Component {
     }
 }
 
+IndirectOximetry.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function OxygenConcentrationGraph(props) {
     if (props.ehrId) {
         return <div><IndirectOximetry ehrId={props.ehrId}/></div>
@@ -544,6 +608,10 @@ export function OxygenConcentrationGraph(props) {
         return null;
     }
 }
+
+OxygenConcentrationGraph.propTypes = {
+    ehrId: PropTypes.string
+};
 
 class HeartRate extends React.Component {
     constructor(props) {
@@ -586,6 +654,11 @@ class HeartRate extends React.Component {
     }
 }
 
+HeartRate.propTypes = {
+    ehrId: PropTypes.string
+};
+
+
 export function HeartGraph(props) {
     if (props.ehrId) {
         return <div><HeartRate ehrId={props.ehrId}/></div>
@@ -593,6 +666,10 @@ export function HeartGraph(props) {
         return null;
     }
 }
+
+HeartGraph.propTypes = {
+    ehrId: PropTypes.string
+};
 
 function PatientAllergicTableEntry(props) {
     return <NHSTr key={"allergies" + props.index}>
@@ -603,6 +680,16 @@ function PatientAllergicTableEntry(props) {
         <NHSTd key={"allergies" + props.index + "composer"}>{props.composer}</NHSTd>
     </NHSTr>;
 }
+
+PatientAllergicTableEntry.propTypes = {
+    index: PropTypes.number,
+    cause: PropTypes.string,
+    comment: PropTypes.string,
+    exclusion: PropTypes.string,
+    reaction: PropTypes.string,
+    update_exclusion_date: PropTypes.string,
+    composer: PropTypes.string
+};
 
 class Allergies extends React.Component {
     constructor(props) {
@@ -633,6 +720,10 @@ class Allergies extends React.Component {
     }
 }
 
+Allergies.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function PatientAllergiesTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
@@ -659,6 +750,11 @@ export function PatientAllergiesTable(props) {
     }
 }
 
+PatientAllergiesTable.propTypes = {
+    index: PropTypes.number,
+    ehrId: PropTypes.string
+};
+
 function ProceduresTableEntry(props) {
     return <NHSTr key={"procedures" + props.index}>
         <NHSTd key={"procedures" + props.index + "procedure_name"}>{props.procedure_name}</NHSTd>
@@ -668,6 +764,15 @@ function ProceduresTableEntry(props) {
         <NHSTd key={"procedures" + props.index + "name"}>{props.name}</NHSTd>
     </NHSTr>;
 }
+
+ProceduresTableEntry.propTypes = {
+    index: PropTypes.number,
+    procedure_name: PropTypes.string,
+    notes: PropTypes.string,
+    careflow_step: PropTypes.string,
+    time: PropTypes.string,
+    name: PropTypes.string
+};
 
 class Procedures extends React.Component {
     constructor(props) {
@@ -698,6 +803,10 @@ class Procedures extends React.Component {
     }
 }
 
+Procedures.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function ProceduresTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
@@ -724,6 +833,11 @@ export function ProceduresTable(props) {
     }
 }
 
+ProceduresTable.propTypes = {
+    index: PropTypes.number,
+    ehrId: PropTypes.string
+};
+
 function LabOrdersTableEntry(props) {
     return <NHSTr key={"orders" + props.index}>
         <NHSTd key={"orders" + props.index + "request"}>{props.request}</NHSTd>
@@ -732,6 +846,14 @@ function LabOrdersTableEntry(props) {
         <NHSTd key={"orders" + props.index + "composer"}>{props.composer} </NHSTd>
     </NHSTr>
 }
+
+LabOrdersTableEntry.propTypes = {
+    index: PropTypes.number,
+    request: PropTypes.string,
+    timing: PropTypes.string,
+    context_time: PropTypes.string,
+    composer: PropTypes.string
+};
 
 class LabOrders extends React.Component {
     constructor(props) {
@@ -762,6 +884,11 @@ class LabOrders extends React.Component {
     }
 }
 
+LabOrders.propTypes = {
+    index: PropTypes.number,
+    ehrId: PropTypes.string
+};
+
 export function LabOrdersTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
@@ -786,6 +913,11 @@ export function LabOrdersTable(props) {
     }
 }
 
+LabOrdersTable.propTypes = {
+    index: PropTypes.number,
+    ehrId: PropTypes.string
+};
+
 function LabReportsTableEntry(props) {
     return <NHSTr key={"reports" + props.index}>
         <NHSTd key={"reports" + props.index + "test"}>{props.test}</NHSTd>
@@ -795,6 +927,15 @@ function LabReportsTableEntry(props) {
         <NHSTd key={"reports" + props.index + "composer"}>{props.composer} </NHSTd>
     </NHSTr>
 }
+
+LabReportsTableEntry.propTypes = {
+    index: PropTypes.number,
+    test: PropTypes.string,
+    comment: PropTypes.string,
+    conclusion: PropTypes.string,
+    test_timestamp: PropTypes.string,
+    composer: PropTypes.string
+};
 
 class LabReports extends React.Component {
     constructor(props) {
@@ -825,6 +966,10 @@ class LabReports extends React.Component {
     }
 }
 
+LabReportsTableEntry.propTypes = {
+    ehrId: PropTypes.string
+};
+
 export function LabReportsTable(props) {
     if (props.ehrId) {
         return <NHSTableWrapper>
@@ -850,3 +995,8 @@ export function LabReportsTable(props) {
         return null;
     }
 }
+
+LabReportsTableEntry.propTypes = {
+    index: PropTypes.number,
+    ehrId: PropTypes.string
+};
