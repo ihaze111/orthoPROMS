@@ -6,6 +6,7 @@ module.exports = {
         "commonjs": true
     },
     "extends": [
+        "react-app",
         "eslint:recommended",
         "plugin:react/recommended"
     ],
@@ -25,5 +26,6 @@ module.exports = {
     ],
     "ignorePatterns": ["node_modules/", "build/", "public/", "ehr-template-processor/", "ehr-template-react-generator/", "react-styled-nhs/"],
     "rules": {
+        "react/no-deprecated": "off"
     }
 };
