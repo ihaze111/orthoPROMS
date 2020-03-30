@@ -1,6 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import RadarGraph from './RadarGraph';
+import ReactPerformance from 'react-performance';
 
 /**
  * Build a graph based on individual scores range categorically and its values
@@ -8,7 +9,7 @@ import RadarGraph from './RadarGraph';
  * @returns {*}
  * @constructor
  */
-function IndividualScoresRange(props) {
+export function IndividualScoresRange(props) {
   return (
     <RadarGraph
       id="myScoresRange"
@@ -41,4 +42,9 @@ IndividualScoresRange.propTypes = {
   sixWeeks: PropTypes.arrayOf(PropTypes.number),
 };
 
-export default IndividualScoresRange;
+export default ReactPerformance.measure({
+    isCollapsed: false,
+    getId: 'individualScoresRange',
+    Component: IndividualScoresRange,
+})
+

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
 import * as PropTypes from 'prop-types';
+import ReactPerformance from 'react-performance';
 
 let bloodPressureGraph;
 const colours = ['red', 'navy'];
@@ -15,7 +16,7 @@ Chart.defaults.global.legend.display = true;
  * @returns {*}
  * @constructor
  */
-function BloodPressureGraph(props) {
+export function BloodPressureGraph(props) {
   return (
     <BloodPressureChart
       id="myBlood"
@@ -180,4 +181,8 @@ BloodPressureChart.propTypes = {
   linkList: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default BloodPressureGraph;
+export default ReactPerformance.measure({
+    isCollapsed: false,
+    getId: 'bloodPressureGraph',
+    Component: BloodPressureGraph,
+})

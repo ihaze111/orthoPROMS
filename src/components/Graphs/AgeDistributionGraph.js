@@ -1,6 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import HorizontalBarGraph from './HorizontalBarGraph';
+import ReactPerformance from 'react-performance';
 
 /**
  * Build a graph based on arrays of age ranges and the sum of each age range
@@ -8,7 +9,7 @@ import HorizontalBarGraph from './HorizontalBarGraph';
  * @returns {*}
  * @constructor
  */
-function AgeDistributionGraph(props) {
+export function AgeDistributionGraph(props) {
   return (
     <HorizontalBarGraph
       id="myAgeDistributionGraph"
@@ -29,4 +30,9 @@ AgeDistributionGraph.propTypes = {
   title: PropTypes.string,
 };
 
-export default AgeDistributionGraph;
+export default ReactPerformance.measure({
+    isCollapsed: false,
+    getId: 'ageDistributionGraph',
+    Component: AgeDistributionGraph,
+})
+

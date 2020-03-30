@@ -1,6 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import PieChart from './PieChart';
+import ReactPerformance from 'react-performance';
 
 /**
  * Build a pie chart based on the national average of patients' administrative gender and the
@@ -9,7 +10,7 @@ import PieChart from './PieChart';
  * @returns {*}
  * @constructor
  */
-function GenderDistributionGraph(props) {
+export function GenderDistributionGraph(props) {
   return (
     <PieChart
       id="myGenderDistribution"
@@ -31,4 +32,9 @@ GenderDistributionGraph.propTypes = {
   title: PropTypes.string,
 };
 
-export default GenderDistributionGraph;
+export default ReactPerformance.measure({
+    isCollapsed: false,
+    getId: 'genderDistributionGraph',
+    Component: GenderDistributionGraph,
+})
+
