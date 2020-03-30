@@ -19,12 +19,13 @@ DownloadCSV.propTypes = {
 };
 
 
+    
+export function transpose(array){
     /**
      * Transpose an array of arrays to suit csv formatting
      * @param array of arrays needed to transpose
      * @returns transposed array of arrays
      */
-export function transpose(array){
     return Object.keys(array[0]).map(function(x) {
         return array.map(function(y) { return y[x]; });
     });
