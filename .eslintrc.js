@@ -2,12 +2,11 @@ module.exports = {
     "env": {
         "browser": true,
         "es6": true,
-        "node": true,
-        "commonjs": true
+        "node": true
     },
     "extends": [
         "react-app",
-        "eslint:recommended",
+        "airbnb",
         "plugin:react/recommended"
     ],
     "globals": {
@@ -26,6 +25,9 @@ module.exports = {
     ],
     "ignorePatterns": ["node_modules/", "build/", "public/", "ehr-template-processor/", "ehr-template-react-generator/", "react-styled-nhs/"],
     "rules": {
-        "react/no-deprecated": "off"
+        "react/no-deprecated": "off",
+        "react/destructuring-assignment": "off",
+        "react/require-default-props": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 };
