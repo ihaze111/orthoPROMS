@@ -1,36 +1,44 @@
-import React, { Component } from "react";
-import RadarGraph from "./RadarGraph";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import * as PropTypes from 'prop-types';
+import RadarGraph from './RadarGraph';
 
 /**
  * Build a graph based on individual scores range categorically and its values
+ * @param props
+ * @returns {*}
+ * @constructor
  */
-class IndividualScoresRange extends Component{
-    render(){
-        return (
-            <RadarGraph id={"myScoresRange"} labels={this.props.label} data={
-                [{
-                    label : "Pre-Operation",
-                    data: this.props.preOp
-                },
-                {
-                    label: "One Week Post-Operation",
-                    data: this.props.oneWeek
-                },
-                {
-                    label: "Six Weeks Post-Operation",
-                    data: this.props.sixWeeks
-                }]
-            } title={"Scores Range"} />
-        )
-    }
+function IndividualScoresRange(props) {
+  return (
+    <RadarGraph
+      id="myScoresRange"
+      labels={props.label}
+      data={
+        [
+          {
+            label: 'Pre-Operation',
+            data: props.preOp,
+          },
+          {
+            label: 'One Week Post-Operation',
+            data: props.oneWeek,
+          },
+          {
+            label: 'Six Weeks Post-Operation',
+            data: props.sixWeeks,
+          },
+        ]
+      }
+      title="Scores Range"
+    />
+  );
 }
 
 IndividualScoresRange.propTypes = {
-    label: PropTypes.array,
-    preOp: PropTypes.array,
-    oneWeek: PropTypes.array,
-    sixWeeks: PropTypes.array
+  label: PropTypes.arrayOf(PropTypes.string),
+  preOp: PropTypes.arrayOf(PropTypes.number),
+  oneWeek: PropTypes.arrayOf(PropTypes.number),
+  sixWeeks: PropTypes.arrayOf(PropTypes.number),
 };
 
 export default IndividualScoresRange;

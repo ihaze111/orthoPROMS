@@ -1,30 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react';
+import * as PropTypes from 'prop-types';
 import GeneralLineChart from './GeneralLineChart';
-import * as PropTypes from "prop-types";
 
 /**
  * Build a graph based on the an array of oxygen concentration percentages and an array of times
+ * @param props
+ * @returns {*}
+ * @constructor
  */
-class OxygenSaturationGraph extends Component {
-    render() {
-        return (
-            <GeneralLineChart id={"myOxygen"} labels={this.props.time} data={
-                [{
-                    label: "Oxygen Concentration",
-                    data: this.props.percent
-                }]
-            }
-                              title={"Oxygen Concentration (Indirect Oximetry)"} xLabel={"Date/Time"}
-                              yLabel={"Oxygen Concentration / %"} linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
-        );
-    }
+function OxygenSaturationGraph(props) {
+  return (
+    <GeneralLineChart
+      id="myOxygen"
+      labels={props.time}
+      data={
+        [{
+          label: 'Oxygen Concentration',
+          data: props.percent,
+        }]
+      }
+      title="Oxygen Concentration (Indirect Oximetry)"
+      xLabel="Date/Time"
+      yLabel="Oxygen Concentration / %"
+      linkList={props.compId.map((compId) => `/Composition?compId=${compId}`)}
+    />
+  );
 }
 
 OxygenSaturationGraph.propTypes = {
-    percent: PropTypes.array,
-    time: PropTypes.array,
-    units: PropTypes.string,
-    compId: PropTypes.array
+  percent: PropTypes.arrayOf(PropTypes.number),
+  time: PropTypes.arrayOf(PropTypes.string),
+  compId: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default OxygenSaturationGraph;

@@ -1,53 +1,56 @@
-import React, { Component } from 'react'
-import GeneralLineChart from "./GeneralLineChart";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import * as PropTypes from 'prop-types';
+import GeneralLineChart from './GeneralLineChart';
 
 /**
  * Build a graph based on arrays of standard pain scores and an array of times
+ * @param props
+ * @returns {*}
+ * @constructor
  */
-class ScoresGraph extends Component {
-    render() {
-        return (
-            <GeneralLineChart id={"myScores"} labels={this.props.time} data={[
-                {
-                    label: "Pain Score",
-                    data: this.props.pain,
-                },
-                {
-                    label: "Limitations Score",
-                    data: this.props.limit,
-                },
-                {
-                    label: "Walking Score",
-                    data: this.props.walking,
-                },
-                {
-                    label: "Walking Surfaces Score",
-                    data: this.props.surface,
-                },
-                {
-                    label: "Total Score",
-                    data: this.props.total,
-                }
-            ]} title={"Progress Scores"} xLabel={"Date/Time"} yLabel={"Scores"}
-                              linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
-        )
-    }
+function ScoresGraph(props) {
+  return (
+    <GeneralLineChart
+      id="myScores"
+      labels={props.time}
+      data={[
+        {
+          label: 'Pain Score',
+          data: props.pain,
+        },
+        {
+          label: 'Limitations Score',
+          data: props.limit,
+        },
+        {
+          label: 'Walking Score',
+          data: props.walking,
+        },
+        {
+          label: 'Walking Surfaces Score',
+          data: props.surface,
+        },
+        {
+          label: 'Total Score',
+          data: props.total,
+        },
+      ]}
+      title="Progress Scores"
+      xLabel="Date/Time"
+      yLabel="Scores"
+      linkList={props.compId.map((compId) => `/Composition?compId=${compId}`)}
+    />
+  );
 }
 
 ScoresGraph.propTypes = {
-    id: PropTypes.string,
-    pain: PropTypes.array,
-    limit: PropTypes.array,
-    walking: PropTypes.array,
-    surface: PropTypes.array,
-    total: PropTypes.array,
-    time: PropTypes.array,
-    xLabel: PropTypes.string,
-    yLabel: PropTypes.string,
-    title: PropTypes.string,
-    units: PropTypes.string,
-    compId: PropTypes.array
+  pain: PropTypes.arrayOf(PropTypes.number),
+  limit: PropTypes.arrayOf(PropTypes.number),
+  walking: PropTypes.arrayOf(PropTypes.number),
+  surface: PropTypes.arrayOf(PropTypes.number),
+  total: PropTypes.arrayOf(PropTypes.number),
+  time: PropTypes.arrayOf(PropTypes.string),
+  compId: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ScoresGraph;

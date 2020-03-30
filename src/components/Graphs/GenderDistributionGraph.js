@@ -1,27 +1,34 @@
-import React, { Component } from "react";
-import PieChart from "./PieChart";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import * as PropTypes from 'prop-types';
+import PieChart from './PieChart';
 
 /**
- * Build a pie chart based on the national average of patients' administrative gender and the number of patients in each gender
+ * Build a pie chart based on the national average of patients' administrative gender and the
+ * number of patients in each gender
+ * @param props
+ * @returns {*}
+ * @constructor
  */
-class GenderDistributionGraph extends Component{
-    render(){
-        return (
-            <PieChart id={"myGenderDistribution"} labels={this.props.labels} data={
-                [{
-                    label : ["Male", "Female", "Not Defined"],
-                    data: this.props.genderDistribution
-                }]
-            } title={this.props.title} />
-        )
-    }
+function GenderDistributionGraph(props) {
+  return (
+    <PieChart
+      id="myGenderDistribution"
+      labels={props.labels}
+      data={
+        [{
+          label: ['Male', 'Female', 'Not Defined'],
+          data: props.genderDistribution,
+        }]
+      }
+      title={props.title}
+    />
+  );
 }
 
 GenderDistributionGraph.propTypes = {
-    genderDistribution: PropTypes.array,
-    labels: PropTypes.array,
-    title: PropTypes.string
+  genderDistribution: PropTypes.arrayOf(PropTypes.number),
+  labels: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
 };
 
 export default GenderDistributionGraph;

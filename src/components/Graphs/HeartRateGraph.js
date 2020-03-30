@@ -1,32 +1,39 @@
-import React, { Component } from "react";
-import GeneralLineChart from "./GeneralLineChart";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import * as PropTypes from 'prop-types';
+import GeneralLineChart from './GeneralLineChart';
 
 /**
  * Build a graph based on the an array of heartRates and an array of times
+ * @param props
+ * @returns {*}
+ * @constructor
  */
-class HeartRateGraph extends Component {
-    render() {
-        return (
-            <GeneralLineChart id={"myHeart"} labels={this.props.time} data={
-                [
-                    {
-                        label: "Heart Rate",
-                        data: this.props.heartRates
-                    }
-                ]
-            }
-                              title={"Heart Rate"} xLabel={"Date/Time"} yLabel={"Heart Rate " + this.props.units}
-                              linkList={this.props.compId.map((compId) => '/Composition?compId=' + compId)}/>
-        );
-    }
+function HeartRateGraph(props) {
+  return (
+    <GeneralLineChart
+      id="myHeart"
+      labels={props.time}
+      data={
+        [
+          {
+            label: 'Heart Rate',
+            data: props.heartRates,
+          },
+        ]
+      }
+      title="Heart Rate"
+      xLabel="Date/Time"
+      yLabel={`Heart Rate ${props.units}`}
+      linkList={props.compId.map((compId) => `/Composition?compId=${compId}`)}
+    />
+  );
 }
 
 HeartRateGraph.propTypes = {
-    heartRates: PropTypes.array,
-    time: PropTypes.array,
-    units: PropTypes.string,
-    compId: PropTypes.array
+  heartRates: PropTypes.arrayOf(PropTypes.number),
+  time: PropTypes.arrayOf(PropTypes.string),
+  units: PropTypes.string,
+  compId: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default HeartRateGraph;

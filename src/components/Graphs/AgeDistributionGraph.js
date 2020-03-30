@@ -1,26 +1,32 @@
-import React, { Component } from "react";
-import HorizontalBarGraph from "./HorizontalBarGraph";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import * as PropTypes from 'prop-types';
+import HorizontalBarGraph from './HorizontalBarGraph';
 
 /**
  * Build a graph based on arrays of age ranges and the sum of each age range
+ * @param props
+ * @returns {*}
+ * @constructor
  */
-class AgeDistributionGraph extends Component{
-    render(){
-        return (
-            <HorizontalBarGraph id={"myAgeDistributionGraph"} labels={this.props.labels} data={
-                [{
-                    data: this.props.ageDistribute
-                }]
-            } title={this.props.title} />
-        )
-    }
+function AgeDistributionGraph(props) {
+  return (
+    <HorizontalBarGraph
+      id="myAgeDistributionGraph"
+      labels={props.labels}
+      data={
+        [{
+          data: props.ageDistribute,
+        }]
+      }
+      title={props.title}
+    />
+  );
 }
 
 AgeDistributionGraph.propTypes = {
-    ageDistribute: PropTypes.array,
-    labels: PropTypes.array,
-    title: PropTypes.string
+  ageDistribute: PropTypes.arrayOf(PropTypes.number),
+  labels: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
 };
 
 export default AgeDistributionGraph;
