@@ -6,7 +6,7 @@ import CDRAQLQuery, { QueryResultCallbackProcessing } from './CDRAQLQuery';
  * @param time
  * @returns {string}
  */
-export function timeFormat(time) {
+export function formatTime(time) {
   return time.indexOf('.') !== -1 ? time.replace(/T/, ' ')
     .substring(0, time.indexOf('.')) : time.replace(/T/, ' ');
 }
@@ -20,7 +20,7 @@ export const allergiesCallbackProcessing = (result) => {
   const newResult = result;
   for (let i = 0; i < newResult.resultSet.length; i += 1) {
     if (newResult.resultSet[i].update_exclusion_date !== null) {
-      newResult.resultSet[i].update_exclusion_date = timeFormat(
+      newResult.resultSet[i].update_exclusion_date = formatTime(
         newResult.resultSet[i].update_exclusion_date,
       );
     }
