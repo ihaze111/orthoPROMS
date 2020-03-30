@@ -53,7 +53,67 @@ async function commitComposition(model, ehrId, templateId) {
   return processedResult;
 }
 
-export class StructuredSurvey extends React.Component {
+function getMappingOfTemplateAux(props, result) {
+  if ('children' in props) {
+    props.children.forEach((child) => {
+      getMappingOfTemplateAux(child, result);
+    });
+  } else if ('inputs' in props) {
+    result.push(props.inputs);
+  }
+  return result;
+}
+
+function getMappingOfTemplate(e) {
+  const result = {};
+  getMappingOfTemplateAux(e, [])
+    .forEach((keys) => {
+      if (keys.type === 'options') {
+        const mapping2 = {};
+        keys.inputOptions.forEach((j) => {
+          mapping2[j.value] = j.label;
+        });
+        result[keys.name] = [keys.label, mapping2];
+      } else {
+        result[keys.name] = [keys.label];
+      }
+    });
+  return result;
+}
+
+function RecursiveCard(props) {
+  const color = props.color ? '#ffffff' : '#f0f4f5';
+  console.log(props);
+  if ('children' in props) {
+    return (
+      <NHSPanelWithLabel style={{ backgroundColor: color }}>
+        <NHSPanelTitle className="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
+        <NHSPanelBody>
+          {JsonFormInputToNHSReact(props.inputs)}
+          {props.children.map((child) => RecursiveCard({
+            ...child,
+            color: !props.color,
+          }))}
+        </NHSPanelBody>
+      </NHSPanelWithLabel>
+    );
+  }
+  if ('inputs' in props) {
+    return JsonFormInputToNHSReact(props.inputs);
+  }
+  return null;
+}
+
+
+RecursiveCard.propTypes = {
+  color: PropTypes.string,
+  name: PropTypes.string,
+  inputs: PropTypes.object,
+  children: PropTypes.arrayOf(PropTypes.object),
+};
+
+
+export default class StructuredSurvey extends React.Component {
   constructor(props) {
     super(props);
     this.disableButton = this.disableButton.bind(this);
@@ -67,7 +127,8 @@ export class StructuredSurvey extends React.Component {
       this.setState({
         canSubmit: this.state.canSubmit,
         template: e,
-        mapping: getMappingOfTemplate(e, [])
+        // eslint-disable-next-line react/no-unused-state
+        mapping: getMappingOfTemplate(e, []),
       });
     });
   }
@@ -93,11 +154,15 @@ export class StructuredSurvey extends React.Component {
             Composition identifier:
             <strong>{reply.commitId}</strong>
           </NHSPanelBody>
-          <NHSButton style={{
-            float: 'right',
-            marginTop: '10px'
-          }}
-                     onClick={this.reloadPage}>Done</NHSButton>
+          <NHSButton
+            style={{
+              float: 'right',
+              marginTop: '10px',
+            }}
+            onClick={this.reloadPage}
+          >
+            Done
+          </NHSButton>
         </NHSPanelConfirmation>
       );
     } else {
@@ -107,11 +172,15 @@ export class StructuredSurvey extends React.Component {
           <NHSPanelBody>
             Please try again later, or contact your admin team.
           </NHSPanelBody>
-          <NHSButton style={{
-            float: 'right',
-            marginTop: '10px'
-          }}
-                     onClick={this.reloadPage}>Done</NHSButton>
+          <NHSButton
+            style={{
+              float: 'right',
+              marginTop: '10px',
+            }}
+            onClick={this.reloadPage}
+          >
+            Done
+          </NHSButton>
         </NHSPanelConfirmation>
       );
     }
@@ -147,14 +216,20 @@ export class StructuredSurvey extends React.Component {
               return (
                 <NHSSummaryListRow key={`promsResult${thisAccess.state.mapping[e][0]}`}>
                   <NHSSummaryListKey>{thisAccess.state.mapping[e][0]}</NHSSummaryListKey>
-                  <NHSSummaryListValue>{thisAccess.state.mapping[e][1][model[e]]}</NHSSummaryListValue>
+                  <NHSSummaryListValue>
+                    {thisAccess.state.mapping[e][1][model[e]]}
+                  </NHSSummaryListValue>
                   <NHSSummaryListChange onClick={this.backToForm} />
                 </NHSSummaryListRow>
               );
             })}
         </NHSSummaryList>
-        <NHSButton onClick={this.backToForm}
-                   style={{ marginRight: '10px' }}>Edit your answers</NHSButton>
+        <NHSButton
+          onClick={this.backToForm}
+          style={{ marginRight: '10px' }}
+        >
+          Edit your answers
+        </NHSButton>
         <NHSButton onClick={() => this.submitModel(model)}>Submit</NHSButton>
       </div>
     );
@@ -183,8 +258,10 @@ export class StructuredSurvey extends React.Component {
             Submit
           </NHSButton>
         </Form>
-        <div id="result"
-             hidden />
+        <div
+          id="result"
+          hidden
+        />
       </div>
     );
   }
@@ -193,63 +270,4 @@ export class StructuredSurvey extends React.Component {
 StructuredSurvey.propTypes = {
   ehrId: PropTypes.string,
   templateId: PropTypes.string,
-};
-
-function getMappingOfTemplate(e) {
-  const result = {};
-  getMappingOfTemplateAux(e, [])
-    .forEach((keys) => {
-      if (keys.type === 'options') {
-        const mapping2 = {};
-        keys.inputOptions.forEach((j) => {
-          mapping2[j.value] = j.label;
-        });
-        result[keys.name] = [keys.label, mapping2];
-      } else {
-        result[keys.name] = [keys.label];
-      }
-    });
-  return result;
-}
-
-function getMappingOfTemplateAux(props, result) {
-  if ('children' in props) {
-    props.children.forEach((child) => {
-      getMappingOfTemplateAux(child, result);
-    });
-  } else if ('inputs' in props) {
-    result.push(props.inputs);
-  }
-  return result;
-}
-
-
-function RecursiveCard(props) {
-  const color = props.color ? '#ffffff' : '#f0f4f5';
-  if ('children' in props) {
-    return (
-      <NHSPanelWithLabel style={{ backgroundColor: color }}>
-        <NHSPanelTitle className="nhsuk-panel-with-label__label">{props.name}</NHSPanelTitle>
-        <NHSPanelBody>
-          {JsonFormInputToNHSReact(props.inputs)}
-          {props.children.map((child) => RecursiveCard({
-            ...child,
-            color: !props.color
-          }))}
-        </NHSPanelBody>
-      </NHSPanelWithLabel>
-    );
-  }
-  if ('inputs' in props) {
-    return JsonFormInputToNHSReact(props.inputs);
-  }
-  return null;
-}
-
-
-RecursiveCard.propTypes = {
-  color: PropTypes.string,
-  name: PropTypes.string,
-  inputs: PropTypes.object,
-  children: PropTypes.array,
 };

@@ -1,8 +1,6 @@
 import React from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
-
-
 import * as PropTypes from 'prop-types';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
@@ -18,7 +16,7 @@ import {
 import { getEHRId } from '../PatientUtils';
 
 import { handleSearch } from '../../actions/appActions';
-import { StructuredSurvey } from './Survey';
+import StructuredSurvey from './Survey';
 import NHSContainer from '../../components/react-styled-nhs/src/NHSContainer';
 import NHSWrapper from '../../components/react-styled-nhs/src/NHSWrapper';
 import {
@@ -31,12 +29,11 @@ import getAllTemplatesInCDR from '../../components/Queries/getAllTemplatesInCDR'
 import { NHSButton } from '../../components/react-styled-nhs/src/NHSComponents';
 
 class PatientSelf extends React.Component {
-  //TODO: fix tabs issue
+  // TODO: fix tabs issue
   constructor(props) {
     super(props);
     this.state = {
       templatesList: [],
-      activeKey: '',
     };
     this.onTemplateChange = this.onTemplateChange.bind(this);
     this.onChange = (e) => {

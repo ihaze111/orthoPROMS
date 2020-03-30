@@ -1,63 +1,82 @@
 import React from 'react';
+import Tab from 'react-bootstrap/Tab';
+import Nav from 'react-bootstrap/Nav';
 import HeaderMenu from '../components/HeaderMenu';
-import Tab from "react-bootstrap/Tab";
-import Nav from "react-bootstrap/Nav";
-import { RangeEpisodeScoresGraph, GenderDistributeGraph, AgeDistributeGraph } from './NationalStatisticsComponents'
-import NHSContainer from "../components/react-styled-nhs/src/NHSContainer";
-import NHSWrapper from "../components/react-styled-nhs/src/NHSWrapper";
-import { NHSPanelWithLabel, NHSPanelBody, NHSPanelTitle } from "../components/react-styled-nhs/src/NHSPanel";
+import {
+  AgeDistributeGraph,
+  GenderDistributeGraph,
+  RangeEpisodeScoresGraph,
+} from './NationalStatisticsComponents';
+import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
+import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
+import {
+  NHSPanelBody,
+  NHSPanelTitle,
+  NHSPanelWithLabel,
+} from '../components/react-styled-nhs/src/NHSPanel';
 
-class NationalStatistics extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            painArray: []
-        };
-    }
-
-    render() {
-        return (
-            <div style={{ backgroundColor: '#f0f4f5' }}>
-                <HeaderMenu/>
-                <NHSContainer>
-                    <NHSWrapper>
-                    <NHSPanelWithLabel style={{backgroundColor: '#fff'}}>
-                        <NHSPanelTitle className="nhsuk-panel-with-label__label">
-                            National Statistics
-                        </NHSPanelTitle>
-                        <NHSPanelBody>
-                            <Tab.Container defaultActiveKey="episodeScores">
-                                <Nav variant="tabs"
-                                    style={{ marginBottom: '40px' }}>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="episodeScores" className='nhsuk-button' style={{marginRight: '10px'}}>Episode Scores Range</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="admin_gender" className='nhsuk-button' style={{marginRight: '10px'}}>Gender Distribution</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="averageAge" className='nhsuk-button' style={{marginRight: '10px'}}>Age Distribution</Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
-                                <Tab.Content>
-                                    <Tab.Pane eventKey="episodeScores">
-                                        <div><RangeEpisodeScoresGraph /></div>
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="admin_gender">
-                                        <div><GenderDistributeGraph/></div>
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="averageAge">
-                                        <div><AgeDistributeGraph/></div>
-                                    </Tab.Pane>
-                                </Tab.Content>
-                            </Tab.Container>
-                        </NHSPanelBody>
-                    </NHSPanelWithLabel>
-                    </NHSWrapper>
-                </NHSContainer>
-            </div>
-        );
-    }
+function NationalStatistics() {
+  return (
+    <div style={{ backgroundColor: '#f0f4f5' }}>
+      <HeaderMenu />
+      <NHSContainer>
+        <NHSWrapper>
+          <NHSPanelWithLabel style={{ backgroundColor: '#fff' }}>
+            <NHSPanelTitle className="nhsuk-panel-with-label__label">
+              National Statistics
+            </NHSPanelTitle>
+            <NHSPanelBody>
+              <Tab.Container defaultActiveKey="episodeScores">
+                <Nav
+                  variant="tabs"
+                  style={{ marginBottom: '40px' }}
+                >
+                  <Nav.Item>
+                    <Nav.Link
+                      eventKey="episodeScores"
+                      className="nhsuk-button"
+                      style={{ marginRight: '10px' }}
+                    >
+                      Episode Scores Range
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      eventKey="admin_gender"
+                      className="nhsuk-button"
+                      style={{ marginRight: '10px' }}
+                    >
+                      Gender Distribution
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      eventKey="averageAge"
+                      className="nhsuk-button"
+                      style={{ marginRight: '10px' }}
+                    >
+                      Age Distribution
+                    </Nav.Link>
+                  </Nav.Item>
+                </Nav>
+                <Tab.Content>
+                  <Tab.Pane eventKey="episodeScores">
+                    <div><RangeEpisodeScoresGraph /></div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="admin_gender">
+                    <div><GenderDistributeGraph /></div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="averageAge">
+                    <div><AgeDistributeGraph /></div>
+                  </Tab.Pane>
+                </Tab.Content>
+              </Tab.Container>
+            </NHSPanelBody>
+          </NHSPanelWithLabel>
+        </NHSWrapper>
+      </NHSContainer>
+    </div>
+  );
 }
 
 export default NationalStatistics;
