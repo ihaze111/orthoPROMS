@@ -1,9 +1,6 @@
-/**
- * These tests don't work for some reason.Feel free to fix or delete it
- */
-
 import { labReportsCallbackProcessing, formatTime } from "../components/Queries/getLabReportsListByEHRId";
 
+describe('Tests on lab reports list', () => {
 it('should return resultSet if exists', () => {
     expect(formatTime('2015-02-23T00:11:02.518+02:00')).toEqual('2015-02-23 00:11:02');
     expect(formatTime('2015-02-23 00:11:02')).toEqual('2015-02-23 00:11:02');
@@ -322,4 +319,5 @@ it('should successfully process a sample response from the server',() => {
         "conclusion": "result within expected range"
     }];
     expect(labReportsCallbackProcessing(fromServer)).toEqual(postProcessing);
+});
 });

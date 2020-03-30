@@ -29,7 +29,7 @@ async function getLabOrdersListByEHRId(ehrId) {
     return await CDRAQLQuery(aql, labOrdersCallbackProcessing);
 }
 
-function formatTiming(timing){
+export function formatTiming(timing){
     /**
      * If time is in format returned from CDR, then make more human readable by removing T and milliseconds. Otherwise
      * leave alone generally.
@@ -39,7 +39,7 @@ function formatTiming(timing){
    return timing.indexOf('+') !== -1 ? timing.replace(/T/, ' ').substring(3, timing.indexOf('+')) : timing.replace(/T/, ' ');
 }
 
-function formatContextTime(time){
+export function formatContextTime(time){
     /**
      * If time is in format returned from CDR, then make more human readable by removing T and milliseconds. Otherwise
      * leave alone generally.
