@@ -68,11 +68,9 @@ class PatientSelf extends React.Component {
 
     render() {
         if (!this.state.ehrId) return <div>No EHR id found for your NHS number</div>;
-        console.log(this.state);
         // let subjectId = getSubjectId(this.props.location.search);
         let subjectId = this.props.nhsNumber;
         let { search } = this.props;
-        console.log(this.state.ehrId);
         return <div style={{ backgroundColor: '#f0f4f5' }}>
             <HeaderMenu/>
             <NHSContainer>

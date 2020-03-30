@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Chart from "chart.js";
 import * as PropTypes from "prop-types";
+import ReactPerformance from 'react-performance';
 
 let bloodPressureGraph;
 const colours = ['red', 'navy'];
@@ -12,7 +13,7 @@ Chart.defaults.global.legend.display = true;
 /**
  * Build a graph based on the arrays of systolic and diastolic blood pressure provided
  */
-class BloodPressureGraph extends Component {
+export class BloodPressureGraph extends Component {
     render() {
         return (
             <BloodPressureChart id={"myBlood"} labels={this.props.time} data={
@@ -172,4 +173,8 @@ BloodPressureChart.propTypes = {
     linkList: PropTypes.array
 };
 
-export default BloodPressureGraph;
+export default ReactPerformance.measure({
+    isCollapsed: false,
+    getId: 'bloodPressureGraph',
+    Component: BloodPressureGraph,
+})

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import GeneralLineChart from "./GeneralLineChart";
 import * as PropTypes from "prop-types";
+import ReactPerformance from 'react-performance';
 
 /**
  * Build a graph based on the an array of respirationRates and an array of times
  */
-class RespirationRateGraph extends Component {
+export class RespirationRateGraph extends Component {
     render() {
         return (
             <GeneralLineChart id={"myRespirationRate"} labels={this.props.time} data={
@@ -30,4 +31,8 @@ RespirationRateGraph.propTypes = {
     compId: PropTypes.array
 };
 
-export default RespirationRateGraph;
+export default ReactPerformance.measure({
+    isCollapsed: false,
+    getId: 'respirationRateGraph',
+    Component: RespirationRateGraph,
+})

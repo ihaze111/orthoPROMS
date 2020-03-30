@@ -1,11 +1,15 @@
-import { transpose } from "../components/DownloadCSV.js";
+import { transpose, DownloadCSV } from "../components/DownloadCSV.js";
 
 describe('Transpose Function Tests', () => {
-    it('transpose exist', () => {
+    it('DownloadCSV function exist', () => {
+        expect(DownloadCSV).toBeDefined();
+    });
+
+    it('transpose function exist', () => {
         expect(transpose).toBeDefined();
     });
 
-    it('transpose', () => {
+    it('returns transposed array', () => {
         expect(transpose([[1,2,3],[1,2,3]])).toEqual([[1,1],[2,2],[3,3]]);
     });
 });

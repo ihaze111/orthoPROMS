@@ -371,7 +371,6 @@ class EpisodeScores extends React.Component {
     componentWillMount() {
         let promise = getAOFASScoresAgainstEpisodeByEHRId(this.props.ehrId);
         promise.then(e => {
-            console.log(e);
             this.pushIntoCategory(e);
             this.setState({ episodeScores: e, isLoading: false });
         });
