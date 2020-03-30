@@ -7,12 +7,6 @@ import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import HeaderMenu from '../../components/HeaderMenu';
-import {
-  PatientOverview,
-  PatientProgressTable,
-  ScoresArray,
-  EpisodeScoresGraph, PatientDemographics,
-} from '../PatientComponents';
 import { getEHRId } from '../PatientUtils';
 
 import { handleSearch } from '../../actions/appActions';
@@ -27,6 +21,11 @@ import {
 import NHSFooter from '../../components/react-styled-nhs/src/NHSFooter';
 import getAllTemplatesInCDR from '../../components/Queries/getAllTemplatesInCDR';
 import { NHSButton } from '../../components/react-styled-nhs/src/NHSComponents';
+import { PatientDemographics } from '../PatientComponents/PatientDemographics';
+import { PatientOverview } from '../PatientComponents/PatientOverview';
+import { PatientProgressTable } from '../PatientComponents/PatientProgressTable';
+import { ScoresArray } from '../PatientComponents/ScoresArray';
+import { EpisodeScoresGraph } from '../PatientComponents/EpisodeScoresGraph';
 
 class PatientSelf extends React.Component {
   // TODO: fix tabs issue

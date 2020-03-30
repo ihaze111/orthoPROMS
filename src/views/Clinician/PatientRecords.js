@@ -5,22 +5,6 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as PropTypes from 'prop-types';
-import {
-  PatientOverview,
-  PatientProgressTable,
-  ScoresArray,
-  EpisodeScoresGraph,
-  RespirationGraph,
-  PressureGraph,
-  OxygenConcentrationGraph,
-  HeartGraph,
-  PatientAllergiesTable,
-  ProceduresTable,
-  LabOrdersTable,
-  LabReportsTable,
-  PatientDemographics,
-}
-  from '../PatientComponents';
 import { getEHRId, getSubjectId } from '../PatientUtils';
 import NHSContainer from '../../components/react-styled-nhs/src/NHSContainer';
 import NHSWrapper from '../../components/react-styled-nhs/src/NHSWrapper';
@@ -30,6 +14,19 @@ import {
 } from '../../components/react-styled-nhs/src/NHSPanel';
 import NHSFooter from '../../components/react-styled-nhs/src/NHSFooter';
 import HeaderMenu from '../../components/HeaderMenu';
+import { PatientDemographics } from '../PatientComponents/PatientDemographics';
+import { PatientOverview } from '../PatientComponents/PatientOverview';
+import { PatientProgressTable } from '../PatientComponents/PatientProgressTable';
+import { ScoresArray } from '../PatientComponents/ScoresArray';
+import { EpisodeScoresGraph } from '../PatientComponents/EpisodeScoresGraph';
+import { RespirationGraph } from '../PatientComponents/RespirationGraph';
+import { PressureGraph } from '../PatientComponents/PressureGraph';
+import { OxygenConcentrationGraph } from '../PatientComponents/OxygenConcentrationGraph';
+import { HeartGraph } from '../PatientComponents/HeartGraph';
+import { PatientAllergiesTable } from '../PatientComponents/PatientAllergiesTable';
+import { ProceduresTable } from '../PatientComponents/ProceduresTable';
+import { LabOrdersTable } from '../PatientComponents/LabOrdersTable';
+import { LabReportsTable } from '../PatientComponents/LabReportsTable';
 
 class PatientRecords extends React.Component {
   constructor(props) {
