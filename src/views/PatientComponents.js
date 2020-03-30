@@ -21,12 +21,12 @@ import getProceduresListByEHRId from '../components/Queries/getProceduresListByE
 import getLabOrdersListByEHRId from '../components/Queries/getLabOrdersListByEHRId';
 import getLabReportsListByEHRId from '../components/Queries/getLabReportsListByEHRId';
 
-import ScoresGraph from '../components/Graphs/ScoresGraph';
-import RespirationRateGraph from '../components/Graphs/RespirationRateGraph';
-import BloodPressureGraph from '../components/Graphs/BloodPressureGraph';
-import OxygenSaturationGraph from '../components/Graphs/OxygenSaturationGraph';
-import HeartRateGraph from '../components/Graphs/HeartRateGraph';
-import IndividualScoresRange from '../components/Graphs/IndividualScoresRange';
+import { ScoresGraph } from '../components/Graphs/ScoresGraph';
+import { RespirationRateGraph } from '../components/Graphs/RespirationRateGraph';
+import { BloodPressureGraph } from '../components/Graphs/BloodPressureGraph';
+import { OxygenSaturationGraph } from '../components/Graphs/OxygenSaturationGraph';
+import { HeartRateGraph } from '../components/Graphs/HeartRateGraph';
+import { IndividualScoresRange } from '../components/Graphs/IndividualScoresRange';
 import 'rc-pagination/assets/index.css';
 import { DownloadCSV } from '../components/DownloadCSV';
 
@@ -369,9 +369,8 @@ class Scores extends React.Component {
     this.state.walking_surfacesArray.push(props.walking_surfaces);
     this.state.totalArray.push(props.total);
     this.state.regTimeArray.push(props.reg_time.replace(/T/, ' ')
-      .substring(0, props.reg_time.indexOf('.'))
-      || props.reg_time.replace(/T/, ' ')
-        .substring(0, props.reg_time.indexOf('Z')));
+      .substring(0, props.reg_time.indexOf('.')) || props.reg_time.replace(/T/, ' ')
+      .substring(0, props.reg_time.indexOf('Z')));
   }
 
   render() {
@@ -535,9 +534,8 @@ class RespirationRate extends React.Component {
     this.state.compIdArray.push(props.comp_id);
     this.state.respiration_magnitude.push(props.respiration_rate.magnitude);
     this.state.time.push(props.time.replace(/T/, ' ')
-      .substring(0, props.time.indexOf('.'))
-      || props.time.replace(/T/, ' ')
-        .substring(0, props.time.indexOf('Z')));
+      .substring(0, props.time.indexOf('.')) || props.time.replace(/T/, ' ')
+      .substring(0, props.time.indexOf('Z')));
   }
 
 
@@ -600,9 +598,8 @@ class BloodPressure extends React.Component {
     this.state.systolicRate.push(props.systolic.magnitude);
     this.state.diastolicRate.push(props.diastolic.magnitude);
     this.state.time.push(props.time.replace(/T/, ' ')
-      .substring(0, props.time.indexOf('.'))
-      || props.time.replace(/T/, ' ')
-        .substring(0, props.time.indexOf('Z')));
+      .substring(0, props.time.indexOf('.')) || props.time.replace(/T/, ' ')
+      .substring(0, props.time.indexOf('Z')));
   }
 
 
@@ -664,9 +661,8 @@ class IndirectOximetry extends React.Component {
     const result = (props.numerator / props.denominator) * 100;
     this.state.concentration.push(result);
     this.state.time.push(props.time.replace(/T/, ' ')
-      .substring(0, props.time.indexOf('.'))
-      || props.time.replace(/T/, ' ')
-        .substring(0, props.time.indexOf('Z')));
+      .substring(0, props.time.indexOf('.')) || props.time.replace(/T/, ' ')
+      .substring(0, props.time.indexOf('Z')));
   }
 
 
@@ -724,9 +720,8 @@ class HeartRate extends React.Component {
     this.state.compIdArray.push(props.comp_id);
     this.state.heartRateReadings.push(props.heart_rate.magnitude);
     this.state.time.push(props.time.replace(/T/, ' ')
-      .substring(0, props.time.indexOf('.'))
-      || props.time.replace(/T/, ' ')
-        .substring(0, props.time.indexOf('Z')));
+      .substring(0, props.time.indexOf('.')) || props.time.replace(/T/, ' ')
+      .substring(0, props.time.indexOf('Z')));
   }
 
 

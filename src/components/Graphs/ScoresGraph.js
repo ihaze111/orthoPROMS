@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import GeneralLineChart from './GeneralLineChart';
 import ReactPerformance from 'react-performance';
+import GeneralLineChart from './GeneralLineChart';
 
 /**
  * Build a graph based on arrays of standard pain scores and an array of times
@@ -55,8 +55,7 @@ ScoresGraph.propTypes = {
 };
 
 export default ReactPerformance.measure({
-    isCollapsed: false,
-    getId: 'scoresGraph',
-    Component: ScoresGraph,
-})
-
+  isCollapsed: false,
+  getId: 'scoresGraph',
+  Component: ScoresGraph,
+});

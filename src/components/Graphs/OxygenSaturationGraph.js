@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import GeneralLineChart from './GeneralLineChart';
 import ReactPerformance from 'react-performance';
+import GeneralLineChart from './GeneralLineChart';
 
 /**
  * Build a graph based on the an array of oxygen concentration percentages and an array of times
@@ -35,9 +35,9 @@ OxygenSaturationGraph.propTypes = {
 };
 
 export default ReactPerformance.measure({
-    isCollapsed: false,
-    getId: 'oxygenSaturationGraph',
-    Component: OxygenSaturationGraph,
-})
+  isCollapsed: false,
+  getId: 'oxygenSaturationGraph',
+  Component: OxygenSaturationGraph,
+});
 
 // export default OxygenSaturationGraph;

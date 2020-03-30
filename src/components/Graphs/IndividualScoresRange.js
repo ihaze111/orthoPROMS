@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import RadarGraph from './RadarGraph';
 import ReactPerformance from 'react-performance';
+import RadarGraph from './RadarGraph';
 
 /**
  * Build a graph based on individual scores range categorically and its values
@@ -43,8 +43,7 @@ IndividualScoresRange.propTypes = {
 };
 
 export default ReactPerformance.measure({
-    isCollapsed: false,
-    getId: 'individualScoresRange',
-    Component: IndividualScoresRange,
-})
-
+  isCollapsed: false,
+  getId: 'individualScoresRange',
+  Component: IndividualScoresRange,
+});

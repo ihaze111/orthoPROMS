@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import RadarGraph from './RadarGraph';
 import ReactPerformance from 'react-performance';
+import RadarGraph from './RadarGraph';
 
 /**
  * Build a graph based on the national average scores range categorically and its values
@@ -43,7 +43,7 @@ AverageScoresRange.propTypes = {
 };
 
 export default ReactPerformance.measure({
-    isCollapsed: false,
-    getId: 'averageScoresRange',
-    Component: AverageScoresRange,
-})
+  isCollapsed: false,
+  getId: 'averageScoresRange',
+  Component: AverageScoresRange,
+});

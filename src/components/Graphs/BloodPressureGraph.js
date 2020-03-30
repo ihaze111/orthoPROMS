@@ -182,7 +182,7 @@ BloodPressureChart.propTypes = {
 };
 
 export default ReactPerformance.measure({
-    isCollapsed: false,
-    getId: 'bloodPressureGraph',
-    Component: BloodPressureGraph,
-})
+  isCollapsed: false,
+  getId: 'bloodPressureGraph',
+  Component: BloodPressureGraph,
+});

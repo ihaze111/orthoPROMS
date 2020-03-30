@@ -23,7 +23,7 @@ module.exports = {
     "plugins": [
         "react"
     ],
-    "ignorePatterns": ["node_modules/", "build/", "public/", "ehr-template-processor/", "ehr-template-react-generator/", "react-styled-nhs/", "/src/index.js", "/src/serviceWorker.js"],
+    "ignorePatterns": ["node_modules/", "build/", "public/", "ehr-template-processor/", "ehr-template-react-generator/", "react-styled-nhs/"],
     "rules": {
         "react/no-deprecated": "off",
         "react/destructuring-assignment": "off",

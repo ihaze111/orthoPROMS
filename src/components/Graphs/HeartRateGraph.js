@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import GeneralLineChart from './GeneralLineChart';
 import ReactPerformance from 'react-performance';
+import GeneralLineChart from './GeneralLineChart';
 
 /**
  * Build a graph based on the an array of heartRates and an array of times
@@ -38,7 +38,7 @@ HeartRateGraph.propTypes = {
 };
 
 export default ReactPerformance.measure({
-    isCollapsed: false,
-    getId: 'heartRateGraph',
-    Component: HeartRateGraph,
-})
+  isCollapsed: false,
+  getId: 'heartRateGraph',
+  Component: HeartRateGraph,
+});
