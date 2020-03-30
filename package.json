@@ -1,24 +1,15 @@
 {
-  "name": "medical",
-  "version": "0.1.0",
-  "private": true,
+  "name": "orthoPROMS",
+  "version": "",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "Promise": "^1.0.5",
     "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
-    "d3": "^5.15.0",
     "dotenv": "latest",
     "formsy-react": "^2.0.0",
     "formsy-react-components": "^2.0.0-beta.2",
     "history": "^4.10.1",
-    "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
-    "mdbreact": "^4.24.0",
     "nhsuk-frontend": "^3.0.3",
     "node-sass": "^4.13.1",
     "nodemailer": "^6.4.2",
@@ -37,8 +28,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "request-promise": "^4.2.5"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

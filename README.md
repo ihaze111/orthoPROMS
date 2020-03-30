@@ -3,7 +3,7 @@
 [![ihaze111](https://circleci.com/gh/ihaze111/orthoPROMS/tree/master.svg?style=shield)](https://circleci.com/gh/ihaze111/orthoPROMS)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ihaze111/orthoPROMS/blob/master/LICENSE)
 
- ## Orthopaedic PROMS (Patient-record outcome measures) visualisation based on openEHR standards.
+ ## Orthopaedic PROMS (Patient-record outcome measures) visualisation based on openEHR standards
 
 ### Abstract
 There is a lack of open source, easy to use Patient Recorded Outcome Measures (PROMS) visualisation and collection software. Our project is an open platform web app that visualizes patients’ progress. This will aid doctors and public health professionals in understanding the recovery of patients, and also aid patients in understanding their own recovery. The system is built as modules that can be adapted for other applications (e.g. the graphs, the survey pulled in from operational templates, etc.).
