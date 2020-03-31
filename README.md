@@ -39,7 +39,7 @@ $ npm start
 ```
 5. Navigate to `localhost:3000` on a web browser
 
-### Testing
+## Testing
 
 Tests can be run (in watch mode) with:
 ```js
