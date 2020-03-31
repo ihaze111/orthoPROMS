@@ -1,8 +1,8 @@
-import { HeartRate } from './HeartRate';
-import * as PropTypes from 'prop-types';
 import React from 'react';
+import * as PropTypes from 'prop-types';
+import { HeartRate } from './HeartRate';
 
-export function HeartGraph(props) {
+export default function HeartGraph(props) {
   if (props.ehrId) {
     return <div><HeartRate ehrId={props.ehrId} /></div>;
   }

@@ -25,7 +25,7 @@ import PatientDemographics from '../PatientComponents/PatientDemographics';
 import { PatientOverview } from '../PatientComponents/PatientOverview';
 import { PatientProgressTable } from '../PatientComponents/PatientProgressTable';
 import { ScoresArray } from '../PatientComponents/ScoresArray';
-import { EpisodeScoresGraph } from '../PatientComponents/EpisodeScoresGraph';
+import EpisodeScoresGraph from '../PatientComponents/EpisodeScoresGraph';
 
 class PatientSelf extends React.Component {
   // TODO: fix tabs issue

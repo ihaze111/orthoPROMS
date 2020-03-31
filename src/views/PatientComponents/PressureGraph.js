@@ -1,8 +1,8 @@
-import { BloodPressure } from './BloodPressure';
-import * as PropTypes from 'prop-types';
 import React from 'react';
+import * as PropTypes from 'prop-types';
+import { BloodPressure } from './BloodPressure';
 
-export function PressureGraph(props) {
+export default function PressureGraph(props) {
   if (props.ehrId) {
     return <div><BloodPressure ehrId={props.ehrId} /></div>;
   }

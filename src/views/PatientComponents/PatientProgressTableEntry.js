@@ -1,8 +1,8 @@
-import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import * as PropTypes from 'prop-types';
 import React from 'react';
+import * as PropTypes from 'prop-types';
+import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 
-export function PatientProgressTableEntry(props) {
+export default function PatientProgressTableEntry(props) {
   // TODO: what happens if no NHS number?
   return (
     <NHSTr key={`composition${props.nhs_number}no${props.index}`}>

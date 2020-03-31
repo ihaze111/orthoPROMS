@@ -1,8 +1,8 @@
-import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import * as PropTypes from 'prop-types';
 import React from 'react';
+import * as PropTypes from 'prop-types';
+import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 
-export function LabOrdersTableEntry(props) {
+export default function LabOrdersTableEntry(props) {
   return (
     <NHSTr key={`orders${props.index}`}>
       <NHSTd key={`orders${props.index}request`}>{props.request}</NHSTd>

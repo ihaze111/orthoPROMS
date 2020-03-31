@@ -1,6 +1,6 @@
 import React from 'react';
 import getAllCompositionsByEHRId from '../../components/Queries/getAllCompositionsByEHRId';
-import { PatientProgressTableEntry } from './PatientProgressTableEntry';
+import PatientProgressTableEntry from './PatientProgressTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import Pagination from 'rc-pagination';
 import * as PropTypes from 'prop-types';

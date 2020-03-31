@@ -1,6 +1,6 @@
 import React from 'react';
 import getProceduresListByEHRId from '../../components/Queries/getProceduresListByEHRId';
-import { ProceduresTableEntry } from './ProceduresTableEntry';
+import ProceduresTableEntry from './ProceduresTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import * as PropTypes from 'prop-types';
 
