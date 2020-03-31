@@ -15,7 +15,6 @@ These instructions can be used to run the project locally for development and te
 
 - Git
 - Node.js and the npm package manager
-- MongoDB - running on the default port (27017).
 - Internet connection (even when using app, so the API calls work)
 - You must clone and run the accompanying server: https://github.com/charlie-g-cowan/Comp0016-Server
 
