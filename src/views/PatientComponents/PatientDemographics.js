@@ -9,7 +9,7 @@ import {
   NHSSummaryListValue,
 } from '../../components/react-styled-nhs/src/NHSSummaryList';
 
-export class PatientDemographics extends React.Component {
+export default class PatientDemographics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

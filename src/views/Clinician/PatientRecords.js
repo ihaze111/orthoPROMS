@@ -14,7 +14,7 @@ import {
 } from '../../components/react-styled-nhs/src/NHSPanel';
 import NHSFooter from '../../components/react-styled-nhs/src/NHSFooter';
 import HeaderMenu from '../../components/HeaderMenu';
-import { PatientDemographics } from '../PatientComponents/PatientDemographics';
+import PatientDemographics from '../PatientComponents/PatientDemographics';
 import { PatientOverview } from '../PatientComponents/PatientOverview';
 import { PatientProgressTable } from '../PatientComponents/PatientProgressTable';
 import { ScoresArray } from '../PatientComponents/ScoresArray';

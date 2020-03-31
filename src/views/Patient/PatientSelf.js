@@ -21,7 +21,7 @@ import {
 import NHSFooter from '../../components/react-styled-nhs/src/NHSFooter';
 import getAllTemplatesInCDR from '../../components/Queries/getAllTemplatesInCDR';
 import { NHSButton } from '../../components/react-styled-nhs/src/NHSComponents';
-import { PatientDemographics } from '../PatientComponents/PatientDemographics';
+import PatientDemographics from '../PatientComponents/PatientDemographics';
 import { PatientOverview } from '../PatientComponents/PatientOverview';
 import { PatientProgressTable } from '../PatientComponents/PatientProgressTable';
 import { ScoresArray } from '../PatientComponents/ScoresArray';
