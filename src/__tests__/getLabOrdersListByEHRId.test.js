@@ -2,7 +2,7 @@ import {
   labOrdersCallbackProcessing,
   formatContextTime,
   formatTiming,
-} from '../components/Queries/getLabOrdersListByEHRId';
+} from '../cdr/getLabOrdersListByEHRId';
 
 describe('Test suite for lab orders list', () => {
   it('should return resultSet if exists', () => {

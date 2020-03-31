@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import getAllergiesListByEHRId from '../../components/Queries/getAllergiesListByEHRId';
+import getAllergiesListByEHRId from '../../cdr/getAllergiesListByEHRId';
 import PatientAllergiesTableEntry from './PatientAllergiesTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 

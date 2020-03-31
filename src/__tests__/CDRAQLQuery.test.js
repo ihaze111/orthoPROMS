@@ -1,4 +1,4 @@
-import { QueryResultCallbackProcessing } from '../components/Queries/CDRAQLQuery';
+import { QueryResultCallbackProcessing } from '../cdr/CDRAQLQuery';
 
 it('should return resultSet if exists', () => {
   expect(QueryResultCallbackProcessing.ReturnResultSetOrOtherwiseEmptyArray({}))

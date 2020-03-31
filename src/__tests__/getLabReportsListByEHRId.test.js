@@ -1,5 +1,5 @@
-import { labReportsCallbackProcessing } from '../components/Queries/getLabReportsListByEHRId';
-import { formatTime } from '../components/Queries/queryProcessingHelpers';
+import { labReportsCallbackProcessing } from '../cdr/getLabReportsListByEHRId';
+import { formatTime } from '../cdr/queryProcessingHelpers';
 
 describe('Tests on lab reports list', () => {
   it('should return resultSet if exists', () => {

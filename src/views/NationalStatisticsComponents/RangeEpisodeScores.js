@@ -1,6 +1,6 @@
 import React from 'react';
 import getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs
-  from '../../components/Queries/getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs';
+  from '../../cdr/getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs';
 // TODO: look into this weird default export issue
 // eslint-disable-next-line import/no-named-as-default
 import AverageScoresRange from '../../components/Graphs/AverageScoresRange';

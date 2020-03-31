@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import getLabOrdersListByEHRId from '../../components/Queries/getLabOrdersListByEHRId';
+import getLabOrdersListByEHRId from '../../cdr/getLabOrdersListByEHRId';
 import LabOrdersTableEntry from './LabOrdersTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 

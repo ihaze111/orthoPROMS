@@ -1,6 +1,6 @@
 import * as axios from 'axios';
-import CDROptions from './Queries/CDROptions';
-import { treeTrawlGettingFlatInputs } from '../ehr-template-processor/src/template';
+import CDROptions from './CDROptions';
+import { treeTrawlGettingFlatInputs } from '../ehr-template-processor';
 
 async function getFlatProcessedTemplate(templateName) {
   let processedResult = [];

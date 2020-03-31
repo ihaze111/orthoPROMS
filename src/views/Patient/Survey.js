@@ -3,7 +3,7 @@ import { Form } from 'formsy-react-components';
 import ReactDOM from 'react-dom';
 import * as axios from 'axios';
 import * as PropTypes from 'prop-types';
-import CDROptions from '../../components/Queries/CDROptions';
+import CDROptions from '../../cdr/CDROptions';
 import JsonFormInputToNHSReact
   from '../../ehr-template-react-generator/src/JsonFormInputToNHSReact';
 import {
@@ -11,7 +11,7 @@ import {
   NHSPanelTitle,
   NHSPanelWithLabel,
 } from '../../components/react-styled-nhs/src/NHSPanel';
-import getStructuredProcessedTemplate from '../../components/GetStructuredProcessedTemplate';
+import getStructuredProcessedTemplate from '../../cdr/GetStructuredProcessedTemplate';
 import { NHSButton } from '../../components/react-styled-nhs/src/NHSComponents';
 import {
   NHSSummaryList, NHSSummaryListChange,

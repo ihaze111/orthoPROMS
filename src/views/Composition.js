@@ -2,7 +2,7 @@ import React from 'react';
 import qs from 'qs';
 import { createBrowserHistory } from 'history';
 import * as PropTypes from 'prop-types';
-import getStructuredProcessedTemplate from '../components/GetStructuredProcessedTemplate';
+import getStructuredProcessedTemplate from '../cdr/GetStructuredProcessedTemplate';
 import {
   NHSSummaryList,
   NHSSummaryListKey,
@@ -12,8 +12,8 @@ import {
 import HeaderMenu from '../components/HeaderMenu';
 import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
 import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
-import getCompositionByCompositionId from '../components/Queries/getCompositionByCompositionId';
-import CDRAQLQuery from '../components/Queries/CDRAQLQuery';
+import getCompositionByCompositionId from '../cdr/getCompositionByCompositionId';
+import CDRAQLQuery from '../cdr/CDRAQLQuery';
 import NHSBackLink from '../components/react-styled-nhs/src/NHSBackLink';
 import NHSCheckbox from '../components/react-styled-nhs/src/NHSCheckbox';
 import { NHSFormGroup, NHSFormLabel } from '../components/react-styled-nhs/src/NHSComponents';

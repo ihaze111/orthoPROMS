@@ -19,7 +19,7 @@ import {
   NHSPanelTitle,
 } from '../../components/react-styled-nhs/src/NHSPanel';
 import NHSFooter from '../../components/react-styled-nhs/src/NHSFooter';
-import getAllTemplatesInCDR from '../../components/Queries/getAllTemplatesInCDR';
+import getAllTemplatesInCDR from '../../cdr/getAllTemplatesInCDR';
 import { NHSButton } from '../../components/react-styled-nhs/src/NHSComponents';
 import PatientDemographics from '../PatientComponents/PatientDemographics';
 import PatientOverview from '../PatientComponents/PatientOverview';

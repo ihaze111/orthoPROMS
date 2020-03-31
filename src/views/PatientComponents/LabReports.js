@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import getLabReportsListByEHRId from '../../components/Queries/getLabReportsListByEHRId';
+import getLabReportsListByEHRId from '../../cdr/getLabReportsListByEHRId';
 import LabReportsTableEntry from './LabReportsTableEntry';
 
 export default class LabReports extends React.Component {

@@ -1,4 +1,4 @@
-import environment from '../../environment';
+import environment from '../environment';
 
 /**
  * The standard headers used for calls to the CDr, including the authorisation string

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import getAOFASScoresAgainstEpisodeByEHRId
-  from '../../components/Queries/getAOFASScoresAgainstEpisodeByEHRId';
+  from '../../cdr/getAOFASScoresAgainstEpisodeByEHRId';
 import { IndividualScoresRange } from '../../components/Graphs/IndividualScoresRange';
 import { DownloadCSV } from '../../components/DownloadCSV';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import Pagination from 'rc-pagination';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import getAllCompositionsByEHRId from '../../components/Queries/getAllCompositionsByEHRId';
+import getAllCompositionsByEHRId from '../../cdr/getAllCompositionsByEHRId';
 import PatientProgressTableEntry from './PatientProgressTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import { setCompositions } from '../../actions/appActions';

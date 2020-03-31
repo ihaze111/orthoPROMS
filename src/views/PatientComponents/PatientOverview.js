@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import getEHRByNHSNumber from '../../components/Queries/getEHRByNHSNumber';
+import getEHRByNHSNumber from '../../cdr/getEHRByNHSNumber';
 import {
   NHSSummaryList,
   NHSSummaryListKey,

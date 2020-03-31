@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import getPatientDemographicsByEHRId from '../../components/Queries/getPatientDemographicsByEHRId';
+import getPatientDemographicsByEHRId from '../../cdr/getPatientDemographicsByEHRId';
 import { NHSPanelBody } from '../../components/react-styled-nhs/src/NHSPanel';
 import {
   NHSSummaryList,

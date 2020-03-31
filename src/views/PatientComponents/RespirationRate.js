@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import getRespirationRateAgainstTimeByEHRId
-  from '../../components/Queries/getRespirationRateAgainstTimeByEHRId';
+  from '../../cdr/getRespirationRateAgainstTimeByEHRId';
 import { RespirationRateGraph } from '../../components/Graphs/RespirationRateGraph';
 
 export default class RespirationRate extends React.Component {

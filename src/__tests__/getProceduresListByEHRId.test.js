@@ -1,7 +1,7 @@
 import {
   proceduresCallbackProcessing,
   timeFormat,
-} from '../components/Queries/getProceduresListByEHRId';
+} from '../cdr/getProceduresListByEHRId';
 
 describe('Test suite for procedures list', () => {
   it('should return resultSet if exists', () => {

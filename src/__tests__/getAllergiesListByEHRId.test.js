@@ -1,7 +1,7 @@
 import {
   allergiesCallbackProcessing,
   formatTime,
-} from '../components/Queries/getAllergiesListByEHRId';
+} from '../cdr/getAllergiesListByEHRId';
 
 describe('Test suite for allergies list', () => {
   it('should return resultSet if exists', () => {

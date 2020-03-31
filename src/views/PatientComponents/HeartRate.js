@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import getHeartRatesAgainstTimeByEHRId
-  from '../../components/Queries/getHeartRatesAgainstTimeByEHRId';
+  from '../../cdr/getHeartRatesAgainstTimeByEHRId';
 import { HeartRateGraph } from '../../components/Graphs/HeartRateGraph';
 
 export default class HeartRate extends React.Component {

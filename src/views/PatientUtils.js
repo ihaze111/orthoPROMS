@@ -1,6 +1,6 @@
 import qs from 'qs';
 import * as axios from 'axios';
-import CDROptions from '../components/Queries/CDROptions';
+import CDROptions from '../cdr/CDROptions';
 
 export async function getEHRId(subjectId) {
   let processedResult = '';

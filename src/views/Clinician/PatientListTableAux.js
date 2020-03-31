@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import Pagination from 'rc-pagination';
-import getAllEHRsInCDR from '../../components/Queries/getAllEHRsInCDR';
+import getAllEHRsInCDR from '../../cdr/getAllEHRsInCDR';
 import {
   NHSTable,
   NHSTBody,
