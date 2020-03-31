@@ -30,7 +30,7 @@ $ git submodule update --init --recursive
 ```
 3. Install dependencies
 ```js
- npm install
+$ npm install
 ```
 4. Provide a `.env` file in the format of `.env.example` and populate relevant details for CDR and whether linting should be enabled.
 5. Start the application
