@@ -1,8 +1,8 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getRespirationRateAgainstTimeByEHRId
   from '../../components/Queries/getRespirationRateAgainstTimeByEHRId';
 import { RespirationRateGraph } from '../../components/Graphs/RespirationRateGraph';
-import * as PropTypes from 'prop-types';
 
 export class RespirationRate extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getBloodPressureByEHRId from '../../components/Queries/getBloodPressureByEHRId';
 import { BloodPressureGraph } from '../../components/Graphs/BloodPressureGraph';
-import * as PropTypes from 'prop-types';
 
 export class BloodPressure extends React.Component {
   constructor(props) {

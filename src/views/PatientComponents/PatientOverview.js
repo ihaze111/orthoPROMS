@@ -1,14 +1,14 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getEHRByNHSNumber from '../../components/Queries/getEHRByNHSNumber';
 import {
   NHSSummaryList,
   NHSSummaryListKey,
   NHSSummaryListRow,
-  NHSSummaryListValue
+  NHSSummaryListValue,
 } from '../../components/react-styled-nhs/src/NHSSummaryList';
-import * as PropTypes from 'prop-types';
 
-export class PatientOverview extends React.Component {
+export default class PatientOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

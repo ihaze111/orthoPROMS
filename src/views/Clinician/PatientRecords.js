@@ -15,18 +15,18 @@ import {
 import NHSFooter from '../../components/react-styled-nhs/src/NHSFooter';
 import HeaderMenu from '../../components/HeaderMenu';
 import PatientDemographics from '../PatientComponents/PatientDemographics';
-import { PatientOverview } from '../PatientComponents/PatientOverview';
-import { PatientProgressTable } from '../PatientComponents/PatientProgressTable';
+import PatientOverview from '../PatientComponents/PatientOverview';
+import PatientProgressTable from '../PatientComponents/PatientProgressTable';
 import { ScoresArray } from '../PatientComponents/ScoresArray';
 import EpisodeScoresGraph from '../PatientComponents/EpisodeScoresGraph';
 import { RespirationGraph } from '../PatientComponents/RespirationGraph';
 import PressureGraph from '../PatientComponents/PressureGraph';
-import { OxygenConcentrationGraph } from '../PatientComponents/OxygenConcentrationGraph';
+import OxygenConcentrationGraph from '../PatientComponents/OxygenConcentrationGraph';
 import HeartGraph from '../PatientComponents/HeartGraph';
-import { PatientAllergiesTable } from '../PatientComponents/PatientAllergiesTable';
-import { ProceduresTable } from '../PatientComponents/ProceduresTable';
-import { LabOrdersTable } from '../PatientComponents/LabOrdersTable';
-import { LabReportsTable } from '../PatientComponents/LabReportsTable';
+import PatientAllergiesTable from '../PatientComponents/PatientAllergiesTable';
+import ProceduresTable from '../PatientComponents/ProceduresTable';
+import LabOrdersTable from '../PatientComponents/LabOrdersTable';
+import LabReportsTable from '../PatientComponents/LabReportsTable';
 
 class PatientRecords extends React.Component {
   constructor(props) {

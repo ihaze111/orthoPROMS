@@ -1,8 +1,8 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getHeartRatesAgainstTimeByEHRId
   from '../../components/Queries/getHeartRatesAgainstTimeByEHRId';
 import { HeartRateGraph } from '../../components/Graphs/HeartRateGraph';
-import * as PropTypes from 'prop-types';
 
 export class HeartRate extends React.Component {
   constructor(props) {

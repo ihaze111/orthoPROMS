@@ -1,9 +1,9 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getAOFASScoresAgainstEpisodeByEHRId
   from '../../components/Queries/getAOFASScoresAgainstEpisodeByEHRId';
 import { IndividualScoresRange } from '../../components/Graphs/IndividualScoresRange';
 import { DownloadCSV } from '../../components/DownloadCSV';
-import * as PropTypes from 'prop-types';
 
 export class EpisodeScores extends React.Component {
   constructor(props) {

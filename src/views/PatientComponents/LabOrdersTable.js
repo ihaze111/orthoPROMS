@@ -1,16 +1,16 @@
+import * as PropTypes from 'prop-types';
+import React from 'react';
 import {
   NHSTable,
   NHSTableWrapper,
   NHSTBody,
   NHSTh,
   NHSTHead,
-  NHSTr
+  NHSTr,
 } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import { LabOrders } from './LabOrders';
-import * as PropTypes from 'prop-types';
-import React from 'react';
 
-export function LabOrdersTable(props) {
+export default function LabOrdersTable(props) {
   if (props.ehrId) {
     return (
       <NHSTableWrapper>

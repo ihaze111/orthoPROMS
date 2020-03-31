@@ -1,8 +1,8 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getAllergiesListByEHRId from '../../components/Queries/getAllergiesListByEHRId';
 import PatientAllergiesTableEntry from './PatientAllergiesTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import * as PropTypes from 'prop-types';
 
 function PatientAllergiesTableEmptyError() {
   return (
@@ -17,7 +17,7 @@ function PatientAllergiesTableEmptyError() {
   );
 }
 
-export class PatientAllergiesTableEntries extends React.Component {
+export default class PatientAllergiesTableEntries extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

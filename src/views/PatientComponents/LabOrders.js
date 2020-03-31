@@ -1,8 +1,8 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getLabOrdersListByEHRId from '../../components/Queries/getLabOrdersListByEHRId';
 import LabOrdersTableEntry from './LabOrdersTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import * as PropTypes from 'prop-types';
 
 export class LabOrders extends React.Component {
   constructor(props) {

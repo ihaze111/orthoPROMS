@@ -1,9 +1,9 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getAOFASScoresAgainstTimeByEHRId
   from '../../components/Queries/getAOFASScoresAgainstTimeByEHRId';
 import { ScoresGraph } from '../../components/Graphs/ScoresGraph';
 import { DownloadCSV } from '../../components/DownloadCSV';
-import * as PropTypes from 'prop-types';
 
 export class Scores extends React.Component {
   constructor(props) {

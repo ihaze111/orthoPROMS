@@ -108,7 +108,7 @@ function RecursiveCard(props) {
 RecursiveCard.propTypes = {
   color: PropTypes.string,
   name: PropTypes.string,
-  inputs: PropTypes.object,
+  inputs: PropTypes.shape({}),
   children: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -125,7 +125,6 @@ export default class StructuredSurvey extends React.Component {
     const promise = getStructuredProcessedTemplate(this.props.templateId);
     promise.then((e) => {
       this.setState({
-        canSubmit: this.state.canSubmit,
         template: e,
         // eslint-disable-next-line react/no-unused-state
         mapping: getMappingOfTemplate(e, []),
@@ -133,14 +132,14 @@ export default class StructuredSurvey extends React.Component {
     });
   }
 
-  backToForm() {
+  backToForm = () => {
     document.getElementById('result').hidden = true;
     document.getElementById('surveyForm').hidden = false;
-  }
+  };
 
-  reloadPage() {
+  reloadPage = () => {
     window.location.reload();
-  }
+  };
 
   async submitModel(model) {
     const reply = await commitComposition(model, this.props.ehrId, this.props.templateId);

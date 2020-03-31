@@ -151,10 +151,10 @@ export class Composition extends React.Component {
     });
   }
 
-  goBack() {
+  goBack = () => {
     createBrowserHistory()
       .goBack();
-  }
+  };
 
   render() {
     if (!this.state.composition) return null;

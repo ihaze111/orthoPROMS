@@ -1,6 +1,6 @@
-import { RespirationRate } from './RespirationRate';
-import * as PropTypes from 'prop-types';
 import React from 'react';
+import * as PropTypes from 'prop-types';
+import { RespirationRate } from './RespirationRate';
 
 export function RespirationGraph(props) {
   if (props.ehrId) {

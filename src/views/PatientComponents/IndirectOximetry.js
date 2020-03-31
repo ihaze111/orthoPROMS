@@ -1,8 +1,8 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
 import getIndirectOximetryAgainstTimeByEHRId
   from '../../components/Queries/getIndirectOximetryAgainstTimeByEHRId';
 import { OxygenSaturationGraph } from '../../components/Graphs/OxygenSaturationGraph';
-import * as PropTypes from 'prop-types';
 
 export class IndirectOximetry extends React.Component {
   constructor(props) {
