@@ -5,7 +5,7 @@ import getAOFASScoresAgainstTimeByEHRId
 import { ScoresGraph } from '../../components/Graphs/ScoresGraph';
 import { DownloadCSV } from '../../components/DownloadCSV';
 
-export class Scores extends React.Component {
+export default class Scores extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

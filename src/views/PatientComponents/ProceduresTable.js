@@ -8,7 +8,7 @@ import {
   NHSTHead,
   NHSTr,
 } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import { Procedures } from './Procedures';
+import Procedures from './Procedures';
 
 export default function ProceduresTable(props) {
   if (props.ehrId) {

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import getBloodPressureByEHRId from '../../components/Queries/getBloodPressureByEHRId';
 import { BloodPressureGraph } from '../../components/Graphs/BloodPressureGraph';
 
-export class BloodPressure extends React.Component {
+export default class BloodPressure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

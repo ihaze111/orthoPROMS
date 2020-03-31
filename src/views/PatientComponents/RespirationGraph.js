@@ -1,8 +1,8 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { RespirationRate } from './RespirationRate';
+import RespirationRate from './RespirationRate';
 
-export function RespirationGraph(props) {
+export default function RespirationGraph(props) {
   if (props.ehrId) {
     return <div><RespirationRate ehrId={props.ehrId} /></div>;
   }

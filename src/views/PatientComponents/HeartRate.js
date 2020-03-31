@@ -4,7 +4,7 @@ import getHeartRatesAgainstTimeByEHRId
   from '../../components/Queries/getHeartRatesAgainstTimeByEHRId';
 import { HeartRateGraph } from '../../components/Graphs/HeartRateGraph';
 
-export class HeartRate extends React.Component {
+export default class HeartRate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

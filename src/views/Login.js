@@ -40,6 +40,7 @@ class Login extends React.Component {
     };
     this.onSignIn = (googleUser) => {
       const profile = googleUser.getBasicProfile();
+      // eslint-disable-next-line camelcase
       const { id_token } = googleUser.getAuthResponse();
       this.props.googleLogin({
         token: id_token,

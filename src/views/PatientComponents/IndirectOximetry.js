@@ -4,7 +4,7 @@ import getIndirectOximetryAgainstTimeByEHRId
   from '../../components/Queries/getIndirectOximetryAgainstTimeByEHRId';
 import { OxygenSaturationGraph } from '../../components/Graphs/OxygenSaturationGraph';
 
-export class IndirectOximetry extends React.Component {
+export default class IndirectOximetry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

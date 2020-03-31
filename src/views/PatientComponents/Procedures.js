@@ -14,7 +14,12 @@ function NHSNoneFoundTableRow(props) {
   );
 }
 
-export class Procedures extends React.Component {
+NHSNoneFoundTableRow.propTypes = {
+  key: PropTypes.string,
+  children: PropTypes.shape({}),
+};
+
+export default class Procedures extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

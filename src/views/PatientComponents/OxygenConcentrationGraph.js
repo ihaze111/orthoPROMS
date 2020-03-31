@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { IndirectOximetry } from './IndirectOximetry';
+import IndirectOximetry from './IndirectOximetry';
 
 export default function OxygenConcentrationGraph(props) {
   if (props.ehrId) {

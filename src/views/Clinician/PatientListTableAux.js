@@ -1,4 +1,6 @@
 import React from 'react';
+import * as PropTypes from 'prop-types';
+import Pagination from 'rc-pagination';
 import getAllEHRsInCDR from '../../components/Queries/getAllEHRsInCDR';
 import {
   NHSTable,
@@ -6,28 +8,27 @@ import {
   NHSTd,
   NHSTh,
   NHSTHead,
-  NHSTr
+  NHSTr,
 } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import PatientListEntry from '../../components/Clinician/PatientListEntry';
-import Pagination from 'rc-pagination';
-import * as PropTypes from 'prop-types';
 import {
   NHSErrorSummary,
   NHSErrorSummaryBodySimple,
-  NHSErrorSummaryTitle
+  NHSErrorSummaryTitle,
 } from '../../components/react-styled-nhs/src/NHSErrorSummary';
 
 function EmptyPatientsListError() {
   return (
     <NHSErrorSummary>
       <NHSErrorSummaryTitle>No patients found</NHSErrorSummaryTitle>
-      <NHSErrorSummaryBodySimple>No patients were found in the CDR with NHS
-        numbers</NHSErrorSummaryBodySimple>
+      <NHSErrorSummaryBodySimple>
+        No patients were found in the CDR with NHS numbers
+      </NHSErrorSummaryBodySimple>
     </NHSErrorSummary>
   );
 }
 
-export class PatientListTableAux extends React.Component {
+export default class PatientListTableAux extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -80,11 +81,8 @@ export class PatientListTableAux extends React.Component {
               return PatientListEntry(e);
             })}
             <NHSTd colSpan={6}>
-              <Pagination
-                current={this.state.page}
-                total={patientListFiltered.length}
-                onChange={this.handlePageChange.bind(this)}
-              />
+              {/* eslint-disable-next-line react/jsx-no-bind,max-len */}
+              <Pagination current={this.state.page} total={patientListFiltered.length} onChange={this.handlePageChange.bind(this)} />
             </NHSTd>
           </NHSTBody>
         </NHSTable>

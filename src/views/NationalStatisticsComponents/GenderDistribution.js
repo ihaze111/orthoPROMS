@@ -1,5 +1,7 @@
 import React from 'react';
 import getAllEHRsInCDR from '../../components/Queries/getAllEHRsInCDR';
+// TODO: look into this weird default export issue
+// eslint-disable-next-line import/no-named-as-default
 import GenderDistributionGraph from '../../components/Graphs/GenderDistributionGraph';
 import { DownloadCSV } from '../../components/DownloadCSV';
 

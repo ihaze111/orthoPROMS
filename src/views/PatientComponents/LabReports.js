@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import getLabReportsListByEHRId from '../../components/Queries/getLabReportsListByEHRId';
 import LabReportsTableEntry from './LabReportsTableEntry';
 
-export class LabReports extends React.Component {
+export default class LabReports extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

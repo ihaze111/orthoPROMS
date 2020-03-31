@@ -5,7 +5,7 @@ import getAOFASScoresAgainstEpisodeByEHRId
 import { IndividualScoresRange } from '../../components/Graphs/IndividualScoresRange';
 import { DownloadCSV } from '../../components/DownloadCSV';
 
-export class EpisodeScores extends React.Component {
+export default class EpisodeScores extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

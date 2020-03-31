@@ -4,7 +4,7 @@ import getLabOrdersListByEHRId from '../../components/Queries/getLabOrdersListBy
 import LabOrdersTableEntry from './LabOrdersTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 
-export class LabOrders extends React.Component {
+export default class LabOrders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

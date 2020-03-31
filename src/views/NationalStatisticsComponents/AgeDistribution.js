@@ -1,5 +1,7 @@
 import React from 'react';
 import getAllEHRsInCDR from '../../components/Queries/getAllEHRsInCDR';
+// TODO: look into this weird default export issue
+// eslint-disable-next-line import/no-named-as-default
 import AgeDistributionGraph from '../../components/Graphs/AgeDistributionGraph';
 import { DownloadCSV } from '../../components/DownloadCSV';
 
@@ -26,14 +28,16 @@ export default class AgeDistribution extends React.Component {
     });
   }
 
-  calculateAge(birthDate) {
+  calculateAge = (birthDate) => {
     const result = Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10);
     return result;
-  }
+  };
 
-  pushIntoArray(props) {
-    this.state.ageDistributed.push(props);
-  }
+  averageAge = (array) => {
+    const sum = array.reduce((a, b) => a + b, 0);
+    const average = sum / (array.length);
+    return average;
+  };
 
   pushIntoCategories(array) {
     const minor = [];
@@ -72,10 +76,8 @@ export default class AgeDistribution extends React.Component {
     return this.state.ageDistributed;
   }
 
-  averageAge(array) {
-    const sum = array.reduce((a, b) => a + b, 0);
-    const average = sum / (array.length);
-    return average;
+  pushIntoArray(props) {
+    this.state.ageDistributed.push(props);
   }
 
   render() {

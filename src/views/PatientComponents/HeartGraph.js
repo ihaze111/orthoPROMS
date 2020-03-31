@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { HeartRate } from './HeartRate';
+import HeartRate from './HeartRate';
 
 export default function HeartGraph(props) {
   if (props.ehrId) {

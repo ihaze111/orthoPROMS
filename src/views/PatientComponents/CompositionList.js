@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import React from 'react';
 import Pagination from 'rc-pagination';
 import * as PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import PatientProgressTableEntry from './PatientProgressTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import { setCompositions } from '../../actions/appActions';
 
-export class Composition extends React.Component {
+export class CompositionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,11 +58,9 @@ export class Composition extends React.Component {
               colSpan="5"
               key="paginationCell"
             >
-              <Pagination
-                current={this.state.page}
-                total={compositionsFiltered.length}
-                onChange={this.handlePageChange.bind(this)}
-              />
+              {/* eslint-disable-next-line max-len */}
+              {/* eslint-disable-next-line max-len,react/jsx-no-bind,react/jsx-first-prop-new-line */}
+              <Pagination current={this.state.page} total={compositionsFiltered.length} onChange={this.handlePageChange.bind(this)} />
             </NHSTd>
           </NHSTr>
         </>
@@ -80,7 +79,7 @@ export class Composition extends React.Component {
   }
 }
 
-Composition.propTypes = {
+CompositionList.propTypes = {
   ehrId: PropTypes.string,
   setCompositions: PropTypes.func,
   compositionsFiltered: PropTypes.arrayOf(PropTypes.object),
@@ -93,4 +92,4 @@ export const Compositions = connect(
   {
     setCompositions,
   },
-)(Composition);
+)(CompositionList);

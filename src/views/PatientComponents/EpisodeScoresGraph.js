@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { EpisodeScores } from './EpisodeScores';
+import EpisodeScores from './EpisodeScores';
 
 export default function EpisodeScoresGraph(props) {
   if (props.ehrId) {

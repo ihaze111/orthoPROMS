@@ -57,6 +57,9 @@ class HeaderMenu extends React.Component {
           <NHSWidthContainer>
             <NHSHeaderMenu />
             <NHSNav>
+              {/* TODO: look into this */}
+              {/* eslint-disable-next-line max-len */}
+              {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events */}
               <li
                 className="nhsuk-header__navigation-item"
                 onClick={this.handleLogin}
@@ -88,7 +91,10 @@ class HeaderMenu extends React.Component {
             orthoPROMS
           </NHSAppLogo>
           {headerContent}
-          <Form inline style={{ float: 'right' }}>
+          <Form
+            inline
+            style={{ float: 'right' }}
+          >
             <Button
               variant="outline-primary"
               className={((this.props.isAuthenticated) && (!this.props.isGoogleLogin)) ? 'd-block'

@@ -52,13 +52,9 @@ class Reset extends React.Component {
       if (email === '') {
         return alert('Please enter your e-mail.');
       }
-
-      console.log(code);
-
       if (code === '') {
         return alert('Please enter code');
       }
-
       // 验证密码
       if (this.state.password === '' || this.state.passwordConfirmation === '') {
         return alert('Please enter your NewPassword');
@@ -66,7 +62,6 @@ class Reset extends React.Component {
       if (this.state.password !== this.state.passwordConfirmation) {
         return alert('Entered passwords differ!');
       }
-
       this.props.reset(this.state)
         .then((res) => {
           if (res.data.code === 200) {
@@ -79,6 +74,7 @@ class Reset extends React.Component {
         .catch((res) => {
           console.error(res);
         });
+      return null;
     };
     this.handleClick = (e) => {
       e.preventDefault();

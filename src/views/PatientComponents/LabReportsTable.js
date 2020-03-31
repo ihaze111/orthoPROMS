@@ -8,7 +8,7 @@ import {
   NHSTHead,
   NHSTr,
 } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import { LabReports } from './LabReports';
+import LabReports from './LabReports';
 
 export default function LabReportsTable(props) {
   if (props.ehrId) {

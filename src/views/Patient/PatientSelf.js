@@ -24,7 +24,7 @@ import { NHSButton } from '../../components/react-styled-nhs/src/NHSComponents';
 import PatientDemographics from '../PatientComponents/PatientDemographics';
 import PatientOverview from '../PatientComponents/PatientOverview';
 import PatientProgressTable from '../PatientComponents/PatientProgressTable';
-import { ScoresArray } from '../PatientComponents/ScoresArray';
+import ScoresArray from '../PatientComponents/ScoresArray';
 import EpisodeScoresGraph from '../PatientComponents/EpisodeScoresGraph';
 
 class PatientSelf extends React.Component {
@@ -70,9 +70,9 @@ class PatientSelf extends React.Component {
     );
   }
 
-  reloadPage() {
+  reloadPage = () => {
     window.location.reload();
-  }
+  };
 
   render() {
     // TODO: improve display of this error

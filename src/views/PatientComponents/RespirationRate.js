@@ -4,7 +4,7 @@ import getRespirationRateAgainstTimeByEHRId
   from '../../components/Queries/getRespirationRateAgainstTimeByEHRId';
 import { RespirationRateGraph } from '../../components/Graphs/RespirationRateGraph';
 
-export class RespirationRate extends React.Component {
+export default class RespirationRate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
