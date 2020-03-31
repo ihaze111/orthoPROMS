@@ -70,7 +70,24 @@ There is a lack of open source, easy to use Patient Recorded Outcome Measures (P
 - The web-app is adaptable to new data structures.
 - Patients are searchable by clinicians.
 
-References:
+
+## Authors
+
+Team 14 - Systems Engineering - COMP0016 - UCL Computer Science 
+
+- [Haze Al Johary](https://github.com/ihaze111)
+- [Charlie Cowan](https://github.com/charlie-g-cowan)
+- [Menghang Hao](https://github.com/haomenghang)
+
+## License
+
+Licensed under the MIT License. See LICENSE.md for more details.
+
+## Acknowledgments
+
+Thanks to Ian McNicoll and Alan Fish for all their support.
+
+### References
 The Apperta logo is taken from the Apperta websites.
 Attributions:
 "public/240px-User_icon_2.svg.png": The Tango Icon Team [Public domain]
