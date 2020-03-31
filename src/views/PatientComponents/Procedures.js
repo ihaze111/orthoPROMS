@@ -4,6 +4,16 @@ import { ProceduresTableEntry } from './ProceduresTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import * as PropTypes from 'prop-types';
 
+function NHSNoneFoundTableRow(props) {
+  return (
+    <NHSTr key={props.key + 'Row'}>
+      <NHSTd key={props.key + 'Data'}>
+        {props.children}
+      </NHSTd>
+    </NHSTr>
+  );
+}
+
 export class Procedures extends React.Component {
   constructor(props) {
     super(props);
@@ -26,14 +36,12 @@ export class Procedures extends React.Component {
       });
     }
     return (
-      <NHSTr key="noProceduresRow">
-        <NHSTd
-          key="noProceduresData"
-          colSpan="7"
-        >
-          No procedures records were found
-        </NHSTd>
-      </NHSTr>
+      <NHSNoneFoundTableRow
+        key='noProcedures'
+        colSpan='7'
+      >
+        No procedures records were found.
+      </NHSNoneFoundTableRow>
     );
   }
 }

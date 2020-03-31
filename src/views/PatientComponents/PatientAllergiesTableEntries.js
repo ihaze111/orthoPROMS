@@ -1,10 +1,10 @@
 import React from 'react';
 import getAllergiesListByEHRId from '../../components/Queries/getAllergiesListByEHRId';
-import { PatientAllergicTableEntry } from './PatientAllergicTableEntry';
+import { PatientAllergiesTableEntry } from './PatientAllergiesTableEntry';
 import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import * as PropTypes from 'prop-types';
 
-function NoAllergiesError() {
+function PatientAllergiesTableEmptyError() {
   return (
     <NHSTr key="noAllergiesRow">
       <NHSTd
@@ -17,7 +17,7 @@ function NoAllergiesError() {
   );
 }
 
-export class AllergiesTableEntries extends React.Component {
+export class PatientAllergiesTableEntries extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -26,19 +26,20 @@ export class AllergiesTableEntries extends React.Component {
   componentDidMount() {
     getAllergiesListByEHRId(this.props.ehrId)
       .then((e) => {
-        // this.setState({ allergies: e });
+        this.setState({ allergies: e });
       });
+    // TODO: deal with query error
   }
 
   render() {
-    if (!this.state.allergies) return <NoAllergiesError />;
+    if (!this.state.allergies) return <PatientAllergiesTableEmptyError />;
     return this.state.allergies.map((e, index) => {
       e.index = index;
-      return PatientAllergicTableEntry(e);
+      return PatientAllergiesTableEntry(e);
     });
   }
 }
 
-AllergiesTableEntries.propTypes = {
+PatientAllergiesTableEntries.propTypes = {
   ehrId: PropTypes.string,
 };

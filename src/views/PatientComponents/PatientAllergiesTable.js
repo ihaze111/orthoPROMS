@@ -6,7 +6,7 @@ import {
   NHSTHead,
   NHSTr
 } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
-import { Allergies } from './Allergies';
+import { PatientAllergiesTableEntries } from './PatientAllergiesTableEntries';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
@@ -41,10 +41,7 @@ export function PatientAllergiesTable(props) {
             </NHSTr>
           </NHSTHead>
           <NHSTBody>
-            <Allergies
-              key="allergies"
-              ehrId={props.ehrId}
-            />
+            <PatientAllergiesTableEntries ehrId={props.ehrId} />
           </NHSTBody>
         </NHSTable>
       </NHSTableWrapper>

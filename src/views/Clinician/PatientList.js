@@ -11,12 +11,27 @@ import getAllEHRsInCDR from '../../components/Queries/getAllEHRsInCDR';
 import NHSContainer from '../../components/react-styled-nhs/src/NHSContainer';
 import NHSWrapper from '../../components/react-styled-nhs/src/NHSWrapper';
 import {
-  NHSTable, NHSTBody, NHSTh, NHSTHead, NHSTr,
+  NHSTable, NHSTBody, NHSTd, NHSTh, NHSTHead, NHSTr,
 } from '../../components/react-styled-nhs/src/NHSTableWrapperTest';
 import { handleCliniSearch, setPatientList } from '../../actions/clinicianActions';
 import 'rc-pagination/assets/index.css';
+import {
+  NHSErrorSummary,
+  NHSErrorSummaryBodySimple,
+  NHSErrorSummaryTitle,
+} from '../../components/react-styled-nhs/src/NHSErrorSummary';
 
-class PatientListtable extends React.Component {
+function EmptyPatientsListError() {
+  return (
+    <NHSErrorSummary>
+      <NHSErrorSummaryTitle>No patients found</NHSErrorSummaryTitle>
+      <NHSErrorSummaryBodySimple>No patients were found in the CDR with NHS
+        numbers</NHSErrorSummaryBodySimple>
+    </NHSErrorSummary>
+  );
+}
+
+class PatientListTableAux extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,51 +65,42 @@ class PatientListtable extends React.Component {
   render() {
     const { patientListFiltered } = this.props;
     const { patientList } = this.state;
-    if ((patientListFiltered || []).length > 0) {
+    if (patientListFiltered.length > 0) {
       return (
-        <>
-          <NHSTable>
-            <NHSTHead>
-              <NHSTr>
-                <NHSTh>#</NHSTh>
-                <NHSTh>NHS Number</NHSTh>
-                <NHSTh>Gender</NHSTh>
-                <NHSTh>Sex</NHSTh>
-                <NHSTh>Vital Status</NHSTh>
-                <NHSTh>Birth Year</NHSTh>
-                {/* <th>Time created</th> */}
-              </NHSTr>
-            </NHSTHead>
-            <NHSTBody>
-              {patientList.map((e, index) => {
-                e.id = index + 1;
-                return PatientListEntry(e);
-              })}
-            </NHSTBody>
-          </NHSTable>
-          <Pagination
-            current={this.state.page}
-            total={patientListFiltered.length}
-            onChange={this.handlePageChange.bind(this)}
-          />
-        </>
+        <NHSTable>
+          <NHSTHead>
+            <NHSTr>
+              <NHSTh>#</NHSTh>
+              <NHSTh>NHS Number</NHSTh>
+              <NHSTh>Gender</NHSTh>
+              <NHSTh>Sex</NHSTh>
+              <NHSTh>Vital Status</NHSTh>
+              <NHSTh>Birth Year</NHSTh>
+            </NHSTr>
+          </NHSTHead>
+          <NHSTBody>
+            {patientList.map((e, index) => {
+              e.id = index + 1;
+              return PatientListEntry(e);
+            })}
+            <NHSTd colSpan={6}>
+              <Pagination
+                current={this.state.page}
+                total={patientListFiltered.length}
+                onChange={this.handlePageChange.bind(this)}
+              />
+            </NHSTd>
+          </NHSTBody>
+        </NHSTable>
       );
     }
     return (
-      <div>
-        <Alert
-          key="warning"
-          variant="warning"
-          className="text-left"
-        >
-          No patients were found
-        </Alert>
-      </div>
+      <EmptyPatientsListError />
     );
   }
 }
 
-PatientListtable.propTypes = {
+PatientListTableAux.propTypes = {
   patientListFiltered: PropTypes.arrayOf(PropTypes.object),
   setPatientList: PropTypes.func,
 };
@@ -106,7 +112,7 @@ const PatientListTable = connect(
   {
     setPatientList,
   },
-)(PatientListtable);
+)(PatientListTableAux);
 
 class PatientList extends React.Component {
   constructor(props) {
@@ -121,9 +127,7 @@ class PatientList extends React.Component {
     return (
       <div style={{ fontFamily: 'Arial, Sans-serif' }}>
         <HeaderMenu />
-        {' '}
         <NHSContainer>
-          {' '}
           <NHSWrapper>
             <h1>
               Patient List
@@ -131,7 +135,6 @@ class PatientList extends React.Component {
                 inline
                 style={{ float: 'right' }}
               >
-                {' '}
                 <FormControl
                   type="text"
                   placeholder="Search"
@@ -139,14 +142,10 @@ class PatientList extends React.Component {
                   onChange={this.onChange}
                   className="mr-sm-2"
                 />
-                {' '}
-
               </Form>
             </h1>
             <PatientListTable />
           </NHSWrapper>
-          {' '}
-
         </NHSContainer>
       </div>
     );

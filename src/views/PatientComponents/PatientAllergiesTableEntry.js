@@ -2,7 +2,7 @@ import { NHSTd, NHSTr } from '../../components/react-styled-nhs/src/NHSTableWrap
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-export function PatientAllergicTableEntry(props) {
+export function PatientAllergiesTableEntry(props) {
   return (
     <NHSTr key={`allergies${props.index}`}>
       <NHSTd key={`allergies${props.index}cause`}>{props.cause}</NHSTd>
@@ -20,7 +20,7 @@ export function PatientAllergicTableEntry(props) {
   );
 }
 
-PatientAllergicTableEntry.propTypes = {
+PatientAllergiesTableEntry.propTypes = {
   index: PropTypes.number,
   cause: PropTypes.string,
   comment: PropTypes.string,
