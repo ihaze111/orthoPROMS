@@ -2,11 +2,6 @@ import React from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
 import HeaderMenu from '../components/HeaderMenu';
-import {
-  AgeDistributeGraph,
-  GenderDistributeGraph,
-  RangeEpisodeScoresGraph,
-} from './NationalStatisticsComponents';
 import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
 import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
 import {
@@ -14,6 +9,9 @@ import {
   NHSPanelTitle,
   NHSPanelWithLabel,
 } from '../components/react-styled-nhs/src/NHSPanel';
+import RangeEpisodeScoresGraphContainer from '../components/NationalStatistics/RangeEpisodeScoresGraph/RangeEpisodeScoresGraphContainer';
+import GenderDistributionGraphContainer from '../components/NationalStatistics/GenderDistributionGraph/GenderDistributionGraphContainer';
+import AgeDistributionGraphContainer from '../components/NationalStatistics/AgeDistributionGraph/AgeDistributionGraphContainer';
 
 function NationalStatistics() {
   return (
@@ -61,13 +59,13 @@ function NationalStatistics() {
                 </Nav>
                 <Tab.Content>
                   <Tab.Pane eventKey="episodeScores">
-                    <div><RangeEpisodeScoresGraph /></div>
+                    <div><RangeEpisodeScoresGraphContainer /></div>
                   </Tab.Pane>
                   <Tab.Pane eventKey="admin_gender">
-                    <div><GenderDistributeGraph /></div>
+                    <div><GenderDistributionGraphContainer /></div>
                   </Tab.Pane>
                   <Tab.Pane eventKey="averageAge">
-                    <div><AgeDistributeGraph /></div>
+                    <div><AgeDistributionGraphContainer /></div>
                   </Tab.Pane>
                 </Tab.Content>
               </Tab.Container>

@@ -2,9 +2,9 @@ import React from 'react';
 import Script from 'react-load-script';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './views/Home';
-import PatientSelf from './views/Patient/PatientSelf';
-import PatientList from './views/Clinician/PatientList';
-import PatientRecords from './views/Clinician/PatientRecords';
+import PatientSelf from './views/Patient';
+import PatientList from './views/Clinician';
+import PatientRecords from './views/PatientRecords';
 import Login from './views/Login';
 import Register from './views/Register';
 import About from './views/About';
@@ -46,16 +46,16 @@ class App extends React.Component {
           onLoad={this.handleScriptLoad}
         />
         <Router basename="/">
+          <Route path="/About" component={About} />
+          <Route path="/Clinician" component={PatientList} />
+          <Route path="/Composition" component={Composition} />
           <Route exact path="/" component={Home} />
           <Route path="/Login" component={Login} />
-          <Route path="/About" component={About} />
-          <Route path="/Register" component={Register} />
-          <Route path="/Patient" component={PatientSelf} />
-          <Route path="/Composition" component={Composition} />
-          <Route path="/Clinician" component={PatientList} />
-          <Route path="/PatientRecords" component={PatientRecords} />
-          <Route path="/Reset" component={Reset} />
           <Route path="/NationalStatistics" component={NationalStatistics} />
+          <Route path="/Patient" component={PatientSelf} />
+          <Route path="/PatientRecords" component={PatientRecords} />
+          <Route path="/Register" component={Register} />
+          <Route path="/Reset" component={Reset} />
         </Router>
       </Router>
     );

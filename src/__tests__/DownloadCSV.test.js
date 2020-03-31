@@ -1,4 +1,4 @@
-import { transpose, DownloadCSV } from '../components/DownloadCSV.js';
+import { transpose, DownloadCSV } from '../components/Modules/DownloadCSV.js';
 
 describe('Transpose Function Tests', () => {
   it('DownloadCSV function exist', () => {
