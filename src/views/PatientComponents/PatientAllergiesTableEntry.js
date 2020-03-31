@@ -14,7 +14,6 @@ export function PatientAllergicTableEntry(props) {
       <NHSTd key={`allergies${props.index}reaction`}>{props.reaction}</NHSTd>
       <NHSTd key={`allergies${props.index}update_exclusion_date`}>
         {props.update_exclusion_date}
-        {' '}
       </NHSTd>
       <NHSTd key={`allergies${props.index}composer`}>{props.composer}</NHSTd>
     </NHSTr>
