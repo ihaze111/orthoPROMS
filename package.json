@@ -1,6 +1,20 @@
 {
   "name": "orthoPROMS",
-  "version": "",
+  "homepage": "https://github.com/ihaze111/orthoPROMS",
+  "description": "Orthopaedic PROMS (Patient-record outcome measures) visualisation based on openEHR standards. A web-app that provides clinician and patient facing visualisations of PROMs.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ihaze111/orthoPROMS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ihaze111/orthoPROMS.git/issues"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Haze Al Johary",
+    "Charlie Cowan",
+    "Menghang Hao"
+  ],
   "dependencies": {
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
