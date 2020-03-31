@@ -32,11 +32,12 @@ $ git submodule update --init --recursive
 ```js
  npm install
 ```
-4. Start the application
+4. Provide a `.env` file in the format of `.env.example` and populate relevant details for CDR and whether linting should be enabled.
+5. Start the application
 ```js
 $ npm start
 ```
-5. Navigate to `localhost:3000` on a web browser
+6. Navigate to `localhost:3000` on a web browser
 
 ## Testing
 
@@ -80,7 +81,7 @@ Team 14 - Systems Engineering - COMP0016 - UCL Computer Science
 
 ## License
 
-Licensed under the MIT License. See LICENSE.md for more details.
+Licensed under the MIT License. See LICENSE for more details.
 
 ## Acknowledgments
 
