@@ -11,7 +11,8 @@ const initialState = {
  * Authorise user
  * @param state
  * @param action
- * @returns {{isGoogleLogin: boolean, isAuthenticated: boolean, user: {}}|{isGoogleLogin: *, isAuthenticated: boolean, user: *}}
+ * @returns {{isGoogleLogin: boolean, isAuthenticated: boolean, user: {}}|{isGoogleLogin: *,
+ *   isAuthenticated: boolean, user: *}}
  */
 const auth = (state = initialState, action = {}) => {
   switch (action.type) {

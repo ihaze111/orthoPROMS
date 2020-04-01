@@ -25,21 +25,34 @@ function search(state, data) {
       }
     });
     compositionsFiltered = _.uniqWith(result, _.isEqual);
-    return { ...state, compositionsFiltered, search: data };
+    return {
+      ...state,
+      compositionsFiltered,
+      search: data,
+    };
   }
-  return { ...state, search: data, compositionsFiltered: compositions };
+  return {
+    ...state,
+    search: data,
+    compositionsFiltered: compositions,
+  };
 }
 
 /**
  * Handle search
  * @param state
  * @param action
- * @returns {{search: *, compositionsFiltered: *}|{search: string, compositions: [], compositionsFiltered: []}|{search, compositions: *, compositionsFiltered: *}}
+ * @returns {{search: *, compositionsFiltered: *}|{search: string, compositions: [],
+ *   compositionsFiltered: []}|{search, compositions: *, compositionsFiltered: *}}
  */
 const app = (state = initialState, action = {}) => {
   switch (action.type) {
     case 'SET_COMPOSITIONS':
-      return { ...state, compositions: action.data, compositionsFiltered: action.data };
+      return {
+        ...state,
+        compositions: action.data,
+        compositionsFiltered: action.data,
+      };
     case 'handleSearch':
       return search(state, action.data);
     default:

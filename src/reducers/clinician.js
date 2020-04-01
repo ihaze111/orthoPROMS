@@ -25,21 +25,34 @@ function search(state, data) {
       }
     });
     patientListFiltered = _.uniqWith(result, _.isEqual);
-    return { ...state, patientListFiltered, search: data };
+    return {
+      ...state,
+      patientListFiltered,
+      search: data,
+    };
   }
-  return { ...state, search: data, patientListFiltered: patientList };
+  return {
+    ...state,
+    search: data,
+    patientListFiltered: patientList,
+  };
 }
 
 /**
  * Handle search of patient list
  * @param state
  * @param action
- * @returns {{patientList: *, search, patientListFiltered: *}|{patientList: [], search: string, patientListFiltered: []}|{search: *, patientListFiltered: *}}
+ * @returns {{patientList: *, search, patientListFiltered: *}|{patientList: [], search: string,
+ *   patientListFiltered: []}|{search: *, patientListFiltered: *}}
  */
 const clinician = (state = initialState, action = {}) => {
   switch (action.type) {
     case 'SET_PATIENTLIST':
-      return { ...state, patientList: action.data, patientListFiltered: action.data };
+      return {
+        ...state,
+        patientList: action.data,
+        patientListFiltered: action.data,
+      };
     case 'handleCliniSearch':
       return search(state, action.data);
     default:
