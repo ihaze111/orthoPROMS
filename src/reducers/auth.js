@@ -7,6 +7,12 @@ const initialState = {
   isGoogleLogin: false,
 };
 
+/**
+ * Authorise user
+ * @param state
+ * @param action
+ * @returns {{isGoogleLogin: boolean, isAuthenticated: boolean, user: {}}|{isGoogleLogin: *, isAuthenticated: boolean, user: *}}
+ */
 const auth = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_CURRENT_USER:

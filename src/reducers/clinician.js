@@ -6,6 +6,12 @@ const initialState = {
   search: '',
 };
 
+/**
+ * Search in patient list
+ * @param state
+ * @param data
+ * @returns {{search: *, patientListFiltered: *}}
+ */
 function search(state, data) {
   const { patientList } = state;
   let patientListFiltered = [];
@@ -24,7 +30,12 @@ function search(state, data) {
   return { ...state, search: data, patientListFiltered: patientList };
 }
 
-
+/**
+ * Handle search of patient list
+ * @param state
+ * @param action
+ * @returns {{patientList: *, search, patientListFiltered: *}|{patientList: [], search: string, patientListFiltered: []}|{search: *, patientListFiltered: *}}
+ */
 const clinician = (state = initialState, action = {}) => {
   switch (action.type) {
     case 'SET_PATIENTLIST':

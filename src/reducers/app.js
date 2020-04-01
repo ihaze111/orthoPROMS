@@ -6,7 +6,12 @@ const initialState = {
   search: '',
 };
 
-
+/**
+ * Search in the compositions list
+ * @param state
+ * @param data
+ * @returns {{search: *, compositionsFiltered: *}}
+ */
 function search(state, data) {
   const { compositions } = state;
   let compositionsFiltered = [];
@@ -25,7 +30,12 @@ function search(state, data) {
   return { ...state, search: data, compositionsFiltered: compositions };
 }
 
-
+/**
+ * Handle search
+ * @param state
+ * @param action
+ * @returns {{search: *, compositionsFiltered: *}|{search: string, compositions: [], compositionsFiltered: []}|{search, compositions: *, compositionsFiltered: *}}
+ */
 const app = (state = initialState, action = {}) => {
   switch (action.type) {
     case 'SET_COMPOSITIONS':
