@@ -9,6 +9,9 @@ import {
   NHSSummaryListValue,
 } from '../react-styled-nhs/src/NHSSummaryList';
 
+/**
+ * Get personal info about a patient
+ */
 export default class PatientDemographics extends React.Component {
   constructor(props) {
     super(props);

@@ -10,6 +10,12 @@ import {
 } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 import ProceduresTableEntries from './ProceduresTableEntries';
 
+/**
+ * Table listing procedures relevant to a particular patient
+ * @param props
+ * @returns {null|*}
+ * @constructor
+ */
 export default function ProceduresTable(props) {
   if (props.ehrId) {
     return (

@@ -6,6 +6,9 @@ import getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs
 import AverageScoresRange from './RangeEpisodeScoresGraph';
 import { DownloadCSV } from '../../Modules/DownloadCSV';
 
+/**
+ * Container for range episode scores graph
+ */
 export default class RangeEpisodeScoresGraphContainer extends React.Component {
   constructor(props) {
     super(props);

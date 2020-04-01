@@ -4,6 +4,9 @@ import getRespirationRateAgainstTimeByEHRId
   from '../../../../cdr/getRespirationRateAgainstTimeByEHRId';
 import { RespirationRateGraph } from './RespirationRateGraph';
 
+/**
+ * Container for the respiration rate graph
+ */
 export default class RespirationRateGraphContainer extends React.Component {
   constructor(props) {
     super(props);

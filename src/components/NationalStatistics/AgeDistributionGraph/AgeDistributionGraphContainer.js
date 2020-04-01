@@ -5,6 +5,9 @@ import getAllEHRsInCDR from '../../../cdr/getAllEHRsInCDR';
 import AgeDistributionGraph from './AgeDistributionGraph';
 import { DownloadCSV } from '../../Modules/DownloadCSV';
 
+/**
+ * Container for age distribution graph
+ */
 export default class AgeDistributionGraphContainer extends React.Component {
   constructor(props) {
     super(props);

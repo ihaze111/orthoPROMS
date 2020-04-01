@@ -10,6 +10,12 @@ import {
 } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 import PatientAllergiesTableEntries from './PatientAllergiesTableEntries';
 
+/**
+ * Table listing allergies relevant to a particular patient
+ * @param props
+ * @returns {null|*}
+ * @constructor
+ */
 export default function PatientAllergiesTable(props) {
   if (props.ehrId) {
     return (

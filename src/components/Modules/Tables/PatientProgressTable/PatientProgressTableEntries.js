@@ -8,6 +8,9 @@ import PatientProgressTableEntry from './PatientProgressTableEntry';
 import { NHSTd, NHSTr } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 import { setCompositions } from '../../../../actions/appActions';
 
+/**
+ * Get individual entries list for AOFAS compositions table
+ */
 export class PatientProgressTableEntries extends React.Component {
   constructor(props) {
     super(props);

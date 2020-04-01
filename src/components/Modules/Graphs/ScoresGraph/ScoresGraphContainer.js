@@ -5,6 +5,9 @@ import getAOFASScoresAgainstTimeByEHRId
 import { ScoresGraph } from './ScoresGraph';
 import { DownloadCSV } from '../../DownloadCSV';
 
+/**
+ * Container for scores graph
+ */
 export default class ScoresGraphContainer extends React.Component {
   constructor(props) {
     super(props);

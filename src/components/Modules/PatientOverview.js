@@ -8,6 +8,9 @@ import {
   NHSSummaryListValue,
 } from '../react-styled-nhs/src/NHSSummaryList';
 
+/**
+ * Get key information about a patient (ehr id, anonymized data)
+ */
 export default class PatientOverview extends React.Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,11 @@ import getAllergiesListByEHRId from '../../../../cdr/getAllergiesListByEHRId';
 import PatientAllergiesTableEntry from './PatientAllergiesTableEntry';
 import { NHSTd, NHSTr } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 
+/**
+ * Get a table row to display when no allergies are found for a patient
+ * @returns {*}
+ * @constructor
+ */
 function PatientAllergiesTableEmptyError() {
   return (
     <NHSTr key="noAllergiesRow">
@@ -17,6 +22,9 @@ function PatientAllergiesTableEmptyError() {
   );
 }
 
+/**
+ * Get individual entries list for allergies table
+ */
 export default class PatientAllergiesTableEntries extends React.Component {
   constructor(props) {
     super(props);

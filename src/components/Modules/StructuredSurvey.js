@@ -20,6 +20,13 @@ import {
   NHSSummaryListValue,
 } from '../react-styled-nhs/src/NHSSummaryList';
 
+/**
+ * Commit composition to the CDR
+ * @param model
+ * @param ehrId
+ * @param templateId
+ * @returns {Promise<{message: string}|{commitId: *, message: string}>}
+ */
 async function commitComposition(model, ehrId, templateId) {
   let processedResult = [];
   const url = `/rest/v1/composition?ehrId=${ehrId}&templateId=${templateId}&format=FLAT`;
@@ -53,6 +60,12 @@ async function commitComposition(model, ehrId, templateId) {
   return processedResult;
 }
 
+/**
+ * Auxilliary function for building template mapping
+ * @param props
+ * @param result
+ * @returns {*}
+ */
 function getMappingOfTemplateAux(props, result) {
   if ('children' in props) {
     props.children.forEach((child) => {
@@ -64,6 +77,10 @@ function getMappingOfTemplateAux(props, result) {
   return result;
 }
 
+/**
+ * Make mapping for template to make display neater
+ * @param e
+ */
 function getMappingOfTemplate(e) {
   const result = {};
   getMappingOfTemplateAux(e, [])
@@ -81,6 +98,12 @@ function getMappingOfTemplate(e) {
   return result;
 }
 
+/**
+ * Individual card for subtree of template tree
+ * @param props
+ * @returns {null|*|null}
+ * @constructor
+ */
 function RecursiveCard(props) {
   const color = props.color ? '#ffffff' : '#f0f4f5';
   console.log(props);
@@ -111,7 +134,9 @@ RecursiveCard.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object),
 };
 
-
+/**
+ * Survey for display as PROMs survey. Structured into hierarchy.
+ */
 export default class StructuredSurvey extends React.Component {
   constructor(props) {
     super(props);

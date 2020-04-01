@@ -5,6 +5,10 @@ import getAllEHRsInCDR from '../../../cdr/getAllEHRsInCDR';
 import GenderDistributionGraph from './GenderDistributionGraph';
 import { DownloadCSV } from '../../Modules/DownloadCSV';
 
+/**
+ * Get occurrence of a property
+ * @param array
+ */
 function occurrence(array) {
   const result = {};
   if (array instanceof Array) {
@@ -19,6 +23,9 @@ function occurrence(array) {
   return result;
 }
 
+/**
+ * Container for gender distribution graph
+ */
 export default class GenderDistributionGraphContainer extends React.Component {
   constructor(props) {
     super(props);

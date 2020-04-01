@@ -2,6 +2,12 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { NHSTd, NHSTr } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 
+/**
+ * Individual table row for patient allergy
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export default function PatientAllergiesTableEntry(props) {
   return (
     <NHSTr key={`allergies${props.index}`}>

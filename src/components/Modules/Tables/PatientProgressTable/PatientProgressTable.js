@@ -10,6 +10,12 @@ import {
 } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 import { Compositions } from './PatientProgressTableEntries';
 
+/**
+ * Table listing AOFAS compositions relevant to a particular patient
+ * @param props
+ * @returns {null|*}
+ * @constructor
+ */
 export default function PatientProgressTable(props) {
   if (props.ehrId) {
     return (

@@ -3,6 +3,9 @@ import * as PropTypes from 'prop-types';
 import getBloodPressureByEHRId from '../../../../cdr/getBloodPressureByEHRId';
 import { BloodPressureGraph } from './BloodPressureGraph';
 
+/**
+ * Container for the blood pressure graph
+ */
 export default class BloodPressureGraphContainer extends React.Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,9 @@ import getIndirectOximetryAgainstTimeByEHRId
   from '../../../../cdr/getIndirectOximetryAgainstTimeByEHRId';
 import { OxygenSaturationGraph } from './OxygenSaturationGraph';
 
+/**
+ * Container for oxygen saturation graph
+ */
 export default class OxygenSaturationGraphContainer extends React.Component {
   constructor(props) {
     super(props);

@@ -3,6 +3,9 @@ import * as PropTypes from 'prop-types';
 import getLabReportsListByEHRId from '../../../../cdr/getLabReportsListByEHRId';
 import LabReportsTableEntry from './LabReportsTableEntry';
 
+/**
+ * Get individual entries list for lab reports table
+ */
 export default class LabReportsTableEntries extends React.Component {
   constructor(props) {
     super(props);

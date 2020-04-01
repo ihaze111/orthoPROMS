@@ -16,6 +16,9 @@ import {
 } from './react-styled-nhs/src/NHSHeader';
 import { NHSVectorChevronRight } from './react-styled-nhs/src/NHSIcons';
 
+/**
+ * Header menu for each page
+ */
 class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,12 @@ import getProceduresListByEHRId from '../../../../cdr/getProceduresListByEHRId';
 import ProceduresTableEntry from './ProceduresTableEntry';
 import { NHSTd, NHSTr } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 
+/**
+ * Table row to display when no procedures relevant to a patient are found
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function NHSNoneFoundTableRow(props) {
   return (
     <NHSTr key={`${props.key}Row`}>
@@ -19,6 +25,9 @@ NHSNoneFoundTableRow.propTypes = {
   children: PropTypes.shape({}),
 };
 
+/**
+ * Get individual entries list for procedures table
+ */
 export default class ProceduresTableEntries extends React.Component {
   constructor(props) {
     super(props);

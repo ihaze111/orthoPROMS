@@ -10,6 +10,12 @@ import {
 } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 import LabOrdersTableEntries from './LabOrdersTableEntries';
 
+/**
+ * Table listing lab orders relevant to a particular patient
+ * @param props
+ * @returns {null|*}
+ * @constructor
+ */
 export default function LabOrdersTable(props) {
   if (props.ehrId) {
     return (

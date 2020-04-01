@@ -5,6 +5,9 @@ import getAOFASScoresAgainstEpisodeByEHRId
 import { EpisodeScoresGraph } from './EpisodeScoresGraph';
 import { DownloadCSV } from '../../DownloadCSV';
 
+/**
+ * Container for the episode scores graph
+ */
 export default class EpisodeScoresGraphContainer extends React.Component {
   constructor(props) {
     super(props);

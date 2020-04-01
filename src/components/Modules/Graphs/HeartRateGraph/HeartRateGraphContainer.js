@@ -4,6 +4,9 @@ import getHeartRatesAgainstTimeByEHRId
   from '../../../../cdr/getHeartRatesAgainstTimeByEHRId';
 import { HeartRateGraph } from './HeartRateGraph';
 
+/**
+ * Container for heart rate graph
+ */
 export default class HeartRateGraphContainer extends React.Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,9 @@ import getLabOrdersListByEHRId from '../../../../cdr/getLabOrdersListByEHRId';
 import LabOrdersTableEntry from './LabOrdersTableEntry';
 import { NHSTd, NHSTr } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 
+/**
+ * Get individual entries list for lab orders table
+ */
 export default class LabOrdersTableEntries extends React.Component {
   constructor(props) {
     super(props);

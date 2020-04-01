@@ -2,6 +2,12 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { NHSTd, NHSTr } from '../../../react-styled-nhs/src/NHSTableWrapperTest';
 
+/**
+ * Individual table row for AOFAS composition
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export default function PatientProgressTableEntry(props) {
   // TODO: what happens if no NHS number?
   return (

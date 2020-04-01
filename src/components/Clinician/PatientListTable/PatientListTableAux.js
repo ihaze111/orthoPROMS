@@ -17,6 +17,11 @@ import {
   NHSErrorSummaryTitle,
 } from '../../react-styled-nhs/src/NHSErrorSummary';
 
+/**
+ * Error summary for when no patients are found (with NHS numbers) in the CDR
+ * @returns {*}
+ * @constructor
+ */
 function EmptyPatientsListError() {
   return (
     <NHSErrorSummary>
@@ -28,6 +33,9 @@ function EmptyPatientsListError() {
   );
 }
 
+/**
+ * Table of all patients in the CDR that have an NHS number
+ */
 export default class PatientListTableAux extends React.Component {
   constructor(props) {
     super(props);
