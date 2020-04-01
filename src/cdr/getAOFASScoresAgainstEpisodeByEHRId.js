@@ -1,5 +1,11 @@
 import CDRAQLQuery, { QueryResultCallbackProcessing } from './CDRAQLQuery';
 
+/**
+ * Get a list of AOFAS pain metrics against episode identifier (e.g. pre op, 1 week post op, 6
+ * weeks post op) for a  particular patient
+ * @param ehrId
+ * @returns {Promise<*>}
+ */
 async function getAOFASScoresAgainstEpisodeByEHRId(ehrId) {
   const aql = `${'select\n'
   + '    a_b/data[at0001]/events[at0002]/data[at0003]/items[at0028]/value/value as pain,\n'

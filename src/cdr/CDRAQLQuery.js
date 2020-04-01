@@ -1,14 +1,14 @@
 import axios from 'axios';
 import CDROptions from './CDROptions';
 
+/**
+ * If a useful resultSet exists as a property of the inputted object, return it. Otherwise,
+ * return an empty array.
+ * @param result
+ * @returns {Array|*}
+ * @constructor
+ */
 export const QueryResultCallbackProcessing = {
-  /**
-   * If a useful resultSet exists as a property of the inputted object, return it. Otherwise,
-   * return an empty array.
-   * @param result
-   * @returns {Array|*}
-   * @constructor
-   */
   ReturnResultSetOrOtherwiseEmptyArray: (result) => {
     if (result) {
       if ('resultSet' in result) {

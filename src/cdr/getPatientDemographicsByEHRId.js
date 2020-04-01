@@ -1,6 +1,11 @@
 import * as axios from 'axios';
 import CDROptions from './CDROptions';
 
+/**
+ * Get the personal details of a patient for an individual patient
+ * @param ehrId
+ * @returns {Promise<[]>}
+ */
 async function getPatientDemographicsByEHRId(ehrId) {
   let processedResult = [];
   const options = CDROptions.generateGetAxiosOptions(`/rest/v1/demographics/ehr/${ehrId}/party`);

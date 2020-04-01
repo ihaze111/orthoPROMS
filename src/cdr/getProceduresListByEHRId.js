@@ -31,7 +31,16 @@ export const proceduresCallbackProcessing = (result) => {
  * @returns {Promise<*>}
  */
 async function getProceduresListByEHRId(ehrId) {
-  const aql = `select a_a/description[at0001]/items[at0002]/value/value as procedure_name, a_a/description[at0001]/items[at0049]/value/value as notes, a_a/time/value as time, a/composer/name as name, a_a/ism_transition/careflow_step/value as careflow_step from EHR e contains COMPOSITION a contains ACTION a_a[openEHR-EHR-ACTION.procedure.v1] where e/ehr_id/value='${ehrId}'`;
+  const aql = `${'select\n'
+    + '    a_a/description[at0001]/items[at0002]/value/value as procedure_name,\n'
+    + '    a_a/description[at0001]/items[at0049]/value/value as notes,\n'
+    + '    a_a/time/value as time,\n'
+    + '    a/composer/name as name,\n'
+    + '    a_a/ism_transition[at0034]/careflow_step/value as careflow_step\n'
+    + 'from EHR e\n'
+    + 'contains COMPOSITION a\n'
+    + 'contains ACTION a_a[openEHR-EHR-ACTION.procedure.v1]\n'
+    + 'where e/ehr_id/value=\''}${ehrId}'`;
   return CDRAQLQuery(aql, proceduresCallbackProcessing);
 }
 

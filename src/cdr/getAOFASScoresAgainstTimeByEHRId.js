@@ -1,5 +1,10 @@
 import CDRAQLQuery, { QueryResultCallbackProcessing } from './CDRAQLQuery';
 
+/**
+ * Get a list of AOFAS pain metrics against time for a particular patient
+ * @param ehrId
+ * @returns {Promise<*>}
+ */
 async function getAOFASScoresAgainstTimeByEHRId(ehrId) {
   const aql = `${'select\n'
   + '    a/uid/value as comp_id,\n'

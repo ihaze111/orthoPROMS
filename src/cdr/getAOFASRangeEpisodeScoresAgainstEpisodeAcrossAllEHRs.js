@@ -1,5 +1,10 @@
 import CDRAQLQuery from './CDRAQLQuery';
 
+/**
+ * Get averages of AOFAS pain scores by episode identifier (e.g. pre op, 1 week post op, 6 weeks
+ * post op)
+ * @returns {Promise<*>}
+ */
 async function getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs() {
   const aql = 'select\n'
     + '    a_b/data[at0001]/events[at0002]/data[at0003]/items[at0028]/value/value as pain,\n'

@@ -1,6 +1,11 @@
 import * as axios from 'axios';
 import CDROptions from './CDROptions';
 
+/**
+ * Get the key details of an EHR (id, anonymized data etc.) by their NHS number
+ * @param subjectId
+ * @returns {Promise<[]>}
+ */
 async function getEHRByNHSNumber(subjectId) {
   const processedResult = [];
   const options = CDROptions.generateGetAxiosOptions(`/rest/v1/ehr/?subjectId=${subjectId}&subjectNamespace=uk.nhs.nhs_number`);
