@@ -36,6 +36,9 @@ function getSubjectIdFromURLQuery(locationSearch) {
     ? qs.parse(locationSearch, { ignoreQueryPrefix: true }).subjectId : '9999999000';
 }
 
+/**
+ * Page showing information about an individual patient (clinician-view)
+ */
 class PatientRecords extends React.Component {
   constructor(props) {
     super(props);

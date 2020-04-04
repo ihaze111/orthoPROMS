@@ -9,9 +9,13 @@ import {
 import { NHSVectorArrowRightCircle } from '../components/react-styled-nhs/src/NHSIcons';
 import NHSFooter from '../components/react-styled-nhs/src/NHSFooter';
 
+/**
+ * Static page showing the home page with login options
+ * @returns {*}
+ * @constructor
+ */
 function Home() {
   return (
-
     <div style={{ backgroundColor: '#f0f4f5' }}>
       <div style={{
         height: '60vh',

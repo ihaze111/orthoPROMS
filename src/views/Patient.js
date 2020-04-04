@@ -27,6 +27,9 @@ import getEHRIdByNHSNumber from '../cdr/getEHRIdByNHSNumber';
 import EpisodeScoresGraphContainer from '../components/Modules/Graphs/EpisodeScoresGraph/EpisodeScoresGraphContainer';
 import ScoresGraphContainer from '../components/Modules/Graphs/ScoresGraph/ScoresGraphContainer';
 
+/**
+ * Page showing key information about a patient (patient-view)
+ */
 class Patient extends React.Component {
   // TODO: fix tabs issue
   constructor(props) {

@@ -22,6 +22,13 @@ function forceIdentifier(identifier) {
   return identifier.replace(/[^A-Za-z09_]/gi, '');
 }
 
+/**
+ * Get a list of the aql paths to write compositions to, along with the name of the field, all
+ * mapped to the field id
+ * @param props
+ * @param result
+ * @returns {*}
+ */
 function getAqlMappingOfTemplate(props, result) {
   const newResult = result;
   if ('children' in props) {
@@ -34,6 +41,9 @@ function getAqlMappingOfTemplate(props, result) {
   return newResult;
 }
 
+/**
+ * Composition page, showing information about a single composition
+ */
 // eslint-disable-next-line import/prefer-default-export
 export class Composition extends React.Component {
   constructor(props) {

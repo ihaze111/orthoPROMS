@@ -10,6 +10,9 @@ import { handleCliniSearch } from '../actions/clinicianActions';
 import 'rc-pagination/assets/index.css';
 import { PatientListTable } from '../components/Clinician/PatientListTable/PatientListTable';
 
+/**
+ * Clinician page (patient list)
+ */
 class Clinician extends React.Component {
   constructor(props) {
     super(props);

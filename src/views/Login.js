@@ -24,7 +24,9 @@ import {
 import { NHSVectorArrowRightCircle } from '../components/react-styled-nhs/src/NHSIcons';
 import HeaderMenu from '../components/HeaderMenu';
 
-
+/**
+ * Login page for logging into the site
+ */
 class Login extends React.Component {
   constructor(props) {
     super(props);

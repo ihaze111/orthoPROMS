@@ -7,6 +7,12 @@ import { NHSPanel, NHSPanelBody, NHSPanelTitle } from '../components/react-style
 import NHSFooter from '../components/react-styled-nhs/src/NHSFooter';
 import HeaderMenu from '../components/HeaderMenu';
 
+/**
+ * Entry for developer description
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function DevelopersTableEntry(props) {
   return (
     <tr>
@@ -23,6 +29,12 @@ DevelopersTableEntry.propTypes = {
   email: PropTypes.string,
 };
 
+/**
+ * Entry for partner table
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function PartnersEntry(props) {
   return (
     <tr>
@@ -39,6 +51,11 @@ PartnersEntry.propTypes = {
   website: PropTypes.string,
 };
 
+/**
+ * Static about page for information about the project
+ * @returns {*}
+ * @constructor
+ */
 function About() {
   return (
     <div style={{ backgroundColor: '#f0f4f5' }}>

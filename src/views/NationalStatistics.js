@@ -13,6 +13,11 @@ import RangeEpisodeScoresGraphContainer from '../components/NationalStatistics/R
 import GenderDistributionGraphContainer from '../components/NationalStatistics/GenderDistributionGraph/GenderDistributionGraphContainer';
 import AgeDistributionGraphContainer from '../components/NationalStatistics/AgeDistributionGraph/AgeDistributionGraphContainer';
 
+/**
+ * Page showing statistics graphed across all patients
+ * @returns {*}
+ * @constructor
+ */
 function NationalStatistics() {
   return (
     <div style={{ backgroundColor: '#f0f4f5' }}>

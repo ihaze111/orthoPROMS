@@ -19,6 +19,9 @@ import {
 } from '../components/react-styled-nhs/src/NHSComponents';
 import NHSBackLink from '../components/react-styled-nhs/src/NHSBackLink';
 
+/**
+ * Page for registering to the orthoPROMS site
+ */
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -217,7 +220,6 @@ class Register extends React.Component {
                         {this.state.btnText}
                       </NHSButton>
                       <p>{this.state.codeSent}</p>
-                      {' '}
                       <br />
                       <NHSFormGroup controlId="formBasicCode">
                         <NHSFormLabel>Code</NHSFormLabel>
