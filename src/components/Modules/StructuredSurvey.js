@@ -41,23 +41,32 @@ async function commitComposition(model, ehrId, templateId) {
     // "ctx/health_care_facility|id": "9091"
   };
   const options = CDROptions.generatePostAxiosOptions(url, data);
-  try {
-    const response = await axios(options);
-    const result = response.data;
-    if (response.status === 201) {
+
+  return axios(options)
+    .then((response) => {
+      const result = response.data;
+      if (response.status === 201) {
+        processedResult = {
+          status: 'success',
+          message: 'Successfully committed',
+          commitId: result.compositionUid,
+        };
+        // processedResult = result;
+      } else {
+        processedResult = {
+          status: 'error',
+          message: 'Error committing',
+        };
+      }
+      return processedResult;
+    })
+    .catch((error) => {
       processedResult = {
-        message: 'Successfully committed',
-        commitId: result.compositionUid,
+        status: 'error',
+        data: error.response.data,
       };
-      // processedResult = result;
-    } else {
-      processedResult = { message: 'Error committing' };
-    }
-  } catch (error) {
-    processedResult = { message: 'Error committing' };
-    throw new Error(error);
-  }
-  return processedResult;
+      return processedResult;
+    });
 }
 
 /**
@@ -106,7 +115,6 @@ function getMappingOfTemplate(e) {
  */
 function RecursiveCard(props) {
   const color = props.color ? '#ffffff' : '#f0f4f5';
-  console.log(props);
   if ('children' in props) {
     return (
       <NHSPanelWithLabel style={{ backgroundColor: color }}>
@@ -134,6 +142,31 @@ RecursiveCard.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object),
 };
 
+function CommitConfirmation(props) {
+  return (
+    <NHSPanelConfirmation>
+      <NHSPanelTitle>{props.title}</NHSPanelTitle>
+      <NHSPanelBody>
+        {props.message}
+      </NHSPanelBody>
+      <NHSButton
+        style={{
+          float: 'right',
+          marginTop: '10px',
+        }}
+        onClick={props.onClick}
+      >
+        Done
+      </NHSButton>
+    </NHSPanelConfirmation>
+  );
+}
+
+CommitConfirmation.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string,
+  onClick: PropTypes.func,
+};
 /**
  * Survey for display as PROMs survey. Structured into hierarchy.
  */
@@ -166,45 +199,42 @@ export default class StructuredSurvey extends React.Component {
   };
 
   async submitModel(model) {
-    const reply = await commitComposition(model, this.props.ehrId, this.props.templateId);
-    // NHSPanelConfirmation
     let element;
-    if ('commitId' in reply) {
-      element = (
-        <NHSPanelConfirmation>
-          <NHSPanelTitle>{reply.message}</NHSPanelTitle>
-          <NHSPanelBody>
-            Composition identifier:
-            <strong>{reply.commitId}</strong>
-          </NHSPanelBody>
-          <NHSButton
-            style={{
-              float: 'right',
-              marginTop: '10px',
-            }}
+    const reply = await commitComposition(model, this.props.ehrId, this.props.templateId);
+    if (reply.status === 'error' || !('commitId' in reply)) {
+      // there is an error
+      if ('message' in reply) {
+        element = (
+          <CommitConfirmation
+            title={reply.message}
+            message="Please try again later, or contact your admin team."
             onClick={this.reloadPage}
-          >
-            Done
-          </NHSButton>
-        </NHSPanelConfirmation>
-      );
+          />
+        );
+      } else if ('data' in reply) {
+        element = (
+          <CommitConfirmation
+            title={reply.data.userMessage}
+            message={reply.data.exceptionMessage}
+            onClick={this.reloadPage}
+          />
+        );
+      } else {
+        element = (
+          <CommitConfirmation
+            title="Error committing"
+            message="Please try again later, or contact your admin team."
+            onClick={this.reloadPage}
+          />
+        );
+      }
     } else {
       element = (
-        <NHSPanelConfirmation>
-          <NHSPanelTitle>{reply.message}</NHSPanelTitle>
-          <NHSPanelBody>
-            Please try again later, or contact your admin team.
-          </NHSPanelBody>
-          <NHSButton
-            style={{
-              float: 'right',
-              marginTop: '10px',
-            }}
-            onClick={this.reloadPage}
-          >
-            Done
-          </NHSButton>
-        </NHSPanelConfirmation>
+        <CommitConfirmation
+          title={reply.message}
+          message={`Composition identifier: ${reply.commitId}`}
+          onClick={this.reloadPage}
+        />
       );
     }
     ReactDOM.render(element, document.getElementById('result'));
