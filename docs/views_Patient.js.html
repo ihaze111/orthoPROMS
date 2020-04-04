@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/Patient.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/Patient.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Tab from 'react-bootstrap/Tab';
+import Nav from 'react-bootstrap/Nav';
+import * as PropTypes from 'prop-types';
+import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
+import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
+import HeaderMenu from '../components/HeaderMenu';
+
+import { handleSearch } from '../actions/appActions';
+import StructuredSurvey from '../components/Modules/StructuredSurvey';
+import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
+import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
+import {
+  NHSPanel,
+  NHSPanelBody,
+  NHSPanelTitle,
+} from '../components/react-styled-nhs/src/NHSPanel';
+import NHSFooter from '../components/react-styled-nhs/src/NHSFooter';
+import getAllTemplatesInCDR from '../cdr/getAllTemplatesInCDR';
+import { NHSButton } from '../components/react-styled-nhs/src/NHSComponents';
+import PatientDemographics from '../components/Modules/PatientDemographics';
+import PatientOverview from '../components/Modules/PatientOverview';
+import PatientProgressTable from '../components/Modules/Tables/PatientProgressTable/PatientProgressTable';
+import getEHRIdByNHSNumber from '../cdr/getEHRIdByNHSNumber';
+import EpisodeScoresGraphContainer from '../components/Modules/Graphs/EpisodeScoresGraph/EpisodeScoresGraphContainer';
+import ScoresGraphContainer from '../components/Modules/Graphs/ScoresGraph/ScoresGraphContainer';
+
+/**
+ * Page showing key information about a patient (patient-view)
+ */
+class Patient extends React.Component {
+  // TODO: fix tabs issue
+  constructor(props) {
+    super(props);
+    this.state = {
+      templatesList: [],
+    };
+    this.onTemplateChange = this.onTemplateChange.bind(this);
+    this.onChange = (e) => {
+      this.props.handleSearch(e.target.value);
+    };
+  }
+
+  componentDidMount() {
+    const promise = getEHRIdByNHSNumber(this.props.nhsNumber);
+    promise.then((e) => {
+      this.setState({ ehrId: e });
+    })
+      .catch((error) => {
+        // TODO: find better error system
+        console.log(error);
+      });
+    const promise2 = getAllTemplatesInCDR();
+    promise2.then((e) => {
+      this.setState({ templatesList: e });
+    });
+  }
+
+  onTemplateChange() {
+    ReactDOM.render(
+      &lt;div>
+        &lt;NHSButton onClick={this.reloadPage}>Change form&lt;/NHSButton>
+        &lt;StructuredSurvey
+          key="survey"
+          id="survey"
+          templateId={document.getElementById('select-template').value}
+          ehrId={this.state.ehrId}
+        />
+      &lt;/div>,
+      document.getElementById('select-survey-form-group'),
+    );
+  }
+
+  reloadPage = () => {
+    window.location.reload();
+  };
+
+  render() {
+    // TODO: improve display of this error
+    if (!this.state.ehrId) return &lt;div>No EHR id found for your NHS number&lt;/div>;
+    const subjectId = this.props.nhsNumber;
+    const { search } = this.props;
+    return (
+      &lt;div style={{ backgroundColor: '#f0f4f5' }}>
+        &lt;HeaderMenu />
+        &lt;NHSContainer>
+          &lt;NHSWrapper>
+            &lt;NHSPanel>
+              &lt;NHSPanelTitle>Overview&lt;/NHSPanelTitle>
+              &lt;NHSPanelBody>
+                &lt;PatientOverview subjectId={subjectId} />
+                &lt;PatientDemographics ehrId={this.state.ehrId} />
+              &lt;/NHSPanelBody>
+            &lt;/NHSPanel>
+            &lt;NHSPanel>
+              &lt;NHSPanelTitle>
+                Details
+                &lt;Form
+                  inline
+                  style={{ float: 'right' }}
+                >
+                  &lt;FormControl
+                    type="text"
+                    placeholder="Search"
+                    value={search}
+                    onChange={this.onChange}
+                    className="mr-sm-2"
+                  />
+                &lt;/Form>
+              &lt;/NHSPanelTitle>
+              &lt;NHSPanelBody>
+                &lt;Tab.Container defaultActiveKey="myProgress">
+                  &lt;Nav
+                    variant="tabs"
+                    style={{ marginBottom: '20px' }}
+                  >
+                    &lt;Nav.Item>
+                      &lt;Nav.Link
+                        eventKey="myProgress"
+                        className="nhsuk-button"
+                        style={{ marginRight: '10px' }}
+                      >
+                        My Progress
+                      &lt;/Nav.Link>
+                    &lt;/Nav.Item>
+                    &lt;Nav.Item>
+                      &lt;Nav.Link
+                        eventKey="myData"
+                        className="nhsuk-button"
+                        style={{ marginRight: '10px' }}
+                      >
+                        My Data
+                      &lt;/Nav.Link>
+                    &lt;/Nav.Item>
+                    &lt;Nav.Item>
+                      &lt;Nav.Link
+                        eventKey="survey"
+                        className="nhsuk-button"
+                      >
+                        Survey
+                      &lt;/Nav.Link>
+                    &lt;/Nav.Item>
+                  &lt;/Nav>
+                  &lt;Tab.Content>
+                    &lt;Tab.Pane eventKey="myProgress">
+                      &lt;PatientProgressTable ehrId={this.state.ehrId} />
+                    &lt;/Tab.Pane>
+                    &lt;Tab.Pane eventKey="myData">
+                      &lt;div>&lt;ScoresGraphContainer ehrId={this.state.ehrId} />&lt;/div>
+                      &lt;br />
+                      &lt;br />
+                      &lt;br />
+                      &lt;div>
+                        &lt;EpisodeScoresGraphContainer ehrId={this.state.ehrId} />
+                      &lt;/div>
+                    &lt;/Tab.Pane>
+                    &lt;Tab.Pane eventKey="survey">
+                      &lt;div id="select-survey-form-group">
+                        &lt;div className="nhsuk-form-group">
+                          &lt;span className="nhsuk-label">Template&lt;/span>
+                          &lt;select
+                            className="nhsuk-select"
+                            id="select-template"
+                            name="select-template"
+                            style={{
+                              marginTop: '8px',
+                              marginRight: '10px',
+                            }}
+                          >
+                            {this.state.templatesList.map((template) => {
+                              if (template.templateId === 'Foot_and_Ankle_PROMs-v0') {
+                                return (
+                                  &lt;option
+                                    key={template.templateId}
+                                    value={template.templateId}
+                                    selected="selected"
+                                  >
+                                    {template.templateId}
+                                  &lt;/option>
+                                );
+                              }
+                              return (
+                                &lt;option
+                                  key={template.templateId}
+                                  value={template.templateId}
+                                >
+                                  {template.templateId}
+                                &lt;/option>
+                              );
+                            })}
+                          &lt;/select>
+                          &lt;NHSButton onClick={this.onTemplateChange}>Show&lt;/NHSButton>
+                        &lt;/div>
+                      &lt;/div>
+                    &lt;/Tab.Pane>
+                  &lt;/Tab.Content>
+                &lt;/Tab.Container>
+              &lt;/NHSPanelBody>
+            &lt;/NHSPanel>
+          &lt;/NHSWrapper>
+        &lt;/NHSContainer>
+        &lt;NHSFooter />
+      &lt;/div>
+    );
+  }
+}
+
+Patient.propTypes = {
+  handleSearch: PropTypes.func,
+  nhsNumber: PropTypes.string,
+  search: PropTypes.string,
+};
+
+export default connect(
+  (state) => {
+    const result = {
+      search: state.app.search,
+    };
+    if (state.auth.isAuthenticated) {
+      result.nhsNumber = state.auth.isGoogleLogin
+        ? '9999999000'
+        : state.auth.user.userJson.nhsNumber;
+    } else {
+      result.nhsNumber = '';
+    }
+    return result;
+  },
+  {
+    handleSearch,
+  },
+)(Patient);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="About.html">About</a></li><li><a href="AgeDistributionGraph.html">AgeDistributionGraph</a></li><li><a href="App.html">App</a></li><li><a href="BloodPressureChart.html">BloodPressureChart</a></li><li><a href="BloodPressureGraph.html">BloodPressureGraph</a></li><li><a href="CDRAQLQuery.html">CDRAQLQuery</a></li><li><a href="Clinician.html">Clinician</a></li><li><a href="Composition.html">Composition</a></li><li><a href="DevelopersTableEntry.html">DevelopersTableEntry</a></li><li><a href="EmptyPatientsListError.html">EmptyPatientsListError</a></li><li><a href="EpisodeScoresGraph.html">EpisodeScoresGraph</a></li><li><a href="GenderDistributionGraph.html">GenderDistributionGraph</a></li><li><a href="GeneralLineChart.html">GeneralLineChart</a></li><li><a href="HeaderMenu.html">HeaderMenu</a></li><li><a href="HeartRateGraph.html">HeartRateGraph</a></li><li><a href="Home.html">Home</a></li><li><a href="HorizontalBarGraph.html">HorizontalBarGraph</a></li><li><a href="Login.html">Login</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="NationalStatistics.html">NationalStatistics</a></li><li><a href="NHSNoneFoundTableRow.html">NHSNoneFoundTableRow</a></li><li><a href="OxygenSaturationGraph.html">OxygenSaturationGraph</a></li><li><a href="PartnersEntry.html">PartnersEntry</a></li><li><a href="Patient.html">Patient</a></li><li><a href="PatientAllergiesTableEmptyError.html">PatientAllergiesTableEmptyError</a></li><li><a href="PatientListEntry.html">PatientListEntry</a></li><li><a href="PatientProgressTableEntries.html">PatientProgressTableEntries</a></li><li><a href="PatientRecords.html">PatientRecords</a></li><li><a href="PieChart.html">PieChart</a></li><li><a href="QueryResultCallbackProcessing.html">QueryResultCallbackProcessing</a></li><li><a href="RadarGraph.html">RadarGraph</a></li><li><a href="RangeEpisodeScoresGraph.html">RangeEpisodeScoresGraph</a></li><li><a href="RecursiveCard.html">RecursiveCard</a></li><li><a href="Register.html">Register</a></li><li><a href="Reset.html">Reset</a></li><li><a href="RespirationRateGraph.html">RespirationRateGraph</a></li><li><a href="ScoresGraph.html">ScoresGraph</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allergiesCallbackProcessing">allergiesCallbackProcessing</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#callbackProcessing">callbackProcessing</a></li><li><a href="global.html#CDRHeaders">CDRHeaders</a></li><li><a href="global.html#CDROptions">CDROptions</a></li><li><a href="global.html#clinician">clinician</a></li><li><a href="global.html#commitComposition">commitComposition</a></li><li><a href="global.html#DownloadCSV">DownloadCSV</a></li><li><a href="global.html#formatContextTime">formatContextTime</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#formatTiming">formatTiming</a></li><li><a href="global.html#getAllCompositionsByEHRId">getAllCompositionsByEHRId</a></li><li><a href="global.html#getAllEHRsInCDR">getAllEHRsInCDR</a></li><li><a href="global.html#getAllergiesListByEHRId">getAllergiesListByEHRId</a></li><li><a href="global.html#getAllTemplatesInCDR">getAllTemplatesInCDR</a></li><li><a href="global.html#getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs">getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs</a></li><li><a href="global.html#getAOFASScoresAgainstEpisodeByEHRId">getAOFASScoresAgainstEpisodeByEHRId</a></li><li><a href="global.html#getAOFASScoresAgainstTimeByEHRId">getAOFASScoresAgainstTimeByEHRId</a></li><li><a href="global.html#getAqlMappingOfTemplate">getAqlMappingOfTemplate</a></li><li><a href="global.html#getAqlPathFromParentTrace">getAqlPathFromParentTrace</a></li><li><a href="global.html#getBloodPressureByEHRId">getBloodPressureByEHRId</a></li><li><a href="global.html#getCompositionByCompositionId">getCompositionByCompositionId</a></li><li><a href="global.html#getEHRByNHSNumber">getEHRByNHSNumber</a></li><li><a href="global.html#getFlatProcessedTemplate">getFlatProcessedTemplate</a></li><li><a href="global.html#getHeartRatesAgainstTimeByEHRId">getHeartRatesAgainstTimeByEHRId</a></li><li><a href="global.html#getIdIfExists">getIdIfExists</a></li><li><a href="global.html#getIndirectOximetryAgainstTimeByEHRId">getIndirectOximetryAgainstTimeByEHRId</a></li><li><a href="global.html#getLabOrdersListByEHRId">getLabOrdersListByEHRId</a></li><li><a href="global.html#getLabReportsListByEHRId">getLabReportsListByEHRId</a></li><li><a href="global.html#getLocalizedDescriptionIfExists">getLocalizedDescriptionIfExists</a></li><li><a href="global.html#getLocalizedNameIfExists">getLocalizedNameIfExists</a></li><li><a href="global.html#getMappingOfTemplate">getMappingOfTemplate</a></li><li><a href="global.html#getMappingOfTemplateAux">getMappingOfTemplateAux</a></li><li><a href="global.html#getObjectPropertyIfExists">getObjectPropertyIfExists</a></li><li><a href="global.html#getPatientDemographicsByEHRId">getPatientDemographicsByEHRId</a></li><li><a href="global.html#getProceduresListByEHRId">getProceduresListByEHRId</a></li><li><a href="global.html#getRespirationRateAgainstTimeByEHRId">getRespirationRateAgainstTimeByEHRId</a></li><li><a href="global.html#getStructuredProcessedTemplate">getStructuredProcessedTemplate</a></li><li><a href="global.html#hasChildren">hasChildren</a></li><li><a href="global.html#inputToJsonFormInput">inputToJsonFormInput</a></li><li><a href="global.html#labOrdersCallbackProcessing">labOrdersCallbackProcessing</a></li><li><a href="global.html#labReportsCallbackProcessing">labReportsCallbackProcessing</a></li><li><a href="global.html#objectHasInputs">objectHasInputs</a></li><li><a href="global.html#occurrence">occurrence</a></li><li><a href="global.html#padNTabsLeft">padNTabsLeft</a></li><li><a href="global.html#proceduresCallbackProcessing">proceduresCallbackProcessing</a></li><li><a href="global.html#processOtherDetails">processOtherDetails</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#setAuthorizationToken">setAuthorizationToken</a></li><li><a href="global.html#timeFormat">timeFormat</a></li><li><a href="global.html#transpose">transpose</a></li><li><a href="global.html#treeTrawlGettingFlatInputs">treeTrawlGettingFlatInputs</a></li><li><a href="global.html#treeTrawlGettingFlatInputsAux">treeTrawlGettingFlatInputsAux</a></li><li><a href="global.html#treeTrawlGettingStructuredInputs">treeTrawlGettingStructuredInputs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:16:51 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/About.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/About.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Table from 'react-bootstrap/Table';
+import * as PropTypes from 'prop-types';
+import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
+import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
+import { NHSPanel, NHSPanelBody, NHSPanelTitle } from '../components/react-styled-nhs/src/NHSPanel';
+import NHSFooter from '../components/react-styled-nhs/src/NHSFooter';
+import HeaderMenu from '../components/HeaderMenu';
+
+/**
+ * Entry for developer description
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+function DevelopersTableEntry(props) {
+  return (
+    &lt;tr>
+      &lt;td>{props.name}&lt;/td>
+      &lt;td>
+        &lt;a href={`mailto:${props.email}`}>{props.email}&lt;/a>
+      &lt;/td>
+    &lt;/tr>
+  );
+}
+
+DevelopersTableEntry.propTypes = {
+  name: PropTypes.string,
+  email: PropTypes.string,
+};
+
+/**
+ * Entry for partner table
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+function PartnersEntry(props) {
+  return (
+    &lt;tr>
+      &lt;td>{props.name}&lt;/td>
+      &lt;td>
+        &lt;a href={props.website}>{props.website}&lt;/a>
+      &lt;/td>
+    &lt;/tr>
+  );
+}
+
+PartnersEntry.propTypes = {
+  name: PropTypes.string,
+  website: PropTypes.string,
+};
+
+/**
+ * Static about page for information about the project
+ * @returns {*}
+ * @constructor
+ */
+function About() {
+  return (
+    &lt;div style={{ backgroundColor: '#f0f4f5' }}>
+      &lt;HeaderMenu />
+      &lt;NHSContainer>
+        &lt;NHSWrapper>
+          &lt;h1>About Us&lt;/h1>
+          &lt;NHSPanel>
+            &lt;NHSPanelTitle>
+              What Is orthoPROMS?
+            &lt;/NHSPanelTitle>
+            &lt;NHSPanelBody>
+              &lt;div style={{ height: '10px' }} />
+              &lt;div style={{
+                width: '90%',
+                display: 'flex',
+              }}
+              >
+                &lt;p>
+                  orthoPROMS is a web-app intended for both clinicians and patients to record
+                  outcomes from orthopaedic surgeries as well as storing and visualising data using
+                  openEHR standards.
+                  &lt;br />
+                  &lt;br />
+                  We intend to help clinicians keep track of their patients&amp;apos; progress
+                  post-surgery while being a transparent medium for patients to see their own
+                  progress. At the same time, patients are able to give feedback on how their
+                  conditions after surgery that would be beneficial for both patients and clinicians
+                  to determine the next step for recovery.
+                  &lt;br />
+                  &lt;br />
+                  orthoPROMS is a project made by three UCL students in partnership with Apperta
+                  Foundation and Code4Health.
+                &lt;/p>
+              &lt;/div>
+            &lt;/NHSPanelBody>
+          &lt;/NHSPanel>
+          &lt;NHSPanel>
+            &lt;NHSPanelTitle>
+              Developers
+            &lt;/NHSPanelTitle>
+            &lt;NHSPanelBody>
+              &lt;div style={{ height: '10px' }} />
+              &lt;div style={{ display: 'flex' }}>
+                &lt;Table
+                  striped
+                  bordered
+                  hover
+                >
+                  &lt;thead>
+                    &lt;tr>
+                      &lt;th>Developers&lt;/th>
+                      &lt;th>Emails&lt;/th>
+                    &lt;/tr>
+                  &lt;/thead>
+                  &lt;tbody>
+                    &lt;DevelopersTableEntry
+                      name="Charles Cowan"
+                      email="charlie.cowan.18@ucl.ac.uk"
+                    />
+                    &lt;DevelopersTableEntry
+                      name="Menghang Hao"
+                      email="menghang.hao.18@ucl.ac.uk"
+                    />
+                    &lt;DevelopersTableEntry
+                      name="Haze Al-Johary"
+                      email="haziq.al-johary.18@ucl.ac.uk"
+                    />
+                  &lt;/tbody>
+                &lt;/Table>
+              &lt;/div>
+            &lt;/NHSPanelBody>
+          &lt;/NHSPanel>
+          &lt;NHSPanel>
+            &lt;NHSPanelTitle>
+              Our Partners
+            &lt;/NHSPanelTitle>
+            &lt;NHSPanelBody>
+
+              &lt;div style={{ height: '10px' }} />
+              &lt;div style={{ display: '200px' }}>
+                &lt;div>
+                  &lt;a href="https://apperta.org/">
+                    &lt;img
+                      src="https://apperta.org/img/logo.png"
+                      alt="appertaLogo"
+                      style={{ width: '20%' }}
+                    />
+                  &lt;/a>
+                  &lt;a href="https://code4health.org/">
+                    &lt;img
+                      src="http://www.imsmaxims.com/wp-content/uploads/2015/09/code4health.jpg"
+                      alt="code4healthLogo"
+                      style={{ width: '30%' }}
+                    />
+                  &lt;/a>
+                &lt;/div>
+                &lt;div>
+                  &lt;Table
+                    bordered
+                    hover
+                  >
+                    &lt;tbody>
+                      &lt;PartnersEntry
+                        name="Apperta Foundation"
+                        website="https://apperta.org/"
+                      />
+                    &lt;/tbody>
+                  &lt;/Table>
+                &lt;/div>
+              &lt;/div>
+            &lt;/NHSPanelBody>
+          &lt;/NHSPanel>
+        &lt;/NHSWrapper>
+      &lt;/NHSContainer>
+      &lt;NHSFooter />
+    &lt;/div>
+  );
+}
+
+export default About;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="About.html">About</a></li><li><a href="AgeDistributionGraph.html">AgeDistributionGraph</a></li><li><a href="App.html">App</a></li><li><a href="BloodPressureChart.html">BloodPressureChart</a></li><li><a href="BloodPressureGraph.html">BloodPressureGraph</a></li><li><a href="CDRAQLQuery.html">CDRAQLQuery</a></li><li><a href="Clinician.html">Clinician</a></li><li><a href="Composition.html">Composition</a></li><li><a href="DevelopersTableEntry.html">DevelopersTableEntry</a></li><li><a href="EmptyPatientsListError.html">EmptyPatientsListError</a></li><li><a href="EpisodeScoresGraph.html">EpisodeScoresGraph</a></li><li><a href="GenderDistributionGraph.html">GenderDistributionGraph</a></li><li><a href="GeneralLineChart.html">GeneralLineChart</a></li><li><a href="HeaderMenu.html">HeaderMenu</a></li><li><a href="HeartRateGraph.html">HeartRateGraph</a></li><li><a href="Home.html">Home</a></li><li><a href="HorizontalBarGraph.html">HorizontalBarGraph</a></li><li><a href="Login.html">Login</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="NationalStatistics.html">NationalStatistics</a></li><li><a href="NHSNoneFoundTableRow.html">NHSNoneFoundTableRow</a></li><li><a href="OxygenSaturationGraph.html">OxygenSaturationGraph</a></li><li><a href="PartnersEntry.html">PartnersEntry</a></li><li><a href="Patient.html">Patient</a></li><li><a href="PatientAllergiesTableEmptyError.html">PatientAllergiesTableEmptyError</a></li><li><a href="PatientListEntry.html">PatientListEntry</a></li><li><a href="PatientProgressTableEntries.html">PatientProgressTableEntries</a></li><li><a href="PatientRecords.html">PatientRecords</a></li><li><a href="PieChart.html">PieChart</a></li><li><a href="QueryResultCallbackProcessing.html">QueryResultCallbackProcessing</a></li><li><a href="RadarGraph.html">RadarGraph</a></li><li><a href="RangeEpisodeScoresGraph.html">RangeEpisodeScoresGraph</a></li><li><a href="RecursiveCard.html">RecursiveCard</a></li><li><a href="Register.html">Register</a></li><li><a href="Reset.html">Reset</a></li><li><a href="RespirationRateGraph.html">RespirationRateGraph</a></li><li><a href="ScoresGraph.html">ScoresGraph</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allergiesCallbackProcessing">allergiesCallbackProcessing</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#callbackProcessing">callbackProcessing</a></li><li><a href="global.html#CDRHeaders">CDRHeaders</a></li><li><a href="global.html#CDROptions">CDROptions</a></li><li><a href="global.html#clinician">clinician</a></li><li><a href="global.html#commitComposition">commitComposition</a></li><li><a href="global.html#DownloadCSV">DownloadCSV</a></li><li><a href="global.html#formatContextTime">formatContextTime</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#formatTiming">formatTiming</a></li><li><a href="global.html#getAllCompositionsByEHRId">getAllCompositionsByEHRId</a></li><li><a href="global.html#getAllEHRsInCDR">getAllEHRsInCDR</a></li><li><a href="global.html#getAllergiesListByEHRId">getAllergiesListByEHRId</a></li><li><a href="global.html#getAllTemplatesInCDR">getAllTemplatesInCDR</a></li><li><a href="global.html#getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs">getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs</a></li><li><a href="global.html#getAOFASScoresAgainstEpisodeByEHRId">getAOFASScoresAgainstEpisodeByEHRId</a></li><li><a href="global.html#getAOFASScoresAgainstTimeByEHRId">getAOFASScoresAgainstTimeByEHRId</a></li><li><a href="global.html#getAqlMappingOfTemplate">getAqlMappingOfTemplate</a></li><li><a href="global.html#getAqlPathFromParentTrace">getAqlPathFromParentTrace</a></li><li><a href="global.html#getBloodPressureByEHRId">getBloodPressureByEHRId</a></li><li><a href="global.html#getCompositionByCompositionId">getCompositionByCompositionId</a></li><li><a href="global.html#getEHRByNHSNumber">getEHRByNHSNumber</a></li><li><a href="global.html#getFlatProcessedTemplate">getFlatProcessedTemplate</a></li><li><a href="global.html#getHeartRatesAgainstTimeByEHRId">getHeartRatesAgainstTimeByEHRId</a></li><li><a href="global.html#getIdIfExists">getIdIfExists</a></li><li><a href="global.html#getIndirectOximetryAgainstTimeByEHRId">getIndirectOximetryAgainstTimeByEHRId</a></li><li><a href="global.html#getLabOrdersListByEHRId">getLabOrdersListByEHRId</a></li><li><a href="global.html#getLabReportsListByEHRId">getLabReportsListByEHRId</a></li><li><a href="global.html#getLocalizedDescriptionIfExists">getLocalizedDescriptionIfExists</a></li><li><a href="global.html#getLocalizedNameIfExists">getLocalizedNameIfExists</a></li><li><a href="global.html#getMappingOfTemplate">getMappingOfTemplate</a></li><li><a href="global.html#getMappingOfTemplateAux">getMappingOfTemplateAux</a></li><li><a href="global.html#getObjectPropertyIfExists">getObjectPropertyIfExists</a></li><li><a href="global.html#getPatientDemographicsByEHRId">getPatientDemographicsByEHRId</a></li><li><a href="global.html#getProceduresListByEHRId">getProceduresListByEHRId</a></li><li><a href="global.html#getRespirationRateAgainstTimeByEHRId">getRespirationRateAgainstTimeByEHRId</a></li><li><a href="global.html#getStructuredProcessedTemplate">getStructuredProcessedTemplate</a></li><li><a href="global.html#hasChildren">hasChildren</a></li><li><a href="global.html#inputToJsonFormInput">inputToJsonFormInput</a></li><li><a href="global.html#labOrdersCallbackProcessing">labOrdersCallbackProcessing</a></li><li><a href="global.html#labReportsCallbackProcessing">labReportsCallbackProcessing</a></li><li><a href="global.html#objectHasInputs">objectHasInputs</a></li><li><a href="global.html#occurrence">occurrence</a></li><li><a href="global.html#padNTabsLeft">padNTabsLeft</a></li><li><a href="global.html#proceduresCallbackProcessing">proceduresCallbackProcessing</a></li><li><a href="global.html#processOtherDetails">processOtherDetails</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#setAuthorizationToken">setAuthorizationToken</a></li><li><a href="global.html#timeFormat">timeFormat</a></li><li><a href="global.html#transpose">transpose</a></li><li><a href="global.html#treeTrawlGettingFlatInputs">treeTrawlGettingFlatInputs</a></li><li><a href="global.html#treeTrawlGettingFlatInputsAux">treeTrawlGettingFlatInputsAux</a></li><li><a href="global.html#treeTrawlGettingStructuredInputs">treeTrawlGettingStructuredInputs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:16:51 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

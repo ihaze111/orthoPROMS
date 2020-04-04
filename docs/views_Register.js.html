@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/Register.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/Register.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Form from 'react-bootstrap/Form';
+import { connect } from 'react-redux';
+import qs from 'qs';
+import * as PropTypes from 'prop-types';
+import { createBrowserHistory } from 'history';
+import HeaderMenu from '../components/HeaderMenu';
+
+import { userSignupRequest, sendCode, checkCode } from '../actions/signupActions';
+import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
+import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
+import NHSFooter from '../components/react-styled-nhs/src/NHSFooter';
+import {
+  NHSButton,
+  NHSFormControl, NHSFormError,
+  NHSFormGroup,
+  NHSFormHint,
+  NHSFormLabel,
+} from '../components/react-styled-nhs/src/NHSComponents';
+import NHSBackLink from '../components/react-styled-nhs/src/NHSBackLink';
+
+/**
+ * Page for registering to the orthoPROMS site
+ */
+class Register extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      type: '',
+      code: '',
+      nhsNumber: '',
+      timer: 180,
+      discodeBtn: false,
+      clearInterval: false,
+      btnText: 'Send Code',
+      history: createBrowserHistory(),
+      error: { all: '' },
+    };
+    this.onChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    };
+    this.goback = () => {
+      this.state.history.goBack();
+    };
+    this.onSubmit = (e) => {
+      e.preventDefault();
+      const error = {};
+      if (this.state.password === '') {
+        error.password = 'Please enter your password';
+      } else {
+        error.password = '';
+      }
+      if (this.state.passwordConfirmation === '') {
+        error.passwordConfirmation = 'Please enter your password again for confirmation';
+      } else {
+        error.passwordConfirmation = '';
+      }
+      if (this.state.email === '' || this.state.email.search('@') === -1) {
+        error.email = 'Please enter a valid email';
+      } else {
+        error.email = '';
+      }
+      if (this.state.code === '') {
+        error.code = 'Please enter the code that has been emailed to you';
+      } else {
+        error.code = '';
+      }
+      // N.B. NHS number requirements relaxed for easier testing
+      // if (this.state.nhsNumber.length !== 10 || this.state.nhsNumber.parseInt().toString() !==
+      // this.state.nhsNumber) { error.nhsNumber = 'Please enter a valid 10-digit NHS number';
+      if (this.state.nhsNumber === '' || String(parseInt(this.state.nhsNumber, 10)) !== this.state.nhsNumber) {
+        error.nhsNumber = 'Please enter your NHS number';
+      } else {
+        error.nhsNumber = '';
+      }
+      if (this.state.password !== this.state.passwordConfirmation) {
+        error.passwordsTogether = 'Passwords do not match';
+      } else {
+        error.passwordsTogether = '';
+      }
+      this.setState({ error });
+      if (this.state.password !== '' &amp;&amp; this.state.passwordConfirmation !== '' &amp;&amp; this.state.email !== '' &amp;&amp; this.state.code !== '' &amp;&amp; this.state.password === this.state.passwordConfirmation &amp;&amp; this.state.nhsNumber !== '' &amp;&amp; String(parseInt(this.state.nhsNumber, 10)) === this.state.nhsNumber) {
+        // Verify the verification code before registering
+        this.props.checkCode({ code: this.state.code })
+          .then(
+            (res) => {
+              if (res.data.code === 200) {
+                // Verification code is correct
+                this.props.userSignupRequest(this.state)
+                  .then(
+                    (signupRes) => {
+                      // Registration success
+                      if (signupRes.data.code === 200) {
+                        alert('registration success');
+                        this.goback();
+                      } else {
+                        this.setState({ error: { all: signupRes.data.message } });
+                      }
+                    },
+                  )
+                  .catch((signupRes) => {
+                    // Registration error
+                    this.setState({ error: { all: JSON.stringify(signupRes) } });
+                  });
+              } else {
+                this.setState({ error: { all: res.data.message } });
+              }
+            },
+            (res) => {
+              this.setState({ error: { all: res.message } });
+            },
+          );
+      }
+    };
+    this.handleClick = (e) => {
+      e.preventDefault();
+      const { email } = this.state;
+      if (email === '' || email.search('@') === -1) {
+        this.setState({ error: { email: 'Please enter a valid email' } });
+      } else {
+        // Send the verification code
+        this.props.sendCode(this.state)
+          .then(
+            (res) => {
+              if (res.data.code === 200) {
+                this.setState({ codeSent: `Code has been emailed to ${res.data.data.email}` });
+                this.setState({ error: {} });
+                this.count();
+              } else {
+                this.setState({ error: { email: res.data.message } });
+              }
+            },
+          )
+          .catch(
+            (res) => {
+              this.setState({ error: { email: res.message } });
+            },
+          );
+      }
+    };
+    this.count = () => {
+      let { timer } = this.state;
+      const siv = setInterval(() => {
+        this.setState({
+          timer: (timer -= 1),
+          btnText: timer,
+          discodeBtn: true,
+        }, () => {
+          if (timer === 0) {
+            clearInterval(siv);
+            this.setState({
+              timer: 180,
+              btnText: 'Resend',
+              discodeBtn: false,
+            });
+          }
+        });
+      }, 1000);
+    };
+  }
+
+  componentDidMount() {
+    const { id } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+    let type;
+    if (id === '1') {
+      type = 'Patient';
+    } else if (id === '2') {
+      type = 'Clinicians';
+    } else {
+      // TODO: better solution than redirect?
+      window.location.href = '/';
+    }
+    this.setState({ type });
+  }
+
+  render() {
+    return (
+      &lt;div>
+        &lt;HeaderMenu
+          navigationDisabled
+          searchDisabled
+        />
+        &lt;NHSContainer>
+          &lt;NHSWrapper>
+            &lt;NHSBackLink href="/">Go back&lt;/NHSBackLink>
+            &lt;div className="nhsuk-grid-row">
+              &lt;div className="nhsuk-grid-column-two-thirds">
+                &lt;Form onSubmit={this.onSubmit}>
+                  &lt;h1 style={{ fontWeight: 'bold' }}>Register with orthoPROMS&lt;/h1>
+                  &lt;br />
+                  &lt;NHSFormGroup error={this.state.error.all}>
+                    &lt;NHSFormGroup
+                      controlId="formBasicEmail"
+                      error={this.state.error.email || this.state.error.all}
+                    >
+                      &lt;NHSFormLabel>Email address&lt;/NHSFormLabel>
+                      &lt;NHSFormHint>
+                        We&amp;apos;ll never share your email with anyone else.
+                      &lt;/NHSFormHint>
+                      &lt;NHSFormControl
+                        type="email"
+                        placeholder="Enter email"
+                        name="email"
+                        onChange={this.onChange}
+                        error={this.state.error.email || this.state.error.all}
+                      />
+                      &lt;NHSFormError>{this.state.error.email}&lt;/NHSFormError>
+                    &lt;/NHSFormGroup>
+                    &lt;NHSFormGroup error={this.state.error.code || this.state.error.all}>
+                      &lt;NHSButton
+                        variant="outline-primary"
+                        block
+                        style={{ 'margin-top': '32px' }}
+                        onClick={this.handleClick}
+                        disabled={this.state.discodeBtn}
+                      >
+                        {this.state.btnText}
+                      &lt;/NHSButton>
+                      &lt;p>{this.state.codeSent}&lt;/p>
+                      &lt;br />
+                      &lt;NHSFormGroup controlId="formBasicCode">
+                        &lt;NHSFormLabel>Code&lt;/NHSFormLabel>
+                        &lt;NHSFormControl
+                          type="text"
+                          placeholder="Enter Code"
+                          name="code"
+                          onChange={this.onChange}
+                          error={this.state.error.code || this.state.error.all}
+                        />
+                      &lt;/NHSFormGroup>
+                      &lt;NHSFormError>{this.state.error.code}&lt;/NHSFormError>
+                    &lt;/NHSFormGroup>
+                    &lt;NHSFormGroup
+                      error={this.state.error.passwordsTogether || this.state.error.all}
+                    >
+                      &lt;NHSFormGroup
+                        controlId="formBasicPassword"
+                        error={this.state.error.password || this.state.error.all}
+                      >
+                        &lt;NHSFormLabel>Password&lt;/NHSFormLabel>
+                        &lt;NHSFormControl
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                          onChange={this.onChange}
+                          error={this.state.error.password || this.state.error.all}
+                        />
+                        &lt;NHSFormError>{this.state.error.password}&lt;/NHSFormError>
+                      &lt;/NHSFormGroup>
+
+                      &lt;NHSFormGroup
+                        controlId="formBasicPassword"
+                        error={this.state.error.passwordConfirmation || this.state.error.all}
+                      >
+                        &lt;NHSFormLabel>Confirmation Password&lt;/NHSFormLabel>
+                        &lt;NHSFormControl
+                          type="password"
+                          placeholder="Password"
+                          name="passwordConfirmation"
+                          onChange={this.onChange}
+                          error={this.state.error.passwordConfirmation || this.state.error.all}
+                        />
+                        &lt;NHSFormError>{this.state.error.passwordConfirmation}&lt;/NHSFormError>
+                      &lt;/NHSFormGroup>
+
+                      &lt;NHSFormError>{this.state.error.passwordsTogether}&lt;/NHSFormError>
+                    &lt;/NHSFormGroup>
+
+                    &lt;NHSFormGroup
+                      controlId="nhsNumber"
+                      error={this.state.error.nhsNumber || this.state.error.all}
+                    >
+                      &lt;NHSFormLabel>NHS Number&lt;/NHSFormLabel>
+                      &lt;NHSFormControl
+                        type="number"
+                        placeholder="NHS Number"
+                        name="nhsNumber"
+                        onChange={this.onChange}
+                        error={this.state.error.nhsNumber || this.state.error.all}
+                      />
+                      &lt;NHSFormError>{this.state.error.nhsNumber}&lt;/NHSFormError>
+                    &lt;/NHSFormGroup>
+                    &lt;NHSFormError>{this.state.error.all}&lt;/NHSFormError>
+                  &lt;/NHSFormGroup>
+                  &lt;NHSButton
+                    onClick={this.onSubmit}
+                    type="submit"
+                  >
+                    Submit
+                  &lt;/NHSButton>
+                &lt;/Form>
+              &lt;/div>
+            &lt;/div>
+          &lt;/NHSWrapper>
+        &lt;/NHSContainer>
+        &lt;NHSFooter />
+      &lt;/div>
+    );
+  }
+}
+
+Register.propTypes = {
+  checkCode: PropTypes.func,
+  userSignupRequest: PropTypes.func,
+  sendCode: PropTypes.func,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+};
+
+// export default Register;
+export default connect(null, {
+  userSignupRequest,
+  sendCode,
+  checkCode,
+})(Register);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="About.html">About</a></li><li><a href="AgeDistributionGraph.html">AgeDistributionGraph</a></li><li><a href="App.html">App</a></li><li><a href="BloodPressureChart.html">BloodPressureChart</a></li><li><a href="BloodPressureGraph.html">BloodPressureGraph</a></li><li><a href="CDRAQLQuery.html">CDRAQLQuery</a></li><li><a href="Clinician.html">Clinician</a></li><li><a href="Composition.html">Composition</a></li><li><a href="DevelopersTableEntry.html">DevelopersTableEntry</a></li><li><a href="EmptyPatientsListError.html">EmptyPatientsListError</a></li><li><a href="EpisodeScoresGraph.html">EpisodeScoresGraph</a></li><li><a href="GenderDistributionGraph.html">GenderDistributionGraph</a></li><li><a href="GeneralLineChart.html">GeneralLineChart</a></li><li><a href="HeaderMenu.html">HeaderMenu</a></li><li><a href="HeartRateGraph.html">HeartRateGraph</a></li><li><a href="Home.html">Home</a></li><li><a href="HorizontalBarGraph.html">HorizontalBarGraph</a></li><li><a href="Login.html">Login</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="NationalStatistics.html">NationalStatistics</a></li><li><a href="NHSNoneFoundTableRow.html">NHSNoneFoundTableRow</a></li><li><a href="OxygenSaturationGraph.html">OxygenSaturationGraph</a></li><li><a href="PartnersEntry.html">PartnersEntry</a></li><li><a href="Patient.html">Patient</a></li><li><a href="PatientAllergiesTableEmptyError.html">PatientAllergiesTableEmptyError</a></li><li><a href="PatientListEntry.html">PatientListEntry</a></li><li><a href="PatientProgressTableEntries.html">PatientProgressTableEntries</a></li><li><a href="PatientRecords.html">PatientRecords</a></li><li><a href="PieChart.html">PieChart</a></li><li><a href="QueryResultCallbackProcessing.html">QueryResultCallbackProcessing</a></li><li><a href="RadarGraph.html">RadarGraph</a></li><li><a href="RangeEpisodeScoresGraph.html">RangeEpisodeScoresGraph</a></li><li><a href="RecursiveCard.html">RecursiveCard</a></li><li><a href="Register.html">Register</a></li><li><a href="Reset.html">Reset</a></li><li><a href="RespirationRateGraph.html">RespirationRateGraph</a></li><li><a href="ScoresGraph.html">ScoresGraph</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allergiesCallbackProcessing">allergiesCallbackProcessing</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#callbackProcessing">callbackProcessing</a></li><li><a href="global.html#CDRHeaders">CDRHeaders</a></li><li><a href="global.html#CDROptions">CDROptions</a></li><li><a href="global.html#clinician">clinician</a></li><li><a href="global.html#commitComposition">commitComposition</a></li><li><a href="global.html#DownloadCSV">DownloadCSV</a></li><li><a href="global.html#formatContextTime">formatContextTime</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#formatTiming">formatTiming</a></li><li><a href="global.html#getAllCompositionsByEHRId">getAllCompositionsByEHRId</a></li><li><a href="global.html#getAllEHRsInCDR">getAllEHRsInCDR</a></li><li><a href="global.html#getAllergiesListByEHRId">getAllergiesListByEHRId</a></li><li><a href="global.html#getAllTemplatesInCDR">getAllTemplatesInCDR</a></li><li><a href="global.html#getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs">getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs</a></li><li><a href="global.html#getAOFASScoresAgainstEpisodeByEHRId">getAOFASScoresAgainstEpisodeByEHRId</a></li><li><a href="global.html#getAOFASScoresAgainstTimeByEHRId">getAOFASScoresAgainstTimeByEHRId</a></li><li><a href="global.html#getAqlMappingOfTemplate">getAqlMappingOfTemplate</a></li><li><a href="global.html#getAqlPathFromParentTrace">getAqlPathFromParentTrace</a></li><li><a href="global.html#getBloodPressureByEHRId">getBloodPressureByEHRId</a></li><li><a href="global.html#getCompositionByCompositionId">getCompositionByCompositionId</a></li><li><a href="global.html#getEHRByNHSNumber">getEHRByNHSNumber</a></li><li><a href="global.html#getFlatProcessedTemplate">getFlatProcessedTemplate</a></li><li><a href="global.html#getHeartRatesAgainstTimeByEHRId">getHeartRatesAgainstTimeByEHRId</a></li><li><a href="global.html#getIdIfExists">getIdIfExists</a></li><li><a href="global.html#getIndirectOximetryAgainstTimeByEHRId">getIndirectOximetryAgainstTimeByEHRId</a></li><li><a href="global.html#getLabOrdersListByEHRId">getLabOrdersListByEHRId</a></li><li><a href="global.html#getLabReportsListByEHRId">getLabReportsListByEHRId</a></li><li><a href="global.html#getLocalizedDescriptionIfExists">getLocalizedDescriptionIfExists</a></li><li><a href="global.html#getLocalizedNameIfExists">getLocalizedNameIfExists</a></li><li><a href="global.html#getMappingOfTemplate">getMappingOfTemplate</a></li><li><a href="global.html#getMappingOfTemplateAux">getMappingOfTemplateAux</a></li><li><a href="global.html#getObjectPropertyIfExists">getObjectPropertyIfExists</a></li><li><a href="global.html#getPatientDemographicsByEHRId">getPatientDemographicsByEHRId</a></li><li><a href="global.html#getProceduresListByEHRId">getProceduresListByEHRId</a></li><li><a href="global.html#getRespirationRateAgainstTimeByEHRId">getRespirationRateAgainstTimeByEHRId</a></li><li><a href="global.html#getStructuredProcessedTemplate">getStructuredProcessedTemplate</a></li><li><a href="global.html#hasChildren">hasChildren</a></li><li><a href="global.html#inputToJsonFormInput">inputToJsonFormInput</a></li><li><a href="global.html#labOrdersCallbackProcessing">labOrdersCallbackProcessing</a></li><li><a href="global.html#labReportsCallbackProcessing">labReportsCallbackProcessing</a></li><li><a href="global.html#objectHasInputs">objectHasInputs</a></li><li><a href="global.html#occurrence">occurrence</a></li><li><a href="global.html#padNTabsLeft">padNTabsLeft</a></li><li><a href="global.html#proceduresCallbackProcessing">proceduresCallbackProcessing</a></li><li><a href="global.html#processOtherDetails">processOtherDetails</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#setAuthorizationToken">setAuthorizationToken</a></li><li><a href="global.html#timeFormat">timeFormat</a></li><li><a href="global.html#transpose">transpose</a></li><li><a href="global.html#treeTrawlGettingFlatInputs">treeTrawlGettingFlatInputs</a></li><li><a href="global.html#treeTrawlGettingFlatInputsAux">treeTrawlGettingFlatInputsAux</a></li><li><a href="global.html#treeTrawlGettingStructuredInputs">treeTrawlGettingStructuredInputs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:16:51 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

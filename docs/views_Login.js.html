@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/Login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/Login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Form from 'react-bootstrap/Form';
+import qs from 'qs';
+import { connect } from 'react-redux';
+import GoogleLogin from 'react-google-login';
+import * as PropTypes from 'prop-types';
+import { googleLogin, login } from '../actions/authActions';
+
+import {
+  NHSButton,
+  NHSFormControl, NHSFormError,
+  NHSFormGroup,
+  NHSFormLabel,
+} from '../components/react-styled-nhs/src/NHSComponents';
+import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
+import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
+import NHSCheckbox from '../components/react-styled-nhs/src/NHSCheckbox';
+import NHSFooter from '../components/react-styled-nhs/src/NHSFooter';
+import {
+  NHSPanelBody,
+  NHSPanelTitle,
+  NHSPanelWithLabel,
+} from '../components/react-styled-nhs/src/NHSPanel';
+import { NHSVectorArrowRightCircle } from '../components/react-styled-nhs/src/NHSIcons';
+import HeaderMenu from '../components/HeaderMenu';
+
+/**
+ * Login page for logging into the site
+ */
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      id: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id !== undefined
+        ? qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id : '1',
+      error: { all: '' },
+    };
+    this.onChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    };
+    this.onSignIn = (googleUser) => {
+      const profile = googleUser.getBasicProfile();
+      // eslint-disable-next-line camelcase
+      const { id_token } = googleUser.getAuthResponse();
+      this.props.googleLogin({
+        token: id_token,
+        user: profile,
+      });
+      const xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+      if (xx === '1') {
+        window.localStorage.setItem('id', 1);
+        window.location.href = `/Patient?id=${xx}`;
+      } else if (xx === '2') {
+        window.localStorage.setItem('id', 2);
+        window.location.href = `/Clinician?id=${xx}`;
+      }
+    };
+    this.onSubmit = (e) => {
+      e.preventDefault();
+      const error = {};
+      if (this.state.password === '') {
+        error.password = 'Please enter your password';
+      } else {
+        error.password = '';
+      }
+      if (this.state.email === '') {
+        error.email = 'Please enter your email';
+      } else {
+        error.email = '';
+      }
+      this.setState({ error });
+      if (this.state.password !== '' &amp;&amp; this.state.email !== '') {
+        const type = this.state.id === '1' ? 'Patient' : 'Clinician';
+        this.props.login({
+          ...this.state,
+          type,
+        })
+          .then(
+            () => {
+              const xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+              if (xx === '1') {
+                window.localStorage.setItem('id', 1);
+                window.location.href = `/Patient?id=${xx}`;
+              } else if (xx === '2') {
+                window.localStorage.setItem('id', 2);
+                window.location.href = `/Clinician?id=${xx}`;
+              }
+            },
+          )
+          .catch((res) => {
+            this.setState({ error: { all: res.message } });
+          });
+      }
+    };
+  }
+
+  render() {
+    return (
+      &lt;div style={{ backgroundColor: '#f0f4f5' }}>
+        &lt;HeaderMenu
+          navigationDisabled
+          searchDisabled
+        />
+        &lt;NHSContainer>
+          &lt;NHSWrapper>
+            &lt;div className="nhsuk-grid-row">
+              &lt;div className="nhsuk-grid-column-two-thirds">
+                &lt;Form onSubmit={this.onSubmit}>
+                  &lt;h1 style={{ fontWeight: 'bold' }}>Choose an option to login&lt;/h1>
+                  &lt;NHSPanelWithLabel>
+                    &lt;NHSPanelTitle className="nhsuk-panel-with-label__label">
+                      Login with
+                      orthoPROMS
+                    &lt;/NHSPanelTitle>
+                    &lt;NHSPanelBody>
+                      &lt;NHSFormGroup error={this.state.error.all}>
+                        &lt;NHSFormGroup
+                          controlId="formBasicEmail"
+                          error={this.state.error.email || this.state.error.all}
+                        >
+                          &lt;NHSFormLabel>Email address&lt;/NHSFormLabel>
+                          &lt;NHSFormControl
+                            type="email"
+                            placeholder="Enter email"
+                            onChange={this.onChange}
+                            name="email"
+                            error={this.state.error.email || this.state.error.all}
+                          />
+                          &lt;NHSFormError>{this.state.error.email}&lt;/NHSFormError>
+                        &lt;/NHSFormGroup>
+                        &lt;NHSFormGroup
+                          controlId="formBasicPassword"
+                          error={this.state.error.password || this.state.error.all}
+                        >
+                          &lt;NHSFormLabel>Password&lt;/NHSFormLabel>
+                          &lt;NHSFormControl
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            onChange={
+                              this.onChange
+                            }
+                            error={this.state.error.password || this.state.error.all}
+                          />
+                          &lt;NHSFormError>{this.state.error.password}&lt;/NHSFormError>
+                        &lt;/NHSFormGroup>
+                        &lt;NHSCheckbox
+                          style={{ float: 'left' }}
+                          type="checkbox"
+                          label="Keep me logged in"
+                        />
+                        &lt;p style={{
+                          textDecoration: 'underline',
+                          display: 'inline',
+                          float: 'right',
+                          marginBottom: '10px',
+                        }}
+                        >
+                          &lt;a href="/Reset">
+                            Forgot your
+                            password?
+                          &lt;/a>
+                        &lt;/p>
+                        &lt;NHSFormError>{this.state.error.all}&lt;/NHSFormError>
+                      &lt;/NHSFormGroup>
+                      &lt;NHSButton
+                        onClick={this.onSubmit}
+                        type="submit"
+                      >
+                        Continue
+                      &lt;/NHSButton>
+
+
+                      &lt;p>Not got an account yet?&lt;/p>
+                      &lt;div className="nhsuk-action-link">
+                        &lt;a
+                          className="nhsuk-action-link__link"
+                          href={`/Register?id=${this.state.id}`}
+                        >
+                          &lt;NHSVectorArrowRightCircle />
+                          &lt;span
+                            className="nhsuk-action-link__text"
+                          >
+                            Register with orthoPROMS
+                          &lt;/span>
+                        &lt;/a>
+                      &lt;/div>
+                    &lt;/NHSPanelBody>
+                  &lt;/NHSPanelWithLabel>
+                  &lt;NHSPanelWithLabel>
+                    &lt;NHSPanelTitle class="nhsuk-panel-with-label__label">
+                      Login with
+                      Google
+                    &lt;/NHSPanelTitle>
+                    &lt;NHSPanelBody>
+                      &lt;div>
+                        &lt;GoogleLogin
+                          clientId="1026232614474-9uipnerkha7t6vqo8rsetj2q8ffk5fg4.apps.googleusercontent.com"
+                          buttonText="Login"
+                          onSuccess={this.onSignIn}
+                          onFailure={this.onSignIn}
+                          cookiePolicy="single_host_origin"
+                          style={{ widht: '100%' }}
+                          className="btn  btn-block"
+                        >
+                          {' '}
+                          &lt;span> Login with Google  &lt;/span>
+                        &lt;/GoogleLogin>
+                      &lt;/div>
+                    &lt;/NHSPanelBody>
+                  &lt;/NHSPanelWithLabel>
+                  &lt;NHSPanelWithLabel>
+                    &lt;NHSPanelTitle class="nhsuk-panel-with-label__label">
+                      Login with NHS (mock
+                      up)
+                    &lt;/NHSPanelTitle>
+                    &lt;NHSPanelBody>
+                      &lt;NHSButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                        style={{ backgroundColor: 'blue' }}
+                      >
+                        Continue with NHS
+                        login
+                      &lt;/NHSButton>
+                    &lt;/NHSPanelBody>
+                  &lt;/NHSPanelWithLabel>
+                &lt;/Form>
+              &lt;/div>
+            &lt;/div>
+          &lt;/NHSWrapper>
+        &lt;/NHSContainer>
+        &lt;NHSFooter />
+      &lt;/div>
+
+    );
+  }
+}
+
+Login.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+  googleLogin: PropTypes.func,
+  login: PropTypes.func,
+};
+
+export default connect(null, {
+  login,
+  googleLogin,
+})(Login);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="About.html">About</a></li><li><a href="AgeDistributionGraph.html">AgeDistributionGraph</a></li><li><a href="App.html">App</a></li><li><a href="BloodPressureChart.html">BloodPressureChart</a></li><li><a href="BloodPressureGraph.html">BloodPressureGraph</a></li><li><a href="CDRAQLQuery.html">CDRAQLQuery</a></li><li><a href="Clinician.html">Clinician</a></li><li><a href="Composition.html">Composition</a></li><li><a href="DevelopersTableEntry.html">DevelopersTableEntry</a></li><li><a href="EmptyPatientsListError.html">EmptyPatientsListError</a></li><li><a href="EpisodeScoresGraph.html">EpisodeScoresGraph</a></li><li><a href="GenderDistributionGraph.html">GenderDistributionGraph</a></li><li><a href="GeneralLineChart.html">GeneralLineChart</a></li><li><a href="HeaderMenu.html">HeaderMenu</a></li><li><a href="HeartRateGraph.html">HeartRateGraph</a></li><li><a href="Home.html">Home</a></li><li><a href="HorizontalBarGraph.html">HorizontalBarGraph</a></li><li><a href="Login.html">Login</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="NationalStatistics.html">NationalStatistics</a></li><li><a href="NHSNoneFoundTableRow.html">NHSNoneFoundTableRow</a></li><li><a href="OxygenSaturationGraph.html">OxygenSaturationGraph</a></li><li><a href="PartnersEntry.html">PartnersEntry</a></li><li><a href="Patient.html">Patient</a></li><li><a href="PatientAllergiesTableEmptyError.html">PatientAllergiesTableEmptyError</a></li><li><a href="PatientListEntry.html">PatientListEntry</a></li><li><a href="PatientProgressTableEntries.html">PatientProgressTableEntries</a></li><li><a href="PatientRecords.html">PatientRecords</a></li><li><a href="PieChart.html">PieChart</a></li><li><a href="QueryResultCallbackProcessing.html">QueryResultCallbackProcessing</a></li><li><a href="RadarGraph.html">RadarGraph</a></li><li><a href="RangeEpisodeScoresGraph.html">RangeEpisodeScoresGraph</a></li><li><a href="RecursiveCard.html">RecursiveCard</a></li><li><a href="Register.html">Register</a></li><li><a href="Reset.html">Reset</a></li><li><a href="RespirationRateGraph.html">RespirationRateGraph</a></li><li><a href="ScoresGraph.html">ScoresGraph</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allergiesCallbackProcessing">allergiesCallbackProcessing</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#callbackProcessing">callbackProcessing</a></li><li><a href="global.html#CDRHeaders">CDRHeaders</a></li><li><a href="global.html#CDROptions">CDROptions</a></li><li><a href="global.html#clinician">clinician</a></li><li><a href="global.html#commitComposition">commitComposition</a></li><li><a href="global.html#DownloadCSV">DownloadCSV</a></li><li><a href="global.html#formatContextTime">formatContextTime</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#formatTiming">formatTiming</a></li><li><a href="global.html#getAllCompositionsByEHRId">getAllCompositionsByEHRId</a></li><li><a href="global.html#getAllEHRsInCDR">getAllEHRsInCDR</a></li><li><a href="global.html#getAllergiesListByEHRId">getAllergiesListByEHRId</a></li><li><a href="global.html#getAllTemplatesInCDR">getAllTemplatesInCDR</a></li><li><a href="global.html#getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs">getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs</a></li><li><a href="global.html#getAOFASScoresAgainstEpisodeByEHRId">getAOFASScoresAgainstEpisodeByEHRId</a></li><li><a href="global.html#getAOFASScoresAgainstTimeByEHRId">getAOFASScoresAgainstTimeByEHRId</a></li><li><a href="global.html#getAqlMappingOfTemplate">getAqlMappingOfTemplate</a></li><li><a href="global.html#getAqlPathFromParentTrace">getAqlPathFromParentTrace</a></li><li><a href="global.html#getBloodPressureByEHRId">getBloodPressureByEHRId</a></li><li><a href="global.html#getCompositionByCompositionId">getCompositionByCompositionId</a></li><li><a href="global.html#getEHRByNHSNumber">getEHRByNHSNumber</a></li><li><a href="global.html#getFlatProcessedTemplate">getFlatProcessedTemplate</a></li><li><a href="global.html#getHeartRatesAgainstTimeByEHRId">getHeartRatesAgainstTimeByEHRId</a></li><li><a href="global.html#getIdIfExists">getIdIfExists</a></li><li><a href="global.html#getIndirectOximetryAgainstTimeByEHRId">getIndirectOximetryAgainstTimeByEHRId</a></li><li><a href="global.html#getLabOrdersListByEHRId">getLabOrdersListByEHRId</a></li><li><a href="global.html#getLabReportsListByEHRId">getLabReportsListByEHRId</a></li><li><a href="global.html#getLocalizedDescriptionIfExists">getLocalizedDescriptionIfExists</a></li><li><a href="global.html#getLocalizedNameIfExists">getLocalizedNameIfExists</a></li><li><a href="global.html#getMappingOfTemplate">getMappingOfTemplate</a></li><li><a href="global.html#getMappingOfTemplateAux">getMappingOfTemplateAux</a></li><li><a href="global.html#getObjectPropertyIfExists">getObjectPropertyIfExists</a></li><li><a href="global.html#getPatientDemographicsByEHRId">getPatientDemographicsByEHRId</a></li><li><a href="global.html#getProceduresListByEHRId">getProceduresListByEHRId</a></li><li><a href="global.html#getRespirationRateAgainstTimeByEHRId">getRespirationRateAgainstTimeByEHRId</a></li><li><a href="global.html#getStructuredProcessedTemplate">getStructuredProcessedTemplate</a></li><li><a href="global.html#hasChildren">hasChildren</a></li><li><a href="global.html#inputToJsonFormInput">inputToJsonFormInput</a></li><li><a href="global.html#labOrdersCallbackProcessing">labOrdersCallbackProcessing</a></li><li><a href="global.html#labReportsCallbackProcessing">labReportsCallbackProcessing</a></li><li><a href="global.html#objectHasInputs">objectHasInputs</a></li><li><a href="global.html#occurrence">occurrence</a></li><li><a href="global.html#padNTabsLeft">padNTabsLeft</a></li><li><a href="global.html#proceduresCallbackProcessing">proceduresCallbackProcessing</a></li><li><a href="global.html#processOtherDetails">processOtherDetails</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#setAuthorizationToken">setAuthorizationToken</a></li><li><a href="global.html#timeFormat">timeFormat</a></li><li><a href="global.html#transpose">transpose</a></li><li><a href="global.html#treeTrawlGettingFlatInputs">treeTrawlGettingFlatInputs</a></li><li><a href="global.html#treeTrawlGettingFlatInputsAux">treeTrawlGettingFlatInputsAux</a></li><li><a href="global.html#treeTrawlGettingStructuredInputs">treeTrawlGettingStructuredInputs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:16:51 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

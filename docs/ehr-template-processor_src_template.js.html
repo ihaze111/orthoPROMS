@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ehr-template-processor/src/template.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ehr-template-processor/src/template.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Provides functions for processing webTemplate
+ * @author Charlie Cowan &lt;charlie.g.cowan@gmail.com>
+ */
+
+/**
+ * Get the value of an object property if it exists. Otherwise return empty string.
+ *
+ * @param {*} object
+ * @param {*} propertyName
+ */
+const getObjectPropertyIfExists = (object, propertyName) => (propertyName in object
+  ? object[propertyName]
+  : '');
+
+/**
+ * Get the appropriate name for the given language for an object within the template tree, if
+ * provided. Otherwise return empty string.
+ *
+ * @param {*} object
+ * @param {*} language
+ */
+export function getLocalizedNameIfExists(object, language) {
+  if ('localizedNames' in object) {
+    return (getObjectPropertyIfExists(object.localizedNames, language));
+  }
+  return 'localizedName' in object
+    ? getObjectPropertyIfExists(object, 'localizedName')
+    : getObjectPropertyIfExists(object, 'name');
+}
+
+/**
+ * Get the appropriate description for the given language for an object within the template tree,
+ * if provided. Otherwise return empty string.
+ *
+ * @param {*} object
+ * @param {*} language
+ */
+export function getLocalizedDescriptionIfExists(object, language) {
+  if ('localizedDescriptions' in object) {
+    return getObjectPropertyIfExists(object.localizedDescriptions, language);
+  }
+  return 'localizedDescription' in object
+    ? getObjectPropertyIfExists(object, 'localizedDescriptions')
+    : getObjectPropertyIfExists(object, 'description');
+}
+
+/**
+ * Generate a string that is as many tabs as specified by width (>= 0)
+ * @param {*} width Integer greater than or equal to 0
+ */
+export function padNTabsLeft(width) {
+  let tabString = '';
+  for (let i = 0; i &lt; width; i += 1) {
+    tabString += '\t';
+  }
+  return tabString;
+}
+
+/**
+ * If the current subtree has an id attribute in the JSON, then return it. Otherwise return empty
+ * string.
+ * @param {*} tree
+ */
+export function getIdIfExists(tree) {
+  return getObjectPropertyIfExists(tree, 'id');
+}
+
+/**
+ * Get path to write composition to from parent list and object id
+ * @param {*} parentTrace
+ * @param {*} id
+ */
+export function getAqlPathFromParentTrace(parentTrace = [], id = '') {
+  return parentTrace.concat([id])
+    .filter((e) => e !== '')
+    .join('/');
+}
+
+/**
+ * Return true if an object has an 'inputs' attribute, false otherwise
+ * @param {*} object
+ */
+export function objectHasInputs(object) {
+  return 'inputs' in object;
+}
+
+// TODO: ordinals
+// TODO: value descriptions
+// TODO: mandatory fields (min multiplicity > 1)
+
+/**
+ * convert a tree (with inputs) from a webTemplate into an input, in a json representation
+ * @param {*} totalTree
+ * @param {*} language
+ */
+export function inputToJsonFormInput(totalTree, language) {
+  const tree = totalTree.inputs;
+  let returnObject = {};
+  const modifiers = {}; // Modifiers aren't neccesary but can make interaction easier e.g. ordinals
+  const validations = {};
+  if (objectHasInputs(tree)) {
+    tree.inputs.forEach((input) => {
+      const typeFromInput = input.type;
+      returnObject = {
+        name: totalTree.aqlTrace,
+        // key: tree.id,
+        key: totalTree.aqlTrace,
+        label: getLocalizedNameIfExists(tree, language),
+        help: getLocalizedDescriptionIfExists(tree, language),
+      };
+      // TODO: look into this
+      if ('inContext' in tree) {
+        if (tree.inContext) {
+          if (tree.name === undefined) {
+            returnObject.label = tree.id === undefined ? '[no name found]' : tree.id;
+          } else {
+            returnObject.label = tree.name;
+          }
+          returnObject.help = 'Contextual value';
+          returnObject.contextual = true;
+        }
+      }
+      // TODO: for all, required field
+      switch (typeFromInput) {
+        case 'CODED_TEXT':
+          returnObject.name += '|code';
+          returnObject.type = 'options';
+          if ('list' in input) {
+            returnObject.inputOptions = input.list.map((inputFromList) => {
+              const returnInputObject = {
+                // TODO: make this language independent
+                value: inputFromList.value,
+                label: inputFromList.label,
+              };
+              if ('ordinal' in inputFromList) {
+                returnInputObject.ordinal = inputFromList.ordinal;
+              }
+              return returnInputObject;
+            });
+          }
+          break;
+        case 'BOOLEAN':
+          returnObject.type = 'boolean';
+          returnObject.disabledValues = []; // e.g. true, false // TODO: implement this
+          // TODO: default value
+          break;
+        case 'TEXT':
+          // TODO: implement suffixes, suggested values, terminology,
+          if ('list' in input) {
+            returnObject.inputOptions = input.list.map((subInput) => ({
+              value: subInput.value,
+              label: subInput.label,
+            }));
+          }
+          returnObject.suggestions = 'list' in input;
+          returnObject.type = 'text';
+          if ('listOpen' in input) {
+            returnObject.allowFreeText = input.listOpen;
+          } else {
+            returnObject.allowFreeText = true;
+          }
+          break;
+        case 'INTEGER':
+          returnObject.type = 'number';
+          validations.numberType = 'integer';
+          // if ('validation' in input) {
+          //   if ('range' in input.validation) {
+          //     validations.range = {input.validation.range}
+          //   }
+          // }
+          // TODO: implement validation, max, min, step etc.
+          break;
+        case 'DECIMAL':
+          returnObject.type = 'number';
+          validations.numberType = 'decimal';
+          // TODO: implement validation, max, min, precision etc.
+          break;
+        case 'DATE':
+          returnObject.type = 'date';
+          // TODO: implement pattern validation
+          break;
+        case 'DATETIME':
+          returnObject.type = 'datetime';
+          break;
+        case 'NONE':
+          returnObject.type = 'text';
+          break;
+        default:
+          returnObject.type = 'text';
+          break;
+      }
+    });
+    if (tree.rmType === 'DV_ORDINAL') {
+      modifiers.ordinal = true;
+    }
+    validations.required = tree.min !== 0;
+    returnObject.modifiers = modifiers;
+    returnObject.validations = validations;
+    return returnObject;
+  }
+  return null;
+}
+
+/**
+ * Returns whether a JSON tree has a 'children' element on its top level
+ * @param {*} tree
+ */
+function hasChildren(tree) {
+  return 'children' in tree;
+}
+
+/**
+ * Helper function to crawl recursively through a JSON webTemplate by getting the top level element
+ * and seeing whether it has a children element, then iterating through those with the same
+ * function, getting flat list of inputs
+ * @param tree
+ * @param language
+ * @param parentTrace
+ * @param inputs
+ * @returns {*}
+ */
+export function treeTrawlGettingFlatInputsAux(tree, language, parentTrace, inputs) {
+  const id = getIdIfExists(tree);
+  if (objectHasInputs(tree)) {
+    inputs.push({
+      inputs: tree,
+      aqlTrace: getAqlPathFromParentTrace(parentTrace, id),
+    });
+  }
+  if (hasChildren(tree)) {
+    tree.children.forEach((childTree) => {
+      inputs.concat(
+        treeTrawlGettingFlatInputsAux(childTree, language, parentTrace.concat([id]), inputs),
+      );
+    });
+  }
+  return inputs;
+}
+
+/**
+ * Crawl recursively through a JSON webTemplate by getting the top level element and seeing
+ * whether it has a children element, then iterating through those with the same function, getting
+ * flat list of inputs
+ * @param tree
+ * @param language
+ * @param parentTraceParam
+ * @returns [string]
+ */
+export function treeTrawlGettingFlatInputs(tree, language, parentTraceParam) {
+  const parentTrace = parentTraceParam || [];
+  const result1 = [];
+  treeTrawlGettingFlatInputsAux(tree, language, parentTrace, [])
+    .forEach((input) => {
+      result1.push({ aqlPath: input.inputs.aqlPath, ...inputToJsonFormInput(input, language) });
+    });
+  return result1;
+}
+
+/**
+ * Trawl recursively through a JSON webTemplate by getting the top level element and seeing whether
+ * it has a children element, then iterating through those with the same function, getting a
+ * structured list of inputs
+ * @param tree
+ * @param language
+ * @param parentTraceParam
+ */
+export function treeTrawlGettingStructuredInputs(tree, language, parentTraceParam) {
+  const parentTrace = parentTraceParam || [];
+  const resultTree = {};
+  resultTree.id = tree.id;
+  resultTree.name = getLocalizedNameIfExists(tree, language);
+  resultTree.aqlPath = tree.aqlPath ? tree.aqlPath : '';
+  if (objectHasInputs(tree)) {
+    resultTree.inputs = inputToJsonFormInput({
+      inputs: tree,
+      aqlTrace: getAqlPathFromParentTrace(parentTrace, tree.id),
+    }, 'en');
+    resultTree.aqlTrace = getAqlPathFromParentTrace(parentTrace, tree.id);
+  }
+  if (hasChildren(tree)) {
+    resultTree.children = tree.children.map(
+      (childTree) => treeTrawlGettingStructuredInputs(
+        childTree,
+        language,
+        parentTrace.concat([tree.id]),
+      ),
+    );
+  }
+  if (tree.inContext) {
+    resultTree.contextual = true;
+  }
+  return resultTree;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="About.html">About</a></li><li><a href="AgeDistributionGraph.html">AgeDistributionGraph</a></li><li><a href="App.html">App</a></li><li><a href="BloodPressureChart.html">BloodPressureChart</a></li><li><a href="BloodPressureGraph.html">BloodPressureGraph</a></li><li><a href="CDRAQLQuery.html">CDRAQLQuery</a></li><li><a href="Clinician.html">Clinician</a></li><li><a href="Composition.html">Composition</a></li><li><a href="DevelopersTableEntry.html">DevelopersTableEntry</a></li><li><a href="EmptyPatientsListError.html">EmptyPatientsListError</a></li><li><a href="EpisodeScoresGraph.html">EpisodeScoresGraph</a></li><li><a href="GenderDistributionGraph.html">GenderDistributionGraph</a></li><li><a href="GeneralLineChart.html">GeneralLineChart</a></li><li><a href="HeaderMenu.html">HeaderMenu</a></li><li><a href="HeartRateGraph.html">HeartRateGraph</a></li><li><a href="Home.html">Home</a></li><li><a href="HorizontalBarGraph.html">HorizontalBarGraph</a></li><li><a href="Login.html">Login</a></li><li><a href="module.html#.exports">exports</a></li><li><a href="NationalStatistics.html">NationalStatistics</a></li><li><a href="NHSNoneFoundTableRow.html">NHSNoneFoundTableRow</a></li><li><a href="OxygenSaturationGraph.html">OxygenSaturationGraph</a></li><li><a href="PartnersEntry.html">PartnersEntry</a></li><li><a href="Patient.html">Patient</a></li><li><a href="PatientAllergiesTableEmptyError.html">PatientAllergiesTableEmptyError</a></li><li><a href="PatientListEntry.html">PatientListEntry</a></li><li><a href="PatientProgressTableEntries.html">PatientProgressTableEntries</a></li><li><a href="PatientRecords.html">PatientRecords</a></li><li><a href="PieChart.html">PieChart</a></li><li><a href="QueryResultCallbackProcessing.html">QueryResultCallbackProcessing</a></li><li><a href="RadarGraph.html">RadarGraph</a></li><li><a href="RangeEpisodeScoresGraph.html">RangeEpisodeScoresGraph</a></li><li><a href="RecursiveCard.html">RecursiveCard</a></li><li><a href="Register.html">Register</a></li><li><a href="Reset.html">Reset</a></li><li><a href="RespirationRateGraph.html">RespirationRateGraph</a></li><li><a href="ScoresGraph.html">ScoresGraph</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allergiesCallbackProcessing">allergiesCallbackProcessing</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#auth">auth</a></li><li><a href="global.html#callbackProcessing">callbackProcessing</a></li><li><a href="global.html#CDRHeaders">CDRHeaders</a></li><li><a href="global.html#CDROptions">CDROptions</a></li><li><a href="global.html#clinician">clinician</a></li><li><a href="global.html#commitComposition">commitComposition</a></li><li><a href="global.html#DownloadCSV">DownloadCSV</a></li><li><a href="global.html#formatContextTime">formatContextTime</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#formatTiming">formatTiming</a></li><li><a href="global.html#getAllCompositionsByEHRId">getAllCompositionsByEHRId</a></li><li><a href="global.html#getAllEHRsInCDR">getAllEHRsInCDR</a></li><li><a href="global.html#getAllergiesListByEHRId">getAllergiesListByEHRId</a></li><li><a href="global.html#getAllTemplatesInCDR">getAllTemplatesInCDR</a></li><li><a href="global.html#getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs">getAOFASRangeEpisodeScoresAgainstEpisodeAcrossAllEHRs</a></li><li><a href="global.html#getAOFASScoresAgainstEpisodeByEHRId">getAOFASScoresAgainstEpisodeByEHRId</a></li><li><a href="global.html#getAOFASScoresAgainstTimeByEHRId">getAOFASScoresAgainstTimeByEHRId</a></li><li><a href="global.html#getAqlMappingOfTemplate">getAqlMappingOfTemplate</a></li><li><a href="global.html#getAqlPathFromParentTrace">getAqlPathFromParentTrace</a></li><li><a href="global.html#getBloodPressureByEHRId">getBloodPressureByEHRId</a></li><li><a href="global.html#getCompositionByCompositionId">getCompositionByCompositionId</a></li><li><a href="global.html#getEHRByNHSNumber">getEHRByNHSNumber</a></li><li><a href="global.html#getFlatProcessedTemplate">getFlatProcessedTemplate</a></li><li><a href="global.html#getHeartRatesAgainstTimeByEHRId">getHeartRatesAgainstTimeByEHRId</a></li><li><a href="global.html#getIdIfExists">getIdIfExists</a></li><li><a href="global.html#getIndirectOximetryAgainstTimeByEHRId">getIndirectOximetryAgainstTimeByEHRId</a></li><li><a href="global.html#getLabOrdersListByEHRId">getLabOrdersListByEHRId</a></li><li><a href="global.html#getLabReportsListByEHRId">getLabReportsListByEHRId</a></li><li><a href="global.html#getLocalizedDescriptionIfExists">getLocalizedDescriptionIfExists</a></li><li><a href="global.html#getLocalizedNameIfExists">getLocalizedNameIfExists</a></li><li><a href="global.html#getMappingOfTemplate">getMappingOfTemplate</a></li><li><a href="global.html#getMappingOfTemplateAux">getMappingOfTemplateAux</a></li><li><a href="global.html#getObjectPropertyIfExists">getObjectPropertyIfExists</a></li><li><a href="global.html#getPatientDemographicsByEHRId">getPatientDemographicsByEHRId</a></li><li><a href="global.html#getProceduresListByEHRId">getProceduresListByEHRId</a></li><li><a href="global.html#getRespirationRateAgainstTimeByEHRId">getRespirationRateAgainstTimeByEHRId</a></li><li><a href="global.html#getStructuredProcessedTemplate">getStructuredProcessedTemplate</a></li><li><a href="global.html#hasChildren">hasChildren</a></li><li><a href="global.html#inputToJsonFormInput">inputToJsonFormInput</a></li><li><a href="global.html#labOrdersCallbackProcessing">labOrdersCallbackProcessing</a></li><li><a href="global.html#labReportsCallbackProcessing">labReportsCallbackProcessing</a></li><li><a href="global.html#objectHasInputs">objectHasInputs</a></li><li><a href="global.html#occurrence">occurrence</a></li><li><a href="global.html#padNTabsLeft">padNTabsLeft</a></li><li><a href="global.html#proceduresCallbackProcessing">proceduresCallbackProcessing</a></li><li><a href="global.html#processOtherDetails">processOtherDetails</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#setAuthorizationToken">setAuthorizationToken</a></li><li><a href="global.html#timeFormat">timeFormat</a></li><li><a href="global.html#transpose">transpose</a></li><li><a href="global.html#treeTrawlGettingFlatInputs">treeTrawlGettingFlatInputs</a></li><li><a href="global.html#treeTrawlGettingFlatInputsAux">treeTrawlGettingFlatInputsAux</a></li><li><a href="global.html#treeTrawlGettingStructuredInputs">treeTrawlGettingStructuredInputs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:16:51 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
