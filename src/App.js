@@ -1,3 +1,7 @@
+/**
+ * @file Entry page for routing pages of the orthoPROMS application
+ * @author Charlie Cowan, Haze Al-Johary, Menghang Hao.
+ */
 import React from 'react';
 import Script from 'react-load-script';
 import { BrowserRouter as Router, Route } from 'react-router-dom';

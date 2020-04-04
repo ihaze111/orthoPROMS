@@ -51,7 +51,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint src",
-    "jsdoc": "jsdoc src -d ./docs/ -r"
+    "jsdoc": "jsdoc src README.md -d ./docs/ -r"
   },
   "eslintConfig": {
     "extends": "react-app"

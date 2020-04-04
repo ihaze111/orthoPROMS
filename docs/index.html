@@ -42,7 +42,188 @@
 
 
 
+    <section>
+        <article><h1>orthoPROMS</h1>
+<p>Orthopaedic PROMS (Patient-record outcome measures) visualisation based on openEHR standards</p>
+<p><a href="https://circleci.com/gh/ihaze111/orthoPROMS"><img src="https://circleci.com/gh/ihaze111/orthoPROMS/tree/master.svg?style=shield" alt="ihaze111"></a>
+<a href="https://github.com/ihaze111/orthoPROMS/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></p>
+<p>A web-app that provides clinician and patient facing visualisations of PROMs.</p>
+<p><sub>orthoPROMS is the result of a University project of the COMP00016 Module at UCL. Created by Team 14 (Haze Al Johary, Charlie Cowan, and Menghang Hao).</sub></p>
+<h2>Getting started</h2>
+<p>These instructions can be used to run the project locally for development and testing.</p>
+<h3>Prerequisites</h3>
+<ul>
+<li>Git</li>
+<li>Node.js and the npm package manager</li>
+<li>Internet connection (even when using app, so the API calls work)</li>
+<li>You must clone and run the accompanying server: https://github.com/charlie-g-cowan/Comp0016-Server</li>
+</ul>
+<h3>Installation</h3>
+<ol>
+<li>Clone the repository</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>$ git clone https://github.com/ihaze111/orthoPROMS
+</code></pre>
+<ol start="2">
+<li>Ensure that all submodules are pulled</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>$ git submodule update --init --recursive
+</code></pre>
+<ol start="3">
+<li>Install dependencies</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>$ npm install
+</code></pre>
+<ol start="4">
+<li>Provide a <code>.env</code> file in the format of <code>.env.example</code> and populate relevant details for CDR and whether linting should be enabled.</li>
+<li>Start the application</li>
+</ol>
+<pre class="prettyprint source lang-js"><code>$ npm start
+</code></pre>
+<ol start="6">
+<li>Navigate to <code>localhost:3000</code> on a web browser</li>
+</ol>
+<h2>Testing</h2>
+<p>Tests can be run (in watch mode) with:</p>
+<pre class="prettyprint source lang-js"><code>$ npm test
+</code></pre>
+<p>Linting can be run with:</p>
+<pre class="prettyprint source lang-js"><code>$ npm run lint
+</code></pre>
+<h2>Deployment</h2>
+<p>The app must be run with <code>NODE_ENV=production</code>. The app is built with:</p>
+<pre class="prettyprint source lang-js"><code>$ npm run build
+</code></pre>
+<h2>Background and features</h2>
+<h3>Abstract</h3>
+<p>There is a lack of open source, easy to use Patient Recorded Outcome Measures (PROMS) visualisation and collection software. Our project is an open platform web app that visualizes patients’ progress. This will aid doctors and public health professionals in understanding the recovery of patients, and also aid patients in understanding their own recovery. The system is built as modules that can be adapted for other applications (e.g. the graphs, the survey pulled in from operational templates, etc.).</p>
+<h3>Key features</h3>
+<ul>
+<li>The web app creates visualisations on both national figures as well as individual patient's medical information appropriately based on orthopaedic Patient Recorded Outcome scores.</li>
+<li>Patients are able to submit a survey, giving scores on questions regarding their post-surgery experience and feed it to the Clinical Data Repository (CDR).</li>
+<li>The web-app is intuitive and user-friendly as much as possible.</li>
+<li>Access to certain features is unique to each user type e.g. access to particular patient records given to clinicians.</li>
+<li>The web-app is adaptable to new data structures.</li>
+<li>Patients are searchable by clinicians.</li>
+</ul>
+<h2>Authors</h2>
+<p>Team 14 - Systems Engineering - COMP0016 - UCL Computer Science</p>
+<ul>
+<li><a href="https://github.com/ihaze111">Haze Al Johary</a></li>
+<li><a href="https://github.com/charlie-g-cowan">Charlie Cowan</a></li>
+<li><a href="https://github.com/haomenghang">Menghang Hao</a></li>
+</ul>
+<h2>License</h2>
+<p>Licensed under the MIT License. See LICENSE for more details.</p>
+<h2>Acknowledgments</h2>
+<p>Thanks to Ian McNicoll and Alan Fish for all their support.</p>
+<h3>References</h3>
+<p>The Apperta logo is taken from the Apperta websites.
+Attributions:
+&quot;public/240px-User_icon_2.svg.png&quot;: The Tango Icon Team [Public domain]</p></article>
+    </section>
 
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>App.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Entry page for routing pages of the orthoPROMS application</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Charlie Cowan, Haze Al-Johary, Menghang Hao.</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="App.js.html">App.js</a>, <a href="App.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -156,7 +337,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:16:51 GMT+0100 (British Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Apr 04 2020 15:24:03 GMT+0100 (British Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
