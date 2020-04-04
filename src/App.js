@@ -14,6 +14,9 @@ import 'nhsuk-frontend/dist/nhsuk.min';
 import 'nhsuk-frontend/packages/nhsuk.scss';
 import { Composition } from './views/Composition';
 
+/**
+ * Initial entry to the app, routes to individual pages
+ */
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -34,6 +37,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
+        {/* Here we import Bootstrap for things such as tab features. See their site here: https://getbootstrap.com/ */}
         <link
           rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
