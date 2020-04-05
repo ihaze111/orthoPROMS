@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: RespirationRateGraph</title>
+    <title>JSDoc: Source: cdr/getStructuredProcessedTemplate.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,199 +17,46 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: RespirationRateGraph</h1>
+    <h1 class="page-title">Source: cdr/getStructuredProcessedTemplate.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>RespirationRateGraph<span class="signature">(props)</span><span class="type-signature"> &rarr; {*}</span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="RespirationRateGraph"><span class="type-signature"></span>new RespirationRateGraph<span class="signature">(props)</span><span class="type-signature"> &rarr; {*}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Build a graph based on the an array of respirationRates and an array of times
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>props</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_Modules_Graphs_RespirationRateGraph_RespirationRateGraph.js.html">components/Modules/Graphs/RespirationRateGraph/RespirationRateGraph.js</a>, <a href="components_Modules_Graphs_RespirationRateGraph_RespirationRateGraph.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">*</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as axios from 'axios';
+import CDROptions from './CDROptions';
+import { treeTrawlGettingStructuredInputs } from '../ehr-template-processor';
+
+/**
+ * Get a structured template from the CDR and process it using ehr-template-processor
+ * @param templateName
+ * @returns {Promise&lt;Array>}
+ */
+async function getStructuredProcessedTemplate(templateName) {
+  let processedResult = [];
+  const options = CDROptions.generateGetAxiosOptions(`/rest/v1/template/${templateName}`);
+  try {
+    const response = await axios(options);
+    const result = response.data;
+    const template = result.webTemplate;
+    const language = template.defaultLanguage;
+    const { tree } = template;
+    processedResult = treeTrawlGettingStructuredInputs(tree, language);
+  } catch (error) {
+    // TODO: improve this error handling
+    // eslint-disable-next-line no-console
+    console.log(error);
+  }
+  return processedResult;
+}
+
+export default getStructuredProcessedTemplate;
+</code></pre>
+        </article>
+    </section>
 
 
 
