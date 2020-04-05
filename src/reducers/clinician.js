@@ -42,8 +42,8 @@ function search(state, data) {
  * Handle search of patient list
  * @param state
  * @param action
- * @returns {{patientList: array, search, patientListFiltered: array}|{patientList: array, search: string,
- *   patientListFiltered: array}|{search: string, patientListFiltered: array}}
+ * @returns {{patientList: array, search, patientListFiltered: array}|{patientList: array, search:
+ *   string, patientListFiltered: array}|{search: string, patientListFiltered: array}}
  */
 const clinician = (state = initialState, action = {}) => {
   switch (action.type) {
