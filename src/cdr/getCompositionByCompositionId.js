@@ -14,7 +14,7 @@ async function getCompositionByCompositionId(compId) {
     const result = response.data;
     processedResult = result;
   } catch (error) {
-    console.log(error);
+    processedResult = { error: error.response.data.userMessage };
   }
   return processedResult;
 }
