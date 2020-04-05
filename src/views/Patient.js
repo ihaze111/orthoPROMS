@@ -22,9 +22,11 @@ import getAllTemplatesInCDR from '../cdr/getAllTemplatesInCDR';
 import { NHSButton } from '../components/react-styled-nhs/src/NHSComponents';
 import PatientDemographics from '../components/Modules/PatientDemographics';
 import PatientOverview from '../components/Modules/PatientOverview';
-import PatientProgressTable from '../components/Modules/Tables/PatientProgressTable/PatientProgressTable';
+import PatientProgressTable
+  from '../components/Modules/Tables/PatientProgressTable/PatientProgressTable';
 import getEHRIdByNHSNumber from '../cdr/getEHRIdByNHSNumber';
-import EpisodeScoresGraphContainer from '../components/Modules/Graphs/EpisodeScoresGraph/EpisodeScoresGraphContainer';
+import EpisodeScoresGraphContainer
+  from '../components/Modules/Graphs/EpisodeScoresGraph/EpisodeScoresGraphContainer';
 import ScoresGraphContainer from '../components/Modules/Graphs/ScoresGraph/ScoresGraphContainer';
 
 /**
@@ -168,28 +170,16 @@ class Patient extends React.Component {
                               marginTop: '8px',
                               marginRight: '10px',
                             }}
+                            defaultValue="Foot_and_Ankle_PROMs-v0"
                           >
-                            {this.state.templatesList.map((template) => {
-                              if (template.templateId === 'Foot_and_Ankle_PROMs-v0') {
-                                return (
-                                  <option
-                                    key={template.templateId}
-                                    value={template.templateId}
-                                    selected="selected"
-                                  >
-                                    {template.templateId}
-                                  </option>
-                                );
-                              }
-                              return (
-                                <option
-                                  key={template.templateId}
-                                  value={template.templateId}
-                                >
-                                  {template.templateId}
-                                </option>
-                              );
-                            })}
+                            {this.state.templatesList.map((template) => (
+                              <option
+                                key={template.templateId}
+                                value={template.templateId}
+                              >
+                                {template.templateId}
+                              </option>
+                            ))}
                           </select>
                           <NHSButton onClick={this.onTemplateChange}>Show</NHSButton>
                         </div>
