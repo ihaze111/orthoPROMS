@@ -14,7 +14,7 @@ These instructions can be used to run the project locally for development and te
 ### Prerequisites
 
 - Git
-- Node.js and the npm package manager
+- Node.js (v12) and the npm package manager (v6)
 - Internet connection (even when using app, so the API calls work)
 - You must clone and run the accompanying server: https://github.com/charlie-g-cowan/Comp0016-Server
 
