@@ -2,7 +2,7 @@ import React from 'react';
 import qs from 'qs';
 import { createBrowserHistory } from 'history';
 import * as PropTypes from 'prop-types';
-import getStructuredProcessedTemplate from '../cdr/GetStructuredProcessedTemplate';
+import getStructuredProcessedTemplate from '../cdr/getStructuredProcessedTemplate';
 import HeaderMenu from '../components/HeaderMenu';
 import NHSContainer from '../components/react-styled-nhs/src/NHSContainer';
 import NHSWrapper from '../components/react-styled-nhs/src/NHSWrapper';
@@ -58,7 +58,6 @@ export class Composition extends React.Component {
     promise.then((e) => {
       if ('error' in e) {
         this.setState({ composition: { error: e.error } });
-        console.log(e.error);
       } else {
         const templatePromise = getStructuredProcessedTemplate(e.templateId);
         templatePromise.then((j) => {

@@ -11,7 +11,7 @@ import {
   NHSPanelTitle,
   NHSPanelWithLabel,
 } from '../react-styled-nhs/src/NHSPanel';
-import getStructuredProcessedTemplate from '../../cdr/GetStructuredProcessedTemplate';
+import getStructuredProcessedTemplate from '../../cdr/getStructuredProcessedTemplate';
 import { NHSButton } from '../react-styled-nhs/src/NHSComponents';
 import {
   NHSSummaryList, NHSSummaryListChange,
