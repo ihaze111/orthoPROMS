@@ -58,6 +58,10 @@ The app must be run with `NODE_ENV=production`. The app is built with:
 $ npm run build
 ```
 
+## Documentation
+
+The documentation of individual functions can be found here: https://ihaze111.github.io/orthoPROMS/
+
 ## Background and features
 ### Abstract
 There is a lack of open source, easy to use Patient Recorded Outcome Measures (PROMS) visualisation and collection software. Our project is an open platform web app that visualizes patients’ progress. This will aid doctors and public health professionals in understanding the recovery of patients, and also aid patients in understanding their own recovery. The system is built as modules that can be adapted for other applications (e.g. the graphs, the survey pulled in from operational templates, etc.).
