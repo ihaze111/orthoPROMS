@@ -107,6 +107,13 @@ class Login extends React.Component {
           message="Please log in with your new password."
         />
       );
+    } else if (success === 'registration') {
+      successComponent = (
+        <NHSPromoSmall
+          title="Registered successfully"
+          message="Please log in with your account details."
+        />
+      );
     }
     return (
       <div style={{ backgroundColor: '#f0f4f5' }}>

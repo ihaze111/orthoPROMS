@@ -38,6 +38,7 @@ class Register extends React.Component {
       btnText: 'Send Code',
       history: createBrowserHistory(),
       error: { all: '' },
+      id: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id,
     };
     this.onChange = (e) => {
       this.setState({ [e.target.name]: e.target.value });
@@ -94,8 +95,7 @@ class Register extends React.Component {
                     (signupRes) => {
                       // Registration success
                       if (signupRes.data.code === 200) {
-                        alert('registration success');
-                        this.goback();
+                        window.location = `/Login?id=${this.state.id}&success=registration`;
                       } else {
                         this.setState({ error: { all: signupRes.data.message } });
                       }
@@ -163,11 +163,10 @@ class Register extends React.Component {
   }
 
   componentDidMount() {
-    const { id } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
     let type;
-    if (id === '1') {
+    if (this.state.id === '1') {
       type = 'Patient';
-    } else if (id === '2') {
+    } else if (this.state.id === '2') {
       type = 'Clinicians';
     } else {
       // TODO: better solution than redirect?
