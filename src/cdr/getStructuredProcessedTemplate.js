@@ -18,6 +18,8 @@ async function getStructuredProcessedTemplate(templateName) {
     const { tree } = template;
     processedResult = treeTrawlGettingStructuredInputs(tree, language);
   } catch (error) {
+    // TODO: improve this error handling
+    // eslint-disable-next-line no-console
     console.log(error);
   }
   return processedResult;

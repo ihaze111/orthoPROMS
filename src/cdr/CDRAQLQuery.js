@@ -38,6 +38,8 @@ async function CDRAQLQuery(aql, callbackProcessing) {
     const response = await axios(options);
     processedResult = callbackProcessing(response.data);
   } catch (error) {
+    // TODO: handle error better
+    // eslint-disable-next-line no-console
     console.error(error);
   }
   return processedResult;
