@@ -49,13 +49,12 @@ class Login extends React.Component {
         token: id_token,
         user: profile,
       });
-      const xx = qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
-      if (xx === '1') {
-        window.localStorage.setItem('id', 1);
-        window.location.href = `/Patient?id=${xx}`;
-      } else if (xx === '2') {
-        window.localStorage.setItem('id', 2);
-        window.location.href = `/Clinician?id=${xx}`;
+      if (this.state.id === '1') {
+        window.localStorage.setItem('id', this.state.id);
+        window.location.href = '/Patient';
+      } else if (this.state.id === '2') {
+        window.localStorage.setItem('id', this.state.id);
+        window.location.href = '/Clinician';
       }
     };
     this.onSubmit = (e) => {

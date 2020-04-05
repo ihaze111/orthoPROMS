@@ -19,6 +19,8 @@ async function getFlatProcessedTemplate(templateName) {
       processedResult = treeTrawlGettingFlatInputs(tree, language);
     })
     .catch((error) => {
+      // TODO: find a better way to handle errors
+      // eslint-disable-next-line no-console
       console.log(error);
     });
   return processedResult;
