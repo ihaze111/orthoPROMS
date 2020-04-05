@@ -42,15 +42,12 @@ class HeaderMenu extends React.Component {
       this.props.handleSearch(e.target.value);
     };
     this.handleIPROMS = () => {
-      // TODO: replace this confirm
+      // TODO: long term replace this confirm
+      // eslint-disable-next-line no-alert
       if (window.confirm('Exiting to the home page will log you out, are you sure you want to leave？')) {
         this.handleClick();
       }
     };
-  }
-
-  componentDidMount() {
-    // console.log(this.props.isGoogleLogin)
   }
 
   render() {
@@ -60,7 +57,7 @@ class HeaderMenu extends React.Component {
           <NHSWidthContainer>
             <NHSHeaderMenu />
             <NHSNav>
-              {/* TODO: look into this */}
+              {/* TODO: improve this component to add a key event for accessibility */}
               {/* eslint-disable-next-line max-len */}
               {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events */}
               <li

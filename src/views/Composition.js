@@ -84,7 +84,9 @@ export class Composition extends React.Component {
             k.forEach((queryRow) => {
               Object.keys(queryRow)
                 .forEach((queryCell) => {
-                  // TODO: look into specifics of how this works to prevent overwriting
+                  // TODO: long term improve this so it doesn't overwrite, although
+                  //  theoretically there shouldn't really be multiple for the same episode
+                  //  identifiers too much
                   // NB if there are any different values in same column, this will overwrite
                   row[queryCell] = row[queryCell] === null ? queryRow[queryCell] : row[queryCell];
                 });
