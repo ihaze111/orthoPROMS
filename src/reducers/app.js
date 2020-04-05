@@ -10,7 +10,7 @@ const initialState = {
  * Search in the compositions list
  * @param state
  * @param data
- * @returns {{search: *, compositionsFiltered: *}}
+ * @returns {{search: string, compositionsFiltered: array}}
  */
 function search(state, data) {
   const { compositions } = state;
@@ -42,8 +42,8 @@ function search(state, data) {
  * Handle search
  * @param state
  * @param action
- * @returns {{search: *, compositionsFiltered: *}|{search: string, compositions: [],
- *   compositionsFiltered: []}|{search, compositions: *, compositionsFiltered: *}}
+ * @returns {{search: string, compositionsFiltered: array}|{search: string, compositions: array,
+ *   compositionsFiltered: array}|{search, compositions: array, compositionsFiltered: array}}
  */
 const app = (state = initialState, action = {}) => {
   switch (action.type) {

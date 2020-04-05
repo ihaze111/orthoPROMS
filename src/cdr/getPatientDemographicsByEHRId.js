@@ -4,7 +4,7 @@ import CDROptions from './CDROptions';
 /**
  * Get the personal details of a patient for an individual patient
  * @param ehrId
- * @returns {Promise<[]>}
+ * @returns {Promise}
  */
 async function getPatientDemographicsByEHRId(ehrId) {
   let processedResult = [];

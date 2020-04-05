@@ -4,7 +4,7 @@ import CDROptions from './CDROptions';
 /**
  * Get the key details of an EHR (id, anonymized data etc.) by their NHS number
  * @param subjectId
- * @returns {Promise<[]>}
+ * @returns {Promise}
  */
 async function getEHRByNHSNumber(subjectId) {
   const processedResult = [];

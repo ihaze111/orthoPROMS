@@ -4,7 +4,7 @@ import CDROptions from './CDROptions';
 /**
  * Get a full composition by its id, in structured format
  * @param compId
- * @returns {Promise<[]>}
+ * @returns {Promise}
  */
 async function getCompositionByCompositionId(compId) {
   let processedResult = [];
