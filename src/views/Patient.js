@@ -52,6 +52,7 @@ class Patient extends React.Component {
     })
       .catch((error) => {
         // TODO: find better error system
+        // eslint-disable-next-line no-console
         console.log(error);
       });
     const promise2 = getAllTemplatesInCDR();
