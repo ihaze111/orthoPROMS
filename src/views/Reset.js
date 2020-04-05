@@ -34,12 +34,14 @@ class Reset extends React.Component {
       passwordConfirmation: '',
       type: '',
       code: '',
-      timer: 60,
+      timer: 180,
       discodeBtn: false,
       clearInterval: false,
       btnText: 'Send Code',
       history: createBrowserHistory(),
       error: { all: '' },
+      id: qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id !== undefined
+        ? qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).id : '1',
     };
     this.onChange = (e) => {
       this.setState({ [e.target.name]: e.target.value });
@@ -59,23 +61,39 @@ class Reset extends React.Component {
       }
       // Verify password
       if (this.state.password === '' || this.state.passwordConfirmation === '') {
-        this.setState({ error: { passwordsTogether: 'Please enter your NewPassword' } });
+        this.setState({ error: { passwordsTogether: 'Please enter your new password' } });
       }
       if (this.state.password !== this.state.passwordConfirmation) {
         this.setState({ error: { passwordsTogether: 'Entered passwords differ!' } });
       }
-      this.props.reset(this.state)
-        .then((res) => {
-          if (res.data.code === 200) {
-            alert(res.data.message);
-            this.goback();
-          } else {
-            alert(res.data.message);
-          }
+      if (email !== '' && this.state.password === this.state.passwordConfirmation && this.state.password !== '' && this.state.passwordConfirmation !== '' && code !== '') {
+        this.setState({ error: {} });
+        const type = this.state.id === '1' ? 'Patient' : 'Clinician';
+        this.props.reset({
+          ...this.state,
+          type,
         })
-        .catch((res) => {
-          console.error(res);
-        });
+          .then((res) => {
+            if (res.data.code === 200) {
+              window.location = `/Login?id=${this.state.id}&success=passwordReset`;
+            } else if (res.data.code === 404) {
+              this.setState({ error: { email: res.data.message } });
+            } else if (res.data.code === 401) {
+              this.setState({ error: { code: res.data.message } });
+            } else {
+              this.setState({ error: { all: res.data.message } });
+            }
+          })
+          .catch((res) => {
+            if (res.response.status === 404) {
+              this.setState({ error: { email: res.response.data.message } });
+            } else if (res.response.status === 401) {
+              this.setState({ error: { code: res.response.data.message } });
+            } else {
+              this.setState({ error: { all: res.response.data.message } });
+            }
+          });
+      }
       return null;
     };
     this.handleClick = (e) => {
@@ -167,7 +185,16 @@ class Reset extends React.Component {
                       />
                       <NHSFormError>{this.state.error.email}</NHSFormError>
                     </NHSFormGroup>
-
+                    <NHSButton
+                      variant="outline-primary"
+                      block
+                      style={{ 'margin-top': '32px' }}
+                      onClick={this.handleClick}
+                      disabled={this.state.discodeBtn}
+                    >
+                      {this.state.btnText}
+                    </NHSButton>
+                    <p>{this.state.codeSent}</p>
                     <NHSFormGroup
                       controlId="formBasicCode"
                       error={this.state.error.code || this.state.error.all}
@@ -184,16 +211,6 @@ class Reset extends React.Component {
                     </NHSFormGroup>
                     <NHSFormError>{this.state.error.emailAndCode}</NHSFormError>
                   </NHSFormGroup>
-                  <NHSButton
-                    variant="outline-primary"
-                    block
-                    style={{ 'margin-top': '32px' }}
-                    onClick={this.handleClick}
-                    disabled={this.state.discodeBtn}
-                  >
-                    {this.state.btnText}
-                  </NHSButton>
-                  <p>{this.state.codeSent}</p>
 
                   <NHSFormGroup error={this.state.error.passwordsTogether || this.state.error.all}>
                     <NHSFormGroup

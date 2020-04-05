@@ -23,6 +23,7 @@ import {
 } from '../components/react-styled-nhs/src/NHSPanel';
 import { NHSVectorArrowRightCircle } from '../components/react-styled-nhs/src/NHSIcons';
 import HeaderMenu from '../components/HeaderMenu';
+import NHSPromoSmall from '../components/react-styled-nhs/src/NHSPromoSmall';
 
 /**
  * Login page for logging into the site
@@ -97,6 +98,16 @@ class Login extends React.Component {
   }
 
   render() {
+    const { success } = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+    let successComponent;
+    if (success === 'passwordReset') {
+      successComponent = (
+        <NHSPromoSmall
+          title="Password successfully reset"
+          message="Please log in with your new password."
+        />
+      );
+    }
     return (
       <div style={{ backgroundColor: '#f0f4f5' }}>
         <HeaderMenu
@@ -106,6 +117,7 @@ class Login extends React.Component {
         <NHSContainer>
           <NHSWrapper>
             <div className="nhsuk-grid-row">
+              {successComponent}
               <div className="nhsuk-grid-column-two-thirds">
                 <Form onSubmit={this.onSubmit}>
                   <h1 style={{ fontWeight: 'bold' }}>Choose an option to login</h1>
@@ -158,7 +170,7 @@ class Login extends React.Component {
                           marginBottom: '10px',
                         }}
                         >
-                          <a href="/Reset">
+                          <a href={`/Reset?id=${this.state.id}`}>
                             Forgot your
                             password?
                           </a>
