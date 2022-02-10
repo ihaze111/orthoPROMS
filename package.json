@@ -24,7 +24,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "nhsuk-frontend": "^3.0.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
     "rc-pagination": "^2.0.1",
